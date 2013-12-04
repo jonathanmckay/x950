@@ -21,9 +21,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class ActionFragment extends Fragment {
 	private Action mAction;
@@ -36,6 +35,7 @@ public class ActionFragment extends Fragment {
 	private Button mDateButton;
 	private boolean mChangesMade;
 	private CheckBox mSolvedCheckBox;
+	private ImageButton mDoneButton;
 	public static final String EXTRA_Action_ID = "com.example.criminalintent.Action_id";
 	
 	private static final String DIALOG_DATE = "date";
@@ -47,7 +47,7 @@ public class ActionFragment extends Fragment {
 	private static final int COMPLETED = 1;
 	private static final int NOT_COMPLETED = 0;
 	
-		
+	private Callbacks mCallbacks;
 	/*	Custom constructor that bundles an argument to a fragment,
 		will be called by the code that creates this bundle. */
 	public static ActionFragment newInstance(UUID ActionId){
@@ -58,6 +58,22 @@ public class ActionFragment extends Fragment {
 		fragment.setArguments(args);
 		
 		return fragment;
+	}
+	
+	public interface Callbacks {
+		void onActionUpdated(Action a);
+	}
+	
+	@Override 
+	public void onAttach(Activity activity){
+		super.onAttach(activity);
+		mCallbacks = (Callbacks)activity;
+	}
+	
+	@Override 
+	public void onDetach(){
+		super.onDetach();
+		mCallbacks = null;
 	}
 	
 	@Override
@@ -112,20 +128,32 @@ public class ActionFragment extends Fragment {
 				mChangesMade = true;
 			}
 		});
-				
 		
-		mSolvedCheckBox = (CheckBox)v.findViewById(R.id.action_solved);
-		mSolvedCheckBox.setChecked((mAction.getActionStatus() == 1));
-		mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				//set the Actions solved property
-				mAction.setActionStatus((isChecked) ? COMPLETED : NOT_COMPLETED);
+		mDoneButton = (ImageButton)v.findViewById(R.id.done_button);
+		
+		mDoneButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED) ? COMPLETED : NOT_COMPLETED);
 				ActionLab.get(getActivity()).resetAction(mAction);
 				mAction.getParent().verifyActionIncomplete();
 				mChangesMade = true;
 			}
 		});
 		
+		/*This code should be moved to a different fragment. 
+		
+		mSolvedCheckBox = (CheckBox)v.findViewById(R.id.action_solved);
+		mSolvedCheckBox.setChecked((mAction.getActionStatus() == 1));
+		mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				//set the Actions solved property
+				
+			}
+		});
+		*/
 		
 				
 		return v;

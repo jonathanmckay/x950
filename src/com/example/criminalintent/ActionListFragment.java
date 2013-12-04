@@ -3,6 +3,7 @@ package com.example.criminalintent;
 import java.util.ArrayList;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -39,6 +40,25 @@ public class ActionListFragment extends ListFragment {
 	private DbxAccountManager mDbxAcctMgr;
 	private boolean mCompletedActionsVisible;
 	
+	private Callbacks mCallbacks;
+	
+	public interface Callbacks{
+		void onActionSelected(Action a);
+	}
+	@Override
+	public void onAttach(Activity activity){
+		super.onAttach(activity);
+		mCallbacks = (Callbacks)activity;
+	}
+	@Override
+	public void onDetach(){
+		super.onDetach();
+		mCallbacks = null;
+	}
+	
+	public void updateUI(){
+		((ActionAdapter)getListAdapter()).notifyDataSetChanged();
+	}
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,12 +88,9 @@ public class ActionListFragment extends ListFragment {
 		//This is where the problem is, because it's passing the first child of root, not the first child of the subAction
 		Action c = ((ActionAdapter)getListAdapter()).getItem(position);
 		Log.d(TAG, c.getTitle() + " was clicked");
-		
-		if(!c.hasChildren()){	
-			Intent i = new Intent(getActivity(), ActionPagerActivity.class);
-			i.putExtra(ActionFragment.EXTRA_Action_ID, c.getId());
-			startActivity(i);
-		}else{
+
+			mCallbacks.onActionSelected(c);
+			
 			mAction = c;
 			incompleteAdapter = new ActionAdapter(c.getNoncompleted());
 			completedAdapter = new ActionAdapter(c.getCompleted());
@@ -81,7 +98,7 @@ public class ActionListFragment extends ListFragment {
 			getActivity().setTitle(c.getTitle());
 			setListAdapter(incompleteAdapter);
 			Log.d(TAG, " Set List adapter to " + c.getTitle());
-		}
+		
 	}
 	
 	@Override
@@ -143,14 +160,9 @@ public class ActionListFragment extends ListFragment {
             
 		case R.id.menu_item_new_action:
 			Action action = new Action();
-			
-			//This is an ugly hack because if addToRoot allows blank screens it intereferes with loading. 
-			//action.setTitle("New Action");
 			mAction.add(action);			
-			
-			Intent i = new Intent(getActivity(), ActionPagerActivity.class);
-			i.putExtra(ActionFragment.EXTRA_Action_ID, action.getId());
-			startActivityForResult(i,0);
+			((ActionAdapter)getListAdapter()).notifyDataSetChanged();
+			mCallbacks.onActionSelected(action);
 			return true; 
 		
 		case R.id.menu_item_dropbox:

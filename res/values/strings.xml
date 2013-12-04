@@ -20,7 +20,7 @@
 	<string name="dropbox_title">DB</string>
 	<string name="remove_all">Remove All</string>
 	<string name="toggle_completed">Toggle Comp.</string>
-	<string name="minutes_to_complete">Minutes To Complete</string>
+	<string name="minutes_to_complete">:00</string>
 	<string name="context_text">Context</string>
 	<string name="outcome_text">Outcome</string>
 	<string name="is_completed">Completed</string>
