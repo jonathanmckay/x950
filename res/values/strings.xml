@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">x950</string>
+    <string name="action_title_hint">Action name&#8230;</string>
+	<string name="action_title_label">Title</string>
+	<string name="action_details_label">Details</string>
+	<string name="action_salved_label">Done?</string>
+	<string name="actions_title">x950</string>
+	<string name="date_picker_title">Date:</string>
+	<string name="date_or_time_title">Select Date or Time</string>
+	<string name="dialog_date_button">Date</string>
+	<string name="dialog_time_button">Time</string>
+	<string name="time_picker_title">Action Title:</string>
+	<string name="new_action">New Action</string>
+	<string name="show_subtitle">Show Subtitle</string>
+	<string name="hide_subtitle">Hide Subtile</string>
+	<string name="subtitle">Its not the best, but it works</string>
+	<string name="delete_action">Delete</string>
+	<string name="dropbox_title">DB</string>
+	<string name="remove_all">Remove All</string>
+	<string name="toggle_completed">Toggle Comp.</string>
+	<string name="minutes_to_complete">Minutes To Complete</string>
+	<string name="context_text">Context</string>
+	<string name="outcome_text">Outcome</string>
+	<string name="is_completed">Completed</string>
+	<string name="backup_title">Backup</string>
+	
+	
+</resources>

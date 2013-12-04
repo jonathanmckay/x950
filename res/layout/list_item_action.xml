@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_activated" >
+
+<TextView
+    android:id="@+id/action_list_item_titleTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:text="Action title"
+    android:textStyle="bold" />
+
+<TextView
+    android:id="@+id/action_list_item_dateTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentLeft="true"
+    android:layout_below="@+id/action_list_item_titleTextView"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:text="Action date" />
+
+<TextView
+    android:id="@+id/action_list_context"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignBaseline="@+id/action_list_item_dateTextView"
+    android:layout_alignBottom="@+id/action_list_item_dateTextView"
+    android:layout_alignParentRight="true"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:text="Context" />
+
+<TextView
+    android:id="@+id/action_list_minutes_to_complete"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_above="@+id/action_list_context"
+    android:layout_alignRight="@+id/action_list_context"
+    android:paddingLeft="4dp"
+    android:paddingRight="4dp"
+    android:text="MM" />
+
+</RelativeLayout>

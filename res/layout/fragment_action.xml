@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragmentAction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_title_label" />
+    
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_title_label" />
+
+    <EditText
+        android:id="@+id/action_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/action_title_hint" />
+
+    <TextView
+        style="?android:listSeparatorTextViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/action_details_label" />
+
+    <Button
+        android:id="@+id/action_date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp" >
+    </Button>
+	
+    
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:orientation="horizontal"
+         >
+	    <CheckBox
+	        android:id="@+id/action_solved"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginRight="16dp" />
+	    <TextView
+	        android:id="@+id/is_completed_button_text"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/is_completed"/>
+    </LinearLayout>
+    
+     <EditText
+        android:id="@+id/minutes_to_complete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/minutes_to_complete" />
+
+     <EditText
+         android:id="@+id/context_text_field"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="@string/context_text" 
+         android:ems="10" >
+
+         <requestFocus />
+     </EditText>
+
+     <EditText
+         android:id="@+id/outcome_text_field"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="@string/outcome_text" 
+         android:ems="10" />
+
+</LinearLayout>
