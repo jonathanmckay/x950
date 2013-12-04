@@ -85,19 +85,20 @@ public class ActionListFragment extends ListFragment {
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id){
-		//This is where the problem is, because it's passing the first child of root, not the first child of the subAction
-		Action c = ((ActionAdapter)getListAdapter()).getItem(position);
-		Log.d(TAG, c.getTitle() + " was clicked");
+		mAction = ((ActionAdapter)getListAdapter()).getItem(position);
+		mCallbacks.onActionSelected(mAction);
+		
+		
+		Log.d(TAG, mAction.getTitle() + " was clicked");
 
-			mCallbacks.onActionSelected(c);
-			
-			mAction = c;
-			incompleteAdapter = new ActionAdapter(c.getNoncompleted());
-			completedAdapter = new ActionAdapter(c.getCompleted());
-			
-			getActivity().setTitle(c.getTitle());
-			setListAdapter(incompleteAdapter);
-			Log.d(TAG, " Set List adapter to " + c.getTitle());
+		
+		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
+		completedAdapter = new ActionAdapter(mAction.getCompleted());
+		setListAdapter(incompleteAdapter);
+		
+		getActivity().setTitle(mAction.getTitle());
+		
+		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
 		
 	}
 	
@@ -146,16 +147,7 @@ public class ActionListFragment extends ListFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
 		case android.R.id.home:
-			getActivity().setTitle(mAction.getParent().getTitle());
-			getActivity().getActionBar().setSubtitle(null);
-			
-			mAction = mAction.getParent();
-			completedAdapter = new ActionAdapter(mActionLab.getCompletedActions());
-			incompleteAdapter = new ActionAdapter(mActionLab.getActions());
-			setListAdapter(incompleteAdapter);
-			
-			mCompletedActionsVisible = false;				
-			
+			navigateUp();
             return true;
             
 		case R.id.menu_item_new_action:
@@ -194,12 +186,34 @@ public class ActionListFragment extends ListFragment {
 				setListAdapter(incompleteAdapter);
 				Log.d(TAG, " CompletedActions view was toggled to false");
 			}
+			return true;
 		case R.id.menu_item_backup:
 			
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	//Returns whether at root or not. 
+	protected int onBackPressed() {
+		if(mAction == mActionLab.getRoot()){
+			return -1;
+		} else {
+			navigateUp();
+			return 0;
+		}
+    }   
+	
+	private void navigateUp(){
+		getActivity().setTitle(mAction.getParent().getTitle());
+		mAction = mAction.getParent();
+		mCallbacks.onActionSelected(mAction);
+		completedAdapter = new ActionAdapter(mActionLab.getCompletedActions());
+		incompleteAdapter = new ActionAdapter(mActionLab.getActions());
+		setListAdapter(incompleteAdapter);
+		
+		mCompletedActionsVisible = false;	
+		
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){

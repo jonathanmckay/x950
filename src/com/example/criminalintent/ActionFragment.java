@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -34,7 +35,6 @@ public class ActionFragment extends Fragment {
 	
 	private Button mDateButton;
 	private boolean mChangesMade;
-	private CheckBox mSolvedCheckBox;
 	private ImageButton mDoneButton;
 	public static final String EXTRA_Action_ID = "com.example.criminalintent.Action_id";
 	
@@ -135,11 +135,12 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED) ? COMPLETED : NOT_COMPLETED);
 				ActionLab.get(getActivity()).resetAction(mAction);
 				mAction.getParent().verifyActionIncomplete();
+				mTitleField.setPaintFlags(mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 				mChangesMade = true;
+				mCallbacks.onActionUpdated(mAction);
 			}
 		});
 		
@@ -158,7 +159,7 @@ public class ActionFragment extends Fragment {
 				
 		return v;
 	}
-	
+
 	private String mOutcomeTempName;
 	
 	private void enableTextFields(View v){

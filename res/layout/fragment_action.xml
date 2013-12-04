@@ -5,52 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
-
-	    <ImageButton
-	        android:id="@+id/cancel_button"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:src="@drawable/ic_action_cancel"
-	        ></ImageButton>
-	
-	    <ImageButton
-	        android:id="@+id/demote_button"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:src="@drawable/ic_action_expand"></ImageButton>
-	
-	    <ImageButton
-	        android:id="@+id/skip_button"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:src="@drawable/ic_action_next_item"></ImageButton>
-	    <ImageButton
-	        android:id="@+id/done_button"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
-	        android:src="@drawable/ic_action_accept"></ImageButton>
-	</LinearLayout>
     
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       >
+        android:layout_height="wrap_content">
 
        <EditText
            android:id="@+id/outcome_text_field"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:layout_toLeftOf="@+id/action_date"
-           android:hint="@string/outcome_text" />
+           android:hint="@string/outcome_text" ></EditText>
 
        <Button
            android:id="@+id/action_date"
@@ -58,20 +23,23 @@
            android:layout_height="wrap_content"
            android:layout_alignBottom="@+id/outcome_text_field"
            android:layout_alignParentRight="true"
-           android:layout_alignParentTop="true" />
+           android:layout_alignParentTop="true" ></Button>
        
     </RelativeLayout>
-
+	
+	<LinearLayout
+		android:layout_width="match_parent"
+        android:layout_height="wrap_content">
        <EditText
            android:id="@+id/action_title"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:hint="@string/action_title_hint" />
-           
-     <RelativeLayout
+           android:hint="@string/action_title_hint" ></EditText>
+    </LinearLayout>     
+    
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-       >
+        android:layout_height="wrap_content">
 
         <EditText
             android:id="@+id/minutes_to_complete"
@@ -80,7 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:ems="10"
-            android:hint="@string/minutes_to_complete" />
+            android:hint="@string/minutes_to_complete" ></EditText>
 
         <EditText
             android:id="@+id/context_text_field"
@@ -90,8 +58,42 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/minutes_to_complete"
             android:ems="10"
-            android:hint="@string/context_text" />
-   		
-        </RelativeLayout>
-   
+            android:hint="@string/context_text" ></EditText>	
+    </RelativeLayout>
+	
+	<LinearLayout 
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
+        
+    	<ImageButton
+        android:id="@+id/cancel_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_action_cancel"
+        ></ImageButton>
+
+    	<ImageButton
+        android:id="@+id/demote_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_action_expand"></ImageButton>
+
+    	<ImageButton
+        android:id="@+id/skip_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_action_next_item"></ImageButton>
+    	<ImageButton
+        android:id="@+id/done_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:src="@drawable/ic_action_accept"></ImageButton>
+	</LinearLayout>
+     
+     
 </LinearLayout>

@@ -38,4 +38,14 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
     	listFragment.updateUI();
     }
     
+    public void onBackPressed() {
+    	FragmentManager fm = getSupportFragmentManager();
+    	ActionListFragment listFragment = (ActionListFragment)fm.findFragmentById(R.id.fragmentContainer);
+    	
+    	//The fragment was already at root, can't navigate up
+    	if(listFragment.onBackPressed() == -1) super.onBackPressed();
+    	
+        return;
+    }   
+    
 }
