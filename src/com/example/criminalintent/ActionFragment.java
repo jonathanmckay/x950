@@ -17,7 +17,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -119,9 +118,9 @@ public class ActionFragment extends Fragment {
 		
 		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
 		mStartDateButton.setText
-				((mAction.getVisibleDate() == null)
+				((mAction.getStartDate() == null)
 				? "Set Start date" 
-				: (toButtonString(mAction.getVisibleDate())));
+				: (toButtonString(mAction.getStartDate())));
 		mStartDateButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -161,18 +160,20 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				mTitleField.setPaintFlags((mAction.getActionStatus() == NOT_COMPLETED)
+						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
+						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+				
+				
 				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED)
 						? COMPLETED 
 						: NOT_COMPLETED);
 				
 				
-				ActionLab.get(getActivity()).resetAction(mAction);
+				mActionLab.resetAction(mAction);
 				mAction.getParent().verifyActionIncomplete();
 				
 				
-				mTitleField.setPaintFlags((mAction.getActionStatus() == NOT_COMPLETED)
-						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
-						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 				mChangesMade = true;
 				mCallbacks.onActionUpdated(mAction);
 			}
@@ -297,7 +298,7 @@ public class ActionFragment extends Fragment {
 		if(mDataFieldRequested == DUE_DATE){
 			d = mAction.getDueDate();
 		} else {
-			d = mAction.getVisibleDate();
+			d = mAction.getStartDate();
 		}
 		
 		switch(requestCode){
@@ -335,7 +336,7 @@ public class ActionFragment extends Fragment {
 	}
 	
 	
-	@Override public boolean onOptionsItemSelected(MenuItem item) {
+	/*@Override public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case android.R.id.home:
 			if(NavUtils.getParentActivityIntent(getActivity()) != null){
@@ -353,7 +354,7 @@ public class ActionFragment extends Fragment {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-	}
+	}*/
 	
 	
 	
@@ -379,7 +380,7 @@ public class ActionFragment extends Fragment {
 			mDueDateButton.setText(android.text.format.
 					DateFormat.format("MM.dd HH:mm", mAction.getCreatedDate()).toString());
 		} else {
-			mAction.setVisibleDate(d);
+			mAction.setStartDate(d);
 			mStartDateButton.setText(toButtonString(d));
 		}		
 	}

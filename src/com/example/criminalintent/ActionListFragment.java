@@ -148,6 +148,7 @@ public class ActionListFragment extends ListFragment {
 		switch(item.getItemId()){
 		case android.R.id.home:
 			navigateUp();
+			updateUI();
             return true;
             
 		case R.id.menu_item_new_action:
@@ -208,8 +209,8 @@ public class ActionListFragment extends ListFragment {
 		getActivity().setTitle(mAction.getParent().getTitle());
 		mAction = mAction.getParent();
 		mCallbacks.onActionSelected(mAction);
-		completedAdapter = new ActionAdapter(mActionLab.getCompletedActions());
-		incompleteAdapter = new ActionAdapter(mActionLab.getActions());
+		completedAdapter = new ActionAdapter(mAction.getCompleted());
+		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
 		setListAdapter(incompleteAdapter);
 		
 		mCompletedActionsVisible = false;	
@@ -307,6 +308,10 @@ public class ActionListFragment extends ListFragment {
 		
 	}
 	
-	
+	public void onPause() {
+		super.onPause();
+		mActionLab.saveActions();
+	}
+    
 	
 }

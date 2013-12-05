@@ -67,7 +67,7 @@ public class OutcomeSerializer {
 			return readActionsFromStream(in);
 			
 		} catch (Exception e){
-			Log.e(TAG, "Unable to open file from local datastore.");
+			Log.e(TAG, "Unable to open file from local datastore (from text)", e);
 			return new ArrayList<Action>();
 			//do nothing, happens when file doesn't exist;
 		} finally {
@@ -85,10 +85,9 @@ public class OutcomeSerializer {
 			return output;
 			
 		} catch (Exception e) {
-			Log.e(TAG, "Unable to open file from local datastore.");
+			Log.e(TAG, "Unable to open file from local datastore.", e);
 			//do nothing, happens when file doesn't exist;
 			return new ArrayList<Action>();
-			
 		}
 	}
 	
@@ -97,8 +96,6 @@ public class OutcomeSerializer {
 		
 		BufferedReader reader = null;
 		try{
-	
-			
 			reader = new BufferedReader(new InputStreamReader(in, UTF8), BUFFER_SIZE);
 			String line = null;
 			while((line = reader.readLine()) != null) {

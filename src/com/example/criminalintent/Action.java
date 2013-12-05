@@ -71,7 +71,12 @@ public class Action {
 		
 		this.mCreatedDate = toJavaDate(tokens[4]);
 		this.mModifiedDate = toJavaDate(tokens[5]);
-		this.mStartDate = toJavaDate(tokens[6]);
+		
+		try{
+			this.mStartDate = toJavaDate(tokens[6]);
+		}catch(Exception e){
+			this.mStartDate = null;
+		}
 		
 		try{
 			this.mMinutesActual = Integer.parseInt(tokens[7]);
@@ -195,7 +200,7 @@ public class Action {
 		sb.append("\t");
 		sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mModifiedDate));
 		sb.append("\t");
-		sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mStartDate));
+		if(mStartDate != null) sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mStartDate));
 		sb.append("\t");
 		sb.append(String.valueOf(mMinutesActual));
 		sb.append("\t");
@@ -240,14 +245,6 @@ public class Action {
 
 	public void setModifiedDate(Date modifiedDate) {
 		mModifiedDate = modifiedDate;
-	}
-
-	public Date getVisibleDate() {
-		return mStartDate;
-	}
-
-	public void setVisibleDate(Date visibleDate) {
-		mStartDate = visibleDate;
 	}
 
 	public int getMinutesExpected() {
@@ -299,7 +296,7 @@ public class Action {
 		return mStartDate;
 	}
 
-	public void setstartDate(Date startDate) {
+	public void setStartDate(Date startDate) {
 		mStartDate = startDate;
 	}
 
