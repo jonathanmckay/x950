@@ -37,34 +37,35 @@ public final class R {
         public static final int ic_launcher=0x7f020008;
     }
     public static final class id {
-        public static final int action_date=0x7f050008;
-        public static final int action_list_context=0x7f050014;
-        public static final int action_list_item_dateTextView=0x7f050013;
-        public static final int action_list_item_titleTextView=0x7f050012;
-        public static final int action_list_minutes_to_complete=0x7f050015;
-        public static final int action_title=0x7f050009;
-        public static final int cancel_button=0x7f05000c;
-        public static final int context_text_field=0x7f05000b;
+        public static final int action_due_date=0x7f05000a;
+        public static final int action_list_context=0x7f050015;
+        public static final int action_list_item_dateTextView=0x7f050014;
+        public static final int action_list_item_titleTextView=0x7f050013;
+        public static final int action_list_minutes_to_complete=0x7f050016;
+        public static final int action_start_date=0x7f050009;
+        public static final int action_title=0x7f050008;
+        public static final int cancel_button=0x7f05000d;
+        public static final int context_text_field=0x7f05000c;
         public static final int date_or_time=0x7f050003;
-        public static final int demote_button=0x7f05000d;
+        public static final int demote_button=0x7f05000e;
         public static final int detailFragmentContainer=0x7f050002;
         public static final int dialog_date_datePicker=0x7f050004;
         public static final int dialog_time_timePicker=0x7f050005;
-        public static final int done_button=0x7f05000f;
+        public static final int done_button=0x7f050010;
         public static final int fragmentAction=0x7f050006;
         public static final int fragmentContainer=0x7f050001;
-        public static final int happy_clear_image=0x7f050011;
-        public static final int menu_item_backup=0x7f05001c;
-        public static final int menu_item_delete=0x7f050017;
-        public static final int menu_item_delete_action=0x7f050016;
-        public static final int menu_item_dropbox=0x7f05001b;
-        public static final int menu_item_new_action=0x7f050018;
-        public static final int menu_item_remove_all=0x7f050019;
-        public static final int menu_item_toggle_completed=0x7f05001a;
-        public static final int minutes_to_complete=0x7f05000a;
+        public static final int happy_clear_image=0x7f050012;
+        public static final int menu_item_backup=0x7f05001d;
+        public static final int menu_item_delete=0x7f050018;
+        public static final int menu_item_delete_action=0x7f050017;
+        public static final int menu_item_dropbox=0x7f05001c;
+        public static final int menu_item_new_action=0x7f050019;
+        public static final int menu_item_remove_all=0x7f05001a;
+        public static final int menu_item_toggle_completed=0x7f05001b;
+        public static final int minutes_to_complete=0x7f05000b;
         public static final int outcome_text_field=0x7f050007;
-        public static final int skip_button=0x7f05000e;
-        public static final int textView1=0x7f050010;
+        public static final int skip_button=0x7f05000f;
+        public static final int textView1=0x7f050011;
         public static final int viewPager=0x7f050000;
     }
     public static final class layout {

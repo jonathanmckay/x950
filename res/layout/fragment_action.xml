@@ -6,27 +6,13 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+  
        <EditText
            android:id="@+id/outcome_text_field"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_toLeftOf="@+id/action_date"
            android:hint="@string/outcome_text" ></EditText>
 
-       <Button
-           android:id="@+id/action_date"
-           android:layout_width="50dp"
-           android:layout_height="wrap_content"
-           android:layout_alignBottom="@+id/outcome_text_field"
-           android:layout_alignParentRight="true"
-           android:layout_alignParentTop="true" ></Button>
-       
-    </RelativeLayout>
-	
 	<LinearLayout
 		android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -37,6 +23,23 @@
            android:hint="@string/action_title_hint" ></EditText>
     </LinearLayout>     
     
+	<LinearLayout 
+	    android:layout_width="match_parent"
+        android:layout_height="wrap_content"> 
+	    
+      	<Button
+           android:id="@+id/action_start_date"
+           android:layout_width="0dp"
+           android:layout_weight="1"
+           android:layout_height="wrap_content"></Button>
+      	
+      	<Button
+           android:id="@+id/action_due_date"
+           android:layout_width="0dp"
+           android:layout_height="wrap_content"
+           android:layout_weight="1" ></Button>
+      	
+	</LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

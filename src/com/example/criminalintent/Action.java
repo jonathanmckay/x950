@@ -21,7 +21,8 @@ public class Action {
 	
 	private Date mCreatedDate;
 	private Date mModifiedDate;
-	private Date mCompletedDate;
+	private Date mStartDate;
+	private Date mDueDate;
 	
 	private int mMinutesExpected;
 	private int mMinutesActual;
@@ -39,7 +40,8 @@ public class Action {
 		
 		mCreatedDate = new Date();
 		mModifiedDate = new Date();
-		mCompletedDate = new Date();
+		mStartDate = null;
+		mDueDate = null;
 		
 		mMinutesExpected = 0;
 		mMinutesActual = 0;
@@ -49,8 +51,10 @@ public class Action {
 		mChildren = initializeChildren();
 		mParent = null; // This will cause a null pointer exception if not handled!!
 		mParentUUIDString = "";
+		
 	}
 	
+
 	public Action(String line){
 		String[] tokens = line.split("\\t");
 		
@@ -67,13 +71,14 @@ public class Action {
 		
 		this.mCreatedDate = toJavaDate(tokens[4]);
 		this.mModifiedDate = toJavaDate(tokens[5]);
-		this.mCompletedDate = toJavaDate(tokens[6]);
+		this.mStartDate = toJavaDate(tokens[6]);
 		
 		try{
 			this.mMinutesActual = Integer.parseInt(tokens[7]);
 		}catch (Exception e){
 			mMinutesActual = 0;
 		}
+		
 		
 		// Tokens[8] is a deprecated value 
 		
@@ -92,6 +97,7 @@ public class Action {
 		}
 		
 		mChildren = initializeChildren();
+		mDueDate = null;
 	}
 	public void makeRoot(){
 		mId = UUID.fromString("fb7331db-919f-461b-be6b-1c7bc51a0075");
@@ -189,7 +195,7 @@ public class Action {
 		sb.append("\t");
 		sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mModifiedDate));
 		sb.append("\t");
-		sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mCompletedDate));
+		sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mStartDate));
 		sb.append("\t");
 		sb.append(String.valueOf(mMinutesActual));
 		sb.append("\t");
@@ -237,11 +243,11 @@ public class Action {
 	}
 
 	public Date getVisibleDate() {
-		return mCompletedDate;
+		return mStartDate;
 	}
 
 	public void setVisibleDate(Date visibleDate) {
-		mCompletedDate = visibleDate;
+		mStartDate = visibleDate;
 	}
 
 	public int getMinutesExpected() {
@@ -289,12 +295,12 @@ public class Action {
 	}
 	
 
-	public Date getCompletedDate() {
-		return mCompletedDate;
+	public Date getStartDate() {
+		return mStartDate;
 	}
 
-	public void setCompletedDate(Date completedDate) {
-		mCompletedDate = completedDate;
+	public void setstartDate(Date startDate) {
+		mStartDate = startDate;
 	}
 
 	public int getPriority() {
@@ -354,5 +360,13 @@ public class Action {
 	}
 	public ArrayList<Action> getCompleted(){
 		return mChildren.get(1);
+	}
+
+	public Date getDueDate() {
+		return mDueDate;
+	}
+
+	public void setDueDate(Date dueDate) {
+		mDueDate = dueDate;
 	}
 }

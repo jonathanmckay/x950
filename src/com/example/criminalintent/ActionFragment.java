@@ -21,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -33,9 +32,15 @@ public class ActionFragment extends Fragment {
 	private EditText mOutcomeField;
 	private EditText mContextField;
 	
-	private Button mDateButton;
+	private Button mStartDateButton;
+	private Button mDueDateButton;
+	private int mDataFieldRequested;
+	
 	private boolean mChangesMade;
 	private ImageButton mDoneButton;
+	
+	
+	
 	public static final String EXTRA_Action_ID = "com.example.criminalintent.Action_id";
 	
 	private static final String DIALOG_DATE = "date";
@@ -46,6 +51,8 @@ public class ActionFragment extends Fragment {
 	private static final int REQUEST_TIME = 3;
 	private static final int COMPLETED = 1;
 	private static final int NOT_COMPLETED = 0;
+	private static final int DUE_DATE = 0;
+	private static final int START_DATE = 1;
 	
 	private Callbacks mCallbacks;
 	/*	Custom constructor that bundles an argument to a fragment,
@@ -110,13 +117,12 @@ public class ActionFragment extends Fragment {
 		
 		
 		
-		mDateButton = (Button)v.findViewById(R.id.action_date);
-		
-		updateDate(mAction.getCreatedDate(), mAction.getCreatedDate());
-		
-		
-		
-		mDateButton.setOnClickListener(new View.OnClickListener() {
+		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
+		mStartDateButton.setText
+				((mAction.getVisibleDate() == null)
+				? "Set Start date" 
+				: (toButtonString(mAction.getVisibleDate())));
+		mStartDateButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
@@ -124,21 +130,49 @@ public class ActionFragment extends Fragment {
 				
 				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
 				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
+				mDataFieldRequested = START_DATE;
+				timeOrDate.show(fm, DIALOG_OR_DATE);
+				
+				mChangesMade = true;
+			}
+		});
+		
+		mDueDateButton = (Button)v.findViewById(R.id.action_due_date);
+		mDueDateButton.setText
+				((mAction.getDueDate() == null)
+				? "Set Due Date"
+				:(toButtonString(mAction.getDueDate())));
+		mDueDateButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				
+				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
+				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
+				mDataFieldRequested = DUE_DATE;
 				timeOrDate.show(fm, DIALOG_OR_DATE);
 				mChangesMade = true;
 			}
 		});
 		
 		mDoneButton = (ImageButton)v.findViewById(R.id.done_button);
-		
 		mDoneButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED) ? COMPLETED : NOT_COMPLETED);
+				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED)
+						? COMPLETED 
+						: NOT_COMPLETED);
+				
+				
 				ActionLab.get(getActivity()).resetAction(mAction);
 				mAction.getParent().verifyActionIncomplete();
-				mTitleField.setPaintFlags(mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+				
+				
+				mTitleField.setPaintFlags((mAction.getActionStatus() == NOT_COMPLETED)
+						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
+						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 				mChangesMade = true;
 				mCallbacks.onActionUpdated(mAction);
 			}
@@ -258,16 +292,24 @@ public class ActionFragment extends Fragment {
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(resultCode != Activity.RESULT_OK) return;
+		
+		Date d = null;
+		if(mDataFieldRequested == DUE_DATE){
+			d = mAction.getDueDate();
+		} else {
+			d = mAction.getVisibleDate();
+		}
+		
 		switch(requestCode){
 			case REQUEST_DATE_OR_TIME:
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 2){
-					DatePickerFragment dateDialog = DatePickerFragment.newInstance(mAction.getCreatedDate());
+					DatePickerFragment dateDialog = DatePickerFragment.newInstance(d);
 					dateDialog.setTargetFragment(ActionFragment.this, REQUEST_DATE);
 					dateDialog.show(fm, DIALOG_DATE);
 				}
 				else if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 1){
-					TimePickerFragment timeDialog = TimePickerFragment.newInstance(mAction.getCreatedDate());
+					TimePickerFragment timeDialog = TimePickerFragment.newInstance(d);
 					timeDialog.setTargetFragment(ActionFragment.this, REQUEST_TIME);
 					timeDialog.show(fm, DIALOG_TIME);	
 				}
@@ -275,13 +317,15 @@ public class ActionFragment extends Fragment {
 				break;
 			case REQUEST_DATE: 
 				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-				updateDate(mAction.getCreatedDate(), newDate);
+				combineDateAndTime(d, newDate);
+				updateTimeInfo(d);
 				mChangesMade = true;
 				break;
 				
 			case REQUEST_TIME:
 				Date newTime = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-				updateDate(newTime, mAction.getCreatedDate());
+				combineDateAndTime(newTime, d);
+				updateTimeInfo(d);
 				mChangesMade = true;
 				break;
 				
@@ -289,6 +333,8 @@ public class ActionFragment extends Fragment {
 				break;
 		}
 	}
+	
+	
 	@Override public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()){
 		case android.R.id.home:
@@ -311,7 +357,7 @@ public class ActionFragment extends Fragment {
 	
 	
 	
-	private void updateDate(Date time, Date date){
+	private Date combineDateAndTime(Date time, Date date){
 		
 		Calendar calendarDate = Calendar.getInstance();
 		Calendar calendarTime = Calendar.getInstance();
@@ -324,11 +370,20 @@ public class ActionFragment extends Fragment {
 		int month = calendarDate.get(Calendar.MONTH);
 		int day = calendarDate.get(Calendar.DAY_OF_MONTH);
 		
-		mAction.setCreatedDate(new GregorianCalendar(year,month,day,hour,minute).getTime());
-		
-		mDateButton.setText(android.text.format.
-				DateFormat.format("yyyy.MM.dd.HHmm", mAction.getCreatedDate()).toString());
+		return new GregorianCalendar(year,month,day,hour,minute).getTime();
 	}
 	
-	
+	private void updateTimeInfo(Date d){		
+		if(mDataFieldRequested == DUE_DATE){
+			mAction.setCreatedDate(d);
+			mDueDateButton.setText(android.text.format.
+					DateFormat.format("MM.dd HH:mm", mAction.getCreatedDate()).toString());
+		} else {
+			mAction.setVisibleDate(d);
+			mStartDateButton.setText(toButtonString(d));
+		}		
+	}
+	private String toButtonString(Date d){
+		return android.text.format.DateFormat.format("MM.dd HH:mm", d).toString();
+	}
 }
