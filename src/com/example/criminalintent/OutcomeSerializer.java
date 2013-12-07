@@ -29,7 +29,7 @@ public class OutcomeSerializer {
 			mFilename = f;
 	}
 	
-	public void saveActions(ArrayList<Action> actions) throws IOException {
+	public void saveActions(ArrayList<String> actions) throws IOException {
 			try{
 				OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
 				writeActionsToStream(out, actions);
@@ -39,19 +39,19 @@ public class OutcomeSerializer {
 			return;
 	}
 	
-	public void writeActionsToFile(ArrayList<Action> actions, DbxFile file) throws IOException{
+	public void writeActionsToFile(ArrayList<String> actions, DbxFile file) throws IOException{
 		OutputStream out = file.getWriteStream();
 		writeActionsToStream(out, actions);
 		return;
 	}
 	
-	public void writeActionsToStream(OutputStream out, ArrayList<Action> actions) throws IOException{
+	public void writeActionsToStream(OutputStream out, ArrayList<String> actions) throws IOException{
 		
 		BufferedWriter writer = null;
 		try{
 			writer = new BufferedWriter(new OutputStreamWriter(out, UTF8), BUFFER_SIZE);	
-			for(Action c : actions){
-				writer.write(c.toFileTextLine());
+			for(String s: actions){
+				writer.write(s);
 			}
 		}finally {
 			if(writer != null)

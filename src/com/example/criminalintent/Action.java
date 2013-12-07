@@ -263,10 +263,10 @@ public class Action {
 		return sb.toString();
 	}
 	
-	public ArrayList<Action> toList(){
-        ArrayList<Action> list = new ArrayList<Action>();
+	public ArrayList<String> toList(){
+        ArrayList<String> list = new ArrayList<String>();
         
-        list.add(this);
+        list.add(this.toFileTextLine());
         
         for(ArrayList<Action> subList : this.mChildren){
                 for(Action a : subList){

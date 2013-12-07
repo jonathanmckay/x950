@@ -180,7 +180,7 @@ public class ActionLab {
     	DbxFile testFile2 = dbxFs.open(new DbxPath(DbxPath.ROOT, "Readable.txt"));
 		
 		try{
-			mSerializer.writeActionsToFile(mActionsRoot.getActions(true), testFile2);
+			mSerializer.writeActionsToFile(mActionsRoot.toList(), testFile2);
 			Log.d(TAG, "Saved successfully to dropbox");
         }catch(Exception e){
             Log.d(TAG, "Error saving to dropbox: ", e);
