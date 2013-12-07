@@ -13,7 +13,7 @@ import android.support.v4.app.DialogFragment;
 public class TimeOrDateFragment extends DialogFragment {
 
 	public static final String EXTRA_DATE_OR_TIME = "com.example.criminalintent.dateortime";
-	private Integer mTimeOrDate;
+	private int mTimeOrDate;
 	
 	
 	private void sendResult(int resultCode) {

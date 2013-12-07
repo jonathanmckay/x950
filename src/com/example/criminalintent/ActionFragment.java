@@ -6,6 +6,7 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -14,14 +15,18 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class ActionFragment extends Fragment {
 	private Action mAction;
@@ -37,7 +42,8 @@ public class ActionFragment extends Fragment {
 	
 	private boolean mChangesMade;
 	private ImageButton mDoneButton;
-	
+	private ImageButton mCancelButton;
+	private Date d;
 	
 	
 	public static final String EXTRA_Action_ID = "com.example.criminalintent.Action_id";
@@ -68,6 +74,7 @@ public class ActionFragment extends Fragment {
 	
 	public interface Callbacks {
 		void onActionUpdated(Action a);
+		void navigateUp();
 	}
 	
 	@Override 
@@ -111,6 +118,10 @@ public class ActionFragment extends Fragment {
 		if(NavUtils.getParentActivityIntent(getActivity()) != null){
 			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
+		
+		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+        
 		
 		enableTextFields(v);
 		
@@ -169,28 +180,31 @@ public class ActionFragment extends Fragment {
 						? COMPLETED 
 						: NOT_COMPLETED);
 				
-				
 				mActionLab.resetAction(mAction);
-				mAction.getParent().verifyActionIncomplete();
-				
 				
 				mChangesMade = true;
-				mCallbacks.onActionUpdated(mAction);
+				mCallbacks.navigateUp();
 			}
 		});
 		
-		/*This code should be moved to a different fragment. 
-		
-		mSolvedCheckBox = (CheckBox)v.findViewById(R.id.action_solved);
-		mSolvedCheckBox.setChecked((mAction.getActionStatus() == 1));
-		mSolvedCheckBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				//set the Actions solved property
+		mCancelButton = (ImageButton)v.findViewById(R.id.cancel_button);
+		mCancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Action actionToDelete = mAction;
+				
+				mAction = mAction.getParent();
+				
+				mActionLab.deleteAction(actionToDelete);
+				
+				mCallbacks.navigateUp();
+				mChangesMade = true;
 				
 			}
 		});
-		*/
 		
+		closeOnScreenKeyboard(v);
 				
 		return v;
 	}
@@ -215,6 +229,25 @@ public class ActionFragment extends Fragment {
 				
 			}
 		});
+		mTitleField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
+			
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+		        if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+		                actionId == EditorInfo.IME_ACTION_DONE ||
+		                actionId == EditorInfo.IME_ACTION_SEND /*||
+		                event.getAction() == KeyEvent.ACTION_DOWN &&
+		                event.getKeyCode() == KeyEvent.KEYCODE_ENTER*/)		        
+		        {
+		        	closeOnScreenKeyboard(v);
+	        		
+		            return true;
+		        }
+		        return false;
+			}
+		});
+		
+		
 		
 		mMinutesField = (EditText)v.findViewById(R.id.minutes_to_complete);
 		if(mAction.getMinutesExpected() != 0){
@@ -280,6 +313,14 @@ public class ActionFragment extends Fragment {
 			}
 		});
 	}
+	private void closeOnScreenKeyboard(View v){
+		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		if(imm != null && getActivity().getCurrentFocus() != null ){
+			imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 
+					InputMethodManager.HIDE_NOT_ALWAYS);
+		}
+	}
+	
 	
 	@Override
 	public void onPause() {
@@ -294,12 +335,12 @@ public class ActionFragment extends Fragment {
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(resultCode != Activity.RESULT_OK) return;
 		
-		Date d = null;
 		if(mDataFieldRequested == DUE_DATE){
 			d = mAction.getDueDate();
 		} else {
 			d = mAction.getStartDate();
 		}
+		d = (d == null) ? new Date() : d;
 		
 		switch(requestCode){
 			case REQUEST_DATE_OR_TIME:
@@ -318,16 +359,18 @@ public class ActionFragment extends Fragment {
 				break;
 			case REQUEST_DATE: 
 				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
-				combineDateAndTime(d, newDate);
+				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
 				mChangesMade = true;
+				mCallbacks.onActionUpdated(mAction);
 				break;
 				
 			case REQUEST_TIME:
 				Date newTime = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
-				combineDateAndTime(newTime, d);
+				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
 				mChangesMade = true;
+				mCallbacks.onActionUpdated(mAction);
 				break;
 				
 			default:
@@ -347,9 +390,7 @@ public class ActionFragment extends Fragment {
 			
 			mActionLab.deleteAction(mAction);
 			
-			if(NavUtils.getParentActivityIntent(getActivity()) != null){
-				NavUtils.navigateUpFromSameTask(getActivity());
-			}
+			
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -365,7 +406,7 @@ public class ActionFragment extends Fragment {
 		calendarDate.setTime(date);
 		calendarTime.setTime(time);
 		
-		int hour = calendarTime.get(Calendar.HOUR);
+		int hour = calendarTime.get(Calendar.HOUR_OF_DAY);
 		int minute = calendarTime.get(Calendar.MINUTE);
 		int year = calendarDate.get(Calendar.YEAR);
 		int month = calendarDate.get(Calendar.MONTH);
@@ -376,7 +417,7 @@ public class ActionFragment extends Fragment {
 	
 	private void updateTimeInfo(Date d){		
 		if(mDataFieldRequested == DUE_DATE){
-			mAction.setCreatedDate(d);
+			mAction.setDueDate(d);
 			mDueDateButton.setText(android.text.format.
 					DateFormat.format("MM.dd HH:mm", mAction.getCreatedDate()).toString());
 		} else {

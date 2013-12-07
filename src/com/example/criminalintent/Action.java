@@ -12,6 +12,10 @@ import android.util.Log;
 public class Action {
 	//Three types of outcome: complete, incomplete, pending
 	private static final int OUTCOME_CATEGORIES = 4;
+	public static final int INCOMPLETE = 0;
+	public static final int COMPLETE = 1;
+	public static final int PENDING = 2;
+	
 	
 	private UUID mId;
 	private String mTitle;
@@ -104,6 +108,23 @@ public class Action {
 		mChildren = initializeChildren();
 		mDueDate = null;
 	}
+	
+	public void verifyStatusBasedOnChildren(){
+		if(this.getIncomplete().size() != 0){
+			mActionStatus = INCOMPLETE;
+		}else if(this.getPending().size() != 0){
+			mActionStatus = PENDING;
+		}else{
+			mActionStatus= COMPLETE;
+		}
+	return;
+	}
+	
+
+	public boolean hasActiveTasks(){
+		return !(mChildren.get(0).isEmpty());
+	}
+	
 	public void makeRoot(){
 		mId = UUID.fromString("fb7331db-919f-461b-be6b-1c7bc51a0075");
 	}
@@ -125,11 +146,11 @@ public class Action {
 		
 		if(oldParent != null){
 			oldParent.removeChild(a);
-			oldParent.verifyActionIncomplete();
 		}
 		
 		a.setParent(this);
-		mChildren.get(a.getActionStatus()).add(a);	
+		mChildren.get(a.getActionStatus()).add(a);
+		verifyStatusBasedOnChildren();
 	}
 	
 	public Action getAction(UUID id){
@@ -150,6 +171,7 @@ public class Action {
 			}
 		}
 		mChildren.get(a.getActionStatus()).remove(a);
+		this.verifyStatusBasedOnChildren();
 	}
 
 	public Action peekStep(){
@@ -158,6 +180,45 @@ public class Action {
 		}
 		else return null;
 	}
+
+	
+	public ArrayList<Action> getActions(boolean allActions){
+		if(allActions){
+			ArrayList<Action> output = new ArrayList<Action>();
+			
+			for(ArrayList<Action> list : getChildren()){
+				output.addAll(list);
+			}
+			
+			return output;
+		} else {
+			checkForPendingActions();
+			return getIncomplete();
+		}
+	}
+	
+	private void checkForPendingActions(){
+		int i = 0;
+		
+		while(i < mChildren.get(PENDING).size() 
+				&& mChildren.get(PENDING).get(i).getStartDate().before(new Date())){
+			mChildren.get(PENDING).get(i).mActionStatus = INCOMPLETE;
+			this.getIncomplete().add( this.getPending().remove(i));
+			i++;
+		}	
+	}
+
+	public void setStartDate(Date startDate) {
+		mStartDate = startDate;
+		if(mStartDate.after(new Date()) && mActionStatus == INCOMPLETE){
+			mActionStatus = PENDING;
+		} else if(mStartDate.before(new Date()) && mActionStatus == PENDING){
+			mActionStatus = INCOMPLETE;
+		}
+			
+		getParent().add(this);
+	}
+	
 	
 	private Date toJavaDate(String excelDate){
 		if(excelDate == null || excelDate == "") return null;
@@ -171,21 +232,7 @@ public class Action {
 		}
 		return output;
 	}
-	
-	public ArrayList<Action> toList(){
-		ArrayList<Action> list = new ArrayList<Action>();
-		
-		list.add(this);
-		
-		for(ArrayList<Action> subList : this.mChildren){
-			for(Action a : subList){
-				list.addAll(a.toList());
-			}
-		}
-		
-		return list;
-	}
-	
+
 	public String toFileTextLine(){
 		StringBuilder sb = new StringBuilder();
 		sb.append(mTitle);
@@ -215,6 +262,22 @@ public class Action {
 		
 		return sb.toString();
 	}
+	
+	public ArrayList<Action> toList(){
+        ArrayList<Action> list = new ArrayList<Action>();
+        
+        list.add(this);
+        
+        for(ArrayList<Action> subList : this.mChildren){
+                for(Action a : subList){
+                        list.addAll(a.toList());
+                }
+        }
+        
+        return list;
+	}
+	
+	
 	public String getOutcomeName() {
 		return mOutcomeName;
 	}
@@ -290,15 +353,6 @@ public class Action {
 	public String toString(){
 		return mTitle;
 	}
-	
-
-	public Date getStartDate() {
-		return mStartDate;
-	}
-
-	public void setStartDate(Date startDate) {
-		mStartDate = startDate;
-	}
 
 	public int getPriority() {
 		return mPriority;
@@ -320,6 +374,11 @@ public class Action {
 		return mChildren;
 	}
 	
+	public Date getStartDate() {
+		return mStartDate;
+	}
+
+	
 	public boolean hasChildren(){
 		for(ArrayList<Action> list : mChildren){
 			if(!list.isEmpty()) return true;
@@ -331,20 +390,6 @@ public class Action {
 		mChildren = children;
 	}
 	
-	public boolean hasActiveTasks(){
-		return !(mChildren.get(0).isEmpty());
-	}
-	
-	public void verifyActionIncomplete(){
-		if(this.hasActiveTasks()){
-			mActionStatus = 0;
-		}else if(this.hasChildren()){
-			mActionStatus = 1;
-		}else{
-			//leave value unchanged
-		}
-	return;
-	}
 	public String getParentUUIDString() {
 		return mParentUUIDString;
 	}
@@ -352,13 +397,13 @@ public class Action {
 		mParentUUIDString = parentUUIDString;
 	}
 	
-	public ArrayList<Action> getNoncompleted(){
-		return mChildren.get(0);
+	private ArrayList<Action> getIncomplete(){
+		return mChildren.get(INCOMPLETE);
 	}
-	public ArrayList<Action> getCompleted(){
-		return mChildren.get(1);
+	private ArrayList<Action> getPending(){
+		return mChildren.get(PENDING);
 	}
-
+	
 	public Date getDueDate() {
 		return mDueDate;
 	}

@@ -169,7 +169,7 @@ public class ActionLab {
 		Action parent = new Action();
 		parent.setTitle(parentName);
 		parent.add(a);
-		parent.verifyActionIncomplete();
+		parent.verifyStatusBasedOnChildren();
 		mActionsRoot.add(parent);
 		mActionHash.put(parentName, parent);
 	}
@@ -180,7 +180,7 @@ public class ActionLab {
     	DbxFile testFile2 = dbxFs.open(new DbxPath(DbxPath.ROOT, "Readable.txt"));
 		
 		try{
-			mSerializer.writeActionsToFile(mActionsRoot.toList(), testFile2);
+			mSerializer.writeActionsToFile(mActionsRoot.getActions(true), testFile2);
 			Log.d(TAG, "Saved successfully to dropbox");
         }catch(Exception e){
             Log.d(TAG, "Error saving to dropbox: ", e);
@@ -221,11 +221,12 @@ public class ActionLab {
 		return new ArrayList<Action>(mActionsRoot.getChildren().get(COMPLETED));
 	}
 	public void deleteAction(Action c){
-		c.getParent().removeChild(c);
+		Action parent = c.getParent();
+		parent.removeChild(c);
 		mActionHash.remove(c.getTitle());
 	}
-	public void resetAction(Action c){		
-		this.deleteAction(c);
+	public void resetAction(Action c){
+		deleteAction(c);
 		addToRoot(c);
 	}
 	

@@ -4,13 +4,16 @@ import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
+import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,7 +21,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.MultiChoiceModeListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,17 +30,13 @@ import com.dropbox.sync.android.DbxAccountManager;
 
 
 public class ActionListFragment extends ListFragment {
-	private boolean mSubtitleVisible;
 	private static final String TAG = "ActionListFragment";
-	static final int REQUEST_LINK_TO_DBX = 0; 
-	private ActionAdapter completedAdapter;
-	private ActionAdapter incompleteAdapter;
+	static final int REQUEST_LINK_TO_DBX = 0;
 	private Action mAction;
 	private ActionLab mActionLab;
 	
-	
 	private DbxAccountManager mDbxAcctMgr;
-	private boolean mCompletedActionsVisible;
+	private boolean mAllActionsVisible;
 	
 	private Callbacks mCallbacks;
 	
@@ -70,53 +68,33 @@ public class ActionListFragment extends ListFragment {
 		
 		mActionLab = ActionLab.get(getActivity());
 		mAction = mActionLab.getRoot(); 
-		
+		mAllActionsVisible = false;
 		
 		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.actions_title);
 		setRetainInstance(true);
-		mSubtitleVisible = false;
-		
-		completedAdapter = new ActionAdapter(mAction.getCompleted());
-		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
-		setListAdapter(incompleteAdapter);
+		mAllActionsVisible = false;
+
+		updateAdapter();
 	}
 
 	
 	@Override
 	public void onListItemClick(ListView l, View v, int position, long id){
 		mAction = ((ActionAdapter)getListAdapter()).getItem(position);
-		mCallbacks.onActionSelected(mAction);
-		
-		
-		Log.d(TAG, mAction.getTitle() + " was clicked");
-
-		
-		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
-		completedAdapter = new ActionAdapter(mAction.getCompleted());
-		setListAdapter(incompleteAdapter);
-		
-		getActivity().setTitle(mAction.getTitle());
-		
-		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
-		
+		updateListToShowCurrentAction();
 	}
 	
 	@Override
 	public void onResume(){
 		super.onResume();
-		
-		completedAdapter = new ActionAdapter(mAction.getCompleted());
-		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
-		setListAdapter(incompleteAdapter);
-		((ActionAdapter)getListAdapter()).notifyDataSetChanged();
+		updateAdapter();
 	}
 	
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.fragment_action_list, menu);
-		
 	}
 	
 	@Override
@@ -124,23 +102,7 @@ public class ActionListFragment extends ListFragment {
 		
 		getActivity().getMenuInflater().inflate(R.menu.action_list_item_context, menu);
 	}
-	
-	@Override
-	public boolean onContextItemSelected(MenuItem item){
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo)item.getMenuInfo();
-		int position = info.position;
-		ActionAdapter adapter = (ActionAdapter)getListAdapter();
-		Action action = adapter.getItem(position);
-		
-	
-		switch (item.getItemId()){
-		case R.id.menu_item_delete_action:
-			mActionLab.deleteAction(action);
-			adapter.notifyDataSetChanged();
-			return true;
-		}
-		return super.onContextItemSelected(item);
-	}
+
 	
 	@TargetApi(11)
 	@Override
@@ -153,47 +115,59 @@ public class ActionListFragment extends ListFragment {
             
 		case R.id.menu_item_new_action:
 			Action action = new Action();
-			mAction.add(action);			
-			((ActionAdapter)getListAdapter()).notifyDataSetChanged();
-			mCallbacks.onActionSelected(action);
+			mAction.add(action);
+			mAction = action;
+			
+			updateListToShowCurrentAction();
+			
 			return true; 
 		
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
 				ActionLab.get(getActivity()).syncToDropBox(mDbxAcctMgr);
 				Toast.makeText(getActivity(), "DBX Linked", Toast.LENGTH_LONG).show();
-				completedAdapter.notifyDataSetChanged();
-				incompleteAdapter.notifyDataSetChanged();
+				updateAdapter();
+			
 			} else {
 				mDbxAcctMgr.startLink(getActivity(), REQUEST_LINK_TO_DBX);
 			}
 			return true;
 		case R.id.menu_item_remove_all:
 			ActionLab.get(getActivity()).deleteAllActions();
-			completedAdapter.notifyDataSetChanged();
-			incompleteAdapter.notifyDataSetChanged();
-			
+			updateAdapter();
 			return true;
 		case R.id.menu_item_toggle_completed:
-			if(!mCompletedActionsVisible){
-				getActivity().getActionBar().setSubtitle("Completed View");
-				mCompletedActionsVisible = true;
-				setListAdapter(completedAdapter);
-				
-				Log.d(TAG, " CompletedActions view was toggled to true");
-			}else{
-				getActivity().getActionBar().setSubtitle(null);
-				mCompletedActionsVisible = false;				
-				setListAdapter(incompleteAdapter);
-				Log.d(TAG, " CompletedActions view was toggled to false");
-			}
-			return true;
-		case R.id.menu_item_backup:
+			mAllActionsVisible = !mAllActionsVisible;
+			getActivity().getActionBar().setSubtitle((mAllActionsVisible)
+					? "Showing all actions" : null);
+			updateAdapter();
 			
+			Log.d(TAG, " View All Actions was Toggled");
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	
+	private void updateListToShowCurrentAction(){
+		mCallbacks.onActionSelected(mAction);
+		
+		Log.d(TAG, mAction.getTitle() + " is now the focus");
+		
+		updateAdapter();
+		getActivity().setTitle(mAction.getTitle());
+		if(mAllActionsVisible){
+			getActivity().getActionBar().setSubtitle(R.string.subtitle);
+		}
+		
+		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
+	}
+	
+	private void updateAdapter(){
+		setListAdapter(new ActionAdapter(mAction.getActions(mAllActionsVisible)));
+		
+		//This line may be redundant
+		((ActionAdapter)getListAdapter()).notifyDataSetChanged();
 	}
 	//Returns whether at root or not. 
 	protected int onBackPressed() {
@@ -209,23 +183,14 @@ public class ActionListFragment extends ListFragment {
 		getActivity().setTitle(mAction.getParent().getTitle());
 		mAction = mAction.getParent();
 		mCallbacks.onActionSelected(mAction);
-		completedAdapter = new ActionAdapter(mAction.getCompleted());
-		incompleteAdapter = new ActionAdapter(mAction.getNoncompleted());
-		setListAdapter(incompleteAdapter);
-		
-		mCompletedActionsVisible = false;	
+		updateAdapter();
 		
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
 		
-		if(mSubtitleVisible){
-			getActivity().getActionBar().setSubtitle(R.string.subtitle);
-		}
-		
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		
 		
 		ListView listView = (ListView)v.findViewById(android.R.id.list);
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -267,6 +232,8 @@ public class ActionListFragment extends ListFragment {
 			}
 			
 		});
+		        
+		
 		return v;
 	}
 	
@@ -292,7 +259,25 @@ public class ActionListFragment extends ListFragment {
 			}else{
 				titleTextView.setText(c.getTitle());
 			}
-			
+			int actionStatus = c.getActionStatus();
+			switch(actionStatus){
+				case Action.COMPLETE:
+					titleTextView.setPaintFlags(
+					titleTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+					titleTextView.setTextColor(Color.BLACK);
+					
+					break;
+				case Action.PENDING:
+					titleTextView.setTextColor(Color.GRAY);
+					titleTextView.setPaintFlags(
+							titleTextView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+					break;
+				default:
+					titleTextView.setPaintFlags(
+					titleTextView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+					titleTextView.setTextColor(Color.BLACK);
+						break;
+			}
 			
 			TextView dateTextView = (TextView)convertView.findViewById(R.id.action_list_item_dateTextView);
 			dateTextView.setText(android.text.format.DateFormat.format("MM.dd", c.getCreatedDate()).toString());

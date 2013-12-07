@@ -46,7 +46,11 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
     	if(listFragment.onBackPressed() == -1) super.onBackPressed();
     	
         return;
-    }  
+    }
+    
+    public void navigateUp(){
+    	onBackPressed();
+    }
     
     
 }
