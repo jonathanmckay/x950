@@ -1,8 +1,9 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import com.apps.quantum.R;
 
 public class ActionListActivity extends SingleFragmentActivity implements ActionListFragment.Callbacks, ActionFragment.Callbacks{
 
