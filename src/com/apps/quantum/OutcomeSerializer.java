@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,14 +29,16 @@ public class OutcomeSerializer {
 			mFilename = f;
 	}
 	
-	public void saveActions(ArrayList<String> actions) throws IOException {
+	public boolean saveActions(ArrayList<String> actions){
 			try{
 				OutputStream out = mContext.openFileOutput(mFilename, Context.MODE_PRIVATE);
 				writeActionsToStream(out, actions);
+				Log.d(TAG, "Actions saved to file");
+				return true;
 			}catch (Exception e){
 				Log.e(TAG, "Error saving files", e);
+				return false;
 			}
-			return;
 	}
 	
 	public void writeActionsToFile(ArrayList<String> actions, DbxFile file) throws IOException{

@@ -1,7 +1,6 @@
 package com.apps.quantum;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -9,9 +8,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -20,9 +18,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +28,7 @@ import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 
 
-public class ActionListFragmentDSLV extends ListFragment {
+public class ActionListFragmentDSLV extends Fragment {
 	private static final String TAG = "ActionListFragment";
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private Action mAction;
@@ -57,7 +54,7 @@ public class ActionListFragmentDSLV extends ListFragment {
 	}
 	
 	public void updateUI(){
-		((ActionAdapter)getListAdapter()).notifyDataSetChanged();
+		adapter.notifyDataSetChanged();
 	}
 
 	DragSortListView listView;
@@ -68,6 +65,8 @@ public class ActionListFragmentDSLV extends ListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+	    
 		
 		mDbxAcctMgr = DbxAccountManager.getInstance(getActivity().getApplicationContext(),
 				//App key --------- App secret
@@ -80,35 +79,52 @@ public class ActionListFragmentDSLV extends ListFragment {
 		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.actions_title);
 		setRetainInstance(true);
-		mAllActionsVisible = false;
+		
+		//getActivity().setContentView(R.layout.activity_threepane);
+		
+		initializeAdapter();
+	}
+	
+	private void initializeAdapter(){
+	    listView = (DragSortListView) getActivity().findViewById(R.id.listview);
+	    
+	    adapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
+	    
+	    listView.setAdapter(adapter);
+	    listView.setDropListener(onDrop);
+	    listView.setRemoveListener(onRemove);
+	    listView.setOnItemClickListener(onClick);
 
-
-		updateAdapter();
+	    DragSortController controller = new DragSortController(listView);
+	    controller.setDragHandleId(R.id.action_drag_handle);
+	    controller.setRemoveEnabled(true);
+	    controller.setSortEnabled(true);
+	    controller.setDragInitMode(1);
+	    listView.setFloatViewManager(controller);
+	    listView.setOnTouchListener(controller);
+	    listView.setDragEnabled(true);
 	}
 	
 	private void updateAdapter(){
-			getActivity().setContentView(R.layout.activity_dslv);
-		    listView = (DragSortListView) getActivity().findViewById(R.id.listview);
-		    
-		    //String[] names = getResources().getStringArray(R.array.jazz_artist_names);
-		    //ArrayList<Action> list = mAction.getActions(mAllActionsVisible);
-		    adapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
-		    
-		    listView.setAdapter(adapter);
-		    listView.setDropListener(onDrop);
-		    listView.setRemoveListener(onRemove);
+		listView = (DragSortListView) getActivity().findViewById(R.id.listview);
+		
+		adapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
+		
+		listView.setAdapter(adapter);
+		
+		listView.setDropListener(onDrop);
+	    listView.setRemoveListener(onRemove);
+	    listView.setOnItemClickListener(onClick);
 
-		    DragSortController controller = new DragSortController(listView);
-		    controller.setDragHandleId(R.id.action_drag_handle);
-		            //controller.setClickRemoveId(R.id.);
-		    controller.setRemoveEnabled(true);
-		    controller.setSortEnabled(true);
-		    controller.setDragInitMode(1);
-		            //controller.setRemoveMode(removeMode);
-
-		    listView.setFloatViewManager(controller);
-		    listView.setOnTouchListener(controller);
-		    listView.setDragEnabled(true);
+	    DragSortController controller = new DragSortController(listView);
+	    controller.setDragHandleId(R.id.action_drag_handle);
+	    controller.setRemoveEnabled(true);
+	    controller.setSortEnabled(true);
+	    controller.setDragInitMode(1);
+	    listView.setFloatViewManager(controller);
+	    listView.setOnTouchListener(controller);
+	    listView.setDragEnabled(true);
+		
 	}
 	
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
@@ -128,23 +144,50 @@ public class ActionListFragmentDSLV extends ListFragment {
 	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener()
 	{
 	    @Override
-	    public void remove(int which)
+	    public void remove(int position)
 	    {
-	        adapter.remove(adapter.getItem(which));
+	    	Action a = adapter.getItem(position);
+	    	while(a.hasActiveTasks()){
+	    		a = a.peekStep();
+	    	}
+	    	
+	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
+	        //adapter.remove(adapter.getItem(which));
+	    	adapter.notifyDataSetChanged();
 	    }
 	};
-
 	
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id){
-		mAction = ((ActionAdapter)getListAdapter()).getItem(position);
-		updateListToShowCurrentAction();
+	private AdapterView.OnItemClickListener onClick = new AdapterView.OnItemClickListener() 
+	{
+		 @Override
+         public void onItemClick(AdapterView<?> arg0, View v, int position,
+                 long arg3) {
+             mAction = adapter.getItem(position);
+     		 updateListToShowCurrentAction();   
+		 }
+	};
+	
+	private void updateListToShowCurrentAction(){
+		mCallbacks.onActionSelected(mAction);
+		
+		Log.d(TAG, mAction.getTitle() + " is now the focus");
+		
+		updateAdapter();
+		getActivity().setTitle(mAction.getTitle());
+		if(mAllActionsVisible){
+			getActivity().getActionBar().setSubtitle(R.string.subtitle);
+		}
+		
+		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
 	}
-	
+
+
 	@Override
 	public void onResume(){
 		super.onResume();
-		updateAdapter();
+		getActivity().setContentView(R.layout.activity_threepane);
+		initializeAdapter();
+		
 	}
 	
 	@Override
@@ -210,20 +253,6 @@ public class ActionListFragmentDSLV extends ListFragment {
 		}
 	}
 	
-	private void updateListToShowCurrentAction(){
-		mCallbacks.onActionSelected(mAction);
-		
-		Log.d(TAG, mAction.getTitle() + " is now the focus");
-		
-		updateAdapter();
-		getActivity().setTitle(mAction.getTitle());
-		if(mAllActionsVisible){
-			getActivity().getActionBar().setSubtitle(R.string.subtitle);
-		}
-		
-		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
-	}	
-
 	//Returns whether at root or not. 
 	protected int onBackPressed() {
 		if(mAction == mActionLab.getRoot()){
@@ -246,8 +275,7 @@ public class ActionListFragmentDSLV extends ListFragment {
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
 		
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		ListView listView = (ListView)v.findViewById(android.R.id.list);
+		/*ListView listView = (ListView)v.findViewById(android.R.id.list);
 		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		listView.setMultiChoiceModeListener(new MultiChoiceModeListener(){
 			public void onItemCheckedStateChanged(ActionMode mode, int position, 
@@ -288,7 +316,7 @@ public class ActionListFragmentDSLV extends ListFragment {
 			
 		});
 		        
-		
+		*/
 		return v;
 	}
 	

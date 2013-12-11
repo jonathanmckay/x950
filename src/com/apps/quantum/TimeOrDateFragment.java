@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -7,12 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import com.apps.quantum.R;
 
 
 
 public class TimeOrDateFragment extends DialogFragment {
 
-	public static final String EXTRA_DATE_OR_TIME = "com.example.criminalintent.dateortime";
+	public static final String EXTRA_DATE_OR_TIME = "com.apps.quantum.dateortime";
 	private int mTimeOrDate;
 	
 	

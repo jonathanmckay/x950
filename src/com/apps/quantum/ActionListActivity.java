@@ -1,15 +1,14 @@
 package com.apps.quantum;
 
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import com.apps.quantum.R;
 
-public class ActionListActivity extends SingleFragmentActivity implements ActionListFragment.Callbacks, ActionFragment.Callbacks{
-
+public class ActionListActivity extends SingleFragmentActivity implements ActionListFragmentDSLV.Callbacks, ActionFragment.Callbacks{
 	@Override
 	protected Fragment createFragment() {
-		return new ActionListFragment();
+		return new ActionListFragmentDSLV();
 	}
 	
 	@Override
@@ -35,13 +34,13 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	 
     public void onActionUpdated(Action crime){
     	FragmentManager fm = getSupportFragmentManager();
-    	ActionListFragment listFragment = (ActionListFragment)fm.findFragmentById(R.id.fragmentContainer);
+    	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.fragmentContainer);
     	listFragment.updateUI();
     }
     
     public void onBackPressed() {
     	FragmentManager fm = getSupportFragmentManager();
-    	ActionListFragment listFragment = (ActionListFragment)fm.findFragmentById(R.id.fragmentContainer);
+    	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.fragmentContainer);
     	
     	//The fragment was already at root, can't navigate up
     	if(listFragment.onBackPressed() == -1) super.onBackPressed();

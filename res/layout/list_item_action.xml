@@ -44,4 +44,11 @@
     android:paddingRight="4dp"
     android:text="MM" />
 
+  <ImageView
+    android:id="@+id/action_drag_handle"
+    android:background="@drawable/drag"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_weight="0" />
+
 </RelativeLayout>

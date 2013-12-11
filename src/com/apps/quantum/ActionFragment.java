@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import com.apps.quantum.R;
 
 public class ActionFragment extends Fragment {
 	private Action mAction;
@@ -46,7 +47,7 @@ public class ActionFragment extends Fragment {
 	private Date d;
 	
 	
-	public static final String EXTRA_Action_ID = "com.example.criminalintent.Action_id";
+	public static final String EXTRA_Action_ID = "com.apps.quantum.Action_id";
 	
 	private static final String DIALOG_DATE = "date";
 	private static final String DIALOG_OR_DATE = "dialog_or_date";
@@ -54,8 +55,6 @@ public class ActionFragment extends Fragment {
 	private static final int REQUEST_DATE = 2;
 	private static final int REQUEST_DATE_OR_TIME = 1;
 	private static final int REQUEST_TIME = 3;
-	private static final int COMPLETED = 1;
-	private static final int NOT_COMPLETED = 0;
 	private static final int DUE_DATE = 0;
 	private static final int START_DATE = 1;
 	
@@ -95,9 +94,11 @@ public class ActionFragment extends Fragment {
 		
 		mActionLab = ActionLab.get(getActivity());
 		
+		//This is sometimes returning null and causing x950 to crash
 		UUID ActionId = (UUID)getArguments().getSerializable(EXTRA_Action_ID);
 		
-		mAction = mActionLab.findAction(ActionId);
+		mAction = mActionLab.getAction(ActionId);
+		if(mAction == null) mAction = mActionLab.getRoot();
 		mChangesMade = false;
 		
 		//used for the up button
@@ -115,102 +116,22 @@ public class ActionFragment extends Fragment {
 		Bundle savedInstanceState) {
 		View v = (inflater.inflate(R.layout.fragment_action, parent, false));
 		
-		if(NavUtils.getParentActivityIntent(getActivity()) != null){
+		/*if(NavUtils.getParentActivityIntent(getActivity()) != null){
 			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
+		
 		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-        
-		
+       	*/
 		enableTextFields(v);
-		
-		
-		
-		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
-		mStartDateButton.setText
-				((mAction.getStartDate() == null)
-				? "Set Start date" 
-				: (toButtonString(mAction.getStartDate())));
-		mStartDateButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				
-				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
-				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
-				mDataFieldRequested = START_DATE;
-				timeOrDate.show(fm, DIALOG_OR_DATE);
-				
-				mChangesMade = true;
-			}
-		});
-		
-		mDueDateButton = (Button)v.findViewById(R.id.action_due_date);
-		mDueDateButton.setText
-				((mAction.getDueDate() == null)
-				? "Set Due Date"
-				:(toButtonString(mAction.getDueDate())));
-		mDueDateButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				
-				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
-				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
-				mDataFieldRequested = DUE_DATE;
-				timeOrDate.show(fm, DIALOG_OR_DATE);
-				mChangesMade = true;
-			}
-		});
-		
-		mDoneButton = (ImageButton)v.findViewById(R.id.done_button);
-		mDoneButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mTitleField.setPaintFlags((mAction.getActionStatus() == NOT_COMPLETED)
-						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
-						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
-				
-				
-				mAction.setActionStatus((mAction.getActionStatus() == NOT_COMPLETED)
-						? COMPLETED 
-						: NOT_COMPLETED);
-				
-				mActionLab.resetAction(mAction);
-				
-				mChangesMade = true;
-				mCallbacks.navigateUp();
-			}
-		});
-		
-		mCancelButton = (ImageButton)v.findViewById(R.id.cancel_button);
-		mCancelButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				Action actionToDelete = mAction;
-				
-				mAction = mAction.getParent();
-				
-				mActionLab.deleteAction(actionToDelete);
-				
-				mCallbacks.navigateUp();
-				mChangesMade = true;
-				
-			}
-		});
+		enableButtons(v);
 		
 		closeOnScreenKeyboard(v);
 				
 		return v;
 	}
 
-	private String mOutcomeTempName;
-	
 	private void enableTextFields(View v){
 		mTitleField = (EditText)v.findViewById(R.id.action_title);
 		mTitleField.setText(mAction.getTitle());
@@ -312,6 +233,8 @@ public class ActionFragment extends Fragment {
 				//This also left blank
 			}
 		});
+		
+		return;
 	}
 	private void closeOnScreenKeyboard(View v){
 		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -320,6 +243,88 @@ public class ActionFragment extends Fragment {
 					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
+	
+
+	private String mOutcomeTempName;
+	private void enableButtons(View v){
+		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
+		mStartDateButton.setText
+				((mAction.getStartDate() == null)
+				? "Set Start date" 
+				: (toButtonString(mAction.getStartDate())));
+		mStartDateButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				
+				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
+				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
+				mDataFieldRequested = START_DATE;
+				timeOrDate.show(fm, DIALOG_OR_DATE);
+				
+				mChangesMade = true;
+			}
+		});
+		
+		mDueDateButton = (Button)v.findViewById(R.id.action_due_date);
+		mDueDateButton.setText
+				((mAction.getDueDate() == null)
+				? "Set Due Date"
+				:(toButtonString(mAction.getDueDate())));
+		mDueDateButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				
+				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
+				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
+				mDataFieldRequested = DUE_DATE;
+				timeOrDate.show(fm, DIALOG_OR_DATE);
+				mChangesMade = true;
+			}
+		});
+		
+		mDoneButton = (ImageButton)v.findViewById(R.id.done_button);
+		mDoneButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mTitleField.setPaintFlags((mAction.getActionStatus() == Action.INCOMPLETE)
+						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
+						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+				
+				int newActionStatus = (mAction.getActionStatus() == Action.INCOMPLETE)
+						? Action.COMPLETE
+						: Action.INCOMPLETE;
+				
+				mActionLab.changeActionStatus(mAction, newActionStatus);
+				
+				mChangesMade = true;
+				mCallbacks.navigateUp();
+			}
+		});
+		
+		mCancelButton = (ImageButton)v.findViewById(R.id.cancel_button);
+		mCancelButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Action actionToDelete = mAction;
+				
+				mAction = mAction.getParent();
+				
+				mActionLab.deleteAction(actionToDelete);
+				
+				mCallbacks.navigateUp();
+				mChangesMade = true;
+				
+			}
+		});
+		
+	}
+	
 	
 	
 	@Override

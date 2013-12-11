@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +15,7 @@ public class Action {
 	public static final int INCOMPLETE = 0;
 	public static final int COMPLETE = 1;
 	public static final int PENDING = 2;
+	public static final int WISHLIST = 3;
 	
 	
 	private UUID mId;
@@ -58,7 +59,6 @@ public class Action {
 		
 	}
 	
-
 	public Action(String line){
 		String[] tokens = line.split("\\t");
 		
@@ -110,23 +110,15 @@ public class Action {
 	}
 	
 	public void verifyStatusBasedOnChildren(){
-		if(this.getIncomplete().size() != 0){
+		if(this.hasActiveTasks()){
 			mActionStatus = INCOMPLETE;
 		}else if(this.getPending().size() != 0){
 			mActionStatus = PENDING;
 		}else{
+			//Not sure how I feel about this. 
 			mActionStatus= COMPLETE;
 		}
 	return;
-	}
-	
-
-	public boolean hasActiveTasks(){
-		return !(mChildren.get(0).isEmpty());
-	}
-	
-	public void makeRoot(){
-		mId = UUID.fromString("fb7331db-919f-461b-be6b-1c7bc51a0075");
 	}
 	
 	private ArrayList<ArrayList<Action>> initializeChildren(){
@@ -140,30 +132,28 @@ public class Action {
 		return children;
 	}
 	
-	public void add(Action a){
-		/*Not sure why I was worried about duplicate values*/
+
+	public boolean hasActiveTasks(){
+		return !(mChildren.get(0).isEmpty());
+	}
+	
+	/*I don't like this at all. I should probably change the serial structure
+	 * to be top down such that it will maintain root identity that way. 
+	 */
+	public void makeRoot(){
+		mId = UUID.fromString("fb7331db-919f-461b-be6b-1c7bc51a0075");
+	}
+	
+	public void adopt(Action a){
 		Action oldParent = a.getParent();
-		
-		if(oldParent != null){
-			oldParent.removeChild(a);
-		}
+		if(oldParent != null) oldParent.removeChild(a);
 		
 		a.setParent(this);
 		mChildren.get(a.getActionStatus()).add(a);
 		verifyStatusBasedOnChildren();
 	}
 	
-	public Action getAction(UUID id){
-		if(mId.equals(id)) return this;
-		
-		for(ArrayList<Action> list : getChildren()){
-			for(Action c : list){
-				Action possibleResult = c.getAction(id);
-				if(possibleResult != null) return possibleResult;
-			}
-		}
-		return null;
-	}
+	
 	public void removeChild(Action a){
 		for(ArrayList<Action> list : mChildren){
 			for(int i= 0; i < list.size(); i++){
@@ -173,7 +163,9 @@ public class Action {
 		mChildren.get(a.getActionStatus()).remove(a);
 		this.verifyStatusBasedOnChildren();
 	}
-
+	public boolean equals(Action a){
+		return (this.getId().equals(a.getId())) ? true : false;
+	}
 	public Action peekStep(){
 		if(this.hasActiveTasks()){
 			return mChildren.get(0).get(0);
@@ -197,7 +189,7 @@ public class Action {
 		}
 	}
 	
-	private void checkForPendingActions(){
+	public void checkForPendingActions(){
 		int i = 0;
 		
 		while(i < mChildren.get(PENDING).size() 
@@ -208,6 +200,7 @@ public class Action {
 		}	
 	}
 
+	//I don't like this function, should rewrite
 	public void setStartDate(Date startDate) {
 		mStartDate = startDate;
 		if(mStartDate.after(new Date()) && mActionStatus == INCOMPLETE){
@@ -216,7 +209,7 @@ public class Action {
 			mActionStatus = INCOMPLETE;
 		}
 			
-		getParent().add(this);
+		getParent().adopt(this);
 	}
 	
 	
@@ -368,6 +361,7 @@ public class Action {
 
 	public void setParent(Action parent) {
 		mParent = parent;
+		mParentUUIDString = mParent.getId().toString();
 	}
 
 	public ArrayList<ArrayList<Action>> getChildren() {
@@ -392,9 +386,6 @@ public class Action {
 	
 	public String getParentUUIDString() {
 		return mParentUUIDString;
-	}
-	public void setParentUUIDString(String parentUUIDString) {
-		mParentUUIDString = parentUUIDString;
 	}
 	
 	private ArrayList<Action> getIncomplete(){

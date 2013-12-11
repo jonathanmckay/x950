@@ -1,10 +1,10 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.ActionMode;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -115,16 +114,15 @@ public class ActionListFragment extends ListFragment {
             
 		case R.id.menu_item_new_action:
 			Action action = new Action();
-			mAction.add(action);
+			mAction.adopt(action);
 			mAction = action;
 			
 			updateListToShowCurrentAction();
-			
 			return true; 
 		
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
-				ActionLab.get(getActivity()).syncToDropBox(mDbxAcctMgr);
+				ActionLab.get(getActivity()).syncDropBox(mDbxAcctMgr);
 				Toast.makeText(getActivity(), "DBX Linked", Toast.LENGTH_LONG).show();
 				updateAdapter();
 			
@@ -143,6 +141,12 @@ public class ActionListFragment extends ListFragment {
 			updateAdapter();
 			
 			Log.d(TAG, " View All Actions was Toggled");
+			return true;
+			
+		case R.id.menu_item_backup:
+			Intent intent = new Intent(getActivity(), DSLVActivity.class);
+			startActivity(intent);		
+			
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);

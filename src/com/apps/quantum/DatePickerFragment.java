@@ -1,4 +1,4 @@
-package com.example.criminalintent;
+package com.apps.quantum;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -14,9 +14,10 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import com.apps.quantum.R;
 
 public class DatePickerFragment extends DialogFragment {
-	public static final String EXTRA_DATE = "com.example.criminalintent.date";
+	public static final String EXTRA_DATE = "com.apps.quantum.date";
 	private Date mDate;
 	
 	public static DatePickerFragment newInstance(Date date){

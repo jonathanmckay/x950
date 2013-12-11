@@ -7,11 +7,11 @@
     android:orientation="vertical" >
     
   
-       <EditText
-           android:id="@+id/outcome_text_field"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="@string/outcome_text" ></EditText>
+    <EditText
+         android:id="@+id/outcome_text_field"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:hint="@string/outcome_text" ></EditText>
 
 	<LinearLayout
 		android:layout_width="match_parent"
