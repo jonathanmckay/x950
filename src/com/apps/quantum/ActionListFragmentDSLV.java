@@ -36,7 +36,8 @@ public class ActionListFragmentDSLV extends Fragment {
 	
 	private DbxAccountManager mDbxAcctMgr;
 	private boolean mAllActionsVisible;
-	
+	private DragSortListView mListView;
+	private ActionAdapter mAdapter;
 	private Callbacks mCallbacks;
 	
 	public interface Callbacks{
@@ -54,20 +55,12 @@ public class ActionListFragmentDSLV extends Fragment {
 	}
 	
 	public void updateUI(){
-		adapter.notifyDataSetChanged();
+		mAdapter.notifyDataSetChanged();
 	}
-
-	DragSortListView listView;
-	ActionAdapter adapter;
-	
-	
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-	    
-		
 		mDbxAcctMgr = DbxAccountManager.getInstance(getActivity().getApplicationContext(),
 				//App key --------- App secret
 				"588rm6vl0oom62h", "3m69jjskzcfcssn");
@@ -82,49 +75,34 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		//getActivity().setContentView(R.layout.activity_threepane);
 		
-		initializeAdapter();
-	}
-	
-	private void initializeAdapter(){
-	    listView = (DragSortListView) getActivity().findViewById(R.id.listview);
-	    
-	    adapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
-	    
-	    listView.setAdapter(adapter);
-	    listView.setDropListener(onDrop);
-	    listView.setRemoveListener(onRemove);
-	    listView.setOnItemClickListener(onClick);
-
-	    DragSortController controller = new DragSortController(listView);
-	    controller.setDragHandleId(R.id.action_drag_handle);
-	    controller.setRemoveEnabled(true);
-	    controller.setSortEnabled(true);
-	    controller.setDragInitMode(1);
-	    listView.setFloatViewManager(controller);
-	    listView.setOnTouchListener(controller);
-	    listView.setDragEnabled(true);
+		//updateAdapter();
 	}
 	
 	private void updateAdapter(){
-		listView = (DragSortListView) getActivity().findViewById(R.id.listview);
+		getActivity().setContentView(R.layout.activity_threepane);
+		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
 		
-		adapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
-		
-		listView.setAdapter(adapter);
-		
-		listView.setDropListener(onDrop);
-	    listView.setRemoveListener(onRemove);
-	    listView.setOnItemClickListener(onClick);
+		mAdapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
+		mAdapter.notifyDataSetChanged();
+		mListView.setAdapter(mAdapter);
+				
+		mListView.setDropListener(onDrop);
+	    mListView.setRemoveListener(onRemove);
+	    mListView.setOnItemClickListener(onClick);
 
-	    DragSortController controller = new DragSortController(listView);
+	    DragSortController controller = new DragSortController(mListView);
 	    controller.setDragHandleId(R.id.action_drag_handle);
 	    controller.setRemoveEnabled(true);
 	    controller.setSortEnabled(true);
 	    controller.setDragInitMode(1);
-	    listView.setFloatViewManager(controller);
-	    listView.setOnTouchListener(controller);
-	    listView.setDragEnabled(true);
+	    mListView.setFloatViewManager(controller);
+	    mListView.setOnTouchListener(controller);
+	    mListView.setDragEnabled(true);
 		
+	}
+	private void refreshAdapter(){
+		mAdapter = new ActionAdapter(new ArrayList<Action>(mAction.getActions(mAllActionsVisible)));
+		mAdapter.notifyDataSetChanged();
 	}
 	
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
@@ -134,9 +112,14 @@ public class ActionListFragmentDSLV extends Fragment {
 	    {
 	        if (from != to)
 	        {
-	            Action item = adapter.getItem(from);
-	            adapter.remove(item);
-	            adapter.insert(item, to);
+	            Action item = mAdapter.getItem(from);
+	            mAction.moveWithinList(Action.INCOMPLETE, from, to);
+	            mAdapter.notifyDataSetChanged();
+	            /*
+	             * mAdapter.remove(item);
+	             * mAdapter.insert(item, to);
+	             */
+	            
 	        }
 	    }
 	};
@@ -146,14 +129,13 @@ public class ActionListFragmentDSLV extends Fragment {
 	    @Override
 	    public void remove(int position)
 	    {
-	    	Action a = adapter.getItem(position);
+	    	Action a = mAdapter.getItem(position);
 	    	while(a.hasActiveTasks()){
 	    		a = a.peekStep();
 	    	}
 	    	
 	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
-	        //adapter.remove(adapter.getItem(which));
-	    	adapter.notifyDataSetChanged();
+	    	mAdapter.notifyDataSetChanged();
 	    }
 	};
 	
@@ -162,7 +144,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		 @Override
          public void onItemClick(AdapterView<?> arg0, View v, int position,
                  long arg3) {
-             mAction = adapter.getItem(position);
+             mAction = mAdapter.getItem(position);
      		 updateListToShowCurrentAction();   
 		 }
 	};
@@ -178,15 +160,14 @@ public class ActionListFragmentDSLV extends Fragment {
 			getActivity().getActionBar().setSubtitle(R.string.subtitle);
 		}
 		
-		Log.d(TAG, " Set List adapter to " + mAction.getTitle());
+		Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
 	}
 
 
 	@Override
 	public void onResume(){
 		super.onResume();
-		getActivity().setContentView(R.layout.activity_threepane);
-		initializeAdapter();
+		updateAdapter();
 		
 	}
 	
@@ -209,20 +190,18 @@ public class ActionListFragmentDSLV extends Fragment {
 		switch(item.getItemId()){
 		case android.R.id.home:
 			navigateUp();
-			updateUI();
+			updateAdapter();
             return true;
             
 		case R.id.menu_item_new_action:
-			Action action = new Action();
-			mAction.adopt(action);
-			mAction = action;
-			
+			mAction = mActionLab.createActionIn(mAction);
 			updateListToShowCurrentAction();
 			return true; 
 		
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
-				ActionLab.get(getActivity()).syncDropBox(mDbxAcctMgr);
+				mActionLab.syncDropBox(mDbxAcctMgr);
+				mAction = mActionLab.getRoot();
 				Toast.makeText(getActivity(), "DBX Linked", Toast.LENGTH_LONG).show();
 				updateAdapter();
 			
@@ -231,7 +210,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			}
 			return true;
 		case R.id.menu_item_remove_all:
-			ActionLab.get(getActivity()).deleteAllActions();
+			mActionLab.deleteAllActions();
 			updateAdapter();
 			return true;
 		case R.id.menu_item_toggle_completed:
@@ -273,50 +252,8 @@ public class ActionListFragmentDSLV extends Fragment {
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
-		
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		/*ListView listView = (ListView)v.findViewById(android.R.id.list);
-		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
-		listView.setMultiChoiceModeListener(new MultiChoiceModeListener(){
-			public void onItemCheckedStateChanged(ActionMode mode, int position, 
-					long id, boolean checked){
-				//Reqd but not used here
-			}
-			public boolean onCreateActionMode(ActionMode mode, Menu menu){
-				MenuInflater inflater = mode.getMenuInflater();
-				inflater.inflate(R.menu.action_list_item_context, menu);
-				return true;
-			}
-			public boolean onPrepareActionMode(ActionMode mode, Menu menu){
-				return false;
-			}
-			@Override
-			public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-				switch (item.getItemId()) {
-				case R.id.menu_item_delete_action:
-					ActionAdapter adapter = (ActionAdapter)getListAdapter();
-					ActionLab actionLab = ActionLab.get(getActivity());
-					for(int i = adapter.getCount() - 1; i >= 0; i--){
-						if(getListView().isItemChecked(i)) {
-							actionLab.deleteAction(adapter.getItem(i));
-						}
-					}
-					mode.finish();
-					adapter.notifyDataSetChanged();
-					return true;
-				default:
-					return false;	
-				}
-			}
-			@Override
-			public void onDestroyActionMode(ActionMode arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
-		        
-		*/
+		
 		return v;
 	}
 	

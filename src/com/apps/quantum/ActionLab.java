@@ -14,14 +14,14 @@ import com.dropbox.sync.android.DbxFile;
 import com.dropbox.sync.android.DbxFileSystem;
 import com.dropbox.sync.android.DbxPath;
 
-public class ActionLab {
+public class ActionLab{
 	private static final String TAG = "ActionLab";
 	private static final String FILENAME = "Actions.txt";
 	private static final int COMPLETED = 1;
 	private static final int NOT_COMPLETED = 0;
 	
 	private HashMap<UUID, Action> mActionHash;
-	
+	private HashMap<UUID, Action> mTempMap;
 	
 	private TitleMap mTitleHash;
 	private class TitleMap extends HashMap<String, List<Action>> {
@@ -68,22 +68,22 @@ public class ActionLab {
 		// only self-referencing action
 		
 		try {
-			addAllToRoot(mSerializer.loadActions());
+			initializeRoot();
+			addAll(mSerializer.loadActions());
 		}catch (Exception e) {
 			initializeRoot();
 			
 			Log.e(TAG, "Error loading Actions: ", e);
 			Action visibleAction = new Action();
 			visibleAction.setTitle("incompleteAction");
+			add(visibleAction);
 			changeActionStatus(visibleAction, NOT_COMPLETED);
 			
 			
 			Action nonVisibleAction = new Action();
 			nonVisibleAction.setTitle("completedAction");
-			changeActionStatus(nonVisibleAction, COMPLETED);
-			
 			add(nonVisibleAction);
-			add(visibleAction);
+			changeActionStatus(nonVisibleAction, COMPLETED);
 		}
 	}
 	//Singleton
@@ -95,7 +95,6 @@ public class ActionLab {
 	}
 	private void initializeRoot(){
 		mRoot = new Action();
-		mRoot.makeRoot();
 		mRoot.setParent(mRoot);
 		mRoot.setTitle("root");
 		mActionHash.put(mRoot.getId(), mRoot);
@@ -107,6 +106,16 @@ public class ActionLab {
 		return mRoot;
 	}
 	
+	private ArrayList<String> toList(){
+		ArrayList<String> outputList = new ArrayList<String>();
+		
+		for(Action a : mActionHash.values()){
+			outputList.add(a.toFileTextLine());
+		}
+		
+		return outputList;
+	}
+	
 	public void syncDropBox(DbxAccountManager mDbxAcctMgr){
 		try{
 			
@@ -116,7 +125,7 @@ public class ActionLab {
 			try{
 				String contents = testAddFile.readString();
 				Log.d("Dropbox Test", "File contents: " + contents);
-				addAllToRoot(parseActions(contents));
+				addAll(parseActions(contents));
 				
 				Log.d(TAG, "Dropbox Load Successful");
 			} catch (Exception e){
@@ -138,7 +147,7 @@ public class ActionLab {
 		return;
 	}
 	public boolean saveActions(){
-		return mSerializer.saveActions(mRoot.toList());
+		return mSerializer.saveActions(toList());
 	}
 	
 	private ArrayList<Action> parseActions(String contents){
@@ -160,43 +169,46 @@ public class ActionLab {
 	}
 	
 	
-	public void add(Action a){
-		if(a.getTitle() == null || a.getTitle() == ""){} //do nothing
-		else if(this.hasAction(a)){
-			if(getAction(a.getId()).getModifiedDate().before(a.getModifiedDate())){
-				//replace with newer version of the action
-			}
-		}
-		else{
-			try{
-				Action parent = getAction(UUID.fromString(a.getParentUUIDString()));
-				parent.adopt(a);
-				
-			}catch(Exception e){
-					String parentName = a.getOutcomeName();
-					
-					if(parentName == null || parentName.equals("")){
-						mRoot.adopt(a);
-					}else{
-						updateParentInfo(a, parentName);
-					}
-			}
-			mTitleHash.put(a.getTitle(),a);
-			mActionHash.put(a.getId(), a);
-		}
-	}
-	private void addAllToRoot(ArrayList<Action> actionList){
-		//This will overwrite the root. 
-		for(Action a : actionList){
-			if(a.getId().equals(UUID.fromString(a.getParentUUIDString())) ||
-					a.getTitle().equals("root")){
-				mRoot = a;
-				mRoot.setParent(mRoot);
-			} else {
-				add(a);
-			}
-		}
-	}
+    
+    
+    private void add(Action a){
+            if(a.getTitle() == null || a.getTitle() == "" || a.getTitle().equals("root")){} //do nothing
+            else {
+	            if(this.hasAction(a)){
+	                    if(getAction(a.getId()).getModifiedDate().before(a.getModifiedDate())){
+	                            //replace with newer version of the action, do nothing for now
+	                    }
+	            }else if(mTempMap != null){
+	            	Action parent = null;
+	            	try{
+	                    parent = mTempMap.get(UUID.fromString(a.getParentUUIDString()));
+	            	} catch(Exception e){
+	            		Log.e(TAG, "Error loading parent");
+	            	}
+	            	if(parent == null || parent.getTitle() == "" || parent.getTitle().equals("root")){
+	            		mRoot.adopt(a);
+	            	} else {
+	            		mRoot.adopt(parent);
+	            		parent.adopt(a);
+	            	}
+	            } 
+	            	
+	        	mTitleHash.put(a.getTitle(),a);
+	            mActionHash.put(a.getId(), a);
+	        }
+    }
+    private void addAll(ArrayList<Action> actionList){
+    	mTempMap = new HashMap<UUID, Action>();
+    	for(Action a : actionList){
+    		mTempMap.put(a.getId(), a);
+    	}
+    	
+        for(Action a : actionList){
+            add(a);
+        }
+        
+        mTempMap = null;
+    }
 	
 	//Creates a new parent of the action based on the project name for a given action
 	public void updateParentInfo(Action a, String parentName){
@@ -249,7 +261,6 @@ public class ActionLab {
 		saveActions();
 	}
 	
-	
 	public boolean hasAction(Action a){
 		return mActionHash.containsKey(a.getId());
 	}
@@ -260,7 +271,7 @@ public class ActionLab {
     	DbxFile testFile2 = dbxFs.open(new DbxPath(DbxPath.ROOT, "Readable.txt"));
 		
 		try{
-			mSerializer.writeActionsToFile(mRoot.toList(), testFile2);
+			mSerializer.writeActionsToFile(toList(), testFile2);
 			Log.d(TAG, "Saved successfully to dropbox");
         }catch(Exception e){
             Log.d(TAG, "Error saving to dropbox: ", e);
@@ -268,6 +279,12 @@ public class ActionLab {
         	testFile2.close();
         }
 		return;
+	}
+	public Action createActionIn(Action parent){
+		Action action = new Action();
+		mActionHash.put(action.getId(), action);
+		parent.adopt(action);
+		return action;
 	}
 	
 	public Action getAction(UUID id){

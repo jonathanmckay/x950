@@ -37,7 +37,7 @@ public class Action {
 	private Action mParent;
 	private ArrayList<ArrayList<Action>> mChildren;
 	
-	public Action(){
+	protected Action(){
 		mId = UUID.randomUUID();
 		mOutcomeName = "";
 		mContextName = ""; // action only
@@ -56,6 +56,7 @@ public class Action {
 		mChildren = initializeChildren();
 		mParent = null; // This will cause a null pointer exception if not handled!!
 		mParentUUIDString = "";
+		mPriority = 0;
 		
 	}
 	
@@ -105,6 +106,12 @@ public class Action {
 			this.mParentUUIDString = (tokens[11]); //don't handle yet, handle in Actionlab
 		}
 		
+		try{
+			this.mPriority = Integer.parseInt(tokens[12]);
+		} catch (Exception e){
+			mPriority = 0;
+		}
+		
 		mChildren = initializeChildren();
 		mDueDate = null;
 	}
@@ -115,8 +122,7 @@ public class Action {
 		}else if(this.getPending().size() != 0){
 			mActionStatus = PENDING;
 		}else{
-			//Not sure how I feel about this. 
-			mActionStatus= COMPLETE;
+			//Do nothing for now, force manual delete
 		}
 	return;
 	}
@@ -135,13 +141,6 @@ public class Action {
 
 	public boolean hasActiveTasks(){
 		return !(mChildren.get(0).isEmpty());
-	}
-	
-	/*I don't like this at all. I should probably change the serial structure
-	 * to be top down such that it will maintain root identity that way. 
-	 */
-	public void makeRoot(){
-		mId = UUID.fromString("fb7331db-919f-461b-be6b-1c7bc51a0075");
 	}
 	
 	public void adopt(Action a){
@@ -212,6 +211,10 @@ public class Action {
 		getParent().adopt(this);
 	}
 	
+	public void moveWithinList(int list, int from, int to){
+		this.mChildren.get(list).add(to, mChildren.get(list).remove(from));
+	}
+	
 	
 	private Date toJavaDate(String excelDate){
 		if(excelDate == null || excelDate == "") return null;
@@ -256,21 +259,6 @@ public class Action {
 		return sb.toString();
 	}
 	
-	public ArrayList<String> toList(){
-        ArrayList<String> list = new ArrayList<String>();
-        
-        list.add(this.toFileTextLine());
-        
-        for(ArrayList<Action> subList : this.mChildren){
-                for(Action a : subList){
-                        list.addAll(a.toList());
-                }
-        }
-        
-        return list;
-	}
-	
-	
 	public String getOutcomeName() {
 		return mOutcomeName;
 	}
@@ -291,7 +279,7 @@ public class Action {
 		return mActionStatus;
 	}
 
-	public void setActionStatus(int actionStatus) {
+	protected void setActionStatus(int actionStatus) {
 		mActionStatus = actionStatus;
 	}
 

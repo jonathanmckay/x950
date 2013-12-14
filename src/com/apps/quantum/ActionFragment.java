@@ -12,7 +12,6 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -27,7 +26,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import com.apps.quantum.R;
 
 public class ActionFragment extends Fragment {
 	private Action mAction;
@@ -46,6 +44,7 @@ public class ActionFragment extends Fragment {
 	private ImageButton mCancelButton;
 	private Date d;
 	
+	private String mOutcomeTempName;
 	
 	public static final String EXTRA_Action_ID = "com.apps.quantum.Action_id";
 	
@@ -243,9 +242,6 @@ public class ActionFragment extends Fragment {
 					InputMethodManager.HIDE_NOT_ALWAYS);
 		}
 	}
-	
-
-	private String mOutcomeTempName;
 	private void enableButtons(View v){
 		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
 		mStartDateButton.setText
@@ -381,28 +377,7 @@ public class ActionFragment extends Fragment {
 			default:
 				break;
 		}
-	}
-	
-	
-	/*@Override public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()){
-		case android.R.id.home:
-			if(NavUtils.getParentActivityIntent(getActivity()) != null){
-				NavUtils.navigateUpFromSameTask(getActivity());
-			}
-			return true;
-		case R.id.menu_item_delete:
-			
-			mActionLab.deleteAction(mAction);
-			
-			
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
-		}
-	}*/
-	
-	
+	}	
 	
 	private Date combineDateAndTime(Date time, Date date){
 		
@@ -419,7 +394,6 @@ public class ActionFragment extends Fragment {
 		
 		return new GregorianCalendar(year,month,day,hour,minute).getTime();
 	}
-	
 	private void updateTimeInfo(Date d){		
 		if(mDataFieldRequested == DUE_DATE){
 			mAction.setDueDate(d);
