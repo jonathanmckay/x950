@@ -43,6 +43,7 @@ public class ActionFragment extends Fragment {
 	private boolean mChangesMade;
 	private ImageButton mDoneButton;
 	private ImageButton mCancelButton;
+	private ImageButton mSkipButton;
 	private Date d;
 	
 	private String mOutcomeTempName;
@@ -307,6 +308,18 @@ public class ActionFragment extends Fragment {
 				
 			}
 		});
+
+		mSkipButton = (ImageButton)v.findViewById(R.id.cancel_button);
+		mSkipButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mAction.getParent().moveToEnd(mAction.getActionStatus(), mAction.getPriority());
+				
+				mCallbacks.navigateUp();
+				mChangesMade = true;
+			}
+		});
 		
 	}
 	
@@ -386,8 +399,7 @@ public class ActionFragment extends Fragment {
 	private void updateTimeInfo(Date d){		
 		if(mDataFieldRequested == DUE_DATE){
 			mAction.setDueDate(d);
-			mDueDateButton.setText(android.text.format.
-					DateFormat.format("MM.dd HH:mm", mAction.getCreatedDate()).toString());
+			mDueDateButton.setText(toButtonString(d));
 		} else {
 			mAction.setStartDate(d);
 			mStartDateButton.setText(toButtonString(d));

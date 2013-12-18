@@ -201,13 +201,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		case android.R.id.home:
 			navigateUp();
 			updateAdapter();
-            return true;
-            
-		case R.id.menu_item_new_action:
-			mAction = mActionLab.createActionIn(mAction);
-			updateListToShowCurrentAction();
-			return true; 
-		
+            return true;		
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
 				mActionLab.syncDropBox(mDbxAcctMgr);

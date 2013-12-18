@@ -256,6 +256,10 @@ public class Action {
 		getParent().adopt(this);
 	}
 	
+	public void moveToEnd(int list, int from){
+		moveWithinList(list, from, this.mChildren.get(list).size() - 1);
+	}
+	
 	public void moveWithinList(int list, int from, int to){
 		ArrayList<Action> currentList = this.mChildren.get(list);
 		
