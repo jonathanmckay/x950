@@ -12,6 +12,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -46,7 +47,7 @@ public class ActionFragment extends Fragment {
 	
 	private String mOutcomeTempName;
 	
-	public static final String EXTRA_Action_ID = "com.apps.quantum.Action_id";
+	public static final String EXTRA_ACTION_ID = "com.apps.quantum.Action_id";
 	
 	private static final String DIALOG_DATE = "date";
 	private static final String DIALOG_OR_DATE = "dialog_or_date";
@@ -62,7 +63,7 @@ public class ActionFragment extends Fragment {
 		will be called by the code that creates this bundle. */
 	public static ActionFragment newInstance(UUID ActionId){
 		Bundle args = new Bundle();
-		args.putSerializable(EXTRA_Action_ID, ActionId);
+		args.putSerializable(EXTRA_ACTION_ID, ActionId);
 		
 		ActionFragment fragment = new ActionFragment();
 		fragment.setArguments(args);
@@ -94,10 +95,13 @@ public class ActionFragment extends Fragment {
 		mActionLab = ActionLab.get(getActivity());
 		
 		//This is sometimes returning null and causing x950 to crash
-		UUID ActionId = (UUID)getArguments().getSerializable(EXTRA_Action_ID);
+		if(getArguments() != null){
+			UUID ActionId = (UUID)getArguments().getSerializable(EXTRA_ACTION_ID);
+			mAction = mActionLab.getAction(ActionId);
+		} else {
+			mAction = mActionLab.getRoot();
+		}
 		
-		mAction = mActionLab.getAction(ActionId);
-		if(mAction == null) mAction = mActionLab.getRoot();
 		mChangesMade = false;
 		
 		//used for the up button
@@ -115,18 +119,18 @@ public class ActionFragment extends Fragment {
 		Bundle savedInstanceState) {
 		View v = (inflater.inflate(R.layout.fragment_action, parent, false));
 		
-		/*if(NavUtils.getParentActivityIntent(getActivity()) != null){
+		if(NavUtils.getParentActivityIntent(getActivity()) != null){
 			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
-		
+		/*
 		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
        	*/
 		enableTextFields(v);
 		enableButtons(v);
 		
-		closeOnScreenKeyboard(v);
+		//closeOnScreenKeyboard(v);
 				
 		return v;
 	}
@@ -147,23 +151,6 @@ public class ActionFragment extends Fragment {
 			
 			public void afterTextChanged(Editable c) {
 				
-			}
-		});
-		mTitleField.setOnEditorActionListener(new EditText.OnEditorActionListener() {
-			
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-		        if (actionId == EditorInfo.IME_ACTION_SEARCH ||
-		                actionId == EditorInfo.IME_ACTION_DONE ||
-		                actionId == EditorInfo.IME_ACTION_SEND /*||
-		                event.getAction() == KeyEvent.ACTION_DOWN &&
-		                event.getKeyCode() == KeyEvent.KEYCODE_ENTER*/)		        
-		        {
-		        	closeOnScreenKeyboard(v);
-	        		
-		            return true;
-		        }
-		        return false;
 			}
 		});
 		
@@ -232,6 +219,8 @@ public class ActionFragment extends Fragment {
 				//This also left blank
 			}
 		});
+		
+		
 		
 		return;
 	}

@@ -1,53 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:tools="http://schemas.android.com/tools"
-	xmlns:dslv="http://schemas.android.com/apk/res/com.apps.quantum"
+     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-    tools:context=".ActionListActivity" 
-    >
-     
+   >
      <FrameLayout
-        android:id="@+id/detailFragmentContainer"
-        android:layout_width="match_parent"
+        android:name="com.apps.quantum.ActionFragment"
+        android:id="@+id/detailFragment"
         android:layout_height="wrap_content"
-        ></FrameLayout>
-    
-    <FrameLayout
-        android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
-        <com.mobeta.android.dslv.DragSortListView
-	    android:id="@+id/listview"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:layout_margin="10dp"
-	    android:dividerHeight="5dp"
-	    android:paddingBottom="0dp"
-	    android:paddingLeft="10dp"
-	    android:paddingRight="10dp"
-	    android:paddingTop="0dp"
-	    dslv:collapsed_height="2dp"
-	    dslv:drag_enabled="true"
-	    dslv:drag_handle_id="@drawable/drag" 
-	    dslv:drag_scroll_start="0.33"
-	    dslv:drag_start_mode="onMove"
-	    dslv:float_alpha="0.6"
-	    dslv:max_drag_scroll_speed="0.5"
-	    dslv:remove_enabled="true"
-	    dslv:remove_mode="flingRemove"
-	    dslv:slide_shuffle_speed="0.3"
-	    dslv:sort_enabled="true"
-	    dslv:track_drag_sort="false"
-	    dslv:use_default_controller="true" />
-        
-    </FrameLayout>
+       ></FrameLayout>
+     
+    <FrameLayout
+        android:name="com.apps.quantum.ActionListFragmentDSLV"
+        android:id="@+id/listFragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        ></FrameLayout>
 
-    
-    
-   
-    
 </LinearLayout>
 

@@ -19,10 +19,4 @@
     android:title="@string/dropbox_title"
     android:showAsAction="never"
     />
-
-<item android:id="@+id/menu_item_backup"
-    android:title="@string/backup_title"
-    android:showAsAction="never" 
-    />
-
 </menu>

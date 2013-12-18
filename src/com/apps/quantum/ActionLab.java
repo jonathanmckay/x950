@@ -76,13 +76,13 @@ public class ActionLab{
 			Log.e(TAG, "Error loading Actions: ", e);
 			Action visibleAction = new Action();
 			visibleAction.setTitle("incompleteAction");
-			add(visibleAction);
+			mRoot.adopt(visibleAction);
 			changeActionStatus(visibleAction, NOT_COMPLETED);
 			
 			
 			Action nonVisibleAction = new Action();
 			nonVisibleAction.setTitle("completedAction");
-			add(nonVisibleAction);
+			mRoot.adopt(nonVisibleAction);
 			changeActionStatus(nonVisibleAction, COMPLETED);
 		}
 	}
@@ -104,16 +104,6 @@ public class ActionLab{
 	}
 	public Action getRoot(){
 		return mRoot;
-	}
-	
-	private ArrayList<String> toList(){
-		ArrayList<String> outputList = new ArrayList<String>();
-		
-		for(Action a : mActionHash.values()){
-			outputList.add(a.toFileTextLine());
-		}
-		
-		return outputList;
 	}
 	
 	public void syncDropBox(DbxAccountManager mDbxAcctMgr){
@@ -146,8 +136,9 @@ public class ActionLab{
 		
 		return;
 	}
+	
 	public boolean saveActions(){
-		return mSerializer.saveActions(toList());
+		return mSerializer.saveActions(mRoot.toList());
 	}
 	
 	private ArrayList<Action> parseActions(String contents){
@@ -167,9 +158,6 @@ public class ActionLab{
 		mTitleHash.put(a.getTitle(), a);
 		return;
 	}
-	
-	
-    
     
     private void add(Action a){
             if(a.getTitle() == null || a.getTitle() == "" || a.getTitle().equals("root")){} //do nothing
@@ -188,7 +176,7 @@ public class ActionLab{
 	            	if(parent == null || parent.getTitle() == "" || parent.getTitle().equals("root")){
 	            		mRoot.adopt(a);
 	            	} else {
-	            		mRoot.adopt(parent);
+	            		add(parent);
 	            		parent.adopt(a);
 	            	}
 	            } 
@@ -271,7 +259,7 @@ public class ActionLab{
     	DbxFile testFile2 = dbxFs.open(new DbxPath(DbxPath.ROOT, "Readable.txt"));
 		
 		try{
-			mSerializer.writeActionsToFile(toList(), testFile2);
+			mSerializer.writeActionsToFile(mRoot.toList(), testFile2);
 			Log.d(TAG, "Saved successfully to dropbox");
         }catch(Exception e){
             Log.d(TAG, "Error saving to dropbox: ", e);

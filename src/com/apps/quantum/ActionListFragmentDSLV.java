@@ -4,11 +4,12 @@ import java.util.ArrayList;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -17,9 +18,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,12 +36,15 @@ public class ActionListFragmentDSLV extends Fragment {
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private Action mAction;
 	private ActionLab mActionLab;
+	private String mSubtaskTitle;
 	
 	private DbxAccountManager mDbxAcctMgr;
 	private boolean mAllActionsVisible;
 	private DragSortListView mListView;
 	private ActionAdapter mAdapter;
 	private Callbacks mCallbacks;
+
+	private EditText mSubtaskField;
 	
 	public interface Callbacks{
 		void onActionSelected(Action a);
@@ -79,7 +85,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	}
 	
 	private void updateAdapter(){
-		getActivity().setContentView(R.layout.activity_threepane);
+		//getActivity().setContentView(R.layout.fragment_action_list);
 		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
 		
 		mAdapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
@@ -114,11 +120,13 @@ public class ActionListFragmentDSLV extends Fragment {
 	        {
 	            Action item = mAdapter.getItem(from);
 	            mAction.moveWithinList(Action.INCOMPLETE, from, to);
+	           
+	            
+	            mAdapter.remove(item);
+	            mAdapter.insert(item, to);
+	             
+	            
 	            mAdapter.notifyDataSetChanged();
-	            /*
-	             * mAdapter.remove(item);
-	             * mAdapter.insert(item, to);
-	             */
 	            
 	        }
 	    }
@@ -146,6 +154,7 @@ public class ActionListFragmentDSLV extends Fragment {
                  long arg3) {
              mAction = mAdapter.getItem(position);
      		 updateListToShowCurrentAction();   
+     		 return;
 		 }
 	};
 	
@@ -161,6 +170,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 		
 		Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
+		return;
 	}
 
 
@@ -221,12 +231,6 @@ public class ActionListFragmentDSLV extends Fragment {
 			
 			Log.d(TAG, " View All Actions was Toggled");
 			return true;
-			
-		case R.id.menu_item_backup:
-			Intent intent = new Intent(getActivity(), DSLVActivity.class);
-			startActivity(intent);		
-			
-			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
@@ -253,6 +257,41 @@ public class ActionListFragmentDSLV extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		mSubtaskField = (EditText)v.findViewById(R.id.new_subtask);
+		mSubtaskField.setText(null);
+		mSubtaskField.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence c, int start, int before, 
+					int count) {
+				try{
+					mSubtaskTitle = c.toString();
+					Log.d(TAG, c.toString() + " entered");
+				}catch(Exception e){
+					//do nothing;
+				}
+				//mChangesMade = true;
+			}
+			
+			public void beforeTextChanged(CharSequence c, int start, int count, int after){
+				//This space intentionally left blank
+			}
+			
+			public void afterTextChanged(Editable c) {
+				//This also left blank
+			}
+		});
+		mSubtaskField.setOnFocusChangeListener(new OnFocusChangeListener() {          
+
+	        public void onFocusChange(View v, boolean hasFocus) {
+	            if(!hasFocus){
+	            	Action a = mActionLab.createActionIn(mAction);
+					a.setTitle(mSubtaskTitle);
+					Log.d(TAG, "IME_DONE Activated");
+					mSubtaskField.setText(null);
+	            }
+	        }
+	          
+	    });
 		
 		return v;
 	}

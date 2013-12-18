@@ -51,12 +51,11 @@ public class Action {
 		mMinutesExpected = 0;
 		mMinutesActual = 0;
 		mActionStatus = 0;
-		mPriority = 0;
 		
 		mChildren = initializeChildren();
 		mParent = null; // This will cause a null pointer exception if not handled!!
 		mParentUUIDString = "";
-		mPriority = 0;
+		mPriority = -1;
 		
 	}
 	
@@ -109,7 +108,7 @@ public class Action {
 		try{
 			this.mPriority = Integer.parseInt(tokens[12]);
 		} catch (Exception e){
-			mPriority = 0;
+			mPriority = -1;
 		}
 		
 		mChildren = initializeChildren();
@@ -148,19 +147,65 @@ public class Action {
 		if(oldParent != null) oldParent.removeChild(a);
 		
 		a.setParent(this);
-		mChildren.get(a.getActionStatus()).add(a);
+		
+		
+		ArrayList<Action> currentList = mChildren.get(a.getActionStatus());
+		a.setPriority(currentList.size());
+		
+		
+		Log.d("ACTION", "Priority of " + String.valueOf(a.getPriority()));
+		
+		currentList.add(a);
 		verifyStatusBasedOnChildren();
 	}
+	public ArrayList<String> toList(){
+		
+		return this.toActionList();
+	}
+	
+	private ArrayList<String> toActionList(){
+		ArrayList<String> list = new ArrayList<String>();
+		
+		list.add(this.toFileTextLine());
+		
+		for(ArrayList<Action> subList : this.mChildren){
+			for(int i = 0; i < subList.size(); i++){
+				ArrayList<String> subListActions = subList.get(i).toActionList();
+				list.addAll(subListActions);
+			}
+		}
+		
+		return list;
+	}	
 	
 	
 	public void removeChild(Action a){
+		int index = -1;
 		for(ArrayList<Action> list : mChildren){
 			for(int i= 0; i < list.size(); i++){
-				if(a.getId().equals(list.get(i).getId())) list.remove(i);
+				if(a.getId().equals(list.get(i).getId())){
+					list.remove(i);
+					index = i;
+					break;
+				}
+			}
+			if(index > -1){
+				for(int i = index; i < list.size(); i++){
+					list.get(i).setPriority(i);
+				}
 			}
 		}
-		mChildren.get(a.getActionStatus()).remove(a);
-		this.verifyStatusBasedOnChildren();
+		
+		/*
+		ArrayList<Action> currentList = mChildren.get(a.getActionStatus());
+		int index = currentList.indexOf(a);
+		if(index > -1){
+			currentList.remove(a);
+			for(int i = index; i < currentList.size(); i++){
+				currentList.get(i).setPriority(i);
+			}
+			this.verifyStatusBasedOnChildren();
+		}*/
 	}
 	public boolean equals(Action a){
 		return (this.getId().equals(a.getId())) ? true : false;
@@ -212,7 +257,23 @@ public class Action {
 	}
 	
 	public void moveWithinList(int list, int from, int to){
-		this.mChildren.get(list).add(to, mChildren.get(list).remove(from));
+		ArrayList<Action> currentList = this.mChildren.get(list);
+		
+		if(to < from){
+			for(int i = to; i < from; i++){
+				currentList.get(i).mPriority ++;
+			}
+
+			
+		} else {
+			for(int i = from + 1; i <= to; i++){
+				currentList.get(i).mPriority --;
+			}
+		}
+		
+		currentList.get(from).setPriority(to);
+		currentList.add(to, mChildren.get(list).remove(from));
+		
 	}
 	
 	
@@ -254,6 +315,8 @@ public class Action {
 		sb.append(mId.toString());
 		sb.append("\t");
 		if(mParent != null) sb.append(mParent.getId().toString());
+		sb.append("\t");
+		sb.append(String.valueOf(mPriority));
 		sb.append("\n");
 		
 		return sb.toString();

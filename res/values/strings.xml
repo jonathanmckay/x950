@@ -26,7 +26,8 @@
 	<string name="is_completed">Completed</string>
 	<string name="backup_title">Backup</string>
 	<string name="dslv_app_activity">DSLV Activity</string>
-	
+	<string name="new_action_hint">Add a new subtask</string>
+
 	 <string-array name="jazz_artist_names">
       <item>Brad Mehldau</item>
       <item>Joshua Redman</item>
