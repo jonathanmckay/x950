@@ -24,14 +24,14 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 		    		removeDetailFragment(fm);
 	    		}else{
 			 		FragmentManager fm = getSupportFragmentManager();
-		    		
+			 		FragmentTransaction ft = fm.beginTransaction();
 		    		ActionFragment oldDetail = (ActionFragment) fm.findFragmentById(R.id.detailFragment);
 		    		
 		    		if(oldDetail != null){
 		    			//Simply update the view, don't create a new fragment
 		    			oldDetail.displayActionDetails(a);
 		    		} else {
-		    			FragmentTransaction ft = fm.beginTransaction();
+		    			
 		    			Fragment newDetail = ActionFragment.newInstance(a.getId());	
 			    		ft.add(R.id.detailFragment, newDetail);
 			    		ft.commit();

@@ -103,7 +103,7 @@ public class ActionFragment extends Fragment {
 		} else {
 			mAction = mActionLab.getRoot();
 		}
-		
+		mOutcomeTempName = null;
 		mChangesMade = false;
 		
 		//used for the up button
@@ -304,14 +304,15 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				mCallbacks.onActionUpdated();
+				
 				
 				Action actionToDelete = mAction;
 				
 				mAction = mAction.getParent();
 				
 				mActionLab.deleteAction(actionToDelete);
-				
+				mOutcomeTempName = null;
+				mCallbacks.navigateUp();
 				
 				mChangesMade = true;
 				
@@ -349,11 +350,13 @@ public class ActionFragment extends Fragment {
 	@Override
 	public void onPause() {
 		super.onPause();
-		if(mChangesMade){
+		if(mOutcomeTempName != null && !mOutcomeTempName.equals("") &&
+				!mOutcomeTempName.equals(mAction.getParent().getTitle())){
 			mActionLab.updateParentInfo(mAction, mOutcomeTempName);
-			mActionLab.saveActions();
 		}
-	}
+		mActionLab.saveActions();
+	}	
+	
 	
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data){

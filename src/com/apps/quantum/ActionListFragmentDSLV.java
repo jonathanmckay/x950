@@ -155,7 +155,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private void updateListToShowCurrentAction(){
 		mCallbacks.onActionSelected(mAction);
 		
-		Log.d(TAG, mAction.getTitle() + " is now the focus");
+		//Log.d(TAG, mAction.getTitle() + " is now the focus");
 		
 		updateAdapter();
 		getActivity().setTitle(mAction.getTitle());
@@ -163,7 +163,9 @@ public class ActionListFragmentDSLV extends Fragment {
 			getActivity().getActionBar().setSubtitle(R.string.subtitle);
 		}
 		
-		Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
+		//Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
+		
+		updateHomeButton();
 		return;
 	}
 
@@ -180,12 +182,6 @@ public class ActionListFragmentDSLV extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.fragment_action_list, menu);
 	}
-	
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
-		
-		getActivity().getMenuInflater().inflate(R.menu.action_list_item_context, menu);
-	}
 
 	
 	@TargetApi(11)
@@ -193,7 +189,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
 		case android.R.id.home:
-			//if(mSubtaskTitle != null && !mSubtaskTitle.equals("")) saveNewSubtask();
+			if(mSubtaskTitle != null && !mSubtaskTitle.equals("")) saveNewSubtask();
 			navigateUp();
 			updateAdapter();
             return true;	
@@ -251,23 +247,31 @@ public class ActionListFragmentDSLV extends Fragment {
     }   
 	
 	private void navigateUp(){
-		getActivity().setTitle(mAction.getParent().getTitle());
 		mAction = mAction.getParent();
 		if(mAction == null) mAction = mActionLab.getRoot();
-		mCallbacks.onActionSelected(mAction);
-		updateAdapter();
-		
+		updateListToShowCurrentAction();
+	}
+	
+	public void updateHomeButton(){
+		if(!mAction.equals(mActionLab.getRoot())){
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+		}
+		else{
+			getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
+		}
 	}
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
-		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		mSubtaskField = (EditText)v.findViewById(R.id.new_subtask);
-		initializeSubtaskField();
+		updateHomeButton();
+		initializeSubtaskField(v);
+		
 		return v;
 	}
-	private void initializeSubtaskField(){
+	private void initializeSubtaskField(View v){
+		mSubtaskField = (EditText)v.findViewById(R.id.new_subtask);
+		
 		mSubtaskField.setText(null);
 		mSubtaskField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 

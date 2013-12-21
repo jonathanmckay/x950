@@ -230,14 +230,19 @@ public class ActionLab{
         
         //Creates a new parent of the action based on the project name for a given action
         public void updateParentInfo(Action a, String parentName){
-                if(parentName != null){
-                        Action parent = mTitleHash.get(parentName);
-                        if(parent != null){
-                                parent.adopt(a);
-                        } else{
-                                createParent(a, parentName);
-                        }
-                }
+            if(a.equals(mRoot) 
+            		|| a.getParent().getTitle().equals(parentName) 
+            		|| parentName == null
+            		|| parentName.equals("")) return; //do nothing.
+    		
+            Action parent = mTitleHash.get(parentName);
+            if(parent != null){
+               parent.adopt(a);
+            } else{
+               createParent(a, parentName);
+            }
+            
+            return;
         }
         
         private void createParent(Action a, String parentName){
