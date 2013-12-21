@@ -14,20 +14,57 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	}
 	
 	 public void onActionSelected(Action a){
-	    		FragmentManager fm = getSupportFragmentManager();
-	    		FragmentTransaction ft = fm.beginTransaction();
-	    		Fragment oldDetail = fm.findFragmentById(R.id.detailFragment);
-	    		if(oldDetail != null) ft.remove(oldDetail);
-	    		Fragment newDetail = ActionFragment.newInstance(a.getId());
-	    		
-	    		
-	    		ft.add(R.id.detailFragment, newDetail);
-	    		ft.commit();
+		 		//Only show the detail view for individual tasks. This may be modified later. 
+		 
+	    		if(a == ActionLab.get(this).getRoot()){
+	    			FragmentManager fm = getSupportFragmentManager();
+		    		removeDetailFragment(fm);
+	    		} else if(a.hasChildren()) {
+	    			FragmentManager fm = getSupportFragmentManager();
+		    		removeDetailFragment(fm);
+	    		}else{
+			 		FragmentManager fm = getSupportFragmentManager();
+		    		
+		    		ActionFragment oldDetail = (ActionFragment) fm.findFragmentById(R.id.detailFragment);
+		    		
+		    		if(oldDetail != null){
+		    			//Simply update the view, don't create a new fragment
+		    			oldDetail.displayActionDetails(a);
+		    		} else {
+		    			FragmentTransaction ft = fm.beginTransaction();
+		    			Fragment newDetail = ActionFragment.newInstance(a.getId());	
+			    		ft.add(R.id.detailFragment, newDetail);
+			    		ft.commit();
+		    		}
+	    		}
 	    	
+	 }
+	 public void onDetailViewToggled(Action a){
+		 FragmentManager fm = getSupportFragmentManager();
+		 if(fm.findFragmentById(R.id.detailFragment)== null){
+			 createNewDetailFragment(fm, a);
+		 } else {
+			 removeDetailFragment(fm);
+		 }
+	 }
+	 
+	 private void createNewDetailFragment(FragmentManager fm, Action a){
+ 		FragmentTransaction ft = fm.beginTransaction();
+ 		Fragment newDetail = ActionFragment.newInstance(a.getId());
+ 		ft.add(R.id.detailFragment, newDetail);
+ 		ft.commit();
+	 }
+	 
+	 private void removeDetailFragment(FragmentManager fm){
+		FragmentTransaction ft = fm.beginTransaction();
+ 		Fragment oldDetail = fm.findFragmentById(R.id.detailFragment);
+ 		if(oldDetail != null) ft.remove(oldDetail);
+ 		ft.commit();
+ 		fm.popBackStack();
 	 }
 	
 	 
-    public void onActionUpdated(Action crime){
+    public void onActionUpdated(){
     	FragmentManager fm = getSupportFragmentManager();
     	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.listFragment);
     	listFragment.updateUI();

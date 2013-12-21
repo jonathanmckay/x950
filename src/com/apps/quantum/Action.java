@@ -37,6 +37,8 @@ public class Action {
 	private Action mParent;
 	private ArrayList<ArrayList<Action>> mChildren;
 	
+	private Date mSavedTimeStamp;
+	
 	protected Action(){
 		mId = UUID.randomUUID();
 		mOutcomeName = "";
@@ -59,6 +61,8 @@ public class Action {
 		
 	}
 	
+	
+
 	public Action(String line){
 		String[] tokens = line.split("\\t");
 		
@@ -158,54 +162,28 @@ public class Action {
 		currentList.add(a);
 		verifyStatusBasedOnChildren();
 	}
-	public ArrayList<String> toList(){
-		
-		return this.toActionList();
-	}
-	
-	private ArrayList<String> toActionList(){
-		ArrayList<String> list = new ArrayList<String>();
-		
-		list.add(this.toFileTextLine());
-		
-		for(ArrayList<Action> subList : this.mChildren){
-			for(int i = 0; i < subList.size(); i++){
-				ArrayList<String> subListActions = subList.get(i).toActionList();
-				list.addAll(subListActions);
-			}
-		}
-		
-		return list;
-	}	
-	
 	
 	public void removeChild(Action a){
 		int index = -1;
-		for(ArrayList<Action> list : mChildren){
-			for(int i= 0; i < list.size(); i++){
-				if(a.getId().equals(list.get(i).getId())){
-					list.remove(i);
+		int listIndex = -1;
+		for(int j = 0; j < mChildren.size(); j++){
+			for(int i= 0; i < mChildren.get(j).size(); i++){
+				if(a.getId().equals(mChildren.get(j).get(i).getId())){
 					index = i;
-					break;
-				}
-			}
-			if(index > -1){
-				for(int i = index; i < list.size(); i++){
-					list.get(i).setPriority(i);
+					Log.d("RemoveChild at index ", String.valueOf(i) + " of " + String.valueOf(j));
+					listIndex = j;
 				}
 			}
 		}
 		
-		/*
-		ArrayList<Action> currentList = mChildren.get(a.getActionStatus());
-		int index = currentList.indexOf(a);
 		if(index > -1){
-			currentList.remove(a);
-			for(int i = index; i < currentList.size(); i++){
-				currentList.get(i).setPriority(i);
+			mChildren.get(listIndex).remove(index);
+			for(int i = index; i < mChildren.get(listIndex).size() - 1; i++){
+				mChildren.get(listIndex).get(i).setPriority(i);
 			}
-			this.verifyStatusBasedOnChildren();
-		}*/
+		}
+		
+		verifyStatusBasedOnChildren();
 	}
 	public boolean equals(Action a){
 		return (this.getId().equals(a.getId())) ? true : false;
@@ -216,20 +194,36 @@ public class Action {
 		}
 		else return null;
 	}
-
 	
-	public ArrayList<Action> getActions(boolean allActions){
-		if(allActions){
+	
+	public static final int INCOMPLETE_ACTIONS_VIEW = 0;
+	public static final int ALL_ACTIONS_VIEW = 1;
+	public static final int TOP_FIVE_ACTIONS_VIEW = 2;
+	
+	public ArrayList<Action> getActions(int viewSetting){
+		if(viewSetting == ALL_ACTIONS_VIEW){
 			ArrayList<Action> output = new ArrayList<Action>();
-			
 			for(ArrayList<Action> list : getChildren()){
 				output.addAll(list);
 			}
-			
 			return output;
-		} else {
+			
+		} else if(viewSetting == INCOMPLETE_ACTIONS_VIEW){
 			checkForPendingActions();
 			return getIncomplete();
+			
+		} else if(viewSetting == TOP_FIVE_ACTIONS_VIEW){
+			checkForPendingActions();
+			ArrayList<Action> output = new ArrayList<Action>();
+			ArrayList<Action> fullList = getIncomplete();
+			for(int i = 0; i < 5 && i < fullList.size() ; i++){
+				output.add(fullList.get(i));
+			}
+			return output;
+			
+		} else {
+			Log.e("getActions", "getActions has been passed an illegal argument");
+			return null;
 		}
 	}
 	
@@ -268,7 +262,6 @@ public class Action {
 				currentList.get(i).mPriority ++;
 			}
 
-			
 		} else {
 			for(int i = from + 1; i <= to; i++){
 				currentList.get(i).mPriority --;
@@ -456,5 +449,13 @@ public class Action {
 
 	public void setDueDate(Date dueDate) {
 		mDueDate = dueDate;
+	}
+	
+	public Date getSavedTimeStamp() {
+		return mSavedTimeStamp;
+	}
+
+	public void setSavedTimeStamp(Date savedTimeStamp) {
+		mSavedTimeStamp = savedTimeStamp;
 	}
 }

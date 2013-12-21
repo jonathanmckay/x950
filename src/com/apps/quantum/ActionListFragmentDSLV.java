@@ -13,13 +13,16 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -39,7 +42,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private String mSubtaskTitle;
 	
 	private DbxAccountManager mDbxAcctMgr;
-	private boolean mAllActionsVisible;
+	private int mActionViewMode;
 	private DragSortListView mListView;
 	private ActionAdapter mAdapter;
 	private Callbacks mCallbacks;
@@ -48,6 +51,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	
 	public interface Callbacks{
 		void onActionSelected(Action a);
+		void onDetailViewToggled(Action a);
 	}
 	@Override
 	public void onAttach(Activity activity){
@@ -73,22 +77,18 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		mActionLab = ActionLab.get(getActivity());
 		mAction = mActionLab.getRoot(); 
-		mAllActionsVisible = false;
-		
+		mActionViewMode = Action.INCOMPLETE_ACTIONS_VIEW;
+		mSubtaskTitle = null;
 		setHasOptionsMenu(true);
 		getActivity().setTitle(R.string.actions_title);
 		setRetainInstance(true);
 		
-		//getActivity().setContentView(R.layout.activity_threepane);
-		
-		//updateAdapter();
 	}
 	
 	private void updateAdapter(){
-		//getActivity().setContentView(R.layout.fragment_action_list);
 		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
 		
-		mAdapter = new ActionAdapter(mAction.getActions(mAllActionsVisible));
+		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
 		mListView.setAdapter(mAdapter);
 				
@@ -106,10 +106,6 @@ public class ActionListFragmentDSLV extends Fragment {
 	    mListView.setDragEnabled(true);
 		
 	}
-	private void refreshAdapter(){
-		mAdapter = new ActionAdapter(new ArrayList<Action>(mAction.getActions(mAllActionsVisible)));
-		mAdapter.notifyDataSetChanged();
-	}
 	
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
 	{
@@ -120,11 +116,9 @@ public class ActionListFragmentDSLV extends Fragment {
 	        {
 	            Action item = mAdapter.getItem(from);
 	            mAction.moveWithinList(Action.INCOMPLETE, from, to);
-	           
 	            
 	            mAdapter.remove(item);
-	            mAdapter.insert(item, to);
-	             
+	            mAdapter.insert(item, to); 
 	            
 	            mAdapter.notifyDataSetChanged();
 	            
@@ -165,7 +159,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		updateAdapter();
 		getActivity().setTitle(mAction.getTitle());
-		if(mAllActionsVisible){
+		if(mActionViewMode == Action.ALL_ACTIONS_VIEW){
 			getActivity().getActionBar().setSubtitle(R.string.subtitle);
 		}
 		
@@ -199,9 +193,11 @@ public class ActionListFragmentDSLV extends Fragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch(item.getItemId()){
 		case android.R.id.home:
+			//if(mSubtaskTitle != null && !mSubtaskTitle.equals("")) saveNewSubtask();
 			navigateUp();
 			updateAdapter();
-            return true;		
+            return true;	
+            
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
 				mActionLab.syncDropBox(mDbxAcctMgr);
@@ -213,17 +209,31 @@ public class ActionListFragmentDSLV extends Fragment {
 				mDbxAcctMgr.startLink(getActivity(), REQUEST_LINK_TO_DBX);
 			}
 			return true;
+			
 		case R.id.menu_item_remove_all:
 			mActionLab.deleteAllActions();
 			updateAdapter();
 			return true;
+			
 		case R.id.menu_item_toggle_completed:
-			mAllActionsVisible = !mAllActionsVisible;
-			getActivity().getActionBar().setSubtitle((mAllActionsVisible)
+			mActionViewMode = (mActionViewMode != Action.ALL_ACTIONS_VIEW) 
+				? Action.ALL_ACTIONS_VIEW
+				: Action.INCOMPLETE_ACTIONS_VIEW;
+			
+			getActivity().getActionBar().setSubtitle((mActionViewMode == Action.ALL_ACTIONS_VIEW)
 					? "Showing all actions" : null);
 			updateAdapter();
 			
 			Log.d(TAG, " View All Actions was Toggled");
+			return true;
+			
+		case R.id.menu_item_detail_toggle:
+			mCallbacks.onDetailViewToggled(mAction);
+			return true;
+		
+		case R.id.menu_item_next_five:
+			mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
+			updateAdapter();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -243,6 +253,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private void navigateUp(){
 		getActivity().setTitle(mAction.getParent().getTitle());
 		mAction = mAction.getParent();
+		if(mAction == null) mAction = mActionLab.getRoot();
 		mCallbacks.onActionSelected(mAction);
 		updateAdapter();
 		
@@ -253,6 +264,10 @@ public class ActionListFragmentDSLV extends Fragment {
 		getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mSubtaskField = (EditText)v.findViewById(R.id.new_subtask);
+		initializeSubtaskField();
+		return v;
+	}
+	private void initializeSubtaskField(){
 		mSubtaskField.setText(null);
 		mSubtaskField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
@@ -277,17 +292,45 @@ public class ActionListFragmentDSLV extends Fragment {
 		mSubtaskField.setOnFocusChangeListener(new OnFocusChangeListener() {          
 
 	        public void onFocusChange(View v, boolean hasFocus) {
-	            if(!hasFocus){
-	            	Action a = mActionLab.createActionIn(mAction);
-					a.setTitle(mSubtaskTitle);
-					Log.d(TAG, "IME_DONE Activated");
-					mSubtaskField.setText(null);
+	            if(!hasFocus && mSubtaskTitle != null && !mSubtaskTitle.equals("")){
+	            	saveNewSubtask();
 	            }
 	        }
-	          
 	    });
 		
-		return v;
+		mSubtaskField.setOnEditorActionListener(new EditText.OnEditorActionListener(){
+			 @Override
+			    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+			        if (actionId == EditorInfo.IME_ACTION_SEARCH ||
+			                actionId == EditorInfo.IME_ACTION_DONE){
+			        	/*event.getAction() == KeyEvent.ACTION_DOWN &&
+				                event.getKeyCode() == KeyEvent.KEYCODE_ENTER) */
+				            saveNewSubtask();
+				            return true;			                
+			        }
+			        return false;
+			    }
+			});
+		mSubtaskField.setOnKeyListener(new View.OnKeyListener() {
+			
+			@Override
+			public boolean onKey(View v, int keyCode, KeyEvent event) {
+				if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+				        (keyCode == KeyEvent.KEYCODE_ENTER))
+				    {
+				        saveNewSubtask();// Done pressed!  Do something here.
+				    }
+				    // Returning false allows other listeners to react to the press.
+				    return false;
+			}
+		});
+		
+	}
+	private void saveNewSubtask(){
+		Action a = mActionLab.createActionIn(mAction);
+		a.setTitle(mSubtaskTitle);
+		mSubtaskTitle = null;
+		mSubtaskField.setText(null);
 	}
 	
 	private class ActionAdapter extends ArrayAdapter<Action>{

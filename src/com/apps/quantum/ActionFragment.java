@@ -44,6 +44,7 @@ public class ActionFragment extends Fragment {
 	private ImageButton mDoneButton;
 	private ImageButton mCancelButton;
 	private ImageButton mSkipButton;
+	private ImageButton mDemoteButton;
 	private Date d;
 	
 	private String mOutcomeTempName;
@@ -73,7 +74,7 @@ public class ActionFragment extends Fragment {
 	}
 	
 	public interface Callbacks {
-		void onActionUpdated(Action a);
+		void onActionUpdated();
 		void navigateUp();
 	}
 	
@@ -131,14 +132,30 @@ public class ActionFragment extends Fragment {
 		enableTextFields(v);
 		enableButtons(v);
 		
+		displayActionDetails(mAction);
 		//closeOnScreenKeyboard(v);
 				
 		return v;
 	}
+	public void displayActionDetails(Action a){
+		mAction = a;
+		mTitleField.setText(mAction.getTitle());
+		mMinutesField.setText(String.valueOf(mAction.getMinutesExpected()));
+		mOutcomeField.setText(mAction.getParent().getTitle());
+		mContextField.setText(mAction.getContextName());
+		
+		mStartDateButton.setText
+		((mAction.getStartDate() == null)
+		? "Set Start date" 
+		: (toButtonString(mAction.getStartDate())));
+		mDueDateButton.setText
+		((mAction.getDueDate() == null)
+		? "Set Due Date"
+		:(toButtonString(mAction.getDueDate())));
+	}
 
 	private void enableTextFields(View v){
 		mTitleField = (EditText)v.findViewById(R.id.action_title);
-		mTitleField.setText(mAction.getTitle());
 		mTitleField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
 					int count) {
@@ -154,8 +171,6 @@ public class ActionFragment extends Fragment {
 				
 			}
 		});
-		
-		
 		
 		mMinutesField = (EditText)v.findViewById(R.id.minutes_to_complete);
 		if(mAction.getMinutesExpected() != 0){
@@ -181,7 +196,6 @@ public class ActionFragment extends Fragment {
 		});
 	
 		mOutcomeField = (EditText)v.findViewById(R.id.outcome_text_field);
-		mOutcomeField.setText(mAction.getParent().getTitle());
 		mOutcomeField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
 					int count) {
@@ -200,7 +214,6 @@ public class ActionFragment extends Fragment {
 		});
 	
 		mContextField = (EditText)v.findViewById(R.id.context_text_field);
-		mContextField.setText(mAction.getContextName());
 		mContextField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
 					int count) {
@@ -234,10 +247,7 @@ public class ActionFragment extends Fragment {
 	}
 	private void enableButtons(View v){
 		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
-		mStartDateButton.setText
-				((mAction.getStartDate() == null)
-				? "Set Start date" 
-				: (toButtonString(mAction.getStartDate())));
+		
 		mStartDateButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -254,10 +264,7 @@ public class ActionFragment extends Fragment {
 		});
 		
 		mDueDateButton = (Button)v.findViewById(R.id.action_due_date);
-		mDueDateButton.setText
-				((mAction.getDueDate() == null)
-				? "Set Due Date"
-				:(toButtonString(mAction.getDueDate())));
+		
 		mDueDateButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -297,24 +304,38 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				mCallbacks.onActionUpdated();
+				
 				Action actionToDelete = mAction;
 				
 				mAction = mAction.getParent();
 				
 				mActionLab.deleteAction(actionToDelete);
 				
-				mCallbacks.navigateUp();
+				
 				mChangesMade = true;
 				
 			}
 		});
 
-		mSkipButton = (ImageButton)v.findViewById(R.id.cancel_button);
+		mSkipButton = (ImageButton)v.findViewById(R.id.skip_button);
 		mSkipButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				mAction.getParent().moveToEnd(mAction.getActionStatus(), mAction.getPriority());
+				
+				mCallbacks.navigateUp();
+				mChangesMade = true;
+			}
+		});
+		
+		mDemoteButton = (ImageButton)v.findViewById(R.id.demote_button);
+		mDemoteButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mActionLab.changeActionStatus(mAction, Action.WISHLIST);
 				
 				mCallbacks.navigateUp();
 				mChangesMade = true;
@@ -365,7 +386,7 @@ public class ActionFragment extends Fragment {
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
 				mChangesMade = true;
-				mCallbacks.onActionUpdated(mAction);
+				mCallbacks.onActionUpdated();
 				break;
 				
 			case REQUEST_TIME:
@@ -373,7 +394,7 @@ public class ActionFragment extends Fragment {
 				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
 				mChangesMade = true;
-				mCallbacks.onActionUpdated(mAction);
+				mCallbacks.onActionUpdated();
 				break;
 				
 			default:
