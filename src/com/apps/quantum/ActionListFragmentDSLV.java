@@ -77,11 +77,11 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		mActionLab = ActionLab.get(getActivity());
 		mAction = mActionLab.getRoot(); 
-		mActionViewMode = Action.INCOMPLETE_ACTIONS_VIEW;
+		mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
 		mSubtaskTitle = null;
 		setHasOptionsMenu(true);
-		getActivity().setTitle(R.string.actions_title);
 		setRetainInstance(true);
+		
 		
 	}
 	
@@ -104,6 +104,9 @@ public class ActionListFragmentDSLV extends Fragment {
 	    mListView.setFloatViewManager(controller);
 	    mListView.setOnTouchListener(controller);
 	    mListView.setDragEnabled(true);
+		
+	}
+	private void updateAdapterInfo(){
 		
 	}
 	
@@ -137,6 +140,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	    	}
 	    	
 	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
+	    	mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 	    	mAdapter.notifyDataSetChanged();
 	    }
 	};
@@ -154,22 +158,38 @@ public class ActionListFragmentDSLV extends Fragment {
 	
 	private void updateListToShowCurrentAction(){
 		mCallbacks.onActionSelected(mAction);
-		
 		//Log.d(TAG, mAction.getTitle() + " is now the focus");
 		
 		updateAdapter();
-		getActivity().setTitle(mAction.getTitle());
-		if(mActionViewMode == Action.ALL_ACTIONS_VIEW){
-			getActivity().getActionBar().setSubtitle(R.string.subtitle);
-		}
 		
+		getActivity().invalidateOptionsMenu();
+		
+		setTitle();
+		setSubtitle();
 		//Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
 		
 		updateHomeButton();
 		return;
 	}
-
-
+	private void setTitle(){
+		if(mAction.equals(mActionLab.getRoot())){
+			if(mActionViewMode == Action.TOP_FIVE_ACTIONS_VIEW){
+				getActivity().setTitle(R.string.app_name);
+			} else {
+				getActivity().setTitle("What's Next");
+			}
+		} else {
+			getActivity().setTitle(mAction.getTitle());
+		}
+	}
+	private void setSubtitle(){
+		if(mActionViewMode == Action.ALL_ACTIONS_VIEW){
+			getActivity().getActionBar().setSubtitle(R.string.subtitle);
+		} else {
+			getActivity().getActionBar().setSubtitle(null);
+		}
+	}
+	
 	@Override
 	public void onResume(){
 		super.onResume();
@@ -181,6 +201,12 @@ public class ActionListFragmentDSLV extends Fragment {
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.fragment_action_list, menu);
+		
+		if(mAction.equals(mActionLab.getRoot())) {
+		    menu.findItem(R.id.menu_item_detail_toggle).setVisible(false);
+		} else {
+		   menu.findItem(R.id.menu_item_detail_toggle).setVisible(true);
+		}
 	}
 
 	

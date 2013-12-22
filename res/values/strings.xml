@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">x950</string>
+    <string name="app_name">Next 5</string>
     <string name="action_title_hint">Action name&#8230;</string>
 	<string name="action_title_label">Title</string>
 	<string name="action_details_label">Details</string>
@@ -15,7 +15,7 @@
 	<string name="new_action">New Action</string>
 	<string name="show_subtitle">Show Subtitle</string>
 	<string name="hide_subtitle">Hide Subtile</string>
-	<string name="subtitle">Its not the best, but it works</string>
+	<string name="subtitle">Showing completed and pending actions</string>
 	<string name="delete_action">Delete</string>
 	<string name="dropbox_title">DB</string>
 	<string name="remove_all">Remove All</string>

@@ -28,11 +28,16 @@ public class Action {
 	private Date mModifiedDate;
 	private Date mStartDate;
 	private Date mDueDate;
+	private Date mRepeatInterval;
+	private Date mEndRepeat;
+	
 	
 	private int mMinutesExpected;
 	private int mMinutesActual;
 	private int mActionStatus;
 	private int mPriority;
+	
+	
 	
 	private Action mParent;
 	private ArrayList<ArrayList<Action>> mChildren;
@@ -58,7 +63,8 @@ public class Action {
 		mParent = null; // This will cause a null pointer exception if not handled!!
 		mParentUUIDString = "";
 		mPriority = -1;
-		
+		mRepeatInterval = null;
+		mEndRepeat = null;
 	}
 	
 	
@@ -114,9 +120,20 @@ public class Action {
 		} catch (Exception e){
 			mPriority = -1;
 		}
+		try {
+			this.mDueDate = toJavaDate(tokens[13]);
+		} catch (Exception e){
+			this.mDueDate = null;
+		}try{
+			this.mRepeatInterval = toJavaDate(tokens[13]);
+			this.mEndRepeat = toJavaDate(tokens[14]);
+		} catch (Exception e){
+			this.mRepeatInterval = null;
+			this.mEndRepeat = null;
+		}
 		
 		mChildren = initializeChildren();
-		mDueDate = null;
+		
 	}
 	
 	public void verifyStatusBasedOnChildren(){
@@ -314,6 +331,12 @@ public class Action {
 		if(mParent != null) sb.append(mParent.getId().toString());
 		sb.append("\t");
 		sb.append(String.valueOf(mPriority));
+		sb.append("\t");
+		if(mDueDate != null) sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mDueDate));
+		sb.append("\t");
+		if(mRepeatInterval != null) sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mRepeatInterval));
+		sb.append("\t");
+		if(mEndRepeat != null) sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", mEndRepeat));
 		sb.append("\n");
 		
 		return sb.toString();

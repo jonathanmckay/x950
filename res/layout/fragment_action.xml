@@ -5,26 +5,50 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
-  
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
     <EditText
-         android:id="@+id/outcome_text_field"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:hint="@string/outcome_text" ></EditText>
+        android:id="@+id/outcome_text_field"
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+       	android:layout_alignParentTop="true"
+        
+        android:ems="10"
+        android:hint="@string/outcome_text" >
+        
+        </EditText>
+    
+        <EditText
+            android:id="@+id/repeat_interval"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/outcome_text_field"
+            android:ems="10"
+            android:hint="@string/minutes_to_complete"
+            android:imeActionLabel="Save"
+            android:imeOptions="actionSend"
+            android:inputType="text" >
 
+        </EditText>
+    </RelativeLayout>
 	<LinearLayout
 		android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
        <EditText
            android:id="@+id/action_title"
-           android:inputType="text"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:hint="@string/action_title_hint" 
-           android:imeOptions="actionSend" 
+           android:hint="@string/action_title_hint"
            android:imeActionLabel="Save"
-           
-           ></EditText>
+           android:imeOptions="actionSend"
+           android:inputType="text" >
+</EditText>
     </LinearLayout>     
     
 	<LinearLayout 
