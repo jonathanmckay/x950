@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+	android:descendantFocusability="blocksDescendants"
     android:background="@drawable/background_activated" >
 
 <TextView
@@ -23,32 +24,39 @@
     android:paddingRight="4dp"
     android:text="Action date" />
 
-<TextView
-    android:id="@+id/action_list_context"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBaseline="@+id/action_list_item_dateTextView"
-    android:layout_alignBottom="@+id/action_list_item_dateTextView"
-    android:layout_alignParentRight="true"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:text="Context" />
-
-<TextView
-    android:id="@+id/action_list_minutes_to_complete"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_above="@+id/action_list_context"
-    android:layout_alignRight="@+id/action_list_context"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:text="MM" />
-
   <ImageView
     android:id="@+id/action_drag_handle"
     android:background="@drawable/drag"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:layout_weight="0" />
+
+  <TextView
+      android:id="@+id/action_list_minutes_to_complete"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignTop="@+id/pinned_indicater"
+      android:layout_toLeftOf="@+id/pinned_indicater"
+      android:paddingLeft="4dp"
+      android:paddingRight="4dp"
+      android:text="MM"></TextView>
+
+  <RadioButton
+      android:id="@+id/pinned_indicater"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBottom="@+id/action_list_context"
+      android:layout_alignParentRight="true" ></RadioButton>
+
+  <TextView
+      android:id="@+id/action_list_context"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignBaseline="@+id/action_list_item_dateTextView"
+      android:layout_alignBottom="@+id/action_list_item_dateTextView"
+      android:layout_alignRight="@+id/action_list_minutes_to_complete"
+      android:paddingLeft="4dp"
+      android:paddingRight="4dp"
+      android:text="Context" ></TextView>
 
 </RelativeLayout>

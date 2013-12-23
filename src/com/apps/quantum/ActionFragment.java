@@ -78,6 +78,7 @@ public class ActionFragment extends Fragment {
 	public interface Callbacks {
 		void onActionUpdated();
 		void navigateUp();
+		void closeOnScreenKeyboard(View v);
 	}
 	
 	@Override 
@@ -98,7 +99,6 @@ public class ActionFragment extends Fragment {
 		
 		mActionLab = ActionLab.get(getActivity());
 		
-		//This is sometimes returning null and causing x950 to crash
 		if(getArguments() != null){
 			UUID ActionId = (UUID)getArguments().getSerializable(EXTRA_ACTION_ID);
 			mAction = mActionLab.getAction(ActionId);
@@ -127,15 +127,11 @@ public class ActionFragment extends Fragment {
 			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
-		/*
-		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-		imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
-       	*/
 		enableTextFields(v);
 		enableButtons(v);
 		
 		displayActionDetails(mAction);
-		//closeOnScreenKeyboard(v);
+		mCallbacks.closeOnScreenKeyboard(v);
 				
 		return v;
 	}
@@ -266,13 +262,7 @@ public class ActionFragment extends Fragment {
 		
 		return;
 	}
-	private void closeOnScreenKeyboard(View v){
-		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-		if(imm != null && getActivity().getCurrentFocus() != null ){
-			imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 
-					InputMethodManager.HIDE_NOT_ALWAYS);
-		}
-	}
+	
 	private void enableButtons(View v){
 		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
 		

@@ -29,5 +29,6 @@
 	<string name="new_action_hint">Add a new subtask</string>
 	<string name="toggle_detail">Toggle Detail View</string>
 	<string name="next_five">Next Five View</string>
-	
+	<string name="save_toast">Action Saved.</string>
+	<string name="pin_button">pin</string>
 </resources>

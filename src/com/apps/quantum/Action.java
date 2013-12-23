@@ -37,6 +37,7 @@ public class Action {
 	private int mMinutesActual;
 	private int mActionStatus;
 	private int mPriority;
+	private boolean mPinned;
 	
 	
 	
@@ -66,34 +67,10 @@ public class Action {
 		mPriority = -1;
 		mRepeatInterval = null;
 		mEndRepeat = null;
+		
+		mPinned = false;
 	}
 	
-	
-
-	public Date getRepeatInterval() {
-		return mRepeatInterval;
-	}
-
-
-
-	public void setRepeatInterval(Date repeatInterval) {
-		mRepeatInterval = repeatInterval;
-	}
-
-
-
-	public Date getEndRepeat() {
-		return mEndRepeat;
-	}
-
-
-
-	public void setEndRepeat(Date endRepeat) {
-		mEndRepeat = endRepeat;
-	}
-
-
-
 	public Action(String line){
 		String[] tokens = line.split("\\t");
 		
@@ -123,8 +100,7 @@ public class Action {
 			mMinutesActual = 0;
 		}
 		
-		
-		// Tokens[8] is a deprecated value 
+		mPinned = tokens[8].equals("pinned") ? true : false;
 		
 		try{
 			this.mMinutesExpected = Integer.parseInt(tokens[9]);
@@ -199,7 +175,7 @@ public class Action {
 		a.setPriority(currentList.size());
 		
 		
-		Log.d("ACTION", "Priority of " + String.valueOf(a.getPriority()));
+		//Log.d("ACTION", "Priority of " + String.valueOf(a.getPriority()));
 		
 		currentList.add(a);
 		verifyStatusBasedOnChildren();
@@ -292,6 +268,8 @@ public class Action {
 	}
 	
 	
+	
+	
 	public static final int INCOMPLETE_ACTIONS_VIEW = 0;
 	public static final int ALL_ACTIONS_VIEW = 1;
 	public static final int TOP_FIVE_ACTIONS_VIEW = 2;
@@ -360,6 +338,10 @@ public class Action {
 		moveWithinList(list, from, this.mChildren.get(list).size() - 1);
 	}
 	
+	public void moveToFront(int list, int from){
+		moveWithinList(list, from, 0);
+	}
+	
 	public void moveWithinList(int list, int from, int to){
 		ArrayList<Action> currentList = this.mChildren.get(list);
 		
@@ -411,7 +393,7 @@ public class Action {
 		sb.append("\t");
 		sb.append(String.valueOf(mMinutesActual));
 		sb.append("\t");
-		sb.append(""); // blank, originally for boolean isCompleted field.
+		sb.append((mPinned) ? "pinned" : "");
 		sb.append("\t");
 		sb.append(String.valueOf(mMinutesExpected));
 		sb.append("\t");
@@ -570,4 +552,27 @@ public class Action {
 	public void setSavedTimeStamp(Date savedTimeStamp) {
 		mSavedTimeStamp = savedTimeStamp;
 	}
+
+	public Date getRepeatInterval() {
+		return mRepeatInterval;
+	}
+	public void setRepeatInterval(Date repeatInterval) {
+		mRepeatInterval = repeatInterval;
+	}
+	public Date getEndRepeat() {
+		return mEndRepeat;
+	}
+	public void setEndRepeat(Date endRepeat) {
+		mEndRepeat = endRepeat;
+	}
+
+	public boolean isPinned() {
+		return mPinned;
+	}
+
+	public void setPinned(boolean pinned) {
+		mPinned = pinned;
+	}
+
+
 }

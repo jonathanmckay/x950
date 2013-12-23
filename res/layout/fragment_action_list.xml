@@ -39,7 +39,7 @@
 		    dslv:drag_scroll_start="0.33"
 		    dslv:drag_start_mode="onMove"
 		    dslv:float_alpha="0.6"
-		    dslv:max_drag_scroll_speed="1.0"
+		    dslv:max_drag_scroll_speed="3.0"
 		    dslv:remove_enabled="true"
 		    dslv:remove_mode="flingRemove"
 		    dslv:slide_shuffle_speed="0.3"

@@ -6,6 +6,12 @@
     android:title="@string/toggle_detail"
     android:icon="@drawable/ic_action_expand"
     android:showAsAction="ifRoom|withText"/>
+
+<item 
+    android:id="@+id/menu_item_pin"
+    android:title="@string/pin_button"
+    android:icon="@drawable/ic_action_expand"
+    android:showAsAction="ifRoom|withText"/>
     
 <item android:id="@+id/menu_item_remove_all"
     android:title="@string/remove_all"

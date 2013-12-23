@@ -11,8 +11,6 @@ import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,12 +18,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnFocusChangeListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +40,8 @@ public class ActionListFragmentDSLV extends Fragment {
 	private ActionLab mActionLab;
 	private String mSubtaskTitle;
 	
+	private MenuItem mPinnedMenu;
+	
 	private DbxAccountManager mDbxAcctMgr;
 	private int mActionViewMode;
 	private DragSortListView mListView;
@@ -52,6 +53,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	public interface Callbacks{
 		void onActionSelected(Action a);
 		void onDetailViewToggled(Action a);
+		void closeOnScreenKeyboard(View v);
 	}
 	@Override
 	public void onAttach(Activity activity){
@@ -106,9 +108,6 @@ public class ActionListFragmentDSLV extends Fragment {
 	    mListView.setDragEnabled(true);
 		
 	}
-	private void updateAdapterInfo(){
-		
-	}
 	
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
 	{
@@ -134,30 +133,26 @@ public class ActionListFragmentDSLV extends Fragment {
 	    @Override
 	    public void remove(int position)
 	    {
+	    	boolean actionMoved = false;
 	    	Action a = mAdapter.getItem(position);
 	    	if(a.hasActiveTasks()){
 	    		//Update the status of the subtask
-	    		mAction.moveToEnd(a.getActionStatus(), position);
+	    		if(!a.isPinned()){
+	    			a.moveToEnd(a.getActionStatus(), position);
+	    			actionMoved = true;
+	    		}
 	    		
 	    		while(a.hasActiveTasks()){
 		    		a = a.peekStep();
 		    	}
-		    	
-		    	mActionLab.changeActionStatus(a, Action.COMPLETE);
-		    	
-		    	
-		    	//Remove the item from view
-		    	//Action item = mAdapter.getItem(position);
-		    	//mAdapter.remove(item);
-	    	} else {
-	    		mActionLab.changeActionStatus(a, Action.COMPLETE);
 	    	}
-	    	
-	    	    	
+	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
+			    	
 	    	int count = mAdapter.getCount();
+	    	
 	    	ArrayList<Action> incompleteList = mAction.getActions(Action.INCOMPLETE);
 	    	
-	    	if(count < incompleteList.size()){
+	    	if(count < incompleteList.size() && actionMoved){
 	    		mAdapter.insert(incompleteList.get(count), count);
 	    	}
 	    	mAdapter.notifyDataSetChanged();
@@ -223,9 +218,28 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		if(mAction.equals(mActionLab.getRoot())) {
 		    menu.findItem(R.id.menu_item_detail_toggle).setVisible(false);
+		    menu.findItem(R.id.menu_item_pin).setVisible(false);
 		} else {
 		   menu.findItem(R.id.menu_item_detail_toggle).setVisible(true);
+		   menu.findItem(R.id.menu_item_pin).setVisible(true);
 		}
+		mPinnedMenu = menu.findItem(R.id.menu_item_pin);
+		updatePinnedIcon();
+		
+	}
+	public void updatePinnedStatus(){
+		//I would like to redo this in action.java so that it is consisent but doesn't overlap. 
+		if(mAction.isPinned()){
+			ArrayList<Action> list = mAction.getParent().getChildren().get(mAction.getActionStatus());
+			int index = list.indexOf(mAction);
+			mAction.getParent().moveToFront(mAction.getActionStatus(), index);
+		}
+		updatePinnedIcon();
+	}
+	
+	public void updatePinnedIcon(){
+		mPinnedMenu.setIcon(mAction.isPinned() ? R.drawable.ic_action_important 
+				: R.drawable.ic_action_not_important);
 	}
 
 	
@@ -238,7 +252,11 @@ public class ActionListFragmentDSLV extends Fragment {
 			navigateUp();
 			updateAdapter();
             return true;	
-            
+		case R.id.menu_item_pin:
+			mAction.setPinned(mAction.isPinned() ? false : true);
+			updatePinnedStatus();
+			
+			return true;
 		case R.id.menu_item_dropbox:
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
 				mActionLab.syncDropBox(mDbxAcctMgr);
@@ -380,6 +398,10 @@ public class ActionListFragmentDSLV extends Fragment {
 		a.setTitle(mSubtaskTitle);
 		mSubtaskTitle = null;
 		mSubtaskField.setText(null);
+		String toastText = getResources().getString(R.string.save_toast);
+		mCallbacks.closeOnScreenKeyboard(getView());
+		Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+		
 	}
 	
 	private class ActionAdapter extends ArrayAdapter<Action>{
@@ -432,6 +454,10 @@ public class ActionListFragmentDSLV extends Fragment {
 			
 			TextView context = (TextView)convertView.findViewById(R.id.action_list_context);
 			context.setText(c.getContextName());
+			
+			RadioButton pinned = (RadioButton)convertView.findViewById(R.id.pinned_indicater);
+			pinned.setChecked(c.isPinned());
+			
 			
 			return convertView;
 		}
