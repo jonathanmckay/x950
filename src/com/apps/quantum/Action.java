@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
 
@@ -68,6 +69,30 @@ public class Action {
 	}
 	
 	
+
+	public Date getRepeatInterval() {
+		return mRepeatInterval;
+	}
+
+
+
+	public void setRepeatInterval(Date repeatInterval) {
+		mRepeatInterval = repeatInterval;
+	}
+
+
+
+	public Date getEndRepeat() {
+		return mEndRepeat;
+	}
+
+
+
+	public void setEndRepeat(Date endRepeat) {
+		mEndRepeat = endRepeat;
+	}
+
+
 
 	public Action(String line){
 		String[] tokens = line.split("\\t");
@@ -184,17 +209,20 @@ public class Action {
 		int index = -1;
 		int listIndex = -1;
 		for(int j = 0; j < mChildren.size(); j++){
-			for(int i= 0; i < mChildren.get(j).size(); i++){
-				if(a.getId().equals(mChildren.get(j).get(i).getId())){
-					index = i;
-					Log.d("RemoveChild at index ", String.valueOf(i) + " of " + String.valueOf(j));
+			for(Iterator<Action> it = mChildren.get(j).iterator(); it.hasNext();){
+				Action b = it.next();
+
+				if(a.getId().equals(b.getId())){
+					index = mChildren.get(j).indexOf(b);
+					Log.d("RemoveChild at index ", String.valueOf(index) + " of " + String.valueOf(j));
 					listIndex = j;
+					it.remove();
 				}
 			}
 		}
 		
 		if(index > -1){
-			mChildren.get(listIndex).remove(index);
+			//mChildren.get(listIndex).remove(index);
 			for(int i = index; i < mChildren.get(listIndex).size() - 1; i++){
 				mChildren.get(listIndex).get(i).setPriority(i);
 			}
@@ -202,6 +230,57 @@ public class Action {
 		
 		verifyStatusBasedOnChildren();
 	}
+	
+	public void makeActionRepeatable(Date repeatInterval, Date endRepeat){
+		
+		if(repeatInterval.getTime() < (1000*60*60*24) || endRepeat.before(new Date())){
+			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
+			return;
+		}
+		
+		this.mRepeatInterval = repeatInterval;
+		this.mEndRepeat = endRepeat;
+		
+		if(mStartDate == null) mStartDate = new Date();
+		if(mDueDate == null){
+			mDueDate = new Date(mRepeatInterval.getTime() + mStartDate.getTime());
+		}
+		
+		Log.d("Action", this.getTitle() + " made repeatable");
+		
+		this.createRepeatedAction();
+	}
+	
+	private void createRepeatedAction(){
+		Action nextRepeat = new Action();
+		
+		nextRepeat.setTitle(this.getTitle());
+		nextRepeat.setContextName(this.getContextName());
+
+		nextRepeat.setRepeatInterval(this.getRepeatInterval());
+		nextRepeat.setEndRepeat(this.getEndRepeat());
+		
+		nextRepeat.setMinutesExpected(this.getMinutesExpected());	
+		
+
+		nextRepeat.setParent(this.getParent());
+		
+		long newStart = getStartDate().getTime() + getRepeatInterval().getTime();
+		nextRepeat.setStartDate(new Date(newStart));
+		long newDue = getDueDate().getTime() + getRepeatInterval().getTime();
+		nextRepeat.setDueDate(new Date(newDue));
+				
+		
+		//Keep creating repeated actions until there is only one that is pending. 
+		if(nextRepeat.getActionStatus() == INCOMPLETE){
+			nextRepeat.createRepeatedAction();
+		}
+	}
+	
+	public void cancelRepeat(){
+	// to be implemented	
+	}
+	
 	public boolean equals(Action a){
 		return (this.getId().equals(a.getId())) ? true : false;
 	}
@@ -245,16 +324,26 @@ public class Action {
 	}
 	
 	public void checkForPendingActions(){
-		int i = 0;
+		ArrayList<Action> pendingList = mChildren.get(PENDING);
+		Date now = new Date();
 		
-		while(i < mChildren.get(PENDING).size() 
-				&& mChildren.get(PENDING).get(i).getStartDate().before(new Date())){
-			mChildren.get(PENDING).get(i).mActionStatus = INCOMPLETE;
-			this.getIncomplete().add( this.getPending().remove(i));
-			i++;
-		}	
-	}
-
+		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
+			Action a = it.next();
+			if(a.getStartDate().before(now)){
+				
+				//If Action is a repeated Action
+				if(a.getRepeatInterval() != null && a.getEndRepeat() != null){
+					Date nextRepeat = new Date(a.getStartDate().getTime() + a.getRepeatInterval().getTime());
+					if(a.getEndRepeat().after(nextRepeat));
+					a.createRepeatedAction();
+				}
+				a.setActionStatus(INCOMPLETE);
+				it.remove();
+				this.getIncomplete().add(a);
+			}
+		}
+	}	
+	
 	//I don't like this function, should rewrite
 	public void setStartDate(Date startDate) {
 		mStartDate = startDate;

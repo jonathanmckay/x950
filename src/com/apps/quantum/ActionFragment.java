@@ -15,6 +15,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -35,6 +36,7 @@ public class ActionFragment extends Fragment {
 	private EditText mMinutesField;
 	private EditText mOutcomeField;
 	private EditText mContextField;
+	private EditText mRepeatInterval;
 	
 	private Button mStartDateButton;
 	private Button mDueDateButton;
@@ -234,6 +236,32 @@ public class ActionFragment extends Fragment {
 			}
 		});
 		
+		
+		mRepeatInterval = (EditText)v.findViewById(R.id.repeat_interval);
+		mRepeatInterval.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence c, int start, int before, 
+					int count) {
+				try{
+					int dayToMicrosec = 1000*60*60*24;
+					long interval = Integer.valueOf(c.toString()) * dayToMicrosec;
+					long end = interval * 3;
+					long now = new Date().getTime();
+					
+					mAction.makeActionRepeatable(new Date(interval), new Date(now + end));
+				}catch(Exception e){
+					Log.e("ActionFragment", "Error reading repeat input", e);
+				}
+				mChangesMade = true;
+			}
+			
+			public void beforeTextChanged(CharSequence c, int start, int count, int after){
+				//This space intentionally left blank
+			}
+			
+			public void afterTextChanged(Editable c) {
+				//This also left blank
+			}
+		});
 		
 		
 		return;

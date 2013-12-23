@@ -135,12 +135,31 @@ public class ActionListFragmentDSLV extends Fragment {
 	    public void remove(int position)
 	    {
 	    	Action a = mAdapter.getItem(position);
-	    	while(a.hasActiveTasks()){
-	    		a = a.peekStep();
+	    	if(a.hasActiveTasks()){
+	    		//Update the status of the subtask
+	    		mAction.moveToEnd(a.getActionStatus(), position);
+	    		
+	    		while(a.hasActiveTasks()){
+		    		a = a.peekStep();
+		    	}
+		    	
+		    	mActionLab.changeActionStatus(a, Action.COMPLETE);
+		    	
+		    	
+		    	//Remove the item from view
+		    	//Action item = mAdapter.getItem(position);
+		    	//mAdapter.remove(item);
+	    	} else {
+	    		mActionLab.changeActionStatus(a, Action.COMPLETE);
 	    	}
 	    	
-	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
-	    	mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
+	    	    	
+	    	int count = mAdapter.getCount();
+	    	ArrayList<Action> incompleteList = mAction.getActions(Action.INCOMPLETE);
+	    	
+	    	if(count < incompleteList.size()){
+	    		mAdapter.insert(incompleteList.get(count), count);
+	    	}
 	    	mAdapter.notifyDataSetChanged();
 	    }
 	};
