@@ -22,7 +22,6 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -89,6 +88,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	
 	private void updateAdapter(){
 		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
+		mActionLab.checkForPendingActions(mAction);
 		
 		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
@@ -135,19 +135,24 @@ public class ActionListFragmentDSLV extends Fragment {
 	    {
 	    	boolean actionMoved = false;
 	    	Action a = mAdapter.getItem(position);
+	    	
 	    	if(a.hasActiveTasks()){
 	    		//Update the status of the subtask
+	    		Action b = a.firstStep();
+	    		mActionLab.changeActionStatus(b, Action.COMPLETE);
+	    		
+	    		//Update the project location in the list
 	    		if(!a.isPinned()){
-	    			a.moveToEnd(a.getActionStatus(), position);
+	    			a.getParent().moveToEnd(a.getActionStatus(), position);
 	    			actionMoved = true;
 	    		}
 	    		
-	    		while(a.hasActiveTasks()){
-		    		a = a.peekStep();
-		    	}
+	    	} else {
+	    		mAdapter.remove(a);
+	    		mActionLab.changeActionStatus(a,  Action.COMPLETE);
+	    		actionMoved = true;
 	    	}
-	    	mActionLab.changeActionStatus(a, Action.COMPLETE);
-			    	
+	    	    	
 	    	int count = mAdapter.getCount();
 	    	
 	    	ArrayList<Action> incompleteList = mAction.getActions(Action.INCOMPLETE);
@@ -155,6 +160,8 @@ public class ActionListFragmentDSLV extends Fragment {
 	    	if(count < incompleteList.size() && actionMoved){
 	    		mAdapter.insert(incompleteList.get(count), count);
 	    	}
+	    	
+	    	
 	    	mAdapter.notifyDataSetChanged();
 	    }
 	};
@@ -185,6 +192,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateHomeButton();
 		return;
 	}
+	
 	private void setTitle(){
 		if(mAction.equals(mActionLab.getRoot())){
 			if(mActionViewMode == Action.TOP_FIVE_ACTIONS_VIEW){
@@ -279,8 +287,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				? Action.ALL_ACTIONS_VIEW
 				: Action.INCOMPLETE_ACTIONS_VIEW;
 			
-			getActivity().getActionBar().setSubtitle((mActionViewMode == Action.ALL_ACTIONS_VIEW)
-					? "Showing all actions" : null);
+			updateSubtitle();
 			updateAdapter();
 			
 			Log.d(TAG, " View All Actions was Toggled");
@@ -292,11 +299,16 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		case R.id.menu_item_next_five:
 			mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
+			updateSubtitle();
 			updateAdapter();
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+	}
+	private void updateSubtitle(){
+		getActivity().getActionBar().setSubtitle((mActionViewMode == Action.ALL_ACTIONS_VIEW)
+				? "Showing all actions" : null);
 	}
 	
 	//Returns whether at root or not. 
@@ -394,13 +406,22 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 	}
 	private void saveNewSubtask(){
+		
+		//Create new subtask
 		Action a = mActionLab.createActionIn(mAction);
 		a.setTitle(mSubtaskTitle);
+		
+		//Reset new subtask field
 		mSubtaskTitle = null;
 		mSubtaskField.setText(null);
-		String toastText = getResources().getString(R.string.save_toast);
 		mCallbacks.closeOnScreenKeyboard(getView());
+				
+		//Toast
+		String toastText = getResources().getString(R.string.save_toast);
 		Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+
+		//Update view
+		updateAdapter();
 		
 	}
 	
@@ -422,7 +443,8 @@ public class ActionListFragmentDSLV extends Fragment {
 			TextView titleTextView = (TextView)convertView.findViewById(R.id.action_list_item_titleTextView);
 			
 			if(c.peekStep() != null){
-				titleTextView.setText(c.getTitle() + " -> " + c.peekStep().getTitle());
+				
+				titleTextView.setText(c.getTitle() + " -> " + c.firstStep().getTitle());
 			}else{
 				titleTextView.setText(c.getTitle());
 			}

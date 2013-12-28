@@ -1,8 +1,11 @@
 package com.apps.quantum;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -309,6 +312,127 @@ public class ActionLab{
                 parent.adopt(action);
                 return action;
         }
+        
+        public void checkForPendingActions(Action a){
+    		ArrayList<Action> pendingList = a.getChildren().get(Action.PENDING);
+    		Date now = new Date();
+    		
+    		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
+    			Action current = it.next();
+    			if(current.getStartDate().before(now)){
+    				
+    				//If Action is a repeated Action
+    				if(current.getRepeatInterval() != 0){
+    					createRepeatedAction(current);
+    				}
+    				current.setActionStatus(Action.INCOMPLETE);
+    				it.remove();
+    				
+    				ArrayList<Action> incompleteList = a.getIncomplete();
+    				a.getIncomplete().add(getUnpinnedTop(incompleteList), current);
+    			}
+    		}
+        }
+        private int getUnpinnedTop(ArrayList<Action> list){
+        	for(int i = 0; i < list.size(); i++){
+        		if(!list.get(i).isPinned()) return i;
+        	}
+        	return list.size();
+        }
+        
+    	
+    	public void modifyRepeatInterval(int repeatInterval, Action a){
+    		
+    		if(repeatInterval < 0 || repeatInterval > 4){
+    			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
+    			return;
+    		}
+    		
+    		a.setRepeatInterval(repeatInterval);
+    		
+    		if (repeatInterval == 0){
+    			removePendingRepeatedActions(a);
+    		} else {
+    			if(a.getStartDate() == null) a.setStartDate(a.getCreatedDate());
+    			if(a.getStartDate() == null) a.setStartDate(new Date());
+    			
+    			if(a.getDueDate() == null){
+    				a.setDueDate(nextRepeatTime(a.getStartDate(), a));
+    			}
+    			
+    			Log.d("Action", a.getTitle() + " made repeatable");
+    			
+    			createRepeatedAction(a);
+    		}
+    	}
+    	private void removePendingRepeatedActions(Action a){
+    		ArrayList<Action> pendingList = a.getParent().getPending();
+    		
+    		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
+    			Action current = it.next();
+    			if(current.getTitle().equals(a.getTitle())){
+    				it.remove();
+    				mActionHash.remove(current.getId());
+    				mTitleHash.remove(current.getTitle(), current);
+    			}
+    		}
+    	}
+    	
+    	private void createRepeatedAction(Action original){
+    		Action nextRepeat = createActionIn(original.getParent());
+    		
+    		nextRepeat.setTitle(original.getTitle());
+    		nextRepeat.setContextName(original.getContextName());
+    		nextRepeat.setRepeatInterval(original.getRepeatInterval());
+    		nextRepeat.setMinutesExpected(original.getMinutesExpected());	
+    		nextRepeat.setParent(original.getParent());
+    		
+    		
+    		Date nextStart = nextRepeatTime(original.getStartDate(), nextRepeat);
+    		nextRepeat.setStartDate(nextStart);
+    		nextRepeat.setDueDate(nextRepeatTime(nextStart, nextRepeat));
+    		
+    		//Keep creating repeated actions until there is only one that is pending. 
+    		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
+    			createRepeatedAction(nextRepeat);
+    		}
+    	}
+    	
+
+    	public static final int REPEAT_DAY = 1;
+    	public static final int REPEAT_WEEK = 2;
+    	public static final int REPEAT_MONTH = 3;
+    	public static final int REPEAT_YEAR = 4;
+    	
+    	private Date nextRepeatTime(Date start, Action a){
+    		Calendar calendar = Calendar.getInstance();
+            calendar.setTime(start);
+            
+            switch(a.getRepeatInterval()){
+    	        case REPEAT_DAY:
+    	        	calendar.add(Calendar.DATE, 1);
+    	        	break;
+    	        case REPEAT_WEEK:
+    	        	calendar.add(Calendar.DATE, 7);
+    	        	break;
+    	        case REPEAT_MONTH:
+    	        	calendar.add(Calendar.MONTH, 1);
+    	        	break;
+    	        case REPEAT_YEAR:
+    	        	calendar.add(Calendar.YEAR, 1);
+    	        	break;
+    	    }
+            
+            int year = calendar.get(Calendar.YEAR);
+            int month = calendar.get(Calendar.MONTH);
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+            int minute = calendar.get(Calendar.MINUTE);
+            return new GregorianCalendar
+            		(year, month, day, hourOfDay, minute).getTime();
+
+    	}
+        
         
         public Action getAction(UUID id){
                 return mActionHash.get(id);

@@ -6,28 +6,24 @@ import java.util.GregorianCalendar;
 import java.util.UUID;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 public class ActionFragment extends Fragment {
 	private Action mAction;
@@ -36,7 +32,7 @@ public class ActionFragment extends Fragment {
 	private EditText mMinutesField;
 	private EditText mOutcomeField;
 	private EditText mContextField;
-	private EditText mRepeatInterval;
+	private ImageButton mRepeatInterval;
 	
 	private Button mStartDateButton;
 	private Button mDueDateButton;
@@ -56,9 +52,11 @@ public class ActionFragment extends Fragment {
 	private static final String DIALOG_DATE = "date";
 	private static final String DIALOG_OR_DATE = "dialog_or_date";
 	private static final String DIALOG_TIME = "time";
+	private static final String DIALOG_REPEAT = "repeat";
 	private static final int REQUEST_DATE = 2;
 	private static final int REQUEST_DATE_OR_TIME = 1;
 	private static final int REQUEST_TIME = 3;
+	private static final int REQUEST_REPEAT_INFO = 4;
 	private static final int DUE_DATE = 0;
 	private static final int START_DATE = 1;
 	
@@ -233,37 +231,29 @@ public class ActionFragment extends Fragment {
 		});
 		
 		
-		mRepeatInterval = (EditText)v.findViewById(R.id.repeat_interval);
-		mRepeatInterval.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, 
-					int count) {
-				try{
-					int dayToMicrosec = 1000*60*60*24;
-					long interval = Integer.valueOf(c.toString()) * dayToMicrosec;
-					long end = interval * 3;
-					long now = new Date().getTime();
-					
-					mAction.makeActionRepeatable(new Date(interval), new Date(now + end));
-				}catch(Exception e){
-					Log.e("ActionFragment", "Error reading repeat input", e);
-				}
-				mChangesMade = true;
-			}
-			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after){
-				//This space intentionally left blank
-			}
-			
-			public void afterTextChanged(Editable c) {
-				//This also left blank
-			}
-		});
-		
 		
 		return;
 	}
 	
 	private void enableButtons(View v){
+		
+		mRepeatInterval = (ImageButton)v.findViewById(R.id.repeat_interval);
+		updateRepeatIntervalButton(mAction.getRepeatInterval());
+		mRepeatInterval.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				
+				RepeatPickerFragment repeatPicker = new RepeatPickerFragment();
+				repeatPicker.setTargetFragment(ActionFragment.this, REQUEST_REPEAT_INFO);
+				mDataFieldRequested = DUE_DATE;
+				repeatPicker.show(fm, DIALOG_REPEAT);
+				mChangesMade = true;
+			}
+		});
+		
+		
 		mStartDateButton = (Button)v.findViewById(R.id.action_start_date);
 		
 		mStartDateButton.setOnClickListener(new View.OnClickListener() {
@@ -418,10 +408,24 @@ public class ActionFragment extends Fragment {
 				mCallbacks.onActionUpdated();
 				break;
 				
+			case REQUEST_REPEAT_INFO:
+				int repeatInterval = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_INFO);
+				mActionLab.modifyRepeatInterval(repeatInterval, mAction);
+				
+				//Change the color of the button
+				updateRepeatIntervalButton(repeatInterval);
 			default:
 				break;
 		}
 	}	
+	
+	private void updateRepeatIntervalButton(int repeatInterval){
+		if(repeatInterval != 0){
+			mRepeatInterval.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+		} else {
+			mRepeatInterval.clearColorFilter();
+		}
+	}
 	
 	private Date combineDateAndTime(Date time, Date date){
 		

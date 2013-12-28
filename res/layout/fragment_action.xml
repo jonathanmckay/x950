@@ -21,20 +21,17 @@
         
         </EditText>
     
-        <EditText
+        <ImageButton
             android:id="@+id/repeat_interval"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/outcome_text_field"
             android:ems="10"
-            android:hint="@string/minutes_to_complete"
-            android:imeActionLabel="Save"
-            android:imeOptions="actionSend"
-            android:inputType="text" >
-
-        </EditText>
+           	android:src="@drawable/ic_action_refresh"
+           >
+        </ImageButton>
     </RelativeLayout>
 	<LinearLayout
 		android:layout_width="match_parent"

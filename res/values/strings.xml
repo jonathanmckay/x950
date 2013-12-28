@@ -31,4 +31,17 @@
 	<string name="next_five">Next Five View</string>
 	<string name="save_toast">Action Saved.</string>
 	<string name="pin_button">pin</string>
+	<string name="repeat_dialogue_title">Select Repeat Interval</string>
+	<string name="save_button">Save</string>
+	<string name="remove_button">Remove</string>
+	
+	<string-array
+        name="repeat_intervals">
+        <item>No Repetition</item>
+        <item>Every Day</item>
+        <item>Every Week</item>
+        <item>Every Month</item>
+        <item>Every Year</item>
+    </string-array>
+	
 </resources>
