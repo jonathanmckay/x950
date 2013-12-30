@@ -7,10 +7,7 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -26,7 +23,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,14 +48,6 @@ public class ActionListFragmentDSLV extends Fragment {
 	private Callbacks mCallbacks;
 
 	private EditText mSubtaskField;
-	
-	private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mPlanetTitles;
 	
 	public interface Callbacks{
 		void onActionSelected(Action a);
@@ -92,16 +80,12 @@ public class ActionListFragmentDSLV extends Fragment {
 		mAction = mActionLab.getRoot(); 
 		mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
 		mSubtaskTitle = null;
-		initializeDrawer();
+		
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
 		
 		
 	}
-	
-	private void initializeDrawer(){
-			}
-	
 	private void updateAdapter(){
 		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
 		mActionLab.checkForPendingActions(mAction);
@@ -205,7 +189,6 @@ public class ActionListFragmentDSLV extends Fragment {
 		setSubtitle();
 		//Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
 		
-		updateHomeButton();
 		return;
 	}
 	
@@ -327,14 +310,10 @@ public class ActionListFragmentDSLV extends Fragment {
 				? "Showing all actions" : null);
 	}
 	
-	//Returns whether at root or not. 
-	protected int onBackPressed() {
-		if(mAction == mActionLab.getRoot()){
-			return -1;
-		} else {
+	
+	protected Action onBackPressed() {
 			navigateUp();
-			return 0;
-		}
+			return mAction;
     }   
 	
 	private void navigateUp(){
@@ -343,19 +322,9 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateListToShowCurrentAction();
 	}
 	
-	public void updateHomeButton(){
-		if(!mAction.equals(mActionLab.getRoot())){
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
-		}
-		else{
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
-		}
-	}
-	
 	public View onCreateView(LayoutInflater inflater, ViewGroup parent, Bundle savedInstanceState){
 		View v = (inflater.inflate(R.layout.fragment_action_list, parent, false));
 		
-		updateHomeButton();
 		initializeSubtaskField(v);
 		
 		return v;
