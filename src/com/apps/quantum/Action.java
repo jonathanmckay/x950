@@ -8,6 +8,10 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
 import android.util.Log;
 
 public class Action {
@@ -132,16 +136,108 @@ public class Action {
 		
 	}
 	
+	private static String JSON_ID = "id";
+	private static String JSON_TITLE = "title";
+	private static String JSON_CONTEXT_NAME = "context_name";
+	private static String JSON_PARENT_ID = "parent_id";
+	private static String JSON_CREATED_DATE = "created_date";
+	private static String JSON_START_DATE = "start_date";
+	private static String JSON_MODIFIED_DATE= "modified_date";
+	private static String JSON_DUE_DATE= "due_date";
+	private static String JSON_REPEAT_INTERVAL= "repeat_interval";
+	private static String JSON_MINUTES_EXPECTED= "minutes_expect";
+	private static String JSON_MINUTES_ACTUAL= "minutes_actual";
+	private static String JSON_ACTION_STATUS= "action_status";
+	private static String JSON_PRIORITY= "priority";
+	private static String JSON_PINNED = "pinned";
+		
+	public Action(JSONObject json) throws JSONException {
+		//mParent must be initialized by ActionLab
+        mParent = null;
+		
+		mId = UUID.fromString(json.getString(JSON_ID));
+        mTitle = json.getString(JSON_TITLE);
+        mMinutesExpected = json.getInt(JSON_MINUTES_EXPECTED);
+        mMinutesActual = json.getInt(JSON_MINUTES_ACTUAL);
+        mActionStatus = json.getInt(JSON_ACTION_STATUS);
+        mContextName = json.getString(JSON_CONTEXT_NAME);
+        
+        mParentUUIDString = json.getString(JSON_PARENT_ID);
+        mPriority = json.getInt(JSON_PRIORITY);
+        mPinned = json.getBoolean(JSON_PINNED);
+        
+        mRepeatInterval = json.getInt(JSON_REPEAT_INTERVAL);
+        
+        if(json.has(JSON_CREATED_DATE)) mCreatedDate = new Date(json.getLong(JSON_CREATED_DATE));
+        if(json.has(JSON_DUE_DATE)) mDueDate = new Date(json.getLong(JSON_DUE_DATE));
+        if(json.has(JSON_MODIFIED_DATE)) mModifiedDate= new Date(json.getLong(JSON_MODIFIED_DATE));
+        if(json.has(JSON_START_DATE)) mStartDate= new Date(json.getLong(JSON_START_DATE));
+        
+        mChildren = initializeChildren();
+    }
+	public JSONObject toJSON() throws JSONException {
+        JSONObject json = new JSONObject();
+        json.put(JSON_ID, mId.toString());
+        json.put(JSON_TITLE, mTitle);
+        json.put(JSON_MINUTES_EXPECTED, mMinutesExpected);
+        json.put(JSON_MINUTES_ACTUAL, mMinutesActual);
+        json.put(JSON_ACTION_STATUS, mActionStatus);
+        json.put(JSON_PARENT_ID, mParentUUIDString);
+        json.put(JSON_PRIORITY, mPriority);
+        json.put(JSON_PINNED, mPinned);
+        json.put(JSON_REPEAT_INTERVAL, mRepeatInterval);
+        
+        if(mCreatedDate != null) json.put(JSON_CREATED_DATE, mCreatedDate.getTime());
+        if(mDueDate != null) json.put(JSON_DUE_DATE, mDueDate.getTime());
+        if(mModifiedDate != null) json.put(JSON_MODIFIED_DATE, mModifiedDate.getTime());
+        if(mStartDate!= null) json.put(JSON_START_DATE, mStartDate.getTime());
+                
+        return json;
+    }
+	
 	public void verifyStatusBasedOnChildren(){
+		if(mParent == null) throw new IllegalArgumentException();
+		
 		if(this.hasActiveTasks()){
-			mActionStatus = INCOMPLETE;
-		}else if(this.getPending().size() != 0){
-			mActionStatus = PENDING;
+			setActionStatus(INCOMPLETE);
+		}else if(this.getPending().size() != 0 && this.mActionStatus == INCOMPLETE){
+			setActionStatus(PENDING);
 		}else{
 			//Do nothing for now, force manual delete
 		}
-	return;
+		
+		return;
 	}
+	
+
+		public void setStartDate(Date startDate) {
+			
+			
+			mStartDate = startDate;
+			
+			if(mStartDate != null){
+				if(mStartDate.after(new Date())){
+					setActionStatus(PENDING);
+				} else if((mStartDate.before(new Date()) && mActionStatus == PENDING)){
+					setActionStatus(INCOMPLETE);
+				}
+			}
+		}
+
+		protected void setActionStatus(int actionStatus) {
+			if(actionStatus != mActionStatus){
+				mActionStatus = actionStatus;
+				
+				//Check for loops
+				if(getParent()!= null && !getParent().equals(this)){
+					
+					//Check for status changes up the tree
+					mParent.adopt(this);
+					
+				}
+			}
+		}
+
 	
 	private ArrayList<ArrayList<Action>> initializeChildren(){
 		ArrayList<ArrayList<Action>> children = new ArrayList<ArrayList<Action>>(OUTCOME_CATEGORIES);
@@ -160,15 +256,14 @@ public class Action {
 	}
 	
 	public void adopt(Action a){
+		
 		Action oldParent = a.getParent();
 		if(oldParent != null) oldParent.removeChild(a);
 		
 		a.setParent(this);
-		
-		
+				
 		ArrayList<Action> currentList = mChildren.get(a.getActionStatus());
 		a.setPriority(currentList.size());
-		
 		
 		//Log.d("ACTION", "Priority of " + String.valueOf(a.getPriority()));
 		
@@ -197,8 +292,6 @@ public class Action {
 				mChildren.get(listIndex).get(i).setPriority(i);
 			}
 		}
-		
-		verifyStatusBasedOnChildren();
 	}
 	
 	public void cancelRepeat(){
@@ -207,16 +300,7 @@ public class Action {
 	
 	public boolean equals(Action a){
 		return (this.getId().equals(a.getId())) ? true : false;
-	}
-	public Action peekStep(){
-		if(this.hasActiveTasks()){
-			return mChildren.get(0).get(0);
-		}
-		else return null;
-	}
-	
-	
-	
+	}	
 	
 	public static final int INCOMPLETE_ACTIONS_VIEW = 0;
 	public static final int ALL_ACTIONS_VIEW = 1;
@@ -247,16 +331,15 @@ public class Action {
 		}
 	}
 	
-	//I don't like this function, should rewrite
-	public void setStartDate(Date startDate) {
-		mStartDate = startDate;
-		if(mStartDate.after(new Date()) && mActionStatus == INCOMPLETE){
-			mActionStatus = PENDING;
-		} else if(mStartDate.before(new Date()) && mActionStatus == PENDING){
-			mActionStatus = INCOMPLETE;
-		}
-			
-		getParent().adopt(this);
+	private int getUnpinnedTop(ArrayList<Action> list){
+    	for(int i = 0; i < list.size(); i++){
+    		if(!list.get(i).isPinned()) return i;
+    	}
+    	return list.size();
+    }
+	
+	public void moveToUnpinnedFront(int list, int from){
+		moveWithinList(list, from, getUnpinnedTop(this.mChildren.get(list)));
 	}
 	
 	public void moveToEnd(int list, int from){
@@ -285,13 +368,14 @@ public class Action {
 		currentList.add(to, mChildren.get(list).remove(from));
 		
 	}
-	public Action firstStep(){
-		Action a = new Action();
-		a = this;
-		while(a.hasActiveTasks()){
-    		a = a.peekStep();
-    	}
-		return a;
+	
+	
+
+	public Action peekStep(){
+		if(this.hasActiveTasks()){
+			return mChildren.get(0).get(0);
+		}
+		else return null;
 	}
 	
 	
@@ -307,6 +391,7 @@ public class Action {
 		}
 		return output;
 	}
+	
 
 	public String toFileTextLine(){
 		StringBuilder sb = new StringBuilder();
@@ -340,8 +425,6 @@ public class Action {
 		sb.append("\t");
 		sb.append(String.valueOf(mRepeatInterval));
 		sb.append("\n");
-		
-		
 		return sb.toString();
 	}
 	
@@ -365,10 +448,6 @@ public class Action {
 
 	public int getActionStatus() {
 		return mActionStatus;
-	}
-
-	protected void setActionStatus(int actionStatus) {
-		mActionStatus = actionStatus;
 	}
 
 	public Date getModifiedDate() {

@@ -362,7 +362,6 @@ public class ActionFragment extends Fragment {
 				!mOutcomeTempName.equals(mAction.getParent().getTitle())){
 			mActionLab.updateParentInfo(mAction, mOutcomeTempName);
 		}
-		mActionLab.saveActions();
 	}	
 	
 	

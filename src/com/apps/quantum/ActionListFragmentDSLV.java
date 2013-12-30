@@ -7,7 +7,10 @@ import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -23,6 +26,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +52,14 @@ public class ActionListFragmentDSLV extends Fragment {
 	private Callbacks mCallbacks;
 
 	private EditText mSubtaskField;
+	
+	private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private String[] mPlanetTitles;
 	
 	public interface Callbacks{
 		void onActionSelected(Action a);
@@ -80,11 +92,15 @@ public class ActionListFragmentDSLV extends Fragment {
 		mAction = mActionLab.getRoot(); 
 		mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
 		mSubtaskTitle = null;
+		initializeDrawer();
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
 		
 		
 	}
+	
+	private void initializeDrawer(){
+			}
 	
 	private void updateAdapter(){
 		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
@@ -138,7 +154,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	    	
 	    	if(a.hasActiveTasks()){
 	    		//Update the status of the subtask
-	    		Action b = a.firstStep();
+	    		Action b = mActionLab.preview(a);
 	    		mActionLab.changeActionStatus(b, Action.COMPLETE);
 	    		
 	    		//Update the project location in the list
@@ -444,7 +460,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			
 			if(c.peekStep() != null){
 				
-				titleTextView.setText(c.getTitle() + " -> " + c.firstStep().getTitle());
+				titleTextView.setText(c.getTitle() + " -> " + mActionLab.preview(c).getTitle());
 			}else{
 				titleTextView.setText(c.getTitle());
 			}

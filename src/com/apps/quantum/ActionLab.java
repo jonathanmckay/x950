@@ -7,6 +7,7 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Stack;
 import java.util.UUID;
 
 import android.content.Context;
@@ -21,6 +22,7 @@ import com.dropbox.sync.android.DbxPath;
 public class ActionLab{
         private static final String TAG = "ActionLab";
         private static final String FILENAME = "Actions.txt";
+        private static final String JSON_OUTPUT_FILENAME = "actions_json.txt";
         private static final int COMPLETED = 1;
         private static final int NOT_COMPLETED = 0;
         
@@ -63,7 +65,7 @@ public class ActionLab{
         
         private ActionLab(Context appContext){
                 mAppContext = appContext;
-                mSerializer = new OutcomeSerializer(mAppContext, FILENAME);
+                mSerializer = new OutcomeSerializer(mAppContext, FILENAME, JSON_OUTPUT_FILENAME);
                 
                 mActionHash = new HashMap<UUID, Action>();
                 mTitleHash = new TitleMap();
@@ -218,6 +220,18 @@ public class ActionLab{
                     mActionHash.put(a.getId(), a);
                 }
     }
+    
+    public Action preview(Action parent){
+		Action a = new Action();
+		a = parent;
+		
+		while(a.hasActiveTasks()){
+    		checkForPendingActions(a);
+			a = a.peekStep();
+    	}
+		return a;
+	}
+    
     private void addAll(ArrayList<Action> actionList){
             mTempMap = new HashMap<UUID, Action>();
             for(Action a : actionList){
@@ -316,30 +330,39 @@ public class ActionLab{
         public void checkForPendingActions(Action a){
     		ArrayList<Action> pendingList = a.getChildren().get(Action.PENDING);
     		Date now = new Date();
+    		ArrayList<Action> repeatedActions= new ArrayList<Action>();
+    		
     		
     		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
     			Action current = it.next();
-    			if(current.getStartDate().before(now)){
+    			
+    			
+    			//Only bring up action if there are no subactions that are pending
+    			if(current.getStartDate().before(now) && current.getPending().isEmpty()){
+    				it.remove();
     				
     				//If Action is a repeated Action
     				if(current.getRepeatInterval() != 0){
-    					createRepeatedAction(current);
+    					repeatedActions.add(current);
     				}
-    				current.setActionStatus(Action.INCOMPLETE);
-    				it.remove();
     				
-    				ArrayList<Action> incompleteList = a.getIncomplete();
-    				a.getIncomplete().add(getUnpinnedTop(incompleteList), current);
+    				current.setActionStatus(Action.INCOMPLETE);
+    				
+    				a.moveToUnpinnedFront(Action.INCOMPLETE, a.getIncomplete().size() -1);		
+    				
+    			} else if (current.getStartDate().before(now)){
+    				for(Iterator<Action> it2 = pendingList.iterator(); it2.hasNext();){
+    					checkForPendingActions(it2.next());
+    				}
     			}
     		}
+    		
+    		for(Action r: repeatedActions){
+				createRepeatedAction(r);
+			}
+			
         }
-        private int getUnpinnedTop(ArrayList<Action> list){
-        	for(int i = 0; i < list.size(); i++){
-        		if(!list.get(i).isPinned()) return i;
-        	}
-        	return list.size();
-        }
-        
+               
     	
     	public void modifyRepeatInterval(int repeatInterval, Action a){
     		
@@ -379,19 +402,23 @@ public class ActionLab{
     	}
     	
     	private void createRepeatedAction(Action original){
-    		Action nextRepeat = createActionIn(original.getParent());
+    		Action nextRepeat = new Action();
+    		
     		
     		nextRepeat.setTitle(original.getTitle());
     		nextRepeat.setContextName(original.getContextName());
     		nextRepeat.setRepeatInterval(original.getRepeatInterval());
-    		nextRepeat.setMinutesExpected(original.getMinutesExpected());	
-    		nextRepeat.setParent(original.getParent());
-    		
+    		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
     		
     		Date nextStart = nextRepeatTime(original.getStartDate(), nextRepeat);
     		nextRepeat.setStartDate(nextStart);
     		nextRepeat.setDueDate(nextRepeatTime(nextStart, nextRepeat));
     		
+    		original.getParent().adopt(nextRepeat);
+    		mActionHash.put(nextRepeat.getId(), nextRepeat);
+    		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
+    		
+    		Log.d(TAG, nextStart.toGMTString());
     		//Keep creating repeated actions until there is only one that is pending. 
     		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
     			createRepeatedAction(nextRepeat);
@@ -407,6 +434,8 @@ public class ActionLab{
     	private Date nextRepeatTime(Date start, Action a){
     		Calendar calendar = Calendar.getInstance();
             calendar.setTime(start);
+            
+            Log.d(TAG, String.valueOf(a.getRepeatInterval()));
             
             switch(a.getRepeatInterval()){
     	        case REPEAT_DAY:

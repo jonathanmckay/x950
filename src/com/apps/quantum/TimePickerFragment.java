@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -14,7 +15,6 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
-import com.apps.quantum.R;
 
 public class TimePickerFragment extends DialogFragment {
 	public static final String EXTRA_TIME = "com.apps.quantum.time";
