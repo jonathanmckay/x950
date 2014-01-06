@@ -28,17 +28,19 @@ import android.widget.ImageButton;
 public class ActionFragment extends Fragment {
 	private Action mAction;
 	private ActionLab mActionLab;
+	private ActionReorderController mReorderController;
+	
 	private EditText mTitleField;
 	private EditText mMinutesField;
-	private EditText mOutcomeField;
 	private EditText mContextField;
 	private ImageButton mRepeatInterval;
+	private ImageButton mPinnedButton;
 	
 	private Button mStartDateButton;
 	private Button mDueDateButton;
 	private int mDataFieldRequested;
 	
-	private boolean mChangesMade;
+	
 	private ImageButton mDoneButton;
 	private ImageButton mCancelButton;
 	private ImageButton mSkipButton;
@@ -59,6 +61,8 @@ public class ActionFragment extends Fragment {
 	private static final int REQUEST_REPEAT_INFO = 4;
 	private static final int DUE_DATE = 0;
 	private static final int START_DATE = 1;
+	
+
 	
 	private Callbacks mCallbacks;
 	/*	Custom constructor that bundles an argument to a fragment,
@@ -104,16 +108,8 @@ public class ActionFragment extends Fragment {
 			mAction = mActionLab.getRoot();
 		}
 		mOutcomeTempName = null;
-		mChangesMade = false;
-		
-		//used for the up button
-		setHasOptionsMenu(true);
 		
 		
-	}
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.activity_fragment, menu);
 	}
 	
 	@Override
@@ -135,9 +131,8 @@ public class ActionFragment extends Fragment {
 	}
 	public void displayActionDetails(Action a){
 		mAction = a;
-		mTitleField.setText(mAction.getTitle());
 		mMinutesField.setText(String.valueOf(mAction.getMinutesExpected()));
-		mOutcomeField.setText(mAction.getParent().getTitle());
+		
 		mContextField.setText(mAction.getContextName());
 		
 		mStartDateButton.setText
@@ -151,23 +146,7 @@ public class ActionFragment extends Fragment {
 	}
 
 	private void enableTextFields(View v){
-		mTitleField = (EditText)v.findViewById(R.id.action_title);
-		mTitleField.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, 
-					int count) {
-				mActionLab.changeActionTitle(mAction, c.toString());
-				mChangesMade = true;
-			}
 			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after){
-				//This space intentionally left blank
-			}
-			
-			public void afterTextChanged(Editable c) {
-				
-			}
-		});
-		
 		mMinutesField = (EditText)v.findViewById(R.id.minutes_to_complete);
 		if(mAction.getMinutesExpected() != 0){
 			mMinutesField.setText(String.valueOf(mAction.getMinutesExpected()));
@@ -191,24 +170,6 @@ public class ActionFragment extends Fragment {
 			}
 		});
 	
-		mOutcomeField = (EditText)v.findViewById(R.id.outcome_text_field);
-		mOutcomeField.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, 
-					int count) {
-				mOutcomeTempName = c.toString();
-				mChangesMade = true;
-			}
-			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after){
-				//This space intentionally left blank
-			}
-			
-			public void afterTextChanged(Editable c) {
-				//Store the outcome in a temp field, will be saved when fragment paused.
-				
-			}
-		});
-	
 		mContextField = (EditText)v.findViewById(R.id.context_text_field);
 		mContextField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
@@ -218,7 +179,7 @@ public class ActionFragment extends Fragment {
 				}catch(Exception e){
 					//do nothing;
 				}
-				mChangesMade = true;
+				
 			}
 			
 			public void beforeTextChanged(CharSequence c, int start, int count, int after){
@@ -235,7 +196,25 @@ public class ActionFragment extends Fragment {
 		return;
 	}
 	
+	public void updatePinnedButton(){
+		if(mAction.isPinned()){
+			mPinnedButton.setColorFilter(Color.GREEN, PorterDuff.Mode.MULTIPLY);
+		} else {
+			mPinnedButton.clearColorFilter();
+		}
+	}
+	
 	private void enableButtons(View v){
+		mPinnedButton = (ImageButton)v.findViewById(R.id.pinned_toggle);
+		updatePinnedButton();
+		mPinnedButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				mAction.setPinned(!mAction.isPinned());
+				updatePinnedButton();
+			}
+		});
 		
 		mRepeatInterval = (ImageButton)v.findViewById(R.id.repeat_interval);
 		updateRepeatIntervalButton(mAction.getRepeatInterval());
@@ -249,7 +228,7 @@ public class ActionFragment extends Fragment {
 				repeatPicker.setTargetFragment(ActionFragment.this, REQUEST_REPEAT_INFO);
 				mDataFieldRequested = DUE_DATE;
 				repeatPicker.show(fm, DIALOG_REPEAT);
-				mChangesMade = true;
+				
 			}
 		});
 		
@@ -267,7 +246,7 @@ public class ActionFragment extends Fragment {
 				mDataFieldRequested = START_DATE;
 				timeOrDate.show(fm, DIALOG_OR_DATE);
 				
-				mChangesMade = true;
+				
 			}
 		});
 		
@@ -283,71 +262,7 @@ public class ActionFragment extends Fragment {
 				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
 				mDataFieldRequested = DUE_DATE;
 				timeOrDate.show(fm, DIALOG_OR_DATE);
-				mChangesMade = true;
-			}
-		});
-		
-		mDoneButton = (ImageButton)v.findViewById(R.id.done_button);
-		mDoneButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mTitleField.setPaintFlags((mAction.getActionStatus() == Action.INCOMPLETE)
-						? mTitleField.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG
-						: mTitleField.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 				
-				int newActionStatus = (mAction.getActionStatus() == Action.INCOMPLETE)
-						? Action.COMPLETE
-						: Action.INCOMPLETE;
-				
-				mActionLab.changeActionStatus(mAction, newActionStatus);
-				
-				mChangesMade = true;
-				mCallbacks.navigateUp();
-			}
-		});
-		
-		mCancelButton = (ImageButton)v.findViewById(R.id.cancel_button);
-		mCancelButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-				
-				Action actionToDelete = mAction;
-				
-				mAction = mAction.getParent();
-				
-				mActionLab.deleteAction(actionToDelete);
-				mOutcomeTempName = null;
-				mCallbacks.navigateUp();
-				
-				mChangesMade = true;
-				
-			}
-		});
-
-		mSkipButton = (ImageButton)v.findViewById(R.id.skip_button);
-		mSkipButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mAction.getParent().moveToEnd(mAction.getActionStatus(), mAction.getPriority());
-				
-				mCallbacks.navigateUp();
-				mChangesMade = true;
-			}
-		});
-		
-		mDemoteButton = (ImageButton)v.findViewById(R.id.demote_button);
-		mDemoteButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				mActionLab.changeActionStatus(mAction, Action.WISHLIST);
-				
-				mCallbacks.navigateUp();
-				mChangesMade = true;
 			}
 		});
 		
@@ -395,7 +310,7 @@ public class ActionFragment extends Fragment {
 				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
-				mChangesMade = true;
+			
 				mCallbacks.onActionUpdated();
 				break;
 				
@@ -403,7 +318,7 @@ public class ActionFragment extends Fragment {
 				Date newTime = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
 				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
-				mChangesMade = true;
+				
 				mCallbacks.onActionUpdated();
 				break;
 				

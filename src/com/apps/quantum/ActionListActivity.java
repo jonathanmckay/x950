@@ -4,6 +4,8 @@ package com.apps.quantum;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -18,16 +20,18 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
 public class ActionListActivity extends SingleFragmentActivity implements ActionListFragmentDSLV.Callbacks, ActionFragment.Callbacks{
-	 
+
+	public static final String PREFS_NAME = "MyPrefsFile";
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mPlanetTitles;
+    private String[] mMenuTitles;
 	boolean mAtRoot;
+	Action mAction;
 	
 		
 	
@@ -35,10 +39,20 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	
 	 protected void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.activity_threepane);
+	        
+	        
+	       
 
-	        mTitle = mDrawerTitle = getTitle();
-	        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
+	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+	        	SystemBarTintManager tintManager = new SystemBarTintManager(this);
+	        	tintManager.setStatusBarTintEnabled(true);
+	        	// Holo light action bar color is #DDDDDD
+	        	int actionBarColor = Color.parseColor("#DDDDDD");
+	        	tintManager.setStatusBarTintColor(actionBarColor);
+	        	}   
+	        setContentView(R.layout.activity_threepane);
+	        
+	        mMenuTitles = getResources().getStringArray(R.array.menu_titles);
 	        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 	        mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -46,7 +60,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
 	        // set up the drawer's list view with items and click listener
 	        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-	                R.layout.drawer_list_item, mPlanetTitles));
+	                R.layout.drawer_list_item, mMenuTitles));
 	        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
 	        // enable ActionBar app icon to behave as action to toggle nav drawer
@@ -58,37 +72,59 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        mDrawerToggle = new ActionBarDrawerToggle(
 	                this,                  /* host Activity */
 	                mDrawerLayout,         /* DrawerLayout object */
-	                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+	                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */ 
 	                R.string.drawer_open,  /* "open drawer" description for accessibility */
 	                R.string.drawer_close  /* "close drawer" description for accessibility */
 	                ) {
 	            public void onDrawerClosed(View view) {
-	                getActionBar().setTitle(mTitle);
+	                //getActionBar().setTitle(mTitle);
 	                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 	            }
 
 	            public void onDrawerOpened(View drawerView) {
-	                getActionBar().setTitle(mDrawerTitle);
+	                //getActionBar().setTitle(mDrawerTitle);
 	                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
 	            }
 	        };
 	        
 	        mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-	        /*if (savedInstanceState == null) {
-	            selectItem(0);
-	        }*/
+	        
+	        /*
+	        if(savedInstanceState != null){
+	        	mAction = ActionLab.get(this).getAction(
+	        			UUID.fromString(savedInstanceState.getString(CURRENT_ACTION_ID)));
+	        	
+	        } else if (mAction == null){
+	        	mAction = ;
+	        } */
+	        
+	        
+        	onActionSelected(ActionLab.get(this).getRoot());
+	        
 	    }
 	 
 	 
-	
+
+ 
 	 private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	        @Override
 	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-	            //selectItem(position);
+	            selectItem(position);
 	        }
 	    }
-	
+
+	    private void selectItem(int position) {
+	        mDrawerList.setItemChecked(position, true);
+	        FragmentManager fm = getSupportFragmentManager();
+	    	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.listFragment);
+	    	
+	    	listFragment.filterView(position);
+	    	
+	        mDrawerLayout.closeDrawer(mDrawerList);
+	    }
+	 
+	    
 	 public boolean onOptionsItemSelected(MenuItem item) {
          // The action bar home/up action should open or close the drawer.
          // ActionBarDrawerToggle will take care of this.
@@ -139,6 +175,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	
 	 public void onActionSelected(Action a){
 		 		//Only show the detail view for individual tasks. This may be modified later. 
+		 		mAction = a;
 		 		
 	    		if(a == ActionLab.get(this).getRoot()){
 	    			FragmentManager fm = getSupportFragmentManager();
@@ -206,7 +243,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
     	FragmentManager fm = getSupportFragmentManager();
     	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.listFragment);
     	Action destination = listFragment.onBackPressed();
-    	
+    	mAction = destination;
     	if(destination.equals(ActionLab.get(this).getRoot())) {
     		mAtRoot = true;
     	} else {
@@ -229,5 +266,33 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 		}
 	}
     
+    
+    /*
+    public void onSaveInstanceState(Bundle savedInstanceState){
+    	super.onSaveInstanceState(savedInstanceState);
+    	savedInstanceState.putString(CURRENT_ACTION_ID, mAction.getId().toString());
+    }
+    
+    public void onPause()
+    {
+    	super.onPause();
+    	SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
+    	
+    	SharedPreferences.Editor editor = preferences.edit();  // Put the values from the UI
+    	
+    	editor.putString(CURRENT_ACTION_ID, mAction.getId().toString()); // value to store
+    	  
+    	editor.commit();
+    }
+    
+    public void onResume(){
+    	super.onResume();
+    	SharedPreferences sp = getSharedPreferences(PREFS_NAME, 0);
+    	String ActionUUID = sp.getString(CURRENT_ACTION_ID, "");
+    	if(!ActionUUID.equals("")){
+    		mAction = ActionLab.get(this).getAction(UUID.fromString(ActionUUID));
+        	onActionSelected(mAction);
+    	}
+    }*/
     
 }

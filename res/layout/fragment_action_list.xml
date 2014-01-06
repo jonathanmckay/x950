@@ -6,46 +6,110 @@
 	 xmlns:dslv="http://schemas.android.com/apk/res/com.apps.quantum"
      android:layout_width="fill_parent"
      android:layout_height="fill_parent"
-     android:orientation="vertical">
-    
-        <EditText
-	        android:id="@+id/new_subtask"
-	        android:inputType="text"
-	        android:layout_width="match_parent"
-	        android:layout_height="wrap_content"
-	        android:hint="@string/new_action_hint" 
-	        android:imeOptions="actionSend" 
-	        android:layout_margin="10dp"
-	        android:paddingLeft="10dp"
-		    android:paddingRight="10dp"
-	        android:imeActionLabel="Save"
-	        
-	        ></EditText>
+     android:orientation="vertical"
+     >
+     
+        
+    	<FrameLayout
+    	    android:layout_width= "match_parent"
+    	    android:layout_height="wrap_content"
+    	  	android:paddingLeft="15dp"
+    	  	android:paddingRight="15dp"
+    	    >
+    	    <ImageView
+			      android:id="@+id/new_action_filler"
+			      android:layout_width="wrap_content"
+			      android:layout_height="fill_parent"
+			      android:layout_gravity="left|center_vertical"
+			      android:background="@drawable/drag" />
+    	    
+    	    <TextView
+    	        android:id="@+id/new_action_hint_background"
+    	        style="@style/TitleText"
+    	        android:text="@string/new_action_hint"
+    	        android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center_horizontal|center_vertical"
+			    android:gravity="center_horizontal"
+    	        android:textColor="#FFCCCCCC"
+    	        android:focusable="false"
+    	        android:clickable="false"
+    	        ></TextView>
+    	     
+    	    <RelativeLayout
+    	        android:layout_width= "match_parent"
+    	    	android:layout_height="match_parent"
+    	    	android:gravity="left|center_vertical"
+    	        >	
+    	      <ImageButton
+    	        android:id="@+id/new_subtask_icon"
+    	        style="@style/BorderlessButton"
+    	        android:layout_centerVertical="true"
+    	        android:background="?android:attr/selectableItemBackground"
+    	        android:src="@drawable/ic_action_new"
+    	        android:ellipsize="start"
+    	        android:focusable="false"
+    	        android:clickable="false"
+    	        android:text="new_action" />
+
+    	      <EditText
+    	         android:id="@+id/new_subtask"
+    	         style="@style/TitleText"
+    	         android:paddingLeft="10dp"
+    	         android:layout_toRightOf="@+id/new_subtask_icon"
+    	         android:layout_width="wrap_content"
+    	         android:layout_height="wrap_content"
+    	         android:layout_centerVertical="true"
+    	         android:background="#00000000"
+    	        
+    	         android:ems="10"
+    	         android:imeActionLabel="Save"
+    	         android:imeOptions="actionSend"
+    	         android:inputType="text" >
+    	      </EditText>
+    	      </RelativeLayout>
+    	    
+    	</FrameLayout>
+    	<LinearLayout
+    	   android:paddingLeft="15dp"
+    	   android:paddingRight="15dp"
+    	   android:orientation="vertical"
+    	   android:layout_height="wrap_content"
+    	   android:layout_width="fill_parent"
+    	   >
+    	    
+    	 <View 
+    	   
+	       android:background="#FFCCCCCC" 
+	       android:layout_height="1dp" 
+	       android:layout_width="fill_parent"/>
+       </LinearLayout>
  
         
 	    <com.mobeta.android.dslv.DragSortListView
 		    android:id="@+id/listview"
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
-		    android:layout_margin="10dp"
-		    android:dividerHeight="5dp"
+		    android:dividerHeight="1dp"
 		    android:paddingBottom="0dp"
-		    android:paddingLeft="10dp"
-		    android:paddingRight="10dp"
+		    android:paddingLeft="15dp"
+		    android:paddingRight="15dp"
 		    android:paddingTop="0dp"
 		    dslv:collapsed_height="2dp"
 		    dslv:drag_enabled="true"
-		    dslv:drag_handle_id="@drawable/drag" 
+		    dslv:drag_handle_id="@id/action_drag_handle" 
 		    dslv:drag_scroll_start="0.33"
 		    dslv:drag_start_mode="onMove"
 		    dslv:float_alpha="0.6"
 		    dslv:max_drag_scroll_speed="3.0"
-		    dslv:remove_enabled="true"
-		    dslv:remove_mode="flingRemove"
+		    dslv:swipe_enabled="true"
+		    dslv:swipe_mode="swipe"
 		    dslv:slide_shuffle_speed="0.3"
 		    dslv:sort_enabled="true"
 		    dslv:track_drag_sort="false"
-		    dslv:use_default_controller="true" />
+		    dslv:use_default_controller="true"
+		    dslv:back_view_id="@id/back"
+		    dslv:front_view_id="@id/front" />
 	  
 	  	
  	</LinearLayout>

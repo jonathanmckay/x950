@@ -3,66 +3,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/ltGrey"
+    >
     
-    <RelativeLayout 
+    <LinearLayout 
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         
-    <EditText
-        android:id="@+id/outcome_text_field"
-        android:layout_width="311dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-       	android:layout_alignParentTop="true"
+        <ImageButton
+            android:id="@+id/pinned_toggle"
+            style="@style/QuarterButton"
+            android:layout_height="wrap_content"
+           	android:layout_weight="1"
+           	android:src="@drawable/ic_pin"
+           ></ImageButton>
         
-        android:ems="10"
-        android:hint="@string/outcome_text" >
         
-        </EditText>
-    
+        <Button
+           android:id="@+id/action_start_date"
+        	style="@style/QuarterButton"
+           android:layout_height="wrap_content"
+           android:layout_weight="2"></Button>
+      	
+      	<Button
+           android:id="@+id/action_due_date"
+           style="@style/QuarterButton"
+           android:layout_weight="2" ></Button>
+        
         <ImageButton
             android:id="@+id/repeat_interval"
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/outcome_text_field"
-            android:ems="10"
+            style="@style/QuarterButton"
+           	android:layout_weight="1"
            	android:src="@drawable/ic_action_refresh"
            >
         </ImageButton>
-    </RelativeLayout>
-	<LinearLayout
-		android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-       <EditText
-           android:id="@+id/action_title"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:hint="@string/action_title_hint"
-           android:imeActionLabel="Save"
-           android:imeOptions="actionSend"
-           android:inputType="text" >
-</EditText>
-    </LinearLayout>     
+    </LinearLayout>
+	
     
 	<LinearLayout 
 	    android:layout_width="match_parent"
         android:layout_height="wrap_content"> 
 	    
-      	<Button
-           android:id="@+id/action_start_date"
-           android:layout_width="0dp"
-           android:layout_weight="1"
-           android:layout_height="wrap_content"></Button>
-      	
-      	<Button
-           android:id="@+id/action_due_date"
-           android:layout_width="0dp"
-           android:layout_height="wrap_content"
-           android:layout_weight="1" ></Button>
+      
       	
 	</LinearLayout>
     <RelativeLayout
@@ -89,43 +73,5 @@
             android:hint="@string/context_text" ></EditText>	
     </RelativeLayout>
 	
-	<LinearLayout 
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal" >
-        
-    	<ImageButton
-        android:id="@+id/cancel_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_action_cancel"
-        ></ImageButton>
-
-    	<ImageButton
-        android:id="@+id/demote_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_action_expand"></ImageButton>
-
-    	<ImageButton
-        android:id="@+id/skip_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_action_next_item"></ImageButton>
-    	<ImageButton
-        android:id="@+id/done_button"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:src="@drawable/ic_action_accept"></ImageButton>
-	</LinearLayout>
-	
-	
-	
-        
-     
-     
+	 
 </LinearLayout>

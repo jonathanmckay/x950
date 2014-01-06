@@ -23,7 +23,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.RadioButton;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,17 +37,20 @@ public class ActionListFragmentDSLV extends Fragment {
 	static final int REQUEST_LINK_TO_DBX = 0;
 	private Action mAction;
 	private ActionLab mActionLab;
+	private ActionReorderController mReordCtrl;
 	private String mSubtaskTitle;
-	
-	private MenuItem mPinnedMenu;
+	private MenuItem mToggleMenuItem;
+	private MenuItem mEditTitle;
 	
 	private DbxAccountManager mDbxAcctMgr;
 	private int mActionViewMode;
 	private DragSortListView mListView;
 	private ActionAdapter mAdapter;
 	private Callbacks mCallbacks;
+	private boolean mDetailVisible;
 
 	private EditText mSubtaskField;
+	private EditText mTitleEdit;
 	
 	public interface Callbacks{
 		void onActionSelected(Action a);
@@ -77,8 +80,10 @@ public class ActionListFragmentDSLV extends Fragment {
 				"588rm6vl0oom62h", "3m69jjskzcfcssn");
 		
 		mActionLab = ActionLab.get(getActivity());
+		mReordCtrl = ActionReorderController.get(getActivity());
+		
 		mAction = mActionLab.getRoot(); 
-		mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
+		mActionViewMode = Action.TOP_FIVE_VIEW;
 		mSubtaskTitle = null;
 		
 		setHasOptionsMenu(true);
@@ -86,27 +91,39 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		
 	}
+	
+	
 	private void updateAdapter(){
-		mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
-		mActionLab.checkForPendingActions(mAction);
+		boolean firstTimeOpening = false;
+		if(mListView == null){
+			firstTimeOpening = true;
+			mListView = (DragSortListView) getActivity().findViewById(R.id.listview);
+		}
 		
+		mActionLab.checkForPendingActions(mAction);
 		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
 		mListView.setAdapter(mAdapter);
-				
+		
+	
+		if(firstTimeOpening){
+			setListeners();
+		}
+	}
+	
+	private void setListeners(){
 		mListView.setDropListener(onDrop);
-	    mListView.setRemoveListener(onRemove);
+	    mListView.setSwipeListener(onSwipe);
 	    mListView.setOnItemClickListener(onClick);
-
-	    DragSortController controller = new DragSortController(mListView);
+	    DragSortController controller = new DragSortController(mListView, R.id.action_drag_handle, 
+	    		DragSortController.ON_DOWN, DragSortController.FLING_REMOVE, 0, R.id.back);
 	    controller.setDragHandleId(R.id.action_drag_handle);
-	    controller.setRemoveEnabled(true);
+	    controller.setSwipeEnabled(true);
 	    controller.setSortEnabled(true);
 	    controller.setDragInitMode(1);
 	    mListView.setFloatViewManager(controller);
 	    mListView.setOnTouchListener(controller);
 	    mListView.setDragEnabled(true);
-		
 	}
 	
 	private DragSortListView.DropListener onDrop = new DragSortListView.DropListener()
@@ -114,55 +131,16 @@ public class ActionListFragmentDSLV extends Fragment {
 	    @Override
 	    public void drop(int from, int to)
 	    {
-	        if (from != to)
-	        {
-	            Action item = mAdapter.getItem(from);
-	            mAction.moveWithinList(Action.INCOMPLETE, from, to);
-	            
-	            mAdapter.remove(item);
-	            mAdapter.insert(item, to); 
-	            
-	            mAdapter.notifyDataSetChanged();
-	            
-	        }
+	    	mReordCtrl.moveWithinAdapter(mAdapter, from, to);
 	    }
 	};
 	
-	private DragSortListView.RemoveListener onRemove = new DragSortListView.RemoveListener()
+	private DragSortListView.SwipeListener onSwipe = new DragSortListView.SwipeListener()
 	{
 	    @Override
-	    public void remove(int position)
+	    public void swipe(int position)
 	    {
-	    	boolean actionMoved = false;
-	    	Action a = mAdapter.getItem(position);
-	    	
-	    	if(a.hasActiveTasks()){
-	    		//Update the status of the subtask
-	    		Action b = mActionLab.preview(a);
-	    		mActionLab.changeActionStatus(b, Action.COMPLETE);
-	    		
-	    		//Update the project location in the list
-	    		if(!a.isPinned()){
-	    			a.getParent().moveToEnd(a.getActionStatus(), position);
-	    			actionMoved = true;
-	    		}
-	    		
-	    	} else {
-	    		mAdapter.remove(a);
-	    		mActionLab.changeActionStatus(a,  Action.COMPLETE);
-	    		actionMoved = true;
-	    	}
-	    	    	
-	    	int count = mAdapter.getCount();
-	    	
-	    	ArrayList<Action> incompleteList = mAction.getActions(Action.INCOMPLETE);
-	    	
-	    	if(count < incompleteList.size() && actionMoved){
-	    		mAdapter.insert(incompleteList.get(count), count);
-	    	}
-	    	
-	    	
-	    	mAdapter.notifyDataSetChanged();
+	    	mReordCtrl.changeActionStatus(mAdapter, position, Action.COMPLETE);
 	    }
 	};
 	
@@ -186,30 +164,13 @@ public class ActionListFragmentDSLV extends Fragment {
 		getActivity().invalidateOptionsMenu();
 		
 		setTitle();
-		setSubtitle();
+		updateTitleEdit();
 		//Log.d(TAG, " Set List mAdapter to " + mAction.getTitle());
 		
 		return;
 	}
 	
-	private void setTitle(){
-		if(mAction.equals(mActionLab.getRoot())){
-			if(mActionViewMode == Action.TOP_FIVE_ACTIONS_VIEW){
-				getActivity().setTitle(R.string.app_name);
-			} else {
-				getActivity().setTitle("What's Next");
-			}
-		} else {
-			getActivity().setTitle(mAction.getTitle());
-		}
-	}
-	private void setSubtitle(){
-		if(mActionViewMode == Action.ALL_ACTIONS_VIEW){
-			getActivity().getActionBar().setSubtitle(R.string.subtitle);
-		} else {
-			getActivity().getActionBar().setSubtitle(null);
-		}
-	}
+	
 	
 	@Override
 	public void onResume(){
@@ -223,30 +184,73 @@ public class ActionListFragmentDSLV extends Fragment {
 		super.onCreateOptionsMenu(menu, inflater);
 		inflater.inflate(R.menu.fragment_action_list, menu);
 		
+		mToggleMenuItem = menu.findItem(R.id.menu_item_detail_toggle);
+		mEditTitle= menu.findItem(R.id.add);
+		
+		updateTitleEdit();
+		
 		if(mAction.equals(mActionLab.getRoot())) {
-		    menu.findItem(R.id.menu_item_detail_toggle).setVisible(false);
-		    menu.findItem(R.id.menu_item_pin).setVisible(false);
+		   mToggleMenuItem.setVisible(false);
+		   mEditTitle.setVisible(false);
+		   
 		} else {
-		   menu.findItem(R.id.menu_item_detail_toggle).setVisible(true);
-		   menu.findItem(R.id.menu_item_pin).setVisible(true);
+			mToggleMenuItem.setVisible(true);
+			
+			
+			
+			if(mAction.hasChildren()){
+				mDetailVisible = false;
+			} else {
+				mDetailVisible = true;
+			}
+		
+			updateDetailsToggle();
 		}
-		mPinnedMenu = menu.findItem(R.id.menu_item_pin);
-		updatePinnedIcon();
 		
 	}
-	public void updatePinnedStatus(){
-		//I would like to redo this in action.java so that it is consisent but doesn't overlap. 
-		if(mAction.isPinned()){
-			ArrayList<Action> list = mAction.getParent().getChildren().get(mAction.getActionStatus());
-			int index = list.indexOf(mAction);
-			mAction.getParent().moveToFront(mAction.getActionStatus(), index);
-		}
-		updatePinnedIcon();
+	
+	private void updateTitleEdit(){
+		mTitleEdit = (EditText) mEditTitle.getActionView().findViewById(R.id.title);
+		mTitleEdit.setText(mAction.getTitle());
+		
+		mTitleEdit.addTextChangedListener(new TextWatcher() {
+			public void onTextChanged(CharSequence c, int start, int before, 
+					int count) {
+				mActionLab.changeActionTitle(mAction, c.toString());
+				
+			}
+			
+			public void beforeTextChanged(CharSequence c, int start, int count, int after){
+				//This space intentionally left blank
+			}
+			
+			public void afterTextChanged(Editable c) {
+				
+			}
+		});
 	}
 	
-	public void updatePinnedIcon(){
-		mPinnedMenu.setIcon(mAction.isPinned() ? R.drawable.ic_action_important 
-				: R.drawable.ic_action_not_important);
+	
+	private void setTitle(){
+		if(mAction.equals(mActionLab.getRoot())){
+			getActivity().setTitle("What's Next");
+		} else if (mAction.hasChildren()){
+			getActivity().setTitle(mAction.getTitle());
+		} else {
+			getActivity().setTitle(null);
+		}
+	}
+	
+	public void updateDetailsToggle(){
+		if(mDetailVisible){
+			mToggleMenuItem.setIcon(R.drawable.ic_action_collapse);
+			getActivity().setTitle(null);
+			mEditTitle.setVisible(true);
+		} else {
+			mToggleMenuItem.setIcon(R.drawable.ic_action_expand);
+			getActivity().setTitle(mAction.getTitle());
+			mEditTitle.setVisible(false);
+		}
 	}
 
 	
@@ -259,12 +263,40 @@ public class ActionListFragmentDSLV extends Fragment {
 			navigateUp();
 			updateAdapter();
             return true;	
-		case R.id.menu_item_pin:
-			mAction.setPinned(mAction.isPinned() ? false : true);
-			updatePinnedStatus();
-			
+		
+		case R.id.menu_item_detail_toggle:
+			mCallbacks.onDetailViewToggled(mAction);
+			mDetailVisible = !mDetailVisible;
+			updateDetailsToggle();
 			return true;
-		case R.id.menu_item_dropbox:
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
+	
+	//menuPosition is based on the Array in Strings
+	public void filterView(int menuPosition){
+		switch (menuPosition){
+		case 0:
+			mActionViewMode = Action.TOP_FIVE_VIEW;
+			break;
+		case 1:
+			mActionViewMode = Action.INCOMPLETE;
+			break;
+		case 2:
+			mActionViewMode = Action.PENDING;
+			break;
+		case 3:
+			mActionViewMode = Action.WISHLIST;
+			break;
+		case 4:
+			mActionViewMode = Action.COMPLETE;
+			break;
+		case 5:
+			mActionLab.deleteAllActions();
+			updateAdapter();
+			break;
+		case 6: 
 			if(mDbxAcctMgr.hasLinkedAccount()){ 
 				mActionLab.syncDropBox(mDbxAcctMgr);
 				mAction = mActionLab.getRoot();
@@ -274,42 +306,18 @@ public class ActionListFragmentDSLV extends Fragment {
 			} else {
 				mDbxAcctMgr.startLink(getActivity(), REQUEST_LINK_TO_DBX);
 			}
-			return true;
-			
-		case R.id.menu_item_remove_all:
-			mActionLab.deleteAllActions();
-			updateAdapter();
-			return true;
-			
-		case R.id.menu_item_toggle_completed:
-			mActionViewMode = (mActionViewMode != Action.ALL_ACTIONS_VIEW) 
-				? Action.ALL_ACTIONS_VIEW
-				: Action.INCOMPLETE_ACTIONS_VIEW;
-			
-			updateSubtitle();
-			updateAdapter();
-			
-			Log.d(TAG, " View All Actions was Toggled");
-			return true;
-			
-		case R.id.menu_item_detail_toggle:
-			mCallbacks.onDetailViewToggled(mAction);
-			return true;
-		
-		case R.id.menu_item_next_five:
-			mActionViewMode = Action.TOP_FIVE_ACTIONS_VIEW;
-			updateSubtitle();
-			updateAdapter();
-			return true;
+			break;
 		default:
-			return super.onOptionsItemSelected(item);
+			break;
 		}
+		
+		if(menuPosition >= 0 && menuPosition < 5){
+			updateAdapter();
+		}
+		return;
+		
 	}
-	private void updateSubtitle(){
-		getActivity().getActionBar().setSubtitle((mActionViewMode == Action.ALL_ACTIONS_VIEW)
-				? "Showing all actions" : null);
-	}
-	
+		
 	
 	protected Action onBackPressed() {
 			navigateUp();
@@ -336,6 +344,14 @@ public class ActionListFragmentDSLV extends Fragment {
 		mSubtaskField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
 					int count) {
+				
+				 if (c.length() > 0){
+		               // position the text type in the left top corner
+		               mSubtaskField.setBackgroundColor(Color.WHITE);
+		          }else{
+		               // no text entered. Center the hint text.
+		        	  mSubtaskField.setBackgroundColor(Color.TRANSPARENT);
+		          }
 				try{
 					mSubtaskTitle = c.toString();
 					Log.d(TAG, c.toString() + " entered");
@@ -410,7 +426,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 	}
 	
-	private class ActionAdapter extends ArrayAdapter<Action>{
+	protected class ActionAdapter extends ArrayAdapter<Action>{
 		
 		public ActionAdapter(ArrayList<Action> Actions){
 			super(getActivity(),0,Actions);
@@ -424,51 +440,130 @@ public class ActionListFragmentDSLV extends Fragment {
 				convertView = getActivity().getLayoutInflater().inflate(R.layout.list_item_action, null);
 			}
 			
+			/*View backView = convertView.findViewById(R.id.back);
+			backView.setVisibility(View.INVISIBLE);
+			*/
 			Action c = getItem(position);
 			TextView titleTextView = (TextView)convertView.findViewById(R.id.action_list_item_titleTextView);
+			TextView outcomeTextView = (TextView)convertView.findViewById(R.id.action_list_outcome);
 			
 			if(c.peekStep() != null){
-				
-				titleTextView.setText(c.getTitle() + " -> " + mActionLab.preview(c).getTitle());
+				outcomeTextView.setText(c.getTitle() + "  ↴");
+				titleTextView.setText(mActionLab.preview(c).getTitle());
 			}else{
 				titleTextView.setText(c.getTitle());
+				outcomeTextView.setText(null);
 			}
+			
 			int actionStatus = c.getActionStatus();
+			TextView dateTextView = (TextView)convertView.findViewById(R.id.action_list_item_dateTextView);
+			
 			switch(actionStatus){
 				case Action.COMPLETE:
 					titleTextView.setPaintFlags(
 					titleTextView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 					titleTextView.setTextColor(Color.BLACK);
 					
+					if(c.getModifiedDate() != null){
+					dateTextView.setText(new StringBuilder("Finished ")
+						.append(android.text.format.DateFormat.format("MMM dd", c.getModifiedDate()).toString()));
+					} else {
+						dateTextView.setText(null);
+					}
+					
+					
 					break;
 				case Action.PENDING:
 					titleTextView.setTextColor(Color.GRAY);
 					titleTextView.setPaintFlags(
 							titleTextView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
+					
+					if(c.getStartDate() != null){
+					dateTextView.setText(new StringBuilder("Starts ")
+					.append(android.text.format.DateFormat.format("MMM dd", c.getStartDate()).toString()));
+					} else {
+						dateTextView.setText(null);
+					}
+					
 					break;
 				default:
 					titleTextView.setPaintFlags(
 					titleTextView.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
 					titleTextView.setTextColor(Color.BLACK);
-						break;
+					
+					if(c.getDueDate() != null){
+					dateTextView.setText(new StringBuilder("Due ")
+						.append(android.text.format.DateFormat.format("MMM dd", c.getDueDate()).toString()));
+					} else {
+						dateTextView.setText(null);
+					}
+					break;
 			}
-			
-			TextView dateTextView = (TextView)convertView.findViewById(R.id.action_list_item_dateTextView);
-			dateTextView.setText(android.text.format.DateFormat.format("MM.dd", c.getCreatedDate()).toString());
-			
+						
 			TextView minutesToComplete = (TextView)convertView.findViewById(R.id.action_list_minutes_to_complete);
-			minutesToComplete.setText(String.valueOf(c.getMinutesExpected()));
+			
+			int minutes = c.getMinutesExpected();
+			minutesToComplete.setText((minutes == 0) ? null : String.valueOf(minutes));
 			
 			TextView context = (TextView)convertView.findViewById(R.id.action_list_context);
 			context.setText(c.getContextName());
+			if(c.getContextName() == "" || c.getContextName() == null) context.setText(null);
 			
-			RadioButton pinned = (RadioButton)convertView.findViewById(R.id.pinned_indicater);
-			pinned.setChecked(c.isPinned());
+			TextView pinned = (TextView)convertView.findViewById(R.id.pinned_indicator);
+			if(c.isPinned()) pinned.setText("✪   "); 
+			else pinned.setText(null);
 			
+			initializeSwipeButtons(position, convertView, parent);
 			
 			return convertView;
 		}
 		
+		public void initializeSwipeButtons(int position, View v, ViewGroup parent){
+			
+	
+			ImageButton cancelButton = (ImageButton)v.findViewById(R.id.cancel_button);
+			ImageButton skipButton = (ImageButton)v.findViewById(R.id.skip_button);
+			ImageButton demoteButton = (ImageButton)v.findViewById(R.id.demote_button);
+			ImageButton pinButton = (ImageButton)v.findViewById(R.id.pin_button);
+			
+			cancelButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					final int position = mListView.getPositionForView((View) v.getParent());
+					mReordCtrl.removeAction(mAdapter, position);
+				}
+			});
+			
+			skipButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					final int position = mListView.getPositionForView((View) v.getParent());
+					mReordCtrl.moveToEnd(mAdapter, position);
+					
+				}
+			});
+			
+			demoteButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					final int position = mListView.getPositionForView((View) v.getParent());
+					mReordCtrl.changeActionStatus(mAdapter, position, Action.WISHLIST);
+				}
+			});
+			
+			pinButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					final int position = mListView.getPositionForView((View) v.getParent());
+					Action a = mAdapter.getItem(position);
+					a.setPinned(true);
+					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
+				}
+			});
+		}
 	}
 	
 	public void onPause() {

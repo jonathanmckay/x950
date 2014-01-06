@@ -123,10 +123,17 @@ public class Action {
 			mPriority = -1;
 		}
 		try {
-			this.mDueDate = toJavaDate(tokens[13]);
+			if(!tokens[13].equals("") && !(tokens[13] == null)){
+				this.mDueDate = toJavaDate(tokens[13]);
+			}
 		} catch (Exception e){
-			this.mDueDate = null;
-		}try{
+			this.mDueDate = null;	
+		}
+		if(mDueDate != null){
+			if(mDueDate.equals(mStartDate) || mDueDate.before(new Date())) mDueDate = null;
+		}
+		
+		try{
 			this.mRepeatInterval = Integer.parseInt(tokens[14]);
 		} catch (Exception e){
 			this.mRepeatInterval = 0;
@@ -236,6 +243,7 @@ public class Action {
 					
 				}
 			}
+			mModifiedDate = new Date();
 		}
 
 	
@@ -302,29 +310,18 @@ public class Action {
 		return (this.getId().equals(a.getId())) ? true : false;
 	}	
 	
-	public static final int INCOMPLETE_ACTIONS_VIEW = 0;
-	public static final int ALL_ACTIONS_VIEW = 1;
-	public static final int TOP_FIVE_ACTIONS_VIEW = 2;
+	public static final int TOP_FIVE_VIEW = 4;
 	
 	public ArrayList<Action> getActions(int viewSetting){
-		if(viewSetting == ALL_ACTIONS_VIEW){
-			ArrayList<Action> output = new ArrayList<Action>();
-			for(ArrayList<Action> list : getChildren()){
-				output.addAll(list);
-			}
-			return output;
-			
-		} else if(viewSetting == INCOMPLETE_ACTIONS_VIEW){
-			return getIncomplete();
-			
-		} else if(viewSetting == TOP_FIVE_ACTIONS_VIEW){
+		if(viewSetting >= 0 && viewSetting < 4){
+			return this.getChildren().get(viewSetting);
+		} else if(viewSetting == TOP_FIVE_VIEW){
 			ArrayList<Action> output = new ArrayList<Action>();
 			ArrayList<Action> fullList = getIncomplete();
 			for(int i = 0; i < 5 && i < fullList.size() ; i++){
 				output.add(fullList.get(i));
 			}
 			return output;
-			
 		} else {
 			Log.e("getActions", "getActions has been passed an illegal argument");
 			return null;
@@ -426,6 +423,10 @@ public class Action {
 		sb.append(String.valueOf(mRepeatInterval));
 		sb.append("\n");
 		return sb.toString();
+	}
+	
+	public ArrayList<Action> getContainingList(){
+		return getParent().getChildren().get(this.mActionStatus);
 	}
 	
 	
@@ -579,6 +580,13 @@ public class Action {
 
 	public void setPinned(boolean pinned) {
 		mPinned = pinned;
+		
+		if(isPinned()){
+			ArrayList<Action> list = getParent().getChildren().get(getActionStatus());
+			int index = list.indexOf(this);
+			getParent().moveToFront(getActionStatus(), index);
+		}
+		
 	}
 
 

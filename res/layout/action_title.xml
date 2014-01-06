@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:addStatesFromChildren="true"
+    android:focusable="true"
+    android:gravity="center"
+   >
+
+<EditText 
+    android:id="@+id/action_address_bar"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:hint="Action title hint"
+    android:imeOptions="actionSearch"
+    android:inputType="textUri" >
+</EditText>
+</LinearLayout>

@@ -1,62 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+    android:tag="list_item"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    
+    <LinearLayout 
+    android:id="@+id/back"
+    android:tag="back"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal" >
+    
+    	<ImageButton
+        android:id="@+id/cancel_button"
+        android:tag="cancel_button"
+        style="@style/QuarterButton"
+        android:src="@drawable/ic_action_cancel"
+        ></ImageButton>
+
+    	<ImageButton
+        android:id="@+id/demote_button"
+        android:tag="demote_button"
+        style="@style/QuarterButton"
+        android:src="@drawable/ic_action_download"></ImageButton>
+
+    	<ImageButton
+        android:id="@+id/skip_button"
+        android:tag="skip_button"
+        style="@style/QuarterButton"
+        android:src="@drawable/ic_action_fast_forward"></ImageButton>
+    	<ImageButton
+        android:id="@+id/pin_button"
+        android:tag="pin_button"
+        style="@style/QuarterButton"
+        android:src="@drawable/ic_pin"></ImageButton>
+	</LinearLayout>
+    
+
+
+<RelativeLayout 
+    android:id="@+id/front"
+    android:tag="front"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
 	android:descendantFocusability="blocksDescendants"
     android:background="@drawable/background_activated" >
-
-<TextView
-    android:id="@+id/action_list_item_titleTextView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:text="Action title"
-    android:textStyle="bold" />
-
-<TextView
-    android:id="@+id/action_list_item_dateTextView"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentLeft="true"
-    android:layout_below="@+id/action_list_item_titleTextView"
-    android:paddingLeft="4dp"
-    android:paddingRight="4dp"
-    android:text="Action date" />
-
-  <ImageView
-    android:id="@+id/action_drag_handle"
-    android:background="@drawable/drag"
-    android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:layout_weight="0" />
-
-  <TextView
-      android:id="@+id/action_list_minutes_to_complete"
+	<ImageView
+      android:id="@+id/action_drag_handle"
+      android:tag="drag_handle"
       android:layout_width="wrap_content"
+      android:layout_height="fill_parent"
+      android:layout_alignParentLeft="true"
+      android:layout_alignParentTop="true"
+      android:layout_weight="0"
+      android:background="@drawable/drag" />
+   
+  <RelativeLayout
+      android:id="@+id/details_line"
+      android:tag="details_line"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignTop="@+id/pinned_indicater"
-      android:layout_toLeftOf="@+id/pinned_indicater"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
-      android:text="MM"></TextView>
+      >
+      
+       <TextView
+	      android:id="@+id/pinned_indicator"
+	      android:tag="pinned"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_alignParentLeft="true"
+	      android:layout_alignParentTop="true"
+	      android:text="(*)" />
+       
+       <TextView
+			android:id="@+id/action_list_outcome"
+			android:tag="outcome"
+	      	android:layout_width="wrap_content"
+	      	android:layout_height="wrap_content"
+	      	android:layout_toRightOf="@+id/pinned_indicator"
+	      	android:text="Outcome"
+	      	/>
+       
+		<TextView
+		    android:id="@+id/action_list_context"
+		    android:tag="context"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_toRightOf="@+id/action_list_outcome"
+		    android:text="Context" />
 
-  <RadioButton
-      android:id="@+id/pinned_indicater"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:layout_alignBottom="@+id/action_list_context"
-      android:layout_alignParentRight="true" ></RadioButton>
+	  <TextView
+	      android:id="@+id/action_list_minutes_to_complete"
+	      android:tag="minutes"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_toRightOf="@+id/action_list_context"
+	      android:paddingLeft="4dp"
+	      android:paddingRight="4dp"
+	      android:text="MM" />
 
-  <TextView
-      android:id="@+id/action_list_context"
-      android:layout_width="wrap_content"
+	  <TextView
+	      android:id="@+id/action_list_item_dateTextView"
+	      android:tag="dateText"
+	      android:layout_width="wrap_content"
+	      android:layout_height="wrap_content"
+	      android:layout_alignParentRight="true"
+	      android:layout_alignParentTop="true"
+	      android:text="Action date" />
+
+	 
+
+  </RelativeLayout>
+  
+   <TextView
+      android:id="@+id/action_list_item_titleTextView"
+      android:tag="title"
+      style="@style/TitleText"
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_alignBaseline="@+id/action_list_item_dateTextView"
-      android:layout_alignBottom="@+id/action_list_item_dateTextView"
-      android:layout_alignRight="@+id/action_list_minutes_to_complete"
-      android:paddingLeft="4dp"
-      android:paddingRight="4dp"
-      android:text="Context" ></TextView>
+      android:layout_below="@+id/details_line"
+      android:text="Action title"/>
 
 </RelativeLayout>
+</FrameLayout>

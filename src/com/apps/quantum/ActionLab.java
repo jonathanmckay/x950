@@ -331,6 +331,7 @@ public class ActionLab{
     		ArrayList<Action> pendingList = a.getChildren().get(Action.PENDING);
     		Date now = new Date();
     		ArrayList<Action> repeatedActions= new ArrayList<Action>();
+    		ArrayList<Action> pendingActionsWithChildren = new ArrayList<Action>();
     		
     		
     		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
@@ -352,9 +353,12 @@ public class ActionLab{
     				
     			} else if (current.getStartDate().before(now)){
     				for(Iterator<Action> it2 = pendingList.iterator(); it2.hasNext();){
-    					checkForPendingActions(it2.next());
+    					pendingActionsWithChildren.add(it2.next());
     				}
     			}
+    		}
+    		for(Action r: pendingActionsWithChildren){
+    			checkForPendingActions(r);
     		}
     		
     		for(Action r: repeatedActions){

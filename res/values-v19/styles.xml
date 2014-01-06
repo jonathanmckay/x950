@@ -15,12 +15,11 @@
     <!-- Application theme. -->
    <color name="custom_theme_color">#FFFFFF</color>
     <style name="AppTheme" parent="android:Theme.Holo.Light">
-    	<item name="android:windowActionBarOverlay">false</item>
         <item name="android:windowBackground">@color/custom_theme_color</item>
  
-        <item name="android:windowTranslucentStatus">false</item>
-        <item name="android:windowTranslucentNavigation">false</item>
-        <item name="android:fitsSystemWindows">false</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+     
   	</style>
 
 
