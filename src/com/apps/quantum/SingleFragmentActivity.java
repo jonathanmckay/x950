@@ -13,6 +13,7 @@ public abstract class SingleFragmentActivity extends FragmentActivity  {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 		setContentView(getLayoutResId());
 		
 		FragmentManager fm = getSupportFragmentManager();

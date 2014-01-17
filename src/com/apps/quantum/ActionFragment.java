@@ -80,7 +80,7 @@ public class ActionFragment extends Fragment {
 	public interface Callbacks {
 		void onActionUpdated();
 		void navigateUp();
-		void closeOnScreenKeyboard(View v);
+		//void updateOnScreenKeyboard(View v, int visibility);
 	}
 	
 	@Override 
@@ -125,7 +125,7 @@ public class ActionFragment extends Fragment {
 		enableButtons(v);
 		
 		displayActionDetails(mAction);
-		mCallbacks.closeOnScreenKeyboard(v);
+		//mCallbacks.updateOnScreenKeyboard(v, View.INVISIBLE);
 				
 		return v;
 	}
@@ -279,15 +279,30 @@ public class ActionFragment extends Fragment {
 		}
 	}	
 	
-	
+	public static int DEFAULT_HOUR = 4;
+	public static int DEFAULT_MINUTE = 0;
 	
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(resultCode != Activity.RESULT_OK) return;
 		
 		if(mDataFieldRequested == DUE_DATE){
 			d = mAction.getDueDate();
-		} else {
+		} else if (mDataFieldRequested == START_DATE){
 			d = mAction.getStartDate();
+		}
+		
+		if(d==null){
+			Calendar calendarDate = Calendar.getInstance();
+			
+			int year = calendarDate.get(Calendar.YEAR);
+			int month = calendarDate.get(Calendar.MONTH);
+			int day = calendarDate.get(Calendar.DAY_OF_MONTH);
+			
+			
+			int hour = DEFAULT_HOUR;
+			int minute = DEFAULT_MINUTE;
+			
+			d = new GregorianCalendar(year,month,day,hour,minute).getTime();
 		}
 		d = (d == null) ? new Date() : d;
 		
@@ -307,7 +322,7 @@ public class ActionFragment extends Fragment {
 				
 				break;
 			case REQUEST_DATE: 
-				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);
+				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);			
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
 			
@@ -366,6 +381,14 @@ public class ActionFragment extends Fragment {
 		}		
 	}
 	private String toButtonString(Date d){
-		return android.text.format.DateFormat.format("MM.dd HH:mm", d).toString();
+		Calendar calendarDate = Calendar.getInstance();
+		calendarDate.setTime(d);
+		
+		//If it is the default time, don't display the time of day info, only display day
+		if(calendarDate.get(Calendar.HOUR_OF_DAY) == 4 && calendarDate.get(Calendar.MINUTE) == 0){
+			return android.text.format.DateFormat.format("MMM dd", d).toString();	
+		} else {
+			return android.text.format.DateFormat.format("MMM dd hh:mm aaa", d).toString();
+		}
 	}
 }

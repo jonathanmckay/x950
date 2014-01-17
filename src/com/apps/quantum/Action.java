@@ -15,7 +15,6 @@ import org.json.JSONObject;
 import android.util.Log;
 
 public class Action {
-	//Three types of outcome: complete, incomplete, pending
 	private static final int OUTCOME_CATEGORIES = 4;
 	public static final int INCOMPLETE = 0;
 	public static final int COMPLETE = 1;
@@ -33,38 +32,41 @@ public class Action {
 	private Date mModifiedDate;
 	private Date mStartDate;
 	private Date mDueDate;
+	
+	//Used by ActionLab to prevent infinite loops
+	private Date mSavedTimeStamp;
+	
 	private int mRepeatInterval;
 		
 	private int mMinutesExpected;
+	//This value not used yet
 	private int mMinutesActual;
 	private int mActionStatus;
 	private int mPriority;
 	private boolean mPinned;
 	
-	
-	
 	private Action mParent;
 	private ArrayList<ArrayList<Action>> mChildren;
 	
-	private Date mSavedTimeStamp;
 	
 	protected Action(){
 		mId = UUID.randomUUID();
 		mOutcomeName = "";
-		mContextName = ""; // action only
+		mContextName = ""; 
 		mTitle = "";
 		
 		mCreatedDate = new Date();
 		mModifiedDate = new Date();
 		mStartDate = null;
 		mDueDate = null;
+		mSavedTimeStamp = null;
 		
 		mMinutesExpected = 0;
 		mMinutesActual = 0;
 		mActionStatus = 0;
 		
 		mChildren = initializeChildren();
-		mParent = null; // This will cause a null pointer exception if not handled!!
+		mParent = null;
 		mParentUUIDString = "";
 		mPriority = -1;
 		mRepeatInterval = 0;
@@ -82,7 +84,7 @@ public class Action {
 			this.mActionStatus = Integer.parseInt(tokens[3]);
 			if(mActionStatus > 3) throw new IllegalArgumentException();
 		} catch (Exception e){
-			Log.d("Parser", "Invalid actionStatus: " + tokens[3]);
+			//Log.d("Parser", "Invalid actionStatus: " + tokens[3]);
 			mActionStatus = 0;
 		}
 		
@@ -114,7 +116,8 @@ public class Action {
 			this.mId = UUID.randomUUID();
 		}
 		if(tokens.length > 11){
-			this.mParentUUIDString = (tokens[11]); //don't handle yet, handle in Actionlab
+			this.mParentUUIDString = (tokens[11]); 
+			//don't handle yet, handle in Actionlab
 		}
 		
 		try{
@@ -130,7 +133,7 @@ public class Action {
 			this.mDueDate = null;	
 		}
 		if(mDueDate != null){
-			if(mDueDate.equals(mStartDate) || mDueDate.before(new Date())) mDueDate = null;
+			if(mDueDate.equals(mStartDate)) mDueDate = null;
 		}
 		
 		try{
@@ -142,6 +145,7 @@ public class Action {
 		mChildren = initializeChildren();
 		
 	}
+	
 	
 	private static String JSON_ID = "id";
 	private static String JSON_TITLE = "title";
@@ -202,6 +206,7 @@ public class Action {
         return json;
     }
 	
+	
 	public void verifyStatusBasedOnChildren(){
 		if(mParent == null) throw new IllegalArgumentException();
 		
@@ -210,41 +215,39 @@ public class Action {
 		}else if(this.getPending().size() != 0 && this.mActionStatus == INCOMPLETE){
 			setActionStatus(PENDING);
 		}else{
-			//Do nothing for now, force manual delete
+			//Do nothing force manual delete
 		}
 		
 		return;
 	}
 	
 
-		public void setStartDate(Date startDate) {
-			
-			
-			mStartDate = startDate;
-			
-			if(mStartDate != null){
-				if(mStartDate.after(new Date())){
-					setActionStatus(PENDING);
-				} else if((mStartDate.before(new Date()) && mActionStatus == PENDING)){
-					setActionStatus(INCOMPLETE);
-				}
+	public void setStartDate(Date startDate) {
+		mStartDate = startDate;
+		
+		if(mStartDate != null){
+			if(mStartDate.after(new Date())){
+				setActionStatus(PENDING);
+			} else if((mStartDate.before(new Date()) && mActionStatus == PENDING)){
+				setActionStatus(INCOMPLETE);
 			}
 		}
+	}
 
-		protected void setActionStatus(int actionStatus) {
-			if(actionStatus != mActionStatus){
-				mActionStatus = actionStatus;
+	protected void setActionStatus(int actionStatus) {
+		if(actionStatus != mActionStatus){
+			mActionStatus = actionStatus;
+			
+			//Check for loops
+			if(getParent()!= null && !getParent().equals(this)){
 				
-				//Check for loops
-				if(getParent()!= null && !getParent().equals(this)){
-					
-					//Check for status changes up the tree
-					mParent.adopt(this);
-					
-				}
+				//Check for status changes up the tree
+				mParent.adopt(this);
+				
 			}
-			mModifiedDate = new Date();
 		}
+		mModifiedDate = new Date();
+	}
 
 	
 	private ArrayList<ArrayList<Action>> initializeChildren(){
@@ -302,13 +305,21 @@ public class Action {
 		}
 	}
 	
-	public void cancelRepeat(){
-	// to be implemented	
-	}
-	
 	public boolean equals(Action a){
 		return (this.getId().equals(a.getId())) ? true : false;
-	}	
+	}
+	
+	public String toString(){
+		String Uuid = getId().toString();
+		String shortId;
+		
+		if(Uuid.length() > 5){
+			shortId = (String) Uuid.subSequence(Uuid.length() - 4, Uuid.length() - 1);
+		} else {
+			shortId = Uuid;
+		}
+		return getTitle() + " Id: " + shortId;
+	}
 	
 	public static final int TOP_FIVE_VIEW = 4;
 	
@@ -339,16 +350,9 @@ public class Action {
 		moveWithinList(list, from, getUnpinnedTop(this.mChildren.get(list)));
 	}
 	
-	public void moveToEnd(int list, int from){
-		moveWithinList(list, from, this.mChildren.get(list).size() - 1);
-	}
-	
-	public void moveToFront(int list, int from){
-		moveWithinList(list, from, 0);
-	}
 	
 	public void moveWithinList(int list, int from, int to){
-		ArrayList<Action> currentList = this.mChildren.get(list);
+		ArrayList<Action> currentList = getContainingList();
 		
 		if(to < from){
 			for(int i = to; i < from; i++){
@@ -362,13 +366,11 @@ public class Action {
 		}
 		
 		currentList.get(from).setPriority(to);
-		currentList.add(to, mChildren.get(list).remove(from));
+		currentList.add(to, currentList.remove(from));
 		
 	}
-	
-	
 
-	public Action peekStep(){
+	public Action getFirstSubAction(){
 		if(this.hasActiveTasks()){
 			return mChildren.get(0).get(0);
 		}
@@ -498,11 +500,6 @@ public class Action {
 		mTitle = title;
 	}
 	
-	@Override
-	public String toString(){
-		return mTitle;
-	}
-
 	public int getPriority() {
 		return mPriority;
 	}
@@ -584,7 +581,7 @@ public class Action {
 		if(isPinned()){
 			ArrayList<Action> list = getParent().getChildren().get(getActionStatus());
 			int index = list.indexOf(this);
-			getParent().moveToFront(getActionStatus(), index);
+			getParent().moveWithinList(getActionStatus(), index, 0);
 		}
 		
 	}

@@ -7,9 +7,9 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Stack;
 import java.util.UUID;
 
+import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
@@ -22,12 +22,20 @@ import com.dropbox.sync.android.DbxPath;
 public class ActionLab{
         private static final String TAG = "ActionLab";
         private static final String FILENAME = "Actions.txt";
+        public static final String AUTOSAVE_FILENAME = "next5Autosave.txt";
         private static final String JSON_OUTPUT_FILENAME = "actions_json.txt";
         private static final int COMPLETED = 1;
         private static final int NOT_COMPLETED = 0;
         
+
+
+    	static final int REQUEST_LINK_TO_DBX = 0;
+        
         private HashMap<UUID, Action> mActionHash;
         private HashMap<UUID, Action> mTempMap;
+        private DbxAccountManager mDbxAcctMgr;
+        
+        public static final String DROPBOX_OPTIONS = "com.apps.quantum.dropboxfragment";
         
         private TitleMap mTitleHash;
         private class TitleMap extends HashMap<String, List<Action>> {
@@ -69,6 +77,10 @@ public class ActionLab{
                 
                 mActionHash = new HashMap<UUID, Action>();
                 mTitleHash = new TitleMap();
+                
+                mDbxAcctMgr = DbxAccountManager.getInstance(appContext.getApplicationContext(),
+        				//App key --------- App secret
+        				"588rm6vl0oom62h", "3m69jjskzcfcssn");
                 
                 //This assumes that root is the first entry. and that root is the 
                 // only self-referencing action
@@ -112,35 +124,27 @@ public class ActionLab{
                 return mRoot;
         }
         
-        public void syncDropBox(DbxAccountManager mDbxAcctMgr){
-                try{
-                        
+        public void importDbxFile(String filename) throws IllegalArgumentException{
+                if(!filename.endsWith(".txt")) throw new IllegalArgumentException();
+        	
+        		try{                        
                         DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-                        DbxFile testAddFile = dbxFs.open(new DbxPath(DbxPath.ROOT, "read-from.txt"));
+                        DbxFile importFile = dbxFs.open(new DbxPath(DbxPath.ROOT, filename));
                         
                         try{
-                                String contents = testAddFile.readString();
-                                Log.d("Dropbox Test", "File contents: " + contents);
+                                String contents = importFile.readString();
+                                //Log.d("Dropbox Test", "File contents: " + contents);
                                 addAll(parseActions(contents));
                                 
-                                Log.d(TAG, "Dropbox Load Successful");
+                                //Log.d(TAG, "Dropbox Load Successful");
                         } catch (Exception e){
                                 Log.e(TAG, "Error adding Dropbox Actions: ", e);
                         } finally{
-                                testAddFile.close();
+                                importFile.close();
                         }
                 } catch (Exception e){
                         Log.e(TAG, "", e);
                 }
-                
-                try{
-                        saveToDropbox(mDbxAcctMgr);
-                        Log.d(TAG, "Saved to Dropbox");
-                }catch (Exception e){
-                        Log.e(TAG, "Error Saving to Dropbox", e);
-                }
-                
-                return;
         }
         
         public boolean saveActions(){
@@ -227,7 +231,7 @@ public class ActionLab{
 		
 		while(a.hasActiveTasks()){
     		checkForPendingActions(a);
-			a = a.peekStep();
+			a = a.getFirstSubAction();
     	}
 		return a;
 	}
@@ -306,19 +310,37 @@ public class ActionLab{
         }
         
         
-        public void saveToDropbox(DbxAccountManager mDbxAcctMgr) throws DbxException{
-                DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-            DbxFile testFile2 = dbxFs.open(new DbxPath(DbxPath.ROOT, "Readable.txt"));
-                
-                try{
-                        mSerializer.writeActionsToFile(toStringList(mRoot), testFile2);
-                        Log.d(TAG, "Saved successfully to dropbox");
-        }catch(Exception e){
-            Log.d(TAG, "Error saving to dropbox: ", e);
-        }finally {
-                testFile2.close();
-        }
-                return;
+        public void saveToDropbox(String filename){
+        	if(mDbxAcctMgr.hasLinkedAccount()){ 
+ 				saveToDropboxHelper(filename);
+        	} else {
+ 				mDbxAcctMgr.startLink((Activity) mAppContext, REQUEST_LINK_TO_DBX);
+        	}
+        
+	    }
+        
+        private void saveToDropboxHelper(String filename){
+        	DbxFile saveFile = null;
+        	
+        	try{
+	        	DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
+	            
+	            
+	            try{
+	            	saveFile = dbxFs.open(new DbxPath(DbxPath.ROOT, filename));
+	            } catch (DbxException e){
+	            	Log.d(TAG, "Could not open dbx file: ", e);
+	                saveFile = dbxFs.create(new DbxPath(DbxPath.ROOT, filename));
+	            }
+	            mSerializer.writeActionsToFile(toStringList(mRoot), saveFile);
+	            Log.d(TAG, "Saved successfully to dropbox");
+        	} catch(Exception e){
+	        	 Log.d(TAG, "Error saving to dropbox: ", e);
+	        }finally {
+                saveFile.close();
+	        }
+        
+	            return;
         }
         public Action createActionIn(Action parent){
                 Action action = new Action();
@@ -423,6 +445,8 @@ public class ActionLab{
     		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
     		
     		Log.d(TAG, nextStart.toGMTString());
+    		
+    		
     		//Keep creating repeated actions until there is only one that is pending. 
     		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
     			createRepeatedAction(nextRepeat);

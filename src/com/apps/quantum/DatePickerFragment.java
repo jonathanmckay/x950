@@ -55,7 +55,11 @@ public class DatePickerFragment extends DialogFragment {
 		DatePicker datePicker = (DatePicker)v.findViewById(R.id.dialog_date_datePicker);
 		datePicker.init(year, month, day, new OnDateChangedListener(){
 			public void onDateChanged(DatePicker view, int year, int month, int day){
-				mDate = new GregorianCalendar(year, month, day).getTime();
+				
+				int hour = ActionFragment.DEFAULT_HOUR;
+				int minute = ActionFragment.DEFAULT_MINUTE;
+				
+				mDate = new GregorianCalendar(year, month, day, hour, minute).getTime();
 				getArguments().putSerializable(EXTRA_DATE, mDate);
 			}
 		});

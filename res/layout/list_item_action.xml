@@ -1,127 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    android:tag="list_item"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    
-    <LinearLayout 
-    android:id="@+id/back"
-    android:tag="back"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center_vertical"
-    android:orientation="horizontal" >
-    
-    	<ImageButton
-        android:id="@+id/cancel_button"
-        android:tag="cancel_button"
-        style="@style/QuarterButton"
-        android:src="@drawable/ic_action_cancel"
-        ></ImageButton>
+    android:paddingLeft="15dp"
+    android:paddingRight="15dp"
+    android:tag="list_item" >
 
-    	<ImageButton
-        android:id="@+id/demote_button"
-        android:tag="demote_button"
-        style="@style/QuarterButton"
-        android:src="@drawable/ic_action_download"></ImageButton>
+    <FrameLayout
+        android:id="@+id/front"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_activated"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="vertical"
+        android:tag="front" >
 
-    	<ImageButton
-        android:id="@+id/skip_button"
-        android:tag="skip_button"
-        style="@style/QuarterButton"
-        android:src="@drawable/ic_action_fast_forward"></ImageButton>
-    	<ImageButton
-        android:id="@+id/pin_button"
-        android:tag="pin_button"
-        style="@style/QuarterButton"
-        android:src="@drawable/ic_pin"></ImageButton>
-	</LinearLayout>
-    
+        <ImageView
+            android:id="@+id/action_drag_handle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:layout_weight="0"
+            android:alpha="192"
+            android:background="@drawable/ic_handle" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
-<RelativeLayout 
-    android:id="@+id/front"
-    android:tag="front"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-	android:descendantFocusability="blocksDescendants"
-    android:background="@drawable/background_activated" >
-	<ImageView
-      android:id="@+id/action_drag_handle"
-      android:tag="drag_handle"
-      android:layout_width="wrap_content"
-      android:layout_height="fill_parent"
-      android:layout_alignParentLeft="true"
-      android:layout_alignParentTop="true"
-      android:layout_weight="0"
-      android:background="@drawable/drag" />
-   
-  <RelativeLayout
-      android:id="@+id/details_line"
-      android:tag="details_line"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      >
-      
-       <TextView
-	      android:id="@+id/pinned_indicator"
-	      android:tag="pinned"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:layout_alignParentLeft="true"
-	      android:layout_alignParentTop="true"
-	      android:text="(*)" />
-       
-       <TextView
-			android:id="@+id/action_list_outcome"
-			android:tag="outcome"
-	      	android:layout_width="wrap_content"
-	      	android:layout_height="wrap_content"
-	      	android:layout_toRightOf="@+id/pinned_indicator"
-	      	android:text="Outcome"
-	      	/>
-       
-		<TextView
-		    android:id="@+id/action_list_context"
-		    android:tag="context"
-		    android:layout_width="wrap_content"
-		    android:layout_height="wrap_content"
-		    android:layout_toRightOf="@+id/action_list_outcome"
-		    android:text="Context" />
+            <RelativeLayout
+                android:id="@+id/details_line"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:tag="details_line" >
 
-	  <TextView
-	      android:id="@+id/action_list_minutes_to_complete"
-	      android:tag="minutes"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:layout_toRightOf="@+id/action_list_context"
-	      android:paddingLeft="4dp"
-	      android:paddingRight="4dp"
-	      android:text="MM" />
+                <TextView
+                    android:id="@+id/pinned_indicator"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:tag="pinned"
+                    android:text="(*)" />
 
-	  <TextView
-	      android:id="@+id/action_list_item_dateTextView"
-	      android:tag="dateText"
-	      android:layout_width="wrap_content"
-	      android:layout_height="wrap_content"
-	      android:layout_alignParentRight="true"
-	      android:layout_alignParentTop="true"
-	      android:text="Action date" />
+                <TextView
+                    android:id="@+id/action_list_outcome"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/pinned_indicator"
+                    android:tag="outcome"
+                    android:text="Outcome" />
 
-	 
+                <TextView
+                    android:id="@+id/action_list_item_dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:tag="dateText"
+                    android:text="Action date" />
+            </RelativeLayout>
 
-  </RelativeLayout>
-  
-   <TextView
-      android:id="@+id/action_list_item_titleTextView"
-      android:tag="title"
-      style="@style/TitleText"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@+id/details_line"
-      android:text="Action title"/>
+            <TextView
+                android:id="@+id/action_list_item_titleTextView"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/details_line"
+                android:tag="title"
+                android:text="Action title" >
+            </TextView>
 
-</RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/action_list_context"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:tag="context"
+                    android:text="Context" />
+
+                <TextView
+                    android:id="@+id/action_list_minutes_to_complete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:paddingLeft="4dp"
+                    android:paddingRight="4dp"
+                    android:tag="minutes"
+                    android:text="MM" />
+            </RelativeLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <com.apps.quantum.BackViewGroup
+        android:id="@+id/back"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:layout_gravity="center_vertical"
+        android:background="#EADDDDDD"
+        android:orientation="horizontal"
+        android:tag="back" >
+
+        <ImageButton
+            android:id="@+id/cancel_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_cancel" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/demote_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_download"
+            android:tag="demote_button" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/skip_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_fast_forward"
+            android:tag="skip_button" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/pin_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_pin"
+            android:tag="pin_button" >
+        </ImageButton>
+    </com.apps.quantum.BackViewGroup>
+
 </FrameLayout>

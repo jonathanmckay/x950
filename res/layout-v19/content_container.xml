@@ -1,32 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-   <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:orientation="vertical"
-	    android:id="@+id/content_frame"
-	    android:layout_width="match_parent"
-	    android:layout_height="match_parent"
-	   	>
-	<View 
-        android:layout_width="match_parent"
-        android:layout_height="25dp"
-        ></View>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content_frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
     <View
-        android:layout_height="?android:attr/actionBarSize"
-        android:layout_width="match_parent" 
-        ></View> 	
-      
+        android:layout_width="match_parent"
+        android:layout_height="25dp" >
+    </View>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" >
+    </View>
+
     <FrameLayout
-        android:name="com.apps.quantum.ActionFragment"
         android:id="@+id/detailFragment"
-        android:layout_height="wrap_content"
+        android:name="com.apps.quantum.ActionFragment"
         android:layout_width="match_parent"
-        
-    ></FrameLayout>
-     
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
     <FrameLayout
-        android:name="com.apps.quantum.ActionListFragmentDSLV"
         android:id="@+id/listFragment"
-        android:layout_height="wrap_content"
+        android:name="com.apps.quantum.ActionListFragmentDSLV"
         android:layout_width="match_parent"
-    ></FrameLayout>
+        android:layout_height="wrap_content" >
+    </FrameLayout>
+
+    
 
 </LinearLayout>

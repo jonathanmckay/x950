@@ -1,115 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:dslv="http://schemas.android.com/apk/res/com.apps.quantum"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content" >
 
     <LinearLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-   	 xmlns:tools="http://schemas.android.com/tools"
-	 xmlns:dslv="http://schemas.android.com/apk/res/com.apps.quantum"
-     android:layout_width="fill_parent"
-     android:layout_height="fill_parent"
-     android:orientation="vertical"
-     >
-     
-        
-    	<FrameLayout
-    	    android:layout_width= "match_parent"
-    	    android:layout_height="wrap_content"
-    	  	android:paddingLeft="15dp"
-    	  	android:paddingRight="15dp"
-    	    >
-    	    <ImageView
-			      android:id="@+id/new_action_filler"
-			      android:layout_width="wrap_content"
-			      android:layout_height="fill_parent"
-			      android:layout_gravity="left|center_vertical"
-			      android:background="@drawable/drag" />
-    	    
-    	    <TextView
-    	        android:id="@+id/new_action_hint_background"
-    	        style="@style/TitleText"
-    	        android:text="@string/new_action_hint"
-    	        android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:layout_gravity="center_horizontal|center_vertical"
-			    android:gravity="center_horizontal"
-    	        android:textColor="#FFCCCCCC"
-    	        android:focusable="false"
-    	        android:clickable="false"
-    	        ></TextView>
-    	     
-    	    <RelativeLayout
-    	        android:layout_width= "match_parent"
-    	    	android:layout_height="match_parent"
-    	    	android:gravity="left|center_vertical"
-    	        >	
-    	      <ImageButton
-    	        android:id="@+id/new_subtask_icon"
-    	        style="@style/BorderlessButton"
-    	        android:layout_centerVertical="true"
-    	        android:background="?android:attr/selectableItemBackground"
-    	        android:src="@drawable/ic_action_new"
-    	        android:ellipsize="start"
-    	        android:focusable="false"
-    	        android:clickable="false"
-    	        android:text="new_action" />
+        android:id="@+id/list_linear_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-    	      <EditText
-    	         android:id="@+id/new_subtask"
-    	         style="@style/TitleText"
-    	         android:paddingLeft="10dp"
-    	         android:layout_toRightOf="@+id/new_subtask_icon"
-    	         android:layout_width="wrap_content"
-    	         android:layout_height="wrap_content"
-    	         android:layout_centerVertical="true"
-    	         android:background="#00000000"
-    	        
-    	         android:ems="10"
-    	         android:imeActionLabel="Save"
-    	         android:imeOptions="actionSend"
-    	         android:inputType="text" >
-    	      </EditText>
-    	      </RelativeLayout>
-    	    
-    	</FrameLayout>
-    	<LinearLayout
-    	   android:paddingLeft="15dp"
-    	   android:paddingRight="15dp"
-    	   android:orientation="vertical"
-    	   android:layout_height="wrap_content"
-    	   android:layout_width="fill_parent"
-    	   >
-    	    
-    	 <View 
-    	   
-	       android:background="#FFCCCCCC" 
-	       android:layout_height="1dp" 
-	       android:layout_width="fill_parent"/>
-       </LinearLayout>
- 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <ImageView
+                android:id="@+id/new_action_filler"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_gravity="left|center_vertical"
+                android:background="@drawable/drag" />
+
+            <TextView
+                android:id="@+id/new_action_hint_background"
+                style="@style/TitleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|center_vertical"
+                android:clickable="false"
+                android:focusable="false"
+                android:gravity="center_horizontal"
+                android:text="@string/new_action_hint"
+                android:textColor="#FFCCCCCC" >
+            </TextView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="left|center_vertical" >
+
+                <ImageButton
+                    android:id="@+id/new_subtask_icon"
+                    style="@style/BorderlessButton"
+                    android:layout_centerVertical="true"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="false"
+                    android:ellipsize="start"
+                    android:focusable="false"
+                    android:src="@drawable/ic_action_new"
+                    android:text="new_action" />
+
+                <EditText
+                    android:id="@+id/new_subtask"
+                    style="@style/TitleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/new_subtask_icon"
+                    android:background="#00000000"
+                    android:ems="10"
+                    android:inputType="textNoSuggestions"
+                    android:imeActionLabel="Done"
+                    android:imeOptions="actionDone"
+                    android:paddingLeft="10dp" >
+                </EditText>
+            </RelativeLayout>
+        </FrameLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/ltGrey" />
+        </LinearLayout>
+
+        <com.mobeta.android.dslv.DragSortListView
+            android:id="@+id/listview"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:dividerHeight="1dp"
+            android:paddingBottom="0dp"
+            
+            android:paddingTop="0dp"
+            dslv:back_view_id="@id/back"
+            dslv:collapsed_height="2dp"
+            dslv:drag_enabled="true"
+            dslv:drag_handle_id="@id/action_drag_handle"
+            dslv:drag_scroll_start="0.33"
+            dslv:drag_start_mode="onMove"
+            dslv:float_alpha="0.6"
+            dslv:front_view_id="@id/front"
+            dslv:max_drag_scroll_speed="3.0"
+            dslv:slide_shuffle_speed="0.3"
+            dslv:sort_enabled="true"
+            dslv:swipe_enabled="true"
+            dslv:swipe_mode="swipe"
+            dslv:track_drag_sort="false"
+            dslv:use_default_controller="true" />
         
-	    <com.mobeta.android.dslv.DragSortListView
-		    android:id="@+id/listview"
-		    android:layout_width="fill_parent"
-		    android:layout_height="wrap_content"
-		    android:dividerHeight="1dp"
-		    android:paddingBottom="0dp"
-		    android:paddingLeft="15dp"
-		    android:paddingRight="15dp"
-		    android:paddingTop="0dp"
-		    dslv:collapsed_height="2dp"
-		    dslv:drag_enabled="true"
-		    dslv:drag_handle_id="@id/action_drag_handle" 
-		    dslv:drag_scroll_start="0.33"
-		    dslv:drag_start_mode="onMove"
-		    dslv:float_alpha="0.6"
-		    dslv:max_drag_scroll_speed="3.0"
-		    dslv:swipe_enabled="true"
-		    dslv:swipe_mode="swipe"
-		    dslv:slide_shuffle_speed="0.3"
-		    dslv:sort_enabled="true"
-		    dslv:track_drag_sort="false"
-		    dslv:use_default_controller="true"
-		    dslv:back_view_id="@id/back"
-		    dslv:front_view_id="@id/front" />
-	  
-	  	
- 	</LinearLayout>
+      
+         
+    </LinearLayout>
+    
+   
+
+    <RelativeLayout
+        android:id="@+id/footer_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/list_linear_layout" 
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/listview_footer"
+                style="@style/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/ltGrey"
+                android:text="TextTest" />
+
+            <View
+                android:id="@+id/kitkat_footer"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/ltGrey" >
+            </View>
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/footer_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_below="@+id/list_linear_layout" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/listview_footer"
+            style="@style/TitleText"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:background="@color/ltGrey"
+            android:text="TextTest"/>
+
+        <View
+            android:id="@+id/kitkat_footer"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/ltGrey" >
+        </View>
+    </LinearLayout>
+
+</RelativeLayout>

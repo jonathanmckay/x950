@@ -1,7 +1,6 @@
 package com.apps.quantum;
 
 
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -13,8 +12,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -23,7 +24,7 @@ import android.widget.ListView;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public class ActionListActivity extends SingleFragmentActivity implements ActionListFragmentDSLV.Callbacks, ActionFragment.Callbacks{
-
+	public static final String TAG = "ActionListActivity";
 	public static final String PREFS_NAME = "MyPrefsFile";
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -31,17 +32,16 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 
     private String[] mMenuTitles;
 	boolean mAtRoot;
-	Action mAction;
 	
-		
-	
-	
-	
+	@Override
 	 protected void onCreate(Bundle savedInstanceState) {
-	        super.onCreate(savedInstanceState);
-	        
-	        
-	       
+			//Since XML sets showing the actionbar as false, must request it for
+			//getActionBar to return a value
+			getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+			super.onCreate(savedInstanceState);
+			//Hide the action bar until app is finished loading. 
+			getActionBar().hide();
+			
 
 	        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
 	        	SystemBarTintManager tintManager = new SystemBarTintManager(this);
@@ -51,6 +51,9 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        	tintManager.setStatusBarTintColor(actionBarColor);
 	        	}   
 	        setContentView(R.layout.activity_threepane);
+	        getActionBar().show();
+	        
+	        //getActionBar().show();
 	        
 	        mMenuTitles = getResources().getStringArray(R.array.menu_titles);
 	        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -175,7 +178,6 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	
 	 public void onActionSelected(Action a){
 		 		//Only show the detail view for individual tasks. This may be modified later. 
-		 		mAction = a;
 		 		
 	    		if(a == ActionLab.get(this).getRoot()){
 	    			FragmentManager fm = getSupportFragmentManager();
@@ -240,59 +242,43 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
     }
     
     public void onBackPressed() {
+    	 
     	FragmentManager fm = getSupportFragmentManager();
     	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.listFragment);
-    	Action destination = listFragment.onBackPressed();
-    	mAction = destination;
-    	if(destination.equals(ActionLab.get(this).getRoot())) {
-    		mAtRoot = true;
-    	} else {
-    		mAtRoot = false;
-    	}
-    	updateDrawerButton();
+    	int backPressResult = listFragment.navigateUp();
     	
-        return;
+    	switch (backPressResult){
+	    	case ActionListFragmentDSLV.ALREADY_AT_ROOT:
+	    		super.onBackPressed();
+	    		break;
+	    	case ActionListFragmentDSLV.ARRIVED_AT_ROOT:
+	    		mAtRoot = true;
+	    		break;
+	    	default:
+	    		mAtRoot = false;
+	    		break;
+    	}
+    	
+    	updateDrawerButton();
     }
     
     public void navigateUp(){
     	onBackPressed();
     }
     
-    public void closeOnScreenKeyboard(View v){
+    public void updateOnScreenKeyboard(View v, int visibility){
 		InputMethodManager imm = (InputMethodManager)v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+		
+		Log.d(TAG, "updateOnScreenKeyboard Called");
+		
 		if(imm != null && getCurrentFocus() != null ){
-			imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 
-					InputMethodManager.HIDE_NOT_ALWAYS);
+			if(visibility == View.VISIBLE){
+				Log.d(TAG, "Keyboard show called");
+				imm.showSoftInput(v, 0);
+			} else if(visibility == View.INVISIBLE){		
+				imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+			}
+			
 		}
-	}
-    
-    
-    /*
-    public void onSaveInstanceState(Bundle savedInstanceState){
-    	super.onSaveInstanceState(savedInstanceState);
-    	savedInstanceState.putString(CURRENT_ACTION_ID, mAction.getId().toString());
     }
-    
-    public void onPause()
-    {
-    	super.onPause();
-    	SharedPreferences preferences = getSharedPreferences(PREFS_NAME, 0);
-    	
-    	SharedPreferences.Editor editor = preferences.edit();  // Put the values from the UI
-    	
-    	editor.putString(CURRENT_ACTION_ID, mAction.getId().toString()); // value to store
-    	  
-    	editor.commit();
-    }
-    
-    public void onResume(){
-    	super.onResume();
-    	SharedPreferences sp = getSharedPreferences(PREFS_NAME, 0);
-    	String ActionUUID = sp.getString(CURRENT_ACTION_ID, "");
-    	if(!ActionUUID.equals("")){
-    		mAction = ActionLab.get(this).getAction(UUID.fromString(ActionUUID));
-        	onActionSelected(mAction);
-    	}
-    }*/
-    
 }

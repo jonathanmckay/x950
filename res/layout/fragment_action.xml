@@ -3,75 +3,90 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
     android:background="@color/ltGrey"
-    >
-    
-    <LinearLayout 
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp" >
+
         <ImageButton
             android:id="@+id/pinned_toggle"
             style="@style/QuarterButton"
-            android:layout_height="wrap_content"
-           	android:layout_weight="1"
-           	android:src="@drawable/ic_pin"
-           ></ImageButton>
-        
-        
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_pin" >
+        </ImageButton>
+
         <Button
-           android:id="@+id/action_start_date"
-        	style="@style/QuarterButton"
-           android:layout_height="wrap_content"
-           android:layout_weight="2"></Button>
-      	
-      	<Button
-           android:id="@+id/action_due_date"
-           style="@style/QuarterButton"
-           android:layout_weight="2" ></Button>
-        
+            android:id="@+id/action_start_date"
+            style="@style/QuarterButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:drawableLeft="@drawable/ic_calendar_start" >
+        </Button>
+
+        <Button
+            android:id="@+id/action_due_date"
+            style="@style/QuarterButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"
+            android:drawableRight="@drawable/ic_calendar_due" >
+        </Button>
+
         <ImageButton
             android:id="@+id/repeat_interval"
-            android:layout_height="wrap_content"
             style="@style/QuarterButton"
-           	android:layout_weight="1"
-           	android:src="@drawable/ic_action_refresh"
-           >
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/ic_action_refresh" >
         </ImageButton>
     </LinearLayout>
-	
-    
-	<LinearLayout 
-	    android:layout_width="match_parent"
-        android:layout_height="wrap_content"> 
-	    
-      
-      	
-	</LinearLayout>
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="left|center_vertical"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp" >
 
-        <EditText
-            android:id="@+id/minutes_to_complete"
-            android:layout_width="94dp"
+        <TextView
+            android:id="@+id/context_at_symbol"
+            android:layout_width="22dp"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
             android:ems="10"
-            android:hint="@string/minutes_to_complete" ></EditText>
+            android:gravity="left|center_vertical"
+            android:paddingLeft="10dp"
+            android:text="\@" >
+        </TextView>
 
-        <EditText
-            android:id="@+id/context_text_field"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/minutes_to_complete"
-            android:ems="10"
-            android:hint="@string/context_text" ></EditText>	
-    </RelativeLayout>
-	
-	 
+            android:weightSum="5.0" >
+
+            <EditText
+                android:id="@+id/context_text_field"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4.0"
+                android:ems="10"
+                android:hint="@string/context_text"
+                android:imeOptions="actionDone"
+                android:inputType="text" >
+            </EditText>
+
+            <EditText
+                android:id="@+id/minutes_to_complete"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                android:ems="10"
+                android:hint="@string/minutes_to_complete"
+                android:imeOptions="actionDone"
+                android:inputType="text" />
+        </LinearLayout>
+    </LinearLayout>
+
 </LinearLayout>

@@ -25,9 +25,7 @@ public class ActionReorderController {
 		 if (from != to)
 	        {
 	            Action item = adapter.getItem(from);
-	            Action parent = item.getParent();
-	            
-	            parent.moveWithinList(Action.INCOMPLETE, from, to);
+	            item.moveWithinList(item.getActionStatus(), from, to);
 	            
 	            adapter.remove(item);
 	            adapter.insert(item, to); 
@@ -38,42 +36,54 @@ public class ActionReorderController {
 	public void moveToEnd(ActionAdapter adapter, int from){
 		Action item = adapter.getItem(from);
 		int end = item.getContainingList().size() - 1;
+				
+		if(from != end){				
+			if(adapter.getCount() == item.getContainingList().size()){
+				moveWithinAdapter(adapter, from, end);
+			} else {
+				adapter.remove(item);
+				showNextAction(adapter);
+			}
+		}
 		
-		moveWithinAdapter(adapter, from, end);
+		adapter.notifyDataSetChanged();
 	}
 
 	public void changeActionStatus(ActionAdapter adapter, int position, int newStatus){
-		boolean actionMoved = false;
-    	Action a = adapter.getItem(position);
+		Action item = adapter.getItem(position);
+		int itemOrigStatus = item.getActionStatus();
     	
-    	if(a.hasActiveTasks()){
+    	if(item.hasActiveTasks()){
     		//Update the status of the subtask
-    		Action b = mActionLab.preview(a);
+    		Action subItem = mActionLab.preview(item);
     		
     		//This is the part that will change, throw down a switch
     		//Delete, Wishlist, skip, pin
-    		mActionLab.changeActionStatus(b, newStatus);
+    		mActionLab.changeActionStatus(subItem, newStatus);
     		
+    		//If the parent action still has not changed, move it to the end
     		//Update the project location in the list
-    		if(!a.isPinned()){
-    			a.getParent().moveToEnd(a.getActionStatus(), position);
-    			adapter.remove(a);
-    			actionMoved = true;
+    		if(!item.isPinned() && (item.getActionStatus() == itemOrigStatus)){
+    		moveToEnd(adapter, position);
+    		} else if (item.getActionStatus() != itemOrigStatus){
+    			showNextAction(adapter);
     		}
     		
     	} else {
-    		adapter.remove(a);
-    		mActionLab.changeActionStatus(a,  newStatus);
-    		actionMoved = true;
+    		adapter.remove(item);
+    		mActionLab.changeActionStatus(item,  newStatus);
+    		showNextAction(adapter);
     	}
     	
-    	if(actionMoved) showNextAction(adapter);
-    	    	
     	adapter.notifyDataSetChanged();
+    	
+    	
 	}
 	
 	public void showNextAction(ActionAdapter adapter){
 		int count = adapter.getCount();
+		if(count == 0) return;
+		
 		Action firstItem = adapter.getItem(0);
     	    	
     	ArrayList<Action> fullList = 
