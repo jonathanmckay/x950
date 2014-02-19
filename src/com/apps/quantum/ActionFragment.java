@@ -139,6 +139,16 @@ public class ActionFragment extends Fragment {
 		((mAction.getStartDate() == null)
 		? "Set Start date" 
 		: (toButtonString(mAction.getStartDate())));
+		
+		if(mAction.getActionStatus() == Action.COMPLETE || mAction.getActionStatus() == Action.WISHLIST){
+			mStartDateButton.setClickable(false);
+			if(mAction.getStartDate() == null){
+				mStartDateButton.setText(null);
+				mStartDateButton.setTextColor(getResources().getColor(R.color.ltGrey));
+			}
+			
+		}
+		
 		mDueDateButton.setText
 		((mAction.getDueDate() == null)
 		? "Set Due Date"

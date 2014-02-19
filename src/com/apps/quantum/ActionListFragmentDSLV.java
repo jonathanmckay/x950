@@ -98,7 +98,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		setHasOptionsMenu(true);
 		setRetainInstance(true);
-
+		setTitle();
 	}
 
 	@SuppressLint("NewApi")
@@ -108,10 +108,9 @@ public class ActionListFragmentDSLV extends Fragment {
 			mFirstTimeOpeningList = true;
 			mListView = (DragSortListView) getActivity().findViewById(
 					R.id.listview);
-
 		}
 
-		mActionLab.checkForPendingActions(mAction);
+		mActionLab.checkForPendingActions(mAction, true);
 		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
 		mListView.setAdapter(mAdapter);
@@ -123,22 +122,8 @@ public class ActionListFragmentDSLV extends Fragment {
 		mListView.post(new Runnable() {
 			public void run() {
 
-				if (mFirstTimeOpeningList) {
-
-					View footerFrame = ((LayoutInflater) getActivity()
-							.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
-							.inflate(R.layout.kitkat_spacer, null, false);
-
-					mListFooter = footerFrame.findViewById(R.id.footer_group);
-				}
-
 				int numItemsVisible = mListView.getLastVisiblePosition()
 						- mListView.getFirstVisiblePosition();
-
-				Log.d(TAG,
-						"First Visible " + mListView.getFirstVisiblePosition());
-				Log.d(TAG, "Last Visible " + mListView.getLastVisiblePosition());
-				Log.d(TAG, "Adapter Visible " + mAdapter.getCount());
 
 				if ((mAdapter.getCount() - 1 > numItemsVisible)
 						&& !mListFooterAdded) {
@@ -153,6 +138,9 @@ public class ActionListFragmentDSLV extends Fragment {
 
 					mListView.removeFooterView(mListFooter);
 					mListFooterAdded = false;
+					
+					
+					
 					mScreenFooter.setVisibility(View.VISIBLE);
 
 				}
@@ -188,6 +176,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private DragSortListView.RightSwipeListener onSwipe = new DragSortListView.RightSwipeListener() {
 		@Override
 		public void swipe(int position) {
+			mAction.incrementCompleted();
 			mReordCtrl.changeActionStatus(mAdapter, position, Action.COMPLETE);
 			updateFooter();
 		}
@@ -278,11 +267,9 @@ public class ActionListFragmentDSLV extends Fragment {
 
 	private void setTitle() {
 		if (mAction.equals(mActionLab.getRoot())) {
-			getActivity().setTitle("What's Next");
-		} else if (mAction.hasChildren()) {
-			getActivity().setTitle(mAction.getTitle());
+			getActivity().setTitle(R.string.default_title);
 		} else {
-			getActivity().setTitle(null);
+			getActivity().setTitle(mAction.getTitle());
 		}
 	}
 
@@ -405,29 +392,47 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		initializeSubtaskField(v);
 
+		mListFooter = ((LayoutInflater) getActivity()
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+				.inflate(R.layout.kitkat_spacer, null, false);
+
+		//mListFooter = footerFrame.findViewById(R.id.footer_group);
+		
 		mScreenFooter = v.findViewById(R.id.footer_group);
 		mKitkatFooter = v.findViewById(R.id.kitkat_footer);
-
-		updateFooter();
 
 		return v;
 	}
 
 	private void updateFooter() {
-		/*
-		 * mScreenFooter.setVisibility(View.GONE);
-		 * mKitkatFooter.setVisibility(View.GONE);
-		 * 
-		 * if(mActionViewMode != Action.TOP_FIVE_VIEW){
-		 * mScreenFooter.setVisibility(View.GONE);
-		 * mKitkatFooter.setVisibility(View.GONE); } else{
-		 * 
-		 * mScreenFooter.setVisibility(View.VISIBLE); int listSize =
-		 * mAction.getChildren().get(Action.INCOMPLETE).size(); if(listSize ==
-		 * 0) mScreenFooter.setText(null); else{
-		 * mScreenFooter.setText(String.valueOf(listSize) +
-		 * " items in this list"); } }
-		 */
+		TextView listFooterText = null;
+
+		TextView screenFooterText = (TextView) mScreenFooter
+				.findViewById(R.id.listview_footer);
+		if (mListFooter != null) {
+			listFooterText = (TextView) mListFooter
+					.findViewById(R.id.listview_footer);
+		}
+
+		int listSize = mAction.countChildren();
+		if (listSize == 0) {
+			screenFooterText.setText(null);
+			if (listFooterText != null)
+				listFooterText.setText(null);
+		} else {
+			screenFooterText.setText(String.valueOf(listSize)
+					+ " items in this list");
+			if (listFooterText != null)
+				listFooterText.setText(String.valueOf(listSize)
+						+ " items in this list");
+		}
+		
+		TextView completedToday = (TextView) mScreenFooter.findViewById(R.id.completed_today);
+		TextView listCompletedToday = (TextView) mListFooter.findViewById(R.id.completed_today);
+		
+		completedToday.setText(String.valueOf(String.valueOf(mAction.getCompletedToday() + " completed today")));
+		listCompletedToday.setText(String.valueOf(String.valueOf(mAction.getCompletedToday() + " completed today")));
+		
 	}
 
 	private void updateNewItemHint(View v) {
@@ -546,6 +551,10 @@ public class ActionListFragmentDSLV extends Fragment {
 		String toastText = getResources().getString(R.string.save_toast);
 		Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 
+		//Update view without checking all pending actions and creating a new adapter
+		if(mActionViewMode == Action.TOP_FIVE_VIEW && mAdapter.getCount() < 5){
+			mAdapter.add(a);
+		}		
 		mAdapter.notifyDataSetChanged();
 		updateFooter();
 
@@ -575,12 +584,13 @@ public class ActionListFragmentDSLV extends Fragment {
 			TextView outcomeTextView = (TextView) convertView
 					.findViewById(R.id.action_list_outcome);
 
+			
+			outcomeTextView.setText(c.getFirstSubtaskPath());
+			
 			if (c.getFirstSubAction() != null) {
-				outcomeTextView.setText(c.getTitle() + "  ↴");
 				titleTextView.setText(mActionLab.preview(c).getTitle());
 			} else {
 				titleTextView.setText(c.getTitle());
-				outcomeTextView.setText(null);
 			}
 
 			int actionStatus = c.getActionStatus();
@@ -680,6 +690,8 @@ public class ActionListFragmentDSLV extends Fragment {
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
 					mReordCtrl.removeAction(mAdapter, position);
+					String toastText = "Item Removed";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 				}
 			});
 
@@ -690,6 +702,9 @@ public class ActionListFragmentDSLV extends Fragment {
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
 					mReordCtrl.moveToEnd(mAdapter, position);
+					
+					String toastText = "Item Skipped";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 
 				}
 			});
@@ -703,6 +718,9 @@ public class ActionListFragmentDSLV extends Fragment {
 					mReordCtrl.changeActionStatus(mAdapter, position,
 							Action.WISHLIST);
 					updateFooter();
+					
+					String toastText = "Item Moved to Wishlist";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 				}
 			});
 
@@ -714,6 +732,9 @@ public class ActionListFragmentDSLV extends Fragment {
 					Action a = mAdapter.getItem(position);
 					a.setPinned(true);
 					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
+					
+					String toastText = "Item Pinned";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 				}
 			});
 		}
@@ -722,7 +743,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	public void onPause() {
 		super.onPause();
 		mActionLab.saveActions();
-		mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
+		if(mActionLab.dropboxLinked()) mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
 	}
 
 }

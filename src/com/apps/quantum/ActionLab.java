@@ -67,18 +67,18 @@ public class ActionLab{
         }
         
         private static ActionLab sActionLab;
-        private Context mAppContext;
+        private Activity mActivity;
         private Action mRoot;
         private OutcomeSerializer mSerializer;
         
-        private ActionLab(Context appContext){
-                mAppContext = appContext;
-                mSerializer = new OutcomeSerializer(mAppContext, FILENAME, JSON_OUTPUT_FILENAME);
+        private ActionLab(Activity a){
+                mActivity = a;
+                mSerializer = new OutcomeSerializer(mActivity.getApplicationContext(), FILENAME, JSON_OUTPUT_FILENAME);
                 
                 mActionHash = new HashMap<UUID, Action>();
                 mTitleHash = new TitleMap();
                 
-                mDbxAcctMgr = DbxAccountManager.getInstance(appContext.getApplicationContext(),
+                mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
         				//App key --------- App secret
         				"588rm6vl0oom62h", "3m69jjskzcfcssn");
                 
@@ -105,9 +105,9 @@ public class ActionLab{
                 }
         }
         //Singleton
-        public static ActionLab get(Context c){
+        public static ActionLab get(Activity c){
                 if(sActionLab == null){
-                        sActionLab = new ActionLab(c.getApplicationContext());
+                        sActionLab = new ActionLab(c);
                 }
                 return sActionLab;
         }
@@ -199,7 +199,22 @@ public class ActionLab{
         }
     
     private void add(Action a){
-            if(a.getTitle() == null || a.getTitle() == "" || a.getTitle().equals("root")){} //do nothing
+            if(a.getTitle() == null || a.getTitle() == ""){
+            	//Do nothing
+            } else if (a.getTitle().equals("root") && UUID.fromString(a.getParentUUIDString()).equals(a.getId())){
+            	//Overwrite the root
+            	
+            	a.setParent(a);
+            	
+            	mActionHash.remove(mRoot.getId());
+            	mTitleHash.remove(mRoot.getTitle());
+            	
+            	mRoot = a;
+            	            	
+            	mActionHash.put(mRoot.getId(), mRoot);
+                mTitleHash.put(mRoot.getTitle(), mRoot);
+            	
+            }
             else {
                     if(this.hasAction(a)){
                             if(getAction(a.getId()).getModifiedDate().before(a.getModifiedDate())){
@@ -212,7 +227,7 @@ public class ActionLab{
                             } catch(Exception e){
                                     Log.e(TAG, "Error loading parent");
                             }
-                            if(parent == null || parent.getTitle() == "" || parent.getTitle().equals("root")){
+                            if(parent == null || parent.getTitle() == "" || parent.getTitle().equals("root") || parent.equals(a)){
                                     mRoot.adopt(a);
                             } else {
                                     add(parent);
@@ -230,17 +245,17 @@ public class ActionLab{
 		a = parent;
 		
 		while(a.hasActiveTasks()){
-    		checkForPendingActions(a);
+    		checkForPendingActions(a, true);
 			a = a.getFirstSubAction();
     	}
 		return a;
 	}
     
     private void addAll(ArrayList<Action> actionList){
-            mTempMap = new HashMap<UUID, Action>();
-            for(Action a : actionList){
-                    mTempMap.put(a.getId(), a);
-            }
+        mTempMap = new HashMap<UUID, Action>();
+        for(Action a : actionList){
+                mTempMap.put(a.getId(), a);
+        }
             
         for(Action a : actionList){
             add(a);
@@ -286,6 +301,10 @@ public class ActionLab{
                 } else {
                         mTitleHash.put(a.getTitle(), a);
                 }
+                
+                if(actionStatus == Action.WISHLIST){
+                	a.setStartDate(null);
+                }
         }
         
         public void deleteAction(Action a){
@@ -309,12 +328,15 @@ public class ActionLab{
                 return mActionHash.containsKey(a.getId());
         }
         
+        public boolean dropboxLinked(){
+        	return mDbxAcctMgr.hasLinkedAccount();
+        }
+        
         
         public void saveToDropbox(String filename){
-        	if(mDbxAcctMgr.hasLinkedAccount()){ 
- 				saveToDropboxHelper(filename);
-        	} else {
- 				mDbxAcctMgr.startLink((Activity) mAppContext, REQUEST_LINK_TO_DBX);
+        	if(dropboxLinked()) saveToDropboxHelper(filename);
+        	else {
+ 				mDbxAcctMgr.startLink( mActivity , REQUEST_LINK_TO_DBX);
         	}
         
 	    }
@@ -349,44 +371,54 @@ public class ActionLab{
                 return action;
         }
         
-        public void checkForPendingActions(Action a){
+        public boolean checkForPendingActions(Action a, boolean moveToTop){
     		ArrayList<Action> pendingList = a.getChildren().get(Action.PENDING);
     		Date now = new Date();
     		ArrayList<Action> repeatedActions= new ArrayList<Action>();
     		ArrayList<Action> pendingActionsWithChildren = new ArrayList<Action>();
-    		
+    		boolean activeTasksFound = false;
     		
     		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
     			Action current = it.next();
     			
-    			
-    			//Only bring up action if there are no subactions that are pending
-    			if(current.getStartDate().before(now) && current.getPending().isEmpty()){
+    			if(current.getStartDate().before(now)){
     				it.remove();
     				
-    				//If Action is a repeated Action
+    				//If Action is a repeated Action queue for spawning
     				if(current.getRepeatInterval() != 0){
     					repeatedActions.add(current);
+    				} else if(!current.getPending().isEmpty()){
+    					pendingActionsWithChildren.add(current);  					
+    				} else {
+	    				current.setActionStatus(Action.INCOMPLETE);
+	    				if(moveToTop) current.moveToUnpinnedTop();
     				}
-    				
-    				current.setActionStatus(Action.INCOMPLETE);
-    				
-    				a.moveToUnpinnedFront(Action.INCOMPLETE, a.getIncomplete().size() -1);		
-    				
-    			} else if (current.getStartDate().before(now)){
-    				for(Iterator<Action> it2 = pendingList.iterator(); it2.hasNext();){
-    					pendingActionsWithChildren.add(it2.next());
-    				}
+    				activeTasksFound = true;
+    			} 
+    			
+    		}
+    		if(activeTasksFound){
+    			for(Action b : repeatedActions){
+    				createRepeatedAction(b);
+    				b.setActionStatus(Action.INCOMPLETE);
+    				if(moveToTop) b.moveToUnpinnedTop();
+    				if(b.getPending() != null) checkForPendingActions(b, false);
     			}
+    			
+    			for(Action b : pendingActionsWithChildren){
+    				checkForPendingActions(b, false);
+    			}
+    			
+    			while(a != null && !a.getParent().equals(a)){
+	    			if(a.getActionStatus() != Action.INCOMPLETE) a.setActionStatus(Action.INCOMPLETE);
+	    			a.moveToUnpinnedTop();
+	    			a = a.getParent();
+	    		}
+    			
+    			
     		}
-    		for(Action r: pendingActionsWithChildren){
-    			checkForPendingActions(r);
-    		}
-    		
-    		for(Action r: repeatedActions){
-				createRepeatedAction(r);
-			}
-			
+	    	
+    		return activeTasksFound;
         }
                
     	
@@ -444,13 +476,51 @@ public class ActionLab{
     		mActionHash.put(nextRepeat.getId(), nextRepeat);
     		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
     		
-    		Log.d(TAG, nextStart.toGMTString());
+    		//Log.d(TAG, nextStart.toGMTString());
     		
+    		//Copy any incomplete subtasks that are a part of the repetiton
+    		
+    		for(Action sub : original.getIncomplete()){
+    			createRepeatedSubAction(sub, nextRepeat);
+    		}
+    		for(Action sub : original.getPending()){
+    			createRepeatedSubAction(sub, nextRepeat);
+    		}
     		
     		//Keep creating repeated actions until there is only one that is pending. 
     		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
     			createRepeatedAction(nextRepeat);
     		}
+    		
+    		
+    	}
+    	
+    	private void createRepeatedSubAction(Action original, Action repeatParent){
+    		Action nextRepeat = new Action();
+    		
+    		
+    		nextRepeat.setTitle(original.getTitle());
+    		nextRepeat.setContextName(original.getContextName());
+    		nextRepeat.setRepeatInterval(original.getRepeatInterval());
+    		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
+    		
+    		nextRepeat.setStartDate(repeatParent.getStartDate());
+    		nextRepeat.setDueDate(repeatParent.getDueDate());
+    		
+    		repeatParent.adopt(nextRepeat);
+    		
+    		mActionHash.put(nextRepeat.getId(), nextRepeat);
+    		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
+    		
+    		//Log.d(TAG, nextStart.toGMTString());
+    		
+    		//Copy any incomplete subtasks that are a part of the repetiton
+    		
+    		for(Action sub : original.getIncomplete()){
+    			createRepeatedSubAction(sub, nextRepeat);
+    		}
+    		
+    		
     	}
     	
 

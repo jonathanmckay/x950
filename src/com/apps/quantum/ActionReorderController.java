@@ -2,7 +2,7 @@ package com.apps.quantum;
 
 import java.util.ArrayList;
 
-import android.content.Context;
+import android.app.Activity;
 
 import com.apps.quantum.ActionListFragmentDSLV.ActionAdapter;
 
@@ -11,12 +11,12 @@ public class ActionReorderController {
 	private static ActionReorderController sReorderController;
 	
 	
-	private ActionReorderController(Context c){
+	private ActionReorderController(Activity c){
 		mActionLab = ActionLab.get(c);
 	}
-	public static ActionReorderController get(Context c){
+	public static ActionReorderController get(Activity c){
 		 if(sReorderController == null){
-			 sReorderController = new ActionReorderController(c.getApplicationContext());
+			 sReorderController = new ActionReorderController(c);
      }
      return sReorderController;
 	}
@@ -25,7 +25,7 @@ public class ActionReorderController {
 		 if (from != to)
 	        {
 	            Action item = adapter.getItem(from);
-	            item.moveWithinList(item.getActionStatus(), from, to);
+	            item.moveWithinList(from, to);
 	            
 	            adapter.remove(item);
 	            adapter.insert(item, to); 
@@ -41,6 +41,7 @@ public class ActionReorderController {
 			if(adapter.getCount() == item.getContainingList().size()){
 				moveWithinAdapter(adapter, from, end);
 			} else {
+				item.moveWithinList(from, end);
 				adapter.remove(item);
 				showNextAction(adapter);
 			}
@@ -57,14 +58,14 @@ public class ActionReorderController {
     		//Update the status of the subtask
     		Action subItem = mActionLab.preview(item);
     		
-    		//This is the part that will change, throw down a switch
-    		//Delete, Wishlist, skip, pin
+    		
     		mActionLab.changeActionStatus(subItem, newStatus);
     		
     		//If the parent action still has not changed, move it to the end
     		//Update the project location in the list
     		if(!item.isPinned() && (item.getActionStatus() == itemOrigStatus)){
-    		moveToEnd(adapter, position);
+    		//moveToEnd(adapter, position);
+    		//showNextAction(adapter);
     		} else if (item.getActionStatus() != itemOrigStatus){
     			showNextAction(adapter);
     		}
@@ -95,12 +96,24 @@ public class ActionReorderController {
 	}
     	
     public void removeAction(ActionAdapter adapter, int position){
-    	Action actionToDelete = adapter.getItem(position);
+    	Action item = adapter.getItem(position);
 		
-		mActionLab.deleteAction(actionToDelete);
-		adapter.remove(actionToDelete);
 		
-		showNextAction(adapter);
+    	if(item.hasActiveTasks()){
+    		//Update the status of the subtask
+    		Action toDelete = mActionLab.preview(item);
+    		mActionLab.deleteAction(toDelete);
+    		
+    	} else {
+    		mActionLab.deleteAction(item);
+    		adapter.remove(item);
+    		showNextAction(adapter);
+    	}
+    	
+    	adapter.notifyDataSetChanged();
+    	
+    	
+		
     }
 
 	

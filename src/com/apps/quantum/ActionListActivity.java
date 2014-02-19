@@ -52,6 +52,8 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        	}   
 	        setContentView(R.layout.activity_threepane);
 	        getActionBar().show();
+	        //getActionBar().setTitle(R.string.default_title);
+	        
 	        
 	        //getActionBar().show();
 	        

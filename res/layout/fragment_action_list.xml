@@ -62,9 +62,9 @@
                     android:layout_toRightOf="@+id/new_subtask_icon"
                     android:background="#00000000"
                     android:ems="10"
-                    android:inputType="textNoSuggestions"
                     android:imeActionLabel="Done"
                     android:imeOptions="actionDone"
+                    android:inputType="textNoSuggestions"
                     android:paddingLeft="10dp" >
                 </EditText>
             </RelativeLayout>
@@ -73,9 +73,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp" >
+            android:orientation="vertical" >
 
             <View
                 android:layout_width="fill_parent"
@@ -86,10 +84,9 @@
         <com.mobeta.android.dslv.DragSortListView
             android:id="@+id/listview"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:dividerHeight="1dp"
             android:paddingBottom="0dp"
-            
             android:paddingTop="0dp"
             dslv:back_view_id="@id/back"
             dslv:collapsed_height="2dp"
@@ -106,44 +103,21 @@
             dslv:swipe_mode="swipe"
             dslv:track_drag_sort="false"
             dslv:use_default_controller="true" />
-        
-      
-         
-    </LinearLayout>
-    
-   
-
-    <RelativeLayout
-        android:id="@+id/footer_group"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/list_linear_layout" 
-        >
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/listview_footer"
-                style="@style/TitleText"
-                android:layout_width="match_parent"
-                android:layout_height="30dp"
-                android:background="@color/ltGrey"
-                android:text="TextTest" />
-
             <View
-                android:id="@+id/kitkat_footer"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/ltGrey" >
-            </View>
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@color/ltGrey" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/footer_group"
+        layout="@layout/kitkat_spacer" />
 
 </RelativeLayout>
