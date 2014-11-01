@@ -1,6 +1,7 @@
 package com.apps.quantum;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
@@ -9,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -31,10 +31,10 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-
-import com.twitter.*;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
+import com.twitter.Extractor;
+import com.twitter.Extractor.Entity;
 
 public class ActionListFragmentDSLV extends Fragment {
 	private static final String TAG = "ActionListFragment";
@@ -59,6 +59,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private Callbacks mCallbacks;
 	private boolean mDetailVisible;
 
+	private Extractor mTextExtractor;	
 	private ImageButton mNewSubtaskButton;
 	private EditText mSubtaskField;
 	private EditText mTitleEdit;
@@ -93,7 +94,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		mActionLab = ActionLab.get(getActivity());
 		mReordCtrl = ActionReorderController.get(getActivity());
-
+		mTextExtractor = new Extractor();
 		mAction = mActionLab.getRoot();
 		mActionViewMode = Action.TOP_FIVE_VIEW;
 		mSubtaskTitle = null;
@@ -543,11 +544,29 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		// Create new subtask
 		Action a = mActionLab.createActionIn(mAction);
+		
+		
+		Log.d(TAG, mSubtaskTitle + " saved");
+		List<Entity> e = mTextExtractor.extractMentionedScreennamesWithIndices(mSubtaskTitle);
+		
+		//If there is a hashtag in the task, then extract it and put it as the context
+		if(e != null && ! e.isEmpty()){
+			Entity context = e.get(0);
+			a.setContextName(mSubtaskTitle.substring(context.getStart() + 1, context.getEnd()));
+			
+			StringBuilder hashlessTitle = new StringBuilder();
+			if(context.getStart() > 0) hashlessTitle.append(mSubtaskTitle.substring(0, context.getStart() -1));
+			if(context.getEnd() < mSubtaskTitle.length()) hashlessTitle.append(mSubtaskTitle.substring(context.getEnd() + 1, mSubtaskTitle.length()-1));
+			mSubtaskTitle = hashlessTitle.toString();
+		}
+		
 		a.setTitle(mSubtaskTitle);
 
 		// Reset new subtask field
 		mSubtaskTitle = null;
 		mSubtaskField.setText(null);
+		
+		
 
 		// Toast
 		String toastText = getResources().getString(R.string.save_toast);

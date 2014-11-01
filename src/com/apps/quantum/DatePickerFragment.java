@@ -14,6 +14,8 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.app.DatePickerDialog;
+
 
 public class DatePickerFragment extends DialogFragment {
 	public static final String EXTRA_DATE = "com.apps.quantum.date";
@@ -63,8 +65,18 @@ public class DatePickerFragment extends DialogFragment {
 				getArguments().putSerializable(EXTRA_DATE, mDate);
 			}
 		});
+		/*
+		DatePickerDialog dpd = new DatePickerDialog(getActivity(),
+				new DatePickerDialog.OnDateSetListener() {
+			
+			@Override
+			public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+				// TODO Auto-generated method stub
+				
+			}
+		}, year, month, day);
 		
-		
+		return dpd;*/
 		
 		return new AlertDialog.Builder(getActivity())
 		.setView(v)
