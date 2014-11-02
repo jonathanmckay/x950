@@ -555,9 +555,10 @@ public class ActionListFragmentDSLV extends Fragment {
 		if(mActionViewMode == Action.TOP_FIVE_VIEW){
          if(mAdapter.getCount() < 6) {
              mAdapter.add(a);
+         } else {
+             mAdapter.remove(mAdapter.getItem(5));
+             mAdapter.add(a);
          }
-         mAdapter.remove(mAdapter.getItem(5));
-         mAdapter.add(a);
 		}		
 		mAdapter.notifyDataSetChanged();
 		updateFooter();

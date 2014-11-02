@@ -424,7 +424,6 @@ public class ActionLab{
 	    			a = a.getParent();
 	    		}
     			
-    			
     		}
 	    	
     		return activeTasksFound;
@@ -450,8 +449,6 @@ public class ActionLab{
     				a.setDueDate(nextRepeatTime(a.getStartDate(), a));
     			}
     			
-    			Log.d("Action", a.getTitle() + " made repeatable");
-    			
     			createRepeatedAction(a);
     		}
     	}
@@ -476,7 +473,8 @@ public class ActionLab{
     		nextRepeat.setContextName(original.getContextName());
     		nextRepeat.setRepeatInterval(original.getRepeatInterval());
     		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
-    		
+
+
     		Date nextStart = nextRepeatTime(original.getStartDate(), nextRepeat);
     		nextRepeat.setStartDate(nextStart);
     		nextRepeat.setDueDate(nextRepeatTime(nextStart, nextRepeat));
@@ -484,8 +482,6 @@ public class ActionLab{
     		original.getParent().adopt(nextRepeat);
     		mActionHash.put(nextRepeat.getId(), nextRepeat);
     		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
-    		
-    		//Log.d(TAG, nextStart.toGMTString());
     		
     		//Copy any incomplete subtasks that are a part of the repetiton
     		
@@ -500,7 +496,6 @@ public class ActionLab{
     		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
     			createRepeatedAction(nextRepeat);
     		}
-    		
     		
     	}
     	
