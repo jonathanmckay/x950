@@ -541,40 +541,23 @@ public class ActionListFragmentDSLV extends Fragment {
 	}
 
 	private void saveNewSubtask() {
-
-		// Create new subtask
-		Action a = mActionLab.createActionIn(mAction);
-		
-		
-		Log.d(TAG, mSubtaskTitle + " saved");
-		List<Entity> e = mTextExtractor.extractMentionedScreennamesWithIndices(mSubtaskTitle);
-		
-		//If there is a hashtag in the task, then extract it and put it as the context
-		if(e != null && ! e.isEmpty()){
-			Entity context = e.get(0);
-			a.setContextName(mSubtaskTitle.substring(context.getStart() + 1, context.getEnd()));
-			
-			StringBuilder hashlessTitle = new StringBuilder();
-			if(context.getStart() > 0) hashlessTitle.append(mSubtaskTitle.substring(0, context.getStart() -1));
-			if(context.getEnd() < mSubtaskTitle.length()) hashlessTitle.append(mSubtaskTitle.substring(context.getEnd() + 1, mSubtaskTitle.length()-1));
-			mSubtaskTitle = hashlessTitle.toString();
-		}
-		
-		a.setTitle(mSubtaskTitle);
+        Action a = createActionFromInputString();
 
 		// Reset new subtask field
 		mSubtaskTitle = null;
 		mSubtaskField.setText(null);
-		
-		
 
 		// Toast
 		String toastText = getResources().getString(R.string.save_toast);
-		Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+		Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 
 		//Update view without checking all pending actions and creating a new adapter
-		if(mActionViewMode == Action.TOP_FIVE_VIEW && mAdapter.getCount() < 5){
-			mAdapter.add(a);
+		if(mActionViewMode == Action.TOP_FIVE_VIEW){
+         if(mAdapter.getCount() < 6) {
+             mAdapter.add(a);
+         }
+         mAdapter.remove(mAdapter.getItem(5));
+         mAdapter.add(a);
 		}		
 		mAdapter.notifyDataSetChanged();
 		updateFooter();
@@ -584,7 +567,30 @@ public class ActionListFragmentDSLV extends Fragment {
 
 	}
 
+    private Action createActionFromInputString(){
+        Action a = mActionLab.createActionIn(mAction);
+
+        List<Entity> e = mTextExtractor.extractMentionedScreennamesWithIndices(mSubtaskTitle);
+
+        if(e == null || e.isEmpty()) {
+            a.setTitle(mSubtaskTitle);
+            return a;
+        }
+
+        Entity context = e.get(0);
+        a.setContextName(mSubtaskTitle.substring(context.getStart() + 1, context.getEnd()));
+
+        StringBuilder hashlessTitle = new StringBuilder();
+        if(context.getStart() > 0) hashlessTitle.append(mSubtaskTitle.substring(0, context.getStart() -1));
+        if(context.getEnd() < mSubtaskTitle.length()) hashlessTitle.append(mSubtaskTitle.substring(context.getEnd() + 1, mSubtaskTitle.length()-1));
+        mSubtaskTitle = hashlessTitle.toString();
+
+        return a;
+    }
+
 	protected class ActionAdapter extends ArrayAdapter<Action> {
+
+
 
 		public ActionAdapter(ArrayList<Action> Actions) {
 			super(getActivity(), 0, Actions);

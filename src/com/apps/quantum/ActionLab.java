@@ -27,8 +27,6 @@ public class ActionLab{
         private static final String JSON_OUTPUT_FILENAME = "actions_json.txt";
         private static final int COMPLETED = 1;
         private static final int NOT_COMPLETED = 0;
-        
-
 
     	static final int REQUEST_LINK_TO_DBX = 0;
         
