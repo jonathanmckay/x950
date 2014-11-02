@@ -12,6 +12,7 @@ import java.util.UUID;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+import android.view.animation.AccelerateInterpolator;
 
 import com.dropbox.sync.android.DbxAccountManager;
 import com.dropbox.sync.android.DbxException;
@@ -163,8 +164,13 @@ public class ActionLab{
     		a.setSavedTimeStamp(timestamp);
     		
     		ArrayList<String> list = new ArrayList<String>();
-    		
-    		list.add(a.toFileTextLine());
+    		if(a.getActionStatus() == Action.COMPLETE){
+                return list;
+            }
+
+
+            list.add(a.toFileTextLine());
+
     		list.trimToSize();
     		
     		
@@ -293,18 +299,23 @@ public class ActionLab{
         
         
         public void changeActionStatus(Action a, int actionStatus){
-                a.setActionStatus(actionStatus);
-                a.getParent().adopt(a);
-                
-                if(actionStatus != Action.INCOMPLETE){
-                        mTitleHash.remove(a.getTitle(), a);
-                } else {
-                        mTitleHash.put(a.getTitle(), a);
-                }
-                
-                if(actionStatus == Action.WISHLIST){
-                	a.setStartDate(null);
-                }
+            if(actionStatus == Action.COMPLETE){
+                deleteAction(a);
+                return;
+            }
+            a.setActionStatus(actionStatus);
+            a.getParent().adopt(a);
+
+            if(actionStatus != Action.INCOMPLETE){
+                mTitleHash.remove(a.getTitle(), a);
+            } else {
+                mTitleHash.put(a.getTitle(), a);
+            }
+
+
+            if(actionStatus == Action.WISHLIST){
+                a.setStartDate(null);
+            }
         }
         
         public void deleteAction(Action a){
