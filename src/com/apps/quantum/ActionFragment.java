@@ -118,7 +118,7 @@ public class ActionFragment extends Fragment {
 		View v = (inflater.inflate(R.layout.fragment_action, parent, false));
 		
 		if(NavUtils.getParentActivityIntent(getActivity()) != null){
-			getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
+            getActivity().getActionBar().setDisplayHomeAsUpEnabled(true);
 		}
 		
 		enableTextFields(v);

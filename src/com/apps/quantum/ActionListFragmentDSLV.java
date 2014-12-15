@@ -201,7 +201,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		// Log.d(TAG, mAction.getTitle() + " is now the focus");
 
 		refreshView();
-		getActivity().invalidateOptionsMenu();
+		getActivity().supportInvalidateOptionsMenu();
 		setTitle();
 		updateTitleEdit();
 		updateNewItemHint(getView());
@@ -312,8 +312,8 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 	}
 
-	// menuPosition is based on the Array in Strings
-	public void filterView(int menuPosition) {
+	//select the view to show the main actions based on the settings drawer
+	public void selectActionView(int menuPosition) {
 		switch (menuPosition) {
 		case 0:
 			mActionViewMode = Action.TOP_FIVE_VIEW;
@@ -322,18 +322,12 @@ public class ActionListFragmentDSLV extends Fragment {
 			mActionViewMode = Action.INCOMPLETE;
 			break;
 		case 2:
-			mActionViewMode = Action.PENDING;
-			break;
-		case 3:
-			mActionViewMode = Action.WISHLIST;
-			break;
-		case 4:
 			mActionViewMode = Action.COMPLETE;
 			break;
-		case 5:
+		case 3:
 			mActionLab.deleteAllActions();
 			break;
-		case 6:
+		case 4:
 			FragmentManager fm = getActivity().getSupportFragmentManager();
 			DropboxFragment dbx = new DropboxFragment();
 			dbx.setTargetFragment(ActionListFragmentDSLV.this,

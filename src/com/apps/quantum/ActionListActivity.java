@@ -93,18 +93,6 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        };
 	        
 	        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-	        
-	        /*
-	        if(savedInstanceState != null){
-	        	mAction = ActionLab.get(this).getAction(
-	        			UUID.fromString(savedInstanceState.getString(CURRENT_ACTION_ID)));
-	        	
-	        } else if (mAction == null){
-	        	mAction = ;
-	        } */
-	        
-	        
         	onActionSelected(ActionLab.get(this).getRoot());
 	        
 	    }
@@ -119,12 +107,12 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        }
 	    }
 
-	    private void selectItem(int position) {
-	        mDrawerList.setItemChecked(position, true);
+	    private void selectItem(int menuPosition) {
+	        mDrawerList.setItemChecked(menuPosition, true);
 	        FragmentManager fm = getSupportFragmentManager();
 	    	ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV)fm.findFragmentById(R.id.listFragment);
 	    	
-	    	listFragment.filterView(position);
+	    	listFragment.selectActionView(menuPosition);
 	    	
 	        mDrawerLayout.closeDrawer(mDrawerList);
 	    }

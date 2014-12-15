@@ -58,8 +58,6 @@
 	<string-array name="menu_titles">
         <item>Next 5</item>
         <item>Incomplete</item>
-        <item>Pending</item>
-        <item>Wishlist</item>
         <item>Complete</item>
         <item>Remove All</item>
         <item>Dropbox</item>
