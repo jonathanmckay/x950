@@ -430,7 +430,7 @@ public class ActionLab{
     	
     	public void modifyRepeatInterval(int repeatInterval, int repeatNumber, Action a){
     		
-    		if(repeatInterval < 0 || repeatInterval > 5){
+    		if(repeatInterval < 1 || repeatInterval > 5){
     			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
     			return;
     		}
@@ -464,7 +464,9 @@ public class ActionLab{
     	}
     	
     	private void createRepeatedAction(Action original){
-    		Action nextRepeat = new Action();
+
+
+            Action nextRepeat = new Action();
     		
     		
     		nextRepeat.setTitle(original.getTitle());
@@ -491,7 +493,7 @@ public class ActionLab{
     		}
     		
     		//Keep creating repeated actions until there is only one that is pending. 
-    		if(nextRepeat.getActionStatus() == Action.INCOMPLETE){
+    		if(nextRepeat.getActionStatus() == Action.INCOMPLETE && original.getRepeatNumber() != 0){
     			createRepeatedAction(nextRepeat);
     		}
     		
@@ -537,24 +539,25 @@ public class ActionLab{
             
             Log.d(TAG, String.valueOf(a.getRepeatInterval()));
 
+            if(a.getRepeatNumber() < 1){
+                Log.d(TAG, "get repeat set to zero");
+            }
 
-            for(int i = 0; i < a.getRepeatNumber(); i++){
-                Log.d("Repeat number", String.valueOf(a.getRepeatNumber()));
                 switch(a.getRepeatInterval()){
                     case REPEAT_DAY:
-                        calendar.add(Calendar.DATE, 1);
+                        calendar.add(Calendar.DATE, 1*a.getRepeatNumber());
                         break;
                     case REPEAT_WEEK:
-                        calendar.add(Calendar.DATE, 7);
+                        calendar.add(Calendar.DATE, 7*a.getRepeatNumber());
                         break;
                     case REPEAT_MONTH:
-                        calendar.add(Calendar.MONTH, 1);
+                        calendar.add(Calendar.MONTH, 1*a.getRepeatNumber());
                         break;
                     case REPEAT_YEAR:
-                        calendar.add(Calendar.YEAR, 1);
+                        calendar.add(Calendar.YEAR, 1*a.getRepeatNumber());
                         break;
                 }
-            }
+
 
 
             
