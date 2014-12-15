@@ -46,8 +46,31 @@
         <item>Every Month</item>
         <item>Every Year</item>
     </string-array>
-    
-	
+
+    <string-array
+        name="custom_repeat_intervals">
+        <item>Days</item>
+        <item>Weeks</item>
+        <item>Months</item>
+        <item>Years</item>
+    </string-array>
+
+    <string-array name="custom_repeat_numbers">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+    </string-array>
+
 	<string-array
         name="dropbox_options">
         <item>Autosave Now</item>
@@ -58,7 +81,7 @@
 	<string-array name="menu_titles">
         <item>Next 5</item>
         <item>Incomplete</item>
-        <item>Complete</item>
+        <item>Pending</item>
         <item>Remove All</item>
         <item>Dropbox</item>
     </string-array>

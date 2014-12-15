@@ -348,8 +348,9 @@ public class ActionFragment extends Fragment {
 				break;
 				
 			case REQUEST_REPEAT_INFO:
-				int repeatInterval = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_INFO);
-				mActionLab.modifyRepeatInterval(repeatInterval, mAction);
+				int repeatInterval = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_INTERVAL);
+                int repeatNumber = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_NUMBER);
+				mActionLab.modifyRepeatInterval(repeatInterval, repeatNumber, mAction);
 				
 				//Change the color of the button
 				updateRepeatIntervalButton(repeatInterval);

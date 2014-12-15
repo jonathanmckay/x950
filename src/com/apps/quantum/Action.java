@@ -1,5 +1,10 @@
 package com.apps.quantum;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,11 +14,6 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.util.Log;
 
 public class Action {
 	private static final int OUTCOME_CATEGORIES = 4;
@@ -37,6 +37,7 @@ public class Action {
 	private Date mSavedTimeStamp;
 
 	private int mRepeatInterval;
+    private int mRepeatNumber;
 
 	private int mMinutesExpected;
 	// This value not used yet
@@ -736,8 +737,11 @@ public class Action {
 		return mRepeatInterval;
 	}
 
-	public void setRepeatInterval(int repeatInterval) {
+    public int getRepeatNumber() { return mRepeatNumber;}
+
+	public void setRepeatInfo(int repeatInterval, int repeatNumber) {
 		mRepeatInterval = repeatInterval;
+        mRepeatNumber = repeatNumber;
 	}
 
 	public boolean isPinned() {

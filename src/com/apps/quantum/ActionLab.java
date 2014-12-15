@@ -1,5 +1,14 @@
 package com.apps.quantum;
 
+import android.app.Activity;
+import android.util.Log;
+
+import com.dropbox.sync.android.DbxAccountManager;
+import com.dropbox.sync.android.DbxException;
+import com.dropbox.sync.android.DbxFile;
+import com.dropbox.sync.android.DbxFileSystem;
+import com.dropbox.sync.android.DbxPath;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -8,17 +17,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-
-import android.app.Activity;
-import android.content.Context;
-import android.util.Log;
-import android.view.animation.AccelerateInterpolator;
-
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
 
 public class ActionLab{
         private static final String TAG = "ActionLab";
@@ -430,14 +428,14 @@ public class ActionLab{
         }
                
     	
-    	public void modifyRepeatInterval(int repeatInterval, Action a){
+    	public void modifyRepeatInterval(int repeatInterval, int repeatNumber, Action a){
     		
-    		if(repeatInterval < 0 || repeatInterval > 4){
+    		if(repeatInterval < 0 || repeatInterval > 5){
     			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
     			return;
     		}
     		
-    		a.setRepeatInterval(repeatInterval);
+    		a.setRepeatInfo(repeatInterval, repeatNumber);
     		
     		if (repeatInterval == 0){
     			removePendingRepeatedActions(a);
@@ -471,7 +469,7 @@ public class ActionLab{
     		
     		nextRepeat.setTitle(original.getTitle());
     		nextRepeat.setContextName(original.getContextName());
-    		nextRepeat.setRepeatInterval(original.getRepeatInterval());
+    		nextRepeat.setRepeatInfo(original.getRepeatInterval(), original.getRepeatNumber());
     		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
 
 
@@ -505,7 +503,7 @@ public class ActionLab{
     		
     		nextRepeat.setTitle(original.getTitle());
     		nextRepeat.setContextName(original.getContextName());
-    		nextRepeat.setRepeatInterval(original.getRepeatInterval());
+            nextRepeat.setRepeatInfo(original.getRepeatInterval(), original.getRepeatNumber());
     		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
     		
     		nextRepeat.setStartDate(repeatParent.getStartDate());
@@ -538,21 +536,27 @@ public class ActionLab{
             calendar.setTime(start);
             
             Log.d(TAG, String.valueOf(a.getRepeatInterval()));
-            
-            switch(a.getRepeatInterval()){
-    	        case REPEAT_DAY:
-    	        	calendar.add(Calendar.DATE, 1);
-    	        	break;
-    	        case REPEAT_WEEK:
-    	        	calendar.add(Calendar.DATE, 7);
-    	        	break;
-    	        case REPEAT_MONTH:
-    	        	calendar.add(Calendar.MONTH, 1);
-    	        	break;
-    	        case REPEAT_YEAR:
-    	        	calendar.add(Calendar.YEAR, 1);
-    	        	break;
-    	    }
+
+
+            for(int i = 0; i < a.getRepeatNumber(); i++){
+                Log.d("Repeat number", String.valueOf(a.getRepeatNumber()));
+                switch(a.getRepeatInterval()){
+                    case REPEAT_DAY:
+                        calendar.add(Calendar.DATE, 1);
+                        break;
+                    case REPEAT_WEEK:
+                        calendar.add(Calendar.DATE, 7);
+                        break;
+                    case REPEAT_MONTH:
+                        calendar.add(Calendar.MONTH, 1);
+                        break;
+                    case REPEAT_YEAR:
+                        calendar.add(Calendar.YEAR, 1);
+                        break;
+                }
+            }
+
+
             
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);

@@ -1,8 +1,5 @@
 package com.apps.quantum;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -35,6 +32,9 @@ import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import com.twitter.Extractor;
 import com.twitter.Extractor.Entity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ActionListFragmentDSLV extends Fragment {
 	private static final String TAG = "ActionListFragment";
@@ -322,7 +322,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			mActionViewMode = Action.INCOMPLETE;
 			break;
 		case 2:
-			mActionViewMode = Action.COMPLETE;
+			mActionViewMode = Action.PENDING;
 			break;
 		case 3:
 			mActionLab.deleteAllActions();
