@@ -430,7 +430,7 @@ public class ActionLab{
     	
     	public void modifyRepeatInterval(int repeatInterval, int repeatNumber, Action a){
     		
-    		if(repeatInterval < 1 || repeatInterval > 5){
+    		if(repeatInterval < 0 || repeatInterval > 5){
     			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
     			return;
     		}
@@ -439,6 +439,7 @@ public class ActionLab{
     		
     		if (repeatInterval == 0){
     			removePendingRepeatedActions(a);
+
     		} else {
     			if(a.getStartDate() == null) a.setStartDate(a.getCreatedDate());
     			if(a.getStartDate() == null) a.setStartDate(new Date());
