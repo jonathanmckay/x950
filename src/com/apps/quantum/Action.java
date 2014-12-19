@@ -266,6 +266,10 @@ public class Action {
 			if (mStartDate.after(new Date()) && mActionStatus != COMPLETE) {
 				setActionStatus(PENDING);
 
+                //If the action is currently a repeated action, we don't want to spawn another
+                // repeated action.
+                setRepeatInfo(0, 0);
+
 				ArrayList<Action> newPendingSubs = new ArrayList<Action>();
 				// If the parent is pending, all children must be pending as
 				// well.
