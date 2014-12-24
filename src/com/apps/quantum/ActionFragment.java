@@ -387,7 +387,7 @@ public class ActionFragment extends Fragment {
 			mAction.setDueDate(d);
 			mDueDateButton.setText(toButtonString(d));
 		} else {
-			mAction.setStartDate(d);
+			mActionLab.setStartDate(mAction, d);
 			mStartDateButton.setText(toButtonString(d));
 		}		
 	}

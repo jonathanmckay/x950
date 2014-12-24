@@ -11,11 +11,13 @@ import com.dropbox.sync.android.DbxPath;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.PriorityQueue;
 import java.util.UUID;
 
 public class ActionLab{
@@ -30,11 +32,13 @@ public class ActionLab{
         
         private HashMap<UUID, Action> mActionHash;
         private HashMap<UUID, Action> mTempMap;
+        private PriorityQueue<Action> mStartDateQueue;
         private DbxAccountManager mDbxAcctMgr;
         
         public static final String DROPBOX_OPTIONS = "com.apps.quantum.dropboxfragment";
         
         private TitleMap mTitleHash;
+
         private class TitleMap extends HashMap<String, List<Action>> {
                    private static final long serialVersionUID = 1L;
 
@@ -62,6 +66,17 @@ public class ActionLab{
                         else return null;
                 }
         }
+
+    private class StartDateComparator implements Comparator<Action>
+    {
+        @Override
+        public int compare(Action a, Action b)
+        {
+           if(a.getStartDate() == null) return -1;
+           if(b.getStartDate() == null) return 1;
+           return (a.getStartDate().after(b.getStartDate())) ? 1 : -1;
+        }
+    }
         
         private static ActionLab sActionLab;
         private Activity mActivity;
@@ -74,6 +89,10 @@ public class ActionLab{
                 
                 mActionHash = new HashMap<UUID, Action>();
                 mTitleHash = new TitleMap();
+
+
+                Comparator<Action> comparator = new StartDateComparator();
+                mStartDateQueue = new PriorityQueue<Action>(50, comparator);
                 
                 mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
         				//App key --------- App secret
@@ -247,7 +266,7 @@ public class ActionLab{
 		a = parent;
 		
 		while(a.hasActiveTasks()){
-    		checkForPendingActions(a, true);
+    		checkForPendingActions(a);
 			a = a.getFirstSubAction();
     	}
 		return a;
@@ -306,11 +325,6 @@ public class ActionLab{
                 mTitleHash.remove(a.getTitle(), a);
             } else {
                 mTitleHash.put(a.getTitle(), a);
-            }
-
-
-            if(actionStatus == Action.WISHLIST){
-                a.setStartDate(null);
             }
         }
         
@@ -378,7 +392,7 @@ public class ActionLab{
                 return action;
         }
         
-        public boolean checkForPendingActions(Action a, boolean moveToTop){
+        public boolean checkForPendingActions(Action a){
     		ArrayList<Action> pendingList = a.getChildren().get(Action.PENDING);
     		Date now = new Date();
     		ArrayList<Action> repeatedActions= new ArrayList<Action>();
@@ -388,47 +402,110 @@ public class ActionLab{
     		for(Iterator<Action> it = pendingList.iterator(); it.hasNext();){
     			Action current = it.next();
     			
-    			if(current.getStartDate().before(now)){
+    			if(current.getStartDate() != null && current.getStartDate().before(now)){
     				it.remove();
-    				
+    				activate(current);
     				//If Action is a repeated Action queue for spawning
-    				if(current.getRepeatInterval() != 0){
-    					repeatedActions.add(current);
-    				} else if(!current.getPending().isEmpty()){
-    					pendingActionsWithChildren.add(current);  					
-    				} else {
-	    				current.setActionStatus(Action.INCOMPLETE);
-	    				if(moveToTop) current.moveToUnpinnedTop();
-    				}
+    				if(current.getRepeatInterval() != 0) repeatedActions.add(current);
+                    //If this action
+                    if(!current.getPending().isEmpty()) pendingActionsWithChildren.add(current);
     				activeTasksFound = true;
     			} 
     			
     		}
     		if(activeTasksFound){
-    			for(Action b : repeatedActions){
-    				createRepeatedAction(b);
-    				b.setActionStatus(Action.INCOMPLETE);
-    				if(moveToTop) b.moveToUnpinnedTop();
-    				if(b.getPending() != null) checkForPendingActions(b, false);
+    			for(Action currentRepetition : repeatedActions){
+    				Action nextRepeat = createRepeatedAction(currentRepetition);
+
+    				currentRepetition.moveToUnpinnedTop();
+    				if(currentRepetition.getPending() != null)
+                        checkForPendingActions(currentRepetition);
     			}
     			
     			for(Action b : pendingActionsWithChildren){
-    				checkForPendingActions(b, false);
+    				checkForPendingActions(b);
     			}
-    			
-    			while(a != null && !a.getParent().equals(a)){
-	    			if(a.getActionStatus() != Action.INCOMPLETE) a.setActionStatus(Action.INCOMPLETE);
-	    			a.moveToUnpinnedTop();
-	    			a = a.getParent();
-	    		}
-    			
+
+                activate(a);
+
     		}
 	    	
     		return activeTasksFound;
         }
-               
-    	
-    	public void modifyRepeatInterval(int repeatInterval, int repeatNumber, Action a){
+
+    public void setStartDate(Action a, Date startDate) {
+        if(startDate == null) return;
+        modifyStartDate(a, startDate);
+        if (startDate.after(new Date()) && a.getActionStatus() != Action.COMPLETE) deactivate(a);
+        if ((startDate.before(new Date()) && a.getActionStatus() == Action.PENDING)) activate(a);
+    }
+
+    private void modifyStartDate(Action a, Date startDate) {
+        mStartDateQueue.remove(a);
+        a.setStartDateRaw(startDate);
+        if(startDate.after(new Date())) mStartDateQueue.add(a);
+    }
+
+    //Mark an action as active and change the status of any ancestors as necessary
+    private void activate(Action a){
+        a.setActionStatus(Action.INCOMPLETE);
+        a = a.getParent();
+        while(a != null && !a.isRoot()){
+            if(a.getActionStatus() == Action.INCOMPLETE) break;
+            if(a.getActionStatus() == Action.PENDING) a.setActionStatus(Action.INCOMPLETE);
+            a.moveToUnpinnedTop();
+            a = a.getParent();
+        }
+    }
+
+    //Mark an action as pending, and change the status of children and ancestors as necessary
+    private void deactivate(Action a){
+        a.setActionStatus(Action.PENDING);
+        deactivateChildren(a);
+        deactivateParents(a);
+    }
+
+    private void deactivateParents(Action a) {
+        Date currentStartDate = a.getStartDate();
+        a = a.getParent();
+        while(a != null && !a.isRoot()){
+            if(a.getActionStatus() == Action.PENDING) break;
+            if(!a.hasActiveTasks() && a.getActionStatus() == Action.INCOMPLETE) {
+                modifyStartDate(a, currentStartDate);
+                a.setActionStatus(Action.PENDING);
+            }
+            if (a.getStartDate() != null
+                && a.getStartDate().after(currentStartDate)
+                && a.getActionStatus() == Action.PENDING)
+                modifyStartDate(a, currentStartDate);
+            a = a.getParent();
+        }
+    }
+
+    private void deactivateChildren(Action a){
+        ArrayList<Action> newPendingSubs = new ArrayList<Action>();
+        // If the parent is pending, all children must be pending as
+        // well.
+        if (a.hasActiveTasks()) {
+            for (Iterator<Action> it = a.getIncomplete().iterator(); it.hasNext();) {
+                Action current = it.next();
+                it.remove();
+                newPendingSubs.add(current);
+            }
+            for (Action sub : newPendingSubs) {
+                sub.setActionStatus(Action.PENDING);
+                modifyStartDate(sub, a.getStartDate());
+                deactivateChildren(sub);
+            }
+        }
+
+        for(Action sub : a.getPending()){
+            if(sub.getStartDate().after(a.getStartDate())) modifyStartDate(sub, a.getStartDate());
+        }
+    }
+
+
+    public void modifyRepeatInterval(int repeatInterval, int repeatNumber, Action a){
     		
     		if(repeatInterval < 0 || repeatInterval > 5){
     			Log.e("Action", "Invalid paramaters for a repeated action, aborting");
@@ -441,14 +518,16 @@ public class ActionLab{
     			removePendingRepeatedActions(a);
 
     		} else {
-    			if(a.getStartDate() == null) a.setStartDate(a.getCreatedDate());
-    			if(a.getStartDate() == null) a.setStartDate(new Date());
+    			if(a.getStartDate() == null) setStartDate(a, a.getCreatedDate());
+    			if(a.getStartDate() == null) setStartDate(a, new Date());
     			
     			if(a.getDueDate() == null){
-    				a.setDueDate(nextRepeatTime(a.getStartDate(), a));
+    				a.setDueDate(nextRepeatTime(a.getStartDate(), a.getRepeatInterval(), a.getRepeatNumber()));
     			}
-    			
-    			createRepeatedAction(a);
+
+                if(a.getActionStatus() != Action.PENDING) {
+                    createRepeatedAction(a);
+                }
     		}
     	}
     	private void removePendingRepeatedActions(Action a){
@@ -464,28 +543,26 @@ public class ActionLab{
     		}
     	}
     	
-    	private void createRepeatedAction(Action original){
-
-
+    	private Action createRepeatedAction(Action original){
             Action nextRepeat = new Action();
-    		
-    		
+
     		nextRepeat.setTitle(original.getTitle());
     		nextRepeat.setContextName(original.getContextName());
-    		nextRepeat.setRepeatInfo(original.getRepeatInterval(), original.getRepeatNumber());
     		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
 
-
-    		Date nextStart = nextRepeatTime(original.getStartDate(), nextRepeat);
-    		nextRepeat.setStartDate(nextStart);
-    		nextRepeat.setDueDate(nextRepeatTime(nextStart, nextRepeat));
+            int interval = original.getRepeatInterval();
+            int number = original.getRepeatNumber();
+    		Date nextStart = nextRepeatTime(original.getStartDate(), interval, number);
+    		setStartDate(nextRepeat, nextStart);
+            nextRepeat.setRepeatInfo(interval, number);
+    		nextRepeat.setDueDate(nextRepeatTime(nextStart, interval, number));
     		
     		original.getParent().adopt(nextRepeat);
     		mActionHash.put(nextRepeat.getId(), nextRepeat);
     		mTitleHash.put(nextRepeat.getTitle(), nextRepeat);
     		
     		//Copy any incomplete subtasks that are a part of the repetiton
-    		
+
     		for(Action sub : original.getIncomplete()){
     			createRepeatedSubAction(sub, nextRepeat);
     		}
@@ -497,8 +574,13 @@ public class ActionLab{
     		if(nextRepeat.getActionStatus() == Action.INCOMPLETE && original.getRepeatNumber() != 0){
     			createRepeatedAction(nextRepeat);
     		}
+
+            return nextRepeat;
     		
     	}
+
+
+
     	
     	private void createRepeatedSubAction(Action original, Action repeatParent){
     		Action nextRepeat = new Action();
@@ -509,7 +591,7 @@ public class ActionLab{
             nextRepeat.setRepeatInfo(original.getRepeatInterval(), original.getRepeatNumber());
     		nextRepeat.setMinutesExpected(original.getMinutesExpected());		
     		
-    		nextRepeat.setStartDate(repeatParent.getStartDate());
+    		setStartDate(nextRepeat, repeatParent.getStartDate());
     		nextRepeat.setDueDate(repeatParent.getDueDate());
     		
     		repeatParent.adopt(nextRepeat);
@@ -534,34 +616,32 @@ public class ActionLab{
     	public static final int REPEAT_MONTH = 3;
     	public static final int REPEAT_YEAR = 4;
     	
-    	private Date nextRepeatTime(Date start, Action a){
+    	private Date nextRepeatTime(Date start, int repeatInterval, int repeatNumber){
     		Calendar calendar = Calendar.getInstance();
             calendar.setTime(start);
             
-            Log.d(TAG, String.valueOf(a.getRepeatInterval()));
+            Log.d(TAG, String.valueOf(repeatInterval));
 
-            if(a.getRepeatNumber() < 1){
+            if(repeatNumber < 1){
                 Log.d(TAG, "get repeat set to zero");
+                repeatNumber = 1;
             }
 
-                switch(a.getRepeatInterval()){
+                switch(repeatInterval){
                     case REPEAT_DAY:
-                        calendar.add(Calendar.DATE, 1*a.getRepeatNumber());
+                        calendar.add(Calendar.DATE, repeatNumber);
                         break;
                     case REPEAT_WEEK:
-                        calendar.add(Calendar.DATE, 7*a.getRepeatNumber());
+                        calendar.add(Calendar.DATE, 7*repeatNumber);
                         break;
                     case REPEAT_MONTH:
-                        calendar.add(Calendar.MONTH, 1*a.getRepeatNumber());
+                        calendar.add(Calendar.MONTH, repeatNumber);
                         break;
                     case REPEAT_YEAR:
-                        calendar.add(Calendar.YEAR, 1*a.getRepeatNumber());
+                        calendar.add(Calendar.YEAR, repeatNumber);
                         break;
                 }
 
-
-
-            
             int year = calendar.get(Calendar.YEAR);
             int month = calendar.get(Calendar.MONTH);
             int day = calendar.get(Calendar.DAY_OF_MONTH);

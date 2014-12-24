@@ -163,6 +163,18 @@ public class Action {
 			mTodaysDate = new Date();
 		}
 
+        try {
+            this.mRepeatNumber = Integer.parseInt(tokens[17]);
+        } catch (Exception e) {
+            mRepeatNumber = 0;
+        }
+
+
+        //Convert legacy repititons to new repetition form
+        if(this.mRepeatNumber == 0 && this.mRepeatInterval != 0) {
+            this.setRepeatInfo(this.mRepeatInterval, 1);
+        }
+
 	}
 
 	private static String JSON_ID = "id";
@@ -259,61 +271,7 @@ public class Action {
 		return;
 	}
 
-	public void setStartDate(Date startDate) {
-		mStartDate = startDate;
-
-		if (mStartDate != null) {
-			if (mStartDate.after(new Date()) && mActionStatus != COMPLETE) {
-				setActionStatus(PENDING);
-
-                //If the action is currently a repeated action, we don't want to spawn another
-                // repeated action.
-                setRepeatInfo(0, 0);
-
-				ArrayList<Action> newPendingSubs = new ArrayList<Action>();
-				// If the parent is pending, all children must be pending as
-				// well.
-				if (hasActiveTasks()) {
-
-					for (Iterator<Action> it = getIncomplete().iterator(); it
-							.hasNext();) {
-						Action current = it.next();
-						it.remove();
-						newPendingSubs.add(current);
-					}
-
-					for (Action a : newPendingSubs) {
-						a.setStartDate(startDate);
-					}
-				}
-
-				// Make sure there are no pending tasks that will come before
-				// the parent reappears
-				for (Action a : this.getPending()) {
-					if (a.getStartDate().before(startDate))
-						a.setStartDate(startDate);
-				}
-
-				// Ensure that parent start date is not after child start date
-				Action parent = this.getParent();
-				Date currentStartDate = (mStartDate == null) ? new Date()
-						: mStartDate;
-
-				while (parent != null && !parent.getParent().equals(parent)) {
-					if (parent.getStartDate() != null
-							&& parent.getStartDate().after(currentStartDate)
-							&& parent.getActionStatus() == Action.PENDING)
-						parent.setStartDatePrivate(currentStartDate);
-					parent = parent.getParent();
-				}
-
-			} else if ((mStartDate.before(new Date()) && mActionStatus == PENDING)) {
-				setActionStatus(INCOMPLETE);
-			}
-		}
-	}
-
-	private void setStartDatePrivate(Date startDate) {
+	protected void setStartDateRaw(Date startDate) {
 		mStartDate = startDate;
 	}
 
@@ -524,6 +482,8 @@ public class Action {
 		if (mTodaysDate != null)
 			sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm",
 					mTodaysDate));
+        sb.append("\t");
+        sb.append(String.valueOf(mRepeatNumber));
 		sb.append("\n");
 		return sb.toString();
 	}
@@ -794,5 +754,9 @@ public class Action {
 			return null;
 		}
 	}
+
+    public boolean isRoot() {
+        return (this.getParent() == this);
+    }
 
 }

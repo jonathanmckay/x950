@@ -113,7 +113,7 @@ public class ActionListFragmentDSLV extends Fragment {
 					R.id.listview);
 		}
 
-		mActionLab.checkForPendingActions(mAction, true);
+		mActionLab.checkForPendingActions(mAction);
 		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
 		mListView.setAdapter(mAdapter);
@@ -606,9 +606,8 @@ public class ActionListFragmentDSLV extends Fragment {
 			TextView outcomeTextView = (TextView) convertView
 					.findViewById(R.id.action_list_outcome);
 
-			
-			outcomeTextView.setText(c.getFirstSubtaskPath());
-			
+            outcomeTextView.setText(c.getFirstSubtaskPath());
+
 			if (c.getFirstSubAction() != null) {
 				titleTextView.setText(mActionLab.preview(c).getTitle());
 			} else {
@@ -621,20 +620,6 @@ public class ActionListFragmentDSLV extends Fragment {
 					.findViewById(R.id.action_list_item_dateTextView);
 
 			switch (actionStatus) {
-			case Action.COMPLETE:
-				titleTextView.setPaintFlags(titleTextView.getPaintFlags()
-						| Paint.STRIKE_THRU_TEXT_FLAG);
-				titleTextView.setTextColor(Color.BLACK);
-
-				if (c.getModifiedDate() != null) {
-					dateTextView.setText(new StringBuilder("Finished ")
-							.append(android.text.format.DateFormat.format(
-									"MMM dd", c.getModifiedDate()).toString()));
-				} else {
-					dateTextView.setText(null);
-				}
-
-				break;
 			case Action.PENDING:
 				titleTextView.setTextColor(Color.GRAY);
 				titleTextView.setPaintFlags(titleTextView.getPaintFlags()
@@ -643,7 +628,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				if (c.getStartDate() != null) {
 					dateTextView.setText(new StringBuilder("Starts ")
 							.append(android.text.format.DateFormat.format(
-									"MMM dd", c.getStartDate()).toString()));
+                                    "MMM dd", c.getStartDate()).toString()));
 				} else {
 					dateTextView.setText(null);
 				}
@@ -664,7 +649,12 @@ public class ActionListFragmentDSLV extends Fragment {
 				break;
 			}
 
-			TextView minutesToComplete = (TextView) convertView
+            if(c.getRepeatNumber() != 0) dateTextView.setText(
+                    dateTextView.getText().toString().concat("↻")
+            );
+
+
+            TextView minutesToComplete = (TextView) convertView
 					.findViewById(R.id.action_list_minutes_to_complete);
 
 			int minutes = c.getMinutesExpected();
