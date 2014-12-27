@@ -68,26 +68,7 @@ public class BackViewGroup extends LinearLayout {
 	   else{
 		   Log.d(TAG, "backview intercepts");
 		   return true;
-	   } 
-	   	   
-	   
-	  
-    
-       
-       /*boolean superBool = super.onInterceptTouchEvent(ev);
-        Log.d("Parent interceptiong touch event ", String.valueOf(superBool));
-        boolean intercept =  mDetector.onTouchEvent(ev);
-        
-        
-        if(intercept){
-        	
-        	
-        } else {
-        	
-        }
-        
-        
-        return superBool && intercept ;*/
+	   }
     }
 }
 

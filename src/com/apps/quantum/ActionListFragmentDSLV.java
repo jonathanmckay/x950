@@ -113,7 +113,7 @@ public class ActionListFragmentDSLV extends Fragment {
 					R.id.listview);
 		}
 
-		mActionLab.checkForPendingActions(mAction);
+		mActionLab.checkForPendingActions();
 		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
 		mAdapter.notifyDataSetChanged();
 		mListView.setAdapter(mAdapter);
@@ -181,7 +181,8 @@ public class ActionListFragmentDSLV extends Fragment {
 		public void swipe(int position) {
 			mAction.incrementCompleted();
 			mReordCtrl.changeActionStatus(mAdapter, position, Action.COMPLETE);
-			updateFooter();
+			refreshView();
+            updateFooter();
 		}
 	};
 
@@ -577,7 +578,8 @@ public class ActionListFragmentDSLV extends Fragment {
 
         StringBuilder hashlessTitle = new StringBuilder();
         if(context.getStart() > 0) hashlessTitle.append(mSubtaskTitle.substring(0, context.getStart() -1));
-        if(context.getEnd() < mSubtaskTitle.length()) hashlessTitle.append(mSubtaskTitle.substring(context.getEnd() + 1, mSubtaskTitle.length()-1));
+        if(context.getEnd() < mSubtaskTitle.length())
+            hashlessTitle.append(mSubtaskTitle.substring(context.getEnd() + 1, mSubtaskTitle.length()-1));
         mSubtaskTitle = hashlessTitle.toString();
 
         return a;

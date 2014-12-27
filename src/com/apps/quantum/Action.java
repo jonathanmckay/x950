@@ -306,6 +306,8 @@ public class Action {
 		return !(mChildren.get(0).isEmpty());
 	}
 
+    public boolean hasPendingTasks() { return !(mChildren.get(PENDING).isEmpty()); }
+
 	public void adopt(Action a) {
 
 		Action oldParent = a.getParent();
@@ -677,6 +679,12 @@ public class Action {
 		return mChildren.get(INCOMPLETE);
 	}
 
+    public ArrayList<Action> getAllAsArrayList() {
+        ArrayList<Action> all = this.getIncomplete();
+        all.addAll(this.getPending());
+        return all;
+    }
+
 	public ArrayList<Action> getPending() {
 		return mChildren.get(PENDING);
 	}
@@ -757,6 +765,81 @@ public class Action {
 
     public boolean isRoot() {
         return (this.getParent() == this);
+    }
+
+    public boolean isIncomplete() {
+        return this.getActionStatus() == INCOMPLETE;
+    }
+
+    public boolean isPending() {
+        return this.getActionStatus() == PENDING;
+    }
+
+    public boolean isRepeat() {
+        return this.getRepeatInterval() != 0 && this.getRepeatNumber() != 0;
+    }
+
+    public Action createNextRepeat() {
+        Action nextRepeat = new Action();
+        nextRepeat.setTitle(this.getTitle());
+        nextRepeat.setContextName(this.getContextName());
+        nextRepeat.setMinutesExpected(this.getMinutesExpected());
+        int interval = this.getRepeatInterval();
+        int number = this.getRepeatNumber();
+        Date nextStart = nextRepeatTime(this.getStartDate(), interval, number);
+        nextRepeat.setStartDateRaw(nextStart);
+        if (nextStart.after(new Date())) nextRepeat.setActionStatus(PENDING);
+        nextRepeat.setRepeatInfo(interval, number);
+        nextRepeat.setDueDate(nextRepeatTime(nextStart, interval, number));
+        return nextRepeat;
+    }
+
+    public static final int REPEAT_DAY = 1;
+    public static final int REPEAT_WEEK = 2;
+    public static final int REPEAT_MONTH = 3;
+    public static final int REPEAT_YEAR = 4;
+
+    public Date nextRepeatTime(Date start, int repeatInterval, int repeatNumber){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(start);
+
+        Log.d("ACTION", String.valueOf(repeatInterval));
+
+        if(repeatNumber < 1){
+            Log.d("ACTION", "get repeat set to zero");
+            repeatNumber = 1;
+        }
+
+        switch(repeatInterval){
+            case REPEAT_DAY:
+                calendar.add(Calendar.DATE, repeatNumber);
+                break;
+            case REPEAT_WEEK:
+                calendar.add(Calendar.DATE, 7*repeatNumber);
+                break;
+            case REPEAT_MONTH:
+                calendar.add(Calendar.MONTH, repeatNumber);
+                break;
+            case REPEAT_YEAR:
+                calendar.add(Calendar.YEAR, repeatNumber);
+                break;
+        }
+
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+        int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+        return new GregorianCalendar
+                (year, month, day, hourOfDay, minute).getTime();
+    }
+
+    public void setRepeatDue(){
+        if(mStartDate == null || mRepeatInterval == 0 || mRepeatNumber == 0){
+            Log.d("ACTION", "Set repeat due date, but have invalid priors");
+        }
+
+        setDueDate(nextRepeatTime(mStartDate, mRepeatInterval, mRepeatNumber));
     }
 
 }

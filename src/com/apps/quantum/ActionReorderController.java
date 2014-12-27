@@ -1,10 +1,10 @@
 package com.apps.quantum;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 
 import com.apps.quantum.ActionListFragmentDSLV.ActionAdapter;
+
+import java.util.ArrayList;
 
 public class ActionReorderController {
 	private ActionLab mActionLab;
@@ -97,8 +97,6 @@ public class ActionReorderController {
     	
     public void removeAction(ActionAdapter adapter, int position){
     	Action item = adapter.getItem(position);
-		
-		
     	if(item.hasActiveTasks()){
     		//Update the status of the subtask
     		Action toDelete = mActionLab.preview(item);
@@ -111,9 +109,6 @@ public class ActionReorderController {
     	}
     	
     	adapter.notifyDataSetChanged();
-    	
-    	
-		
     }
 
 	
