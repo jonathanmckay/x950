@@ -9,8 +9,6 @@ import android.widget.LinearLayout;
 
 
 public class BackViewGroup extends LinearLayout {
-
-
 	public static final String TAG = "BackViewGroup";
 	float mStartX, mStartY, mLastX, mLastY;
 	private GestureDetector mDetector;
@@ -22,7 +20,6 @@ public class BackViewGroup extends LinearLayout {
 		// TODO Auto-generated constructor stub
 		 
 		  mDetector = new GestureDetector(context, detector);
-
 	}
 	
 	public BackViewGroup(Context context, AttributeSet attrs) {
@@ -48,7 +45,6 @@ public class BackViewGroup extends LinearLayout {
     		
     		if(event.getAction() == MotionEvent.ACTION_UP){
         		this.setVisibility(INVISIBLE);
-        	
         	}
     		
     		//Log.d(TAG, "no click detected");

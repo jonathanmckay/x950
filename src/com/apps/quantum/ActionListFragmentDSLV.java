@@ -181,7 +181,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		public void swipe(int position) {
 			mAction.incrementCompleted();
 			mReordCtrl.changeActionStatus(mAdapter, position, Action.COMPLETE);
-			refreshView();
+			mAdapter.notifyDataSetChanged();
             updateFooter();
 		}
 	};
@@ -557,10 +557,6 @@ public class ActionListFragmentDSLV extends Fragment {
 		}		
 		mAdapter.notifyDataSetChanged();
 		updateFooter();
-
-		// Update view
-		// refreshView();
-
 	}
 
     private Action createActionFromInputString(){
@@ -744,11 +740,12 @@ public class ActionListFragmentDSLV extends Fragment {
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
 					Action a = mAdapter.getItem(position);
-					a.setPinned(true);
+
 					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
+                    a.setPinned(true);
 					
 					String toastText = "Item Pinned";
-					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 				}
 			});
 		}

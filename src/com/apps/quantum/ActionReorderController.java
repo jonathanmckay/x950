@@ -22,16 +22,13 @@ public class ActionReorderController {
 	}
 	
 	public void moveWithinAdapter(ActionAdapter adapter, int from, int to){
-		 if (from != to)
-	        {
-	            Action item = adapter.getItem(from);
-	            item.moveWithinList(from, to);
-	            
-	            adapter.remove(item);
-	            adapter.insert(item, to); 
-	            
-	            adapter.notifyDataSetChanged();
-	        }
+        if (from == to) return;
+
+        Action item = adapter.getItem(from);
+        item.moveWithinList(from, to);
+        adapter.remove(item);
+        adapter.insert(item, to);
+        adapter.notifyDataSetChanged();
 	}
 	public void moveToEnd(ActionAdapter adapter, int from){
 		Action item = adapter.getItem(from);

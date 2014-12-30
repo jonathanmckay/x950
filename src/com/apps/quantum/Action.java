@@ -306,7 +306,14 @@ public class Action {
 		return !(mChildren.get(0).isEmpty());
 	}
 
-    public boolean hasPendingTasks() { return !(mChildren.get(PENDING).isEmpty()); }
+    public boolean hasPendingTasks() {
+        for(Action sub : mChildren.get(PENDING)){
+            Log.d("ACTION", sub.toString());
+        }
+
+        boolean empty = !(mChildren.get(PENDING).isEmpty());
+        Log.d("ACTIAN" , this.toString() + " " + String.valueOf(empty) );
+        return empty; }
 
 	public void adopt(Action a) {
 
@@ -722,14 +729,6 @@ public class Action {
 
 	public void setPinned(boolean pinned) {
 		mPinned = pinned;
-
-		if (isPinned()) {
-			ArrayList<Action> list = getParent().getChildren().get(
-					getActionStatus());
-			int index = list.indexOf(this);
-			getParent().moveWithinList(index, 0);
-		}
-
 	}
 	
 	public String getFirstSubtaskPath(){
@@ -779,18 +778,33 @@ public class Action {
         return this.getRepeatInterval() != 0 && this.getRepeatNumber() != 0;
     }
 
-    public Action createNextRepeat() {
-        Action nextRepeat = new Action();
-        nextRepeat.setTitle(this.getTitle());
-        nextRepeat.setContextName(this.getContextName());
-        nextRepeat.setMinutesExpected(this.getMinutesExpected());
-        int interval = this.getRepeatInterval();
-        int number = this.getRepeatNumber();
-        Date nextStart = nextRepeatTime(this.getStartDate(), interval, number);
+    public Action createNextRepeat(Action repeatOriginal) {
+        Action nextRepeat = this.copyActionNames();
+        int interval = repeatOriginal.getRepeatInterval();
+        int number = repeatOriginal.getRepeatNumber();
+        Date nextStart = nextRepeatTime(repeatOriginal.getStartDate(), interval, number);
         nextRepeat.setStartDateRaw(nextStart);
         if (nextStart.after(new Date())) nextRepeat.setActionStatus(PENDING);
         nextRepeat.setRepeatInfo(interval, number);
         nextRepeat.setDueDate(nextRepeatTime(nextStart, interval, number));
+        return nextRepeat;
+    }
+
+    public Action createNextRepeatSub(Action repeatRoot){
+        Action nextRepeat = this.copyActionNames();
+        Date nextStart = repeatRoot.getStartDate();
+        nextRepeat.setStartDateRaw(nextStart);
+        if (nextStart.after(new Date())) nextRepeat.setActionStatus(PENDING);
+        nextRepeat.setRepeatInfo(0,0);
+        nextRepeat.setDueDate(repeatRoot.getDueDate());
+        return nextRepeat;
+    }
+
+    public Action copyActionNames() {
+        Action nextRepeat = new Action();
+        nextRepeat.setTitle(this.getTitle());
+        nextRepeat.setContextName(this.getContextName());
+        nextRepeat.setMinutesExpected(this.getMinutesExpected());
         return nextRepeat;
     }
 
@@ -807,7 +821,7 @@ public class Action {
 
         if(repeatNumber < 1){
             Log.d("ACTION", "get repeat set to zero");
-            repeatNumber = 1;
+            //repeatNumber = 1;
         }
 
         switch(repeatInterval){

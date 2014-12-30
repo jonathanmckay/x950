@@ -28,7 +28,7 @@ import android.widget.ImageButton;
 public class ActionFragment extends Fragment {
 	private Action mAction;
 	private ActionLab mActionLab;
-	private ActionReorderController mReorderController;
+	private ActionReorderController mReordCtrl;
 	
 	private EditText mTitleField;
 	private EditText mMinutesField;
@@ -98,7 +98,8 @@ public class ActionFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		
+
+        mReordCtrl = ActionReorderController.get(getActivity());
 		mActionLab = ActionLab.get(getActivity());
 		
 		if(getArguments() != null){
@@ -222,6 +223,7 @@ public class ActionFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				mAction.setPinned(!mAction.isPinned());
+                if(mAction.isPinned()) mAction.moveWithinList(mAction.getPriority(), 0);
 				updatePinnedButton();
 			}
 		});

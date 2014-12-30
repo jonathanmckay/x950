@@ -310,10 +310,10 @@ public class ActionLab{
     }
 
     public void deleteAction(Action a){
-            Action parent = a.getParent();
-            parent.removeChild(a);
-            removeFromLab(a);
-            deactivateOnComplete(parent);
+        Action parent = a.getParent();
+        parent.removeChild(a);
+        removeFromLab(a);
+        deactivateOnComplete(parent);
     }
 
     public void deleteAllActions(){
@@ -376,7 +376,8 @@ public class ActionLab{
     }
         
     public void checkForPendingActions(){
-        while(mStartDateQueue.peek().getStartDate().before(new Date())){
+        while(!mStartDateQueue.isEmpty()
+            && mStartDateQueue.peek().getStartDate().before(new Date())){
             Action a = mStartDateQueue.poll();
             activate(a);
             if(a.isRepeat()) {
@@ -397,7 +398,8 @@ public class ActionLab{
     }
 
     public void addToStartDateQueue(Action a) {
-        if(a.getStartDate() != null && a.getStartDate().after(new Date()))
+        if((a.getStartDate() != null && a.getStartDate().after(new Date()))
+            || a.getActionStatus() == Action.PENDING)
             mStartDateQueue.add(a);
     }
 
@@ -449,16 +451,17 @@ public class ActionLab{
 
     //Call on parent action to deactivate parents up the tree
     public void deactivateOnComplete(Action a){
-        while(a != null && !a.isRoot() && a.isIncomplete()){
-            if(!a.hasActiveTasks() && a.hasPendingTasks() && a.isIncomplete()) {
-                Date earliestChildStart = new Date(Long.MAX_VALUE);
-                for(Action pendingSub : a.getPending()){
-                    Date currentStart = pendingSub.getStartDate();
-                    if(currentStart.before(earliestChildStart)) earliestChildStart= currentStart;
-                }
-                modifyStartDate(a, earliestChildStart);
-                a.setActionStatus(Action.PENDING);
+        while(a != null && !a.isRoot()
+            && a.isIncomplete()
+            && !a.hasActiveTasks()
+            && a.hasPendingTasks()){
+            Date earliestChildStart = new Date(Long.MAX_VALUE);
+            for(Action pendingSub : a.getPending()){
+                Date currentStart = pendingSub.getStartDate();
+                if(currentStart.before(earliestChildStart)) earliestChildStart= currentStart;
             }
+            modifyStartDate(a, earliestChildStart);
+            a.setActionStatus(Action.PENDING);
             a = a.getParent();
         }
 
@@ -522,15 +525,15 @@ public class ActionLab{
     }
 
     private Action createRepeatedAction(Action original, Action repeatOriginal){
-        Action nextRepeat = original.createNextRepeat();
+        Action nextRepeat = original.createNextRepeat(repeatOriginal);
         original.getParent().adopt(nextRepeat);
 
         Log.d("ACTIONLAB", "createRepeatedaction");
         addToLab(nextRepeat);
 
         //Copy any incomplete subtasks that are a part of the repetiton
-        for(Action sub : original.getAllAsArrayList()){
-            createRepeatedAction(sub, nextRepeat);
+        for(Action sub : original.getAllAsArrayList()) {
+            copySubActions(sub, nextRepeat);
         }
 
         if(nextRepeat.isIncomplete()){
@@ -539,6 +542,16 @@ public class ActionLab{
 
         return nextRepeat;
     }
+
+    private void copySubActions(Action original, Action repeatParent){
+        Action nextRepeat = original.createNextRepeatSub(repeatParent);
+        repeatParent.adopt(nextRepeat);
+
+        for(Action sub : original.getAllAsArrayList()){
+            copySubActions(sub, nextRepeat);
+        }
+    }
+
 
     public Action getAction(UUID id){
         Log.d("ACTIONLAB", mActionHash.get(id).toString());
