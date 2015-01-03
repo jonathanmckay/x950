@@ -313,7 +313,8 @@ public class Action {
 
         boolean empty = !(mChildren.get(PENDING).isEmpty());
         Log.d("ACTIAN" , this.toString() + " " + String.valueOf(empty) );
-        return empty; }
+        return empty;
+    }
 
 	public void adopt(Action a) {
 
@@ -325,8 +326,6 @@ public class Action {
 
 		ArrayList<Action> currentList = mChildren.get(a.getActionStatus());
 		a.setPriority(currentList.size());
-
-		// Log.d("ACTION", "Priority of " + String.valueOf(a.getPriority()));
 
 		currentList.add(a);
 		verifyStatusBasedOnChildren();
@@ -784,17 +783,21 @@ public class Action {
         int number = repeatOriginal.getRepeatNumber();
         Date nextStart = nextRepeatTime(repeatOriginal.getStartDate(), interval, number);
         nextRepeat.setStartDateRaw(nextStart);
-        if (nextStart.after(new Date())) nextRepeat.setActionStatus(PENDING);
+        if (nextStart.after(new Date())) nextRepeat.setActionStatusRaw(PENDING);
         nextRepeat.setRepeatInfo(interval, number);
         nextRepeat.setDueDate(nextRepeatTime(nextStart, interval, number));
         return nextRepeat;
+    }
+
+    private void setActionStatusRaw(int actionStatus) {
+        mActionStatus = actionStatus;
     }
 
     public Action createNextRepeatSub(Action repeatRoot){
         Action nextRepeat = this.copyActionNames();
         Date nextStart = repeatRoot.getStartDate();
         nextRepeat.setStartDateRaw(nextStart);
-        if (nextStart.after(new Date())) nextRepeat.setActionStatus(PENDING);
+        if (nextStart.after(new Date())) nextRepeat.setActionStatusRaw(PENDING);
         nextRepeat.setRepeatInfo(0,0);
         nextRepeat.setDueDate(repeatRoot.getDueDate());
         return nextRepeat;

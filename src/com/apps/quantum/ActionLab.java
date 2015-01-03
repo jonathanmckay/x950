@@ -381,11 +381,7 @@ public class ActionLab{
             Action a = mStartDateQueue.poll();
             activate(a);
             if(a.isRepeat()) {
-                Action nextRepeat = createRepeatedAction(a, a);
-                //Keep creating repeated actions until there is only one that is pending.
-                while(nextRepeat.isIncomplete() && a.getRepeatNumber() != 0){
-                    nextRepeat = createRepeatedAction(nextRepeat, nextRepeat);
-                }
+                createRepeatedAction(a, a);
             }
         }
     }
@@ -546,6 +542,7 @@ public class ActionLab{
     private void copySubActions(Action original, Action repeatParent){
         Action nextRepeat = original.createNextRepeatSub(repeatParent);
         repeatParent.adopt(nextRepeat);
+        addToLab(nextRepeat);
 
         for(Action sub : original.getAllAsArrayList()){
             copySubActions(sub, nextRepeat);

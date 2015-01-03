@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -63,6 +64,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private ImageButton mNewSubtaskButton;
 	private EditText mSubtaskField;
 	private EditText mTitleEdit;
+    private Button mDoneButton;
 
 	public interface Callbacks {
 		void onActionSelected(Action a);
@@ -149,9 +151,21 @@ public class ActionListFragmentDSLV extends Fragment {
 				}
 			}
 		});
-
+        updateDoneButtonVisibility();
 		updateFooter();
 	}
+
+    private void updateDoneButtonVisibility() {
+        if(!mAction.hasActiveTasks()
+            && !mAction.hasPendingTasks()
+            && !mAction.isRoot()
+        ) {
+            mDoneButton.setVisibility(View.VISIBLE);
+            return;
+        }
+
+        mDoneButton.setVisibility(View.INVISIBLE);
+    }
 
 	private void setListeners() {
 		mListView.setDropListener(onDrop);
@@ -182,9 +196,11 @@ public class ActionListFragmentDSLV extends Fragment {
 			mAction.incrementCompleted();
 			mReordCtrl.changeActionStatus(mAdapter, position, Action.COMPLETE);
 			mAdapter.notifyDataSetChanged();
+            updateDoneButtonVisibility();
             updateFooter();
 		}
 	};
+
 
 	private AdapterView.OnItemClickListener onClick = new AdapterView.OnItemClickListener() {
 		@Override
@@ -389,6 +405,31 @@ public class ActionListFragmentDSLV extends Fragment {
 				.inflate(R.layout.fragment_action_list, parent, false));
 
 		initializeSubtaskField(v);
+        mDoneButton = (Button) v.findViewById(R.id.clear_done_button);
+
+        mDoneButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mAction.isRoot()){
+                    Log.e("DSLV", "Tried to remove root");
+                    return;
+                }
+
+                Action toDelete = mAction;
+                mAction = toDelete.getParent();
+                mAction.incrementCompleted();
+                mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+
+                while(mAction.isPending() && !mAction.isRoot()){
+                    mAction = mAction.getParent();
+                    mAction.incrementCompleted();
+                }
+
+                updateListToShowCurrentAction();
+            }
+        });
+
+        mDoneButton.setVisibility(View.INVISIBLE);
 
 		mListFooter = ((LayoutInflater) getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -556,6 +597,7 @@ public class ActionListFragmentDSLV extends Fragment {
          }
 		}		
 		mAdapter.notifyDataSetChanged();
+        updateDoneButtonVisibility();
 		updateFooter();
 	}
 
