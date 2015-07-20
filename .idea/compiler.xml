@@ -25,6 +25,8 @@
         <module name="drag-sort-listview" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="drag-sort-listview" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
-
