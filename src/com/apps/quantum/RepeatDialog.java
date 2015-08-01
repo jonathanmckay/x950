@@ -21,6 +21,8 @@ public class RepeatDialog extends Dialog {
     private Context mContext;
     private Spinner mIntervalSpinner;
     private Spinner mNumberSpinner;
+    private int dRepeatInterval = 0;
+    private int dRepeatNumber = 0;
 
     public interface DialogListener {
         public void ready(int n, int m);
@@ -49,10 +51,12 @@ public class RepeatDialog extends Dialog {
         mIntervalSpinner = (Spinner) findViewById (R.id.interval_spinner);
         ArrayAdapter<String> intervalAdapter = new ArrayAdapter<String> (mContext, android.R.layout.simple_spinner_dropdown_item, mRepeatIntervals);
         mIntervalSpinner.setAdapter(intervalAdapter);
+        mIntervalSpinner.setSelection(dRepeatInterval); //default
 
         mNumberSpinner = (Spinner) findViewById (R.id.number_spinner);
         ArrayAdapter<String> numberAdapter = new ArrayAdapter<String> (mContext, android.R.layout.simple_spinner_dropdown_item, mRepeatNumbers);
         mNumberSpinner.setAdapter(numberAdapter);
+        mNumberSpinner.setSelection(dRepeatNumber); //default
 
         Button buttonOK = (Button) findViewById(R.id.dialogOK);
         Button buttonCancel = (Button) findViewById(R.id.dialogCancel);
@@ -71,4 +75,13 @@ public class RepeatDialog extends Dialog {
             }
         });
     }
+
+    public void setDefaults(int repeat_interval, int repeat_number) {
+        dRepeatInterval = repeat_interval;
+        dRepeatNumber = repeat_number;
+//        apply offset
+        if (dRepeatInterval > 0 ) dRepeatInterval--;
+        if (dRepeatNumber > 0 ) dRepeatNumber--;
+    }
+
 }

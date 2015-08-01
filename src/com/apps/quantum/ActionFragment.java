@@ -237,10 +237,15 @@ public class ActionFragment extends Fragment {
 				FragmentManager fm = getActivity().getSupportFragmentManager();
 				
 				RepeatPickerFragment repeatPicker = new RepeatPickerFragment();
+//				Pass defaults to RepeatPickerFragment
+				Bundle bundle = new Bundle();
+				bundle.putInt("DEFAULT_REPEAT_INTERVAL", mAction.getRepeatInterval());
+				bundle.putInt("DEFAULT_REPEAT_NUMBER", mAction.getRepeatNumber());
+				repeatPicker.setArguments(bundle);
+
 				repeatPicker.setTargetFragment(ActionFragment.this, REQUEST_REPEAT_INFO);
 				mDataFieldRequested = DUE_DATE;
 				repeatPicker.show(fm, DIALOG_REPEAT);
-				
 			}
 		});
 		
