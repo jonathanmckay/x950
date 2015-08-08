@@ -14,6 +14,8 @@ import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
+import java.util.TimeZone;
+
 
 public class Action {
 	private static final int OUTCOME_CATEGORIES = 4;
@@ -272,7 +274,7 @@ public class Action {
 	}
 
 	protected void setStartDateRaw(Date startDate) {
-		mStartDate = startDate;
+		mStartDate = toUTC(startDate);
 	}
 
 	protected void setActionStatus(int actionStatus) {
@@ -662,7 +664,7 @@ public class Action {
 	}
 
 	public Date getStartDate() {
-		return mStartDate;
+		return fromUTC(mStartDate);
 	}
 
 	public boolean hasChildren() {
@@ -696,11 +698,11 @@ public class Action {
 	}
 
 	public Date getDueDate() {
-		return mDueDate;
+		return fromUTC(mDueDate);
 	}
 
 	public void setDueDate(Date dueDate) {
-		mDueDate = dueDate;
+		mDueDate = toUTC(dueDate);
 	}
 
 	public Date getSavedTimeStamp() {
@@ -858,5 +860,22 @@ public class Action {
 
         setDueDate(nextRepeatTime(mStartDate, mRepeatInterval, mRepeatNumber));
     }
+
+	//	For when the user changes timezones
+	public static Date toUTC(Date d) {
+		if (d == null) return d;
+		TimeZone tz = TimeZone.getDefault();
+//		tz.getOffset accounts for daylight savings time
+		Date utc = new Date(d.getTime() - tz.getOffset(d.getTime()));
+		return utc;
+	}
+
+	public static Date fromUTC(Date utc) {
+		if (utc == null) return utc;
+		TimeZone tz = TimeZone.getDefault();
+		System.out.println(tz);
+		Date d = new Date(utc.getTime() + tz.getOffset(utc.getTime()));
+		return d;
+	}
 
 }

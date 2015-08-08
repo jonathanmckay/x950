@@ -15,6 +15,8 @@ import java.util.GregorianCalendar;
  */
 public class DatePickerMaker {
     public static final int REQUEST_DATE = 2;
+    public static final String EXTRA_DATE = "com.apps.quantum.date";
+    public static final String EXTRA_TIME = "com.apps.quantum.time";
 
     public static DatePickerDialog getDatePicker(final Fragment frag) {
         //Default date is now
@@ -37,7 +39,7 @@ public class DatePickerMaker {
                 int hour = ActionFragment.DEFAULT_HOUR;
                 int minute = ActionFragment.DEFAULT_MINUTE;
                 Date mDate = new GregorianCalendar(year, monthOfYear, dayOfMonth, hour, minute).getTime();
-                i.putExtra("com.apps.quantum.date", mDate);
+                i.putExtra(EXTRA_DATE, mDate);
                 dialog.getTargetFragment().onActivityResult(REQUEST_DATE, Activity.RESULT_OK, i);
             }
 

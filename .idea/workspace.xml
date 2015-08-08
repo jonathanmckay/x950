@@ -24,154 +24,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/libs/android-support-v4.jar" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/datetimepicker-master.tar.gz" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/.gitignore" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/AccessibleDateAnimator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/AccessibleLinearLayout.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/AccessibleTextView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/AmPmCirclesView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/Android.mk" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/AndroidManifest.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/CircleView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DayPickerView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/HapticFeedbackController.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_android_support_v4_r7.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/MonthAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/MonthView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/RadialPickerLayout.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/RadialSelectorView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/RadialTextsView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/SimpleDayPickerView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/SimpleMonthAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/SimpleMonthView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/TextViewWithCircularIndicator.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/TimePickerDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/Utils.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/YearPickerView.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/android_support_v41.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values/colors.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/com_code_troopers_betterpickers_library_2_0_0.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout-land/date_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout-sw600dp/date_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout-sw600dp-land/date_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout-w270dp-h560dp/date_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_done_button.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_header_view.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_selected_date.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/color/date_picker_selector.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_view_animator.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/color/date_picker_year_selector.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-land/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sw600dp/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sw600dp-land/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-w270dp-h560dp/dimens.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable/done_background_color.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable-land/done_background_color.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable-land-v19/done_background_color.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable-v19/done_background_color.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable/done_background_color_dark.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/drawable-land/done_background_color_dark.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/color/done_text_color.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/color/done_text_color_dark.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/library_2_0_0_sources.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/library_2_0_0_sources__2_.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/proguard.flags" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/project.properties" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-af/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-am/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ar/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-bg/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-bn-rBD/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ca/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-cs/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-da/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-de/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-el/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-en-rGB/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-en-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-es/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-es-rUS/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-et-rEE/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-eu-rES/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-fa/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-fi/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-fr/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-fr-rCA/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-gl-rES/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-hi/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-hr/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-hu/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-hy-rAM/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-in/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-is-rIS/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-it/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-iw/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ja/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ka-rGE/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-kk-rKZ/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-km-rKH/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-kn-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ko/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ky-rKG/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-lo-rLA/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-lt/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-lv/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-mk-rMK/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ml-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-mn-rMN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-mr-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ms-rMY/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-my-rMM/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-nb/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ne-rNP/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-nl/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-pl/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-pt/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-pt-rPT/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ro/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ru/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-si-rLK/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sk/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sl/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sr/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sv/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-sw/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ta-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-te-rIN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-th/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-tl/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-tr/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-uk/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-ur-rPK/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-uz-rUZ/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-v16/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-vi/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-zh-rCN/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-zh-rHK/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-zh-rTW/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-zu/strings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-v11/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-v14/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/values-v16/styles.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/time_header_label.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/time_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout-land/time_picker_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/year_label_text_view.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/lib/library-2.4.0.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimeOrDateFragment$1.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimeOrDateFragment$2.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/com/apps/quantum/TimeOrDateFragment.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/Action.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/Action.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$3.class" />
@@ -179,37 +33,17 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$5.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$6.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment$6.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListActivity.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListActivity.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$array.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$array.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$color.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$color.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$dimen.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$dimen.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$drawable.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$drawable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/mobeta/android/dslv/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/mobeta/android/dslv/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/RepeatDialog.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/RepeatDialog.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/SingleFragmentActivity.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/SingleFragmentActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerMaker$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerMaker$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerMaker.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DatePickerMaker.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimeOrDateFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimeOrDateFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimePickerFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/TimePickerFragment.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x950.iml" afterPath="$PROJECT_DIR$/x950.iml" />
     </list>
     <ignored path="x950.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -235,8 +69,8 @@
       <file leaf-file-name="DatePickerFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.90909094">
-              <caret line="34" column="42" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="42" />
+            <state vertical-scroll-proportion="-1.3030303">
+              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="4" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -246,23 +80,50 @@
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="75" />
+              <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ActionFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.54844606">
+              <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+              <folding>
+                <element signature="e#7677#7994#0" expanded="true" />
+                <element signature="e#7993#7994#0" expanded="true" />
+                <element signature="e#8104#8419#0" expanded="true" />
+                <element signature="e#8418#8419#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActionLab.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.178571">
+              <caret line="389" column="37" selection-start-line="389" selection-start-column="37" selection-end-line="389" selection-end-column="37" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Action.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-0.5769231">
+              <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#7580#7897#0" expanded="true" />
-                <element signature="e#7896#7897#0" expanded="true" />
-                <element signature="e#8007#8322#0" expanded="true" />
-                <element signature="e#8321#8322#0" expanded="true" />
+                <element signature="e#16384#16385#0" expanded="true" />
+                <element signature="e#16417#16418#0" expanded="true" />
+                <element signature="e#17086#17087#0" expanded="true" />
+                <element signature="e#17117#17118#0" expanded="true" />
+                <element signature="e#17158#17159#0" expanded="true" />
+                <element signature="e#17190#17191#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -272,19 +133,20 @@
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
+              <caret line="33" column="52" selection-start-line="33" selection-start-column="52" selection-end-line="33" selection-end-column="52" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1790#1791#0" expanded="true" />
+                <element signature="e#965#1916#0" expanded="true" />
+                <element signature="e#1915#1916#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DatePickerDialog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DatePickerDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.2521739">
+            <state vertical-scroll-proportion="0.0">
               <caret line="277" column="115" selection-start-line="277" selection-start-column="115" selection-end-line="277" selection-end-column="115" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -391,6 +253,9 @@
         <option value="$PROJECT_DIR$/src/com/apps/quantum/TimeOrDateFragment.java" />
         <option value="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
       </list>
     </option>
@@ -882,15 +747,15 @@
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.28405315" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39700997" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16640191" sideWeight="0.54038996" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3228477" sideWeight="0.4826284" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.24418604" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="532" y="30" width="763" height="712" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.49667773" sideWeight="0.5173716" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="471" y="0" width="763" height="712" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.50830567" sideWeight="0.5173716" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.026435046" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1153,13 +1018,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="553" column="0" selection-start-line="553" selection-start-column="0" selection-end-line="553" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1262,14 +1120,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34558824">
-          <caret line="641" column="0" selection-start-line="641" selection-start-column="0" selection-end-line="641" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_fragment.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -1302,10 +1152,10 @@
         <state vertical-scroll-proportion="4.263158">
           <caret line="203" column="12" selection-start-line="203" selection-start-column="12" selection-end-line="203" selection-end-column="12" />
           <folding>
-            <marker date="1438998318635" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1438998318635" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1438998318635" expanded="true" signature="-1:-1" placeholder="..." />
-            <marker date="1438998318635" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1439005590776" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1439005590776" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1439005590776" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1439005590776" expanded="true" signature="-1:-1" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -1353,14 +1203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.90909094">
-          <caret line="34" column="42" selection-start-line="34" selection-start-column="32" selection-end-line="34" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/TimePickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-2.9285715">
@@ -1371,42 +1213,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="61" column="16" selection-start-line="61" selection-start-column="16" selection-end-line="61" selection-end-column="75" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="340" column="51" selection-start-line="340" selection-start-column="51" selection-end-line="340" selection-end-column="51" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#7580#7897#0" expanded="true" />
-            <element signature="e#7896#7897#0" expanded="true" />
-            <element signature="e#8007#8322#0" expanded="true" />
-            <element signature="e#8321#8322#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="26" column="36" selection-start-line="26" selection-start-column="36" selection-end-line="26" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1790#1791#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2521739">
+        <state vertical-scroll-proportion="0.0">
           <caret line="277" column="115" selection-start-line="277" selection-start-column="115" selection-end-line="277" selection-end-column="115" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -1418,6 +1227,71 @@
             <element signature="e#11939#12870#0" expanded="true" />
             <element signature="e#12869#12870#0" expanded="true" />
             <element signature="e#13219#13220#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="4" selection-start-line="19" selection-start-column="4" selection-end-line="19" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="33" column="52" selection-start-line="33" selection-start-column="52" selection-end-line="33" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#965#1916#0" expanded="true" />
+            <element signature="e#1915#1916#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.178571">
+          <caret line="389" column="37" selection-start-line="389" selection-start-column="37" selection-end-line="389" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.5769231">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#16384#16385#0" expanded="true" />
+            <element signature="e#16417#16418#0" expanded="true" />
+            <element signature="e#17086#17087#0" expanded="true" />
+            <element signature="e#17117#17118#0" expanded="true" />
+            <element signature="e#17158#17159#0" expanded="true" />
+            <element signature="e#17190#17191#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.3030303">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="4" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.54844606">
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="e#7677#7994#0" expanded="true" />
+            <element signature="e#7993#7994#0" expanded="true" />
+            <element signature="e#8104#8419#0" expanded="true" />
+            <element signature="e#8418#8419#0" expanded="true" />
           </folding>
         </state>
       </provider>

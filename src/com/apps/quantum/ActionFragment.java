@@ -1,5 +1,8 @@
 package com.apps.quantum;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -303,7 +306,7 @@ public class ActionFragment extends Fragment
 	
 	public static int DEFAULT_HOUR = 4;
 	public static int DEFAULT_MINUTE = 0;
-	
+
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(resultCode != Activity.RESULT_OK) return;
 		
@@ -343,7 +346,7 @@ public class ActionFragment extends Fragment
 
 				break;
 			case REQUEST_DATE:
-				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);			
+				Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
 			
@@ -351,7 +354,7 @@ public class ActionFragment extends Fragment
 				break;
 				
 			case REQUEST_TIME:
-				Date newTime = (Date)data.getSerializableExtra(TimePickerFragment.EXTRA_TIME);
+				Date newTime = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_TIME);
 				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
 				
@@ -393,7 +396,8 @@ public class ActionFragment extends Fragment
 		
 		return new GregorianCalendar(year,month,day,hour,minute).getTime();
 	}
-	private void updateTimeInfo(Date d){		
+	private void updateTimeInfo(Date d){
+
 		if(mDataFieldRequested == DUE_DATE){
 			mAction.setDueDate(d);
 			mDueDateButton.setText(toButtonString(d));
