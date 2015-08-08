@@ -28,5 +28,7 @@
     <orderEntry type="library" name="dropbox-sync-sdk-android" level="project" />
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="annotations" level="project" />
+    <orderEntry type="library" name="com.code-troopers.betterpickers:library:2.0.0" level="project" />
+    <orderEntry type="module" module-name="DateTimePicker" />
   </component>
 </module>

@@ -25,7 +25,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-public class ActionFragment extends Fragment {
+import com.android.datetimepicker.date.DatePickerDialog;
+
+
+public class ActionFragment extends Fragment
+		implements DatePickerDialog.OnDateSetListener {
 	private Action mAction;
 	private ActionLab mActionLab;
 	private ActionReorderController mReordCtrl;
@@ -137,9 +141,9 @@ public class ActionFragment extends Fragment {
 		mContextField.setText(mAction.getContextName());
 		
 		mStartDateButton.setText
-		((mAction.getStartDate() == null)
-		? "Set Start date" 
-		: (toButtonString(mAction.getStartDate())));
+				((mAction.getStartDate() == null)
+						? "Set Start date"
+						: (toButtonString(mAction.getStartDate())));
 		
 		if(mAction.getActionStatus() == Action.COMPLETE || mAction.getActionStatus() == Action.WISHLIST){
 			mStartDateButton.setClickable(false);
@@ -163,19 +167,19 @@ public class ActionFragment extends Fragment {
 			mMinutesField.setText(String.valueOf(mAction.getMinutesExpected()));
 		}
 		mMinutesField.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, 
-					int count) {
-				try{
+			public void onTextChanged(CharSequence c, int start, int before,
+									  int count) {
+				try {
 					mAction.setMinutesExpected(Integer.parseInt(c.toString()));
-				}catch(Exception e){
+				} catch (Exception e) {
 					//do nothing;
 				}
 			}
-			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after){
+
+			public void beforeTextChanged(CharSequence c, int start, int count, int after) {
 				//This space intentionally left blank
 			}
-			
+
 			public void afterTextChanged(Editable c) {
 				//This also left blank
 			}
@@ -183,20 +187,20 @@ public class ActionFragment extends Fragment {
 	
 		mContextField = (EditText)v.findViewById(R.id.context_text_field);
 		mContextField.addTextChangedListener(new TextWatcher() {
-			public void onTextChanged(CharSequence c, int start, int before, 
-					int count) {
-				try{
+			public void onTextChanged(CharSequence c, int start, int before,
+									  int count) {
+				try {
 					mAction.setContextName(c.toString());
-				}catch(Exception e){
+				} catch (Exception e) {
 					//do nothing;
 				}
-				
+
 			}
-			
-			public void beforeTextChanged(CharSequence c, int start, int count, int after){
+
+			public void beforeTextChanged(CharSequence c, int start, int count, int after) {
 				//This space intentionally left blank
 			}
-			
+
 			public void afterTextChanged(Editable c) {
 				//This also left blank
 			}
@@ -214,6 +218,14 @@ public class ActionFragment extends Fragment {
 			mPinnedButton.clearColorFilter();
 		}
 	}
+
+	//---
+	@Override
+	public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
+		System.out.println("Year: " + year + "\nMonth: " + monthOfYear + "\nDay: " + dayOfMonth);
+	}
+	//---
+
 	
 	private void enableButtons(View v){
 		mPinnedButton = (ImageButton)v.findViewById(R.id.pinned_toggle);
@@ -256,14 +268,10 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				
-				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
-				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
 				mDataFieldRequested = START_DATE;
-				timeOrDate.show(fm, DIALOG_OR_DATE);
-				
-				
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				DatePickerDialog datePicker = DatePickerMaker.getDatePicker(ActionFragment.this);
+				datePicker.show(fm, DIALOG_DATE);
 			}
 		});
 		
@@ -273,13 +281,10 @@ public class ActionFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				
-				TimeOrDateFragment timeOrDate = new TimeOrDateFragment();
-				timeOrDate.setTargetFragment(ActionFragment.this, REQUEST_DATE_OR_TIME);
 				mDataFieldRequested = DUE_DATE;
-				timeOrDate.show(fm, DIALOG_OR_DATE);
-				
+				FragmentManager fm = getActivity().getSupportFragmentManager();
+				DatePickerDialog datePicker = DatePickerMaker.getDatePicker(ActionFragment.this);
+				datePicker.show(fm, DIALOG_DATE);
 			}
 		});
 		
@@ -329,16 +334,15 @@ public class ActionFragment extends Fragment {
 				if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 2){
 					DatePickerFragment dateDialog = DatePickerFragment.newInstance(d);
 					dateDialog.setTargetFragment(ActionFragment.this, REQUEST_DATE);
-					dateDialog.show(fm, DIALOG_DATE);
 				}
 				else if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 1){
 					TimePickerFragment timeDialog = TimePickerFragment.newInstance(d);
 					timeDialog.setTargetFragment(ActionFragment.this, REQUEST_TIME);
-					timeDialog.show(fm, DIALOG_TIME);	
+					timeDialog.show(fm, DIALOG_TIME);
 				}
-				
+
 				break;
-			case REQUEST_DATE: 
+			case REQUEST_DATE:
 				Date newDate = (Date)data.getSerializableExtra(DatePickerFragment.EXTRA_DATE);			
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
