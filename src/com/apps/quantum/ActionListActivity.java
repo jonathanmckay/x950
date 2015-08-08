@@ -167,9 +167,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	}
 	
 	 public void onActionSelected(Action a){
-		 		//Only show the detail view for individual tasks. This may be modified later. 
-		 System.out.println("REP INV" + a.getRepeatInterval());
-		 System.out.println("REP NUM" + a.getRepeatNumber());
+		 		//Only show the detail view for individual tasks. This may be modified later.
 	    		if(a == ActionLab.get(this).getRoot()){
 	    			FragmentManager fm = getSupportFragmentManager();
 		    		removeDetailFragment(fm);
@@ -189,7 +187,6 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 		    			//Simply update the view, don't create a new fragment
 		    			oldDetail.displayActionDetails(a);
 		    		} else {
-		    			System.out.println ("Create new instance of ActionFragment");
 		    			Fragment newDetail = ActionFragment.newInstance(a.getId());	
 			    		ft.add(R.id.detailFragment, newDetail);
 			    		ft.commit();
@@ -208,7 +205,6 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	 }
 	 
 	 private void createNewDetailFragment(FragmentManager fm, Action a){
-		 System.out.println("Create new detail fragment");
  		FragmentTransaction ft = fm.beginTransaction();
  		Fragment newDetail = ActionFragment.newInstance(a.getId());
  		ft.add(R.id.detailFragment, newDetail);

@@ -873,7 +873,6 @@ public class Action {
 	public static Date fromUTC(Date utc) {
 		if (utc == null) return utc;
 		TimeZone tz = TimeZone.getDefault();
-		System.out.println(tz);
 		Date d = new Date(utc.getTime() + tz.getOffset(utc.getTime()));
 		return d;
 	}

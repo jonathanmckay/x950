@@ -27,23 +27,22 @@ public class RepeatPickerFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
         //Acquire default values from ActionFragment's bundle
         Bundle bundle = this.getArguments();
-        int dRepeatInterval = 0;
-        int dRepeatNumber = 0;
+        int dRepeatInterval = 1;
+        int dRepeatNumber = 1;
         if (bundle != null) {
-            dRepeatInterval = bundle.getInt("DEFAULT_REPEAT_INTERVAL");
-            dRepeatNumber = bundle.getInt("DEFAULT_REPEAT_NUMBER");
+            // Repeat intervals are stored offset by 1, so a 0 interval is one that hasn't been set yet
+            dRepeatInterval = Math.max(1, bundle.getInt("DEFAULT_REPEAT_INTERVAL"));
+            dRepeatNumber = Math.max(1, bundle.getInt("DEFAULT_REPEAT_NUMBER"));
         }
 
         RepeatDialog mSpinnerDialog = new RepeatDialog(getActivity(), new RepeatDialog.DialogListener() {
             public void cancelled() {
-                System.out.println("Cancelled spinner dialog");
                 mRepeatNumber = 0;
                 mRepeatInterval = 0;
                 sendResult(Activity.RESULT_OK);
                 return;
             }
             public void ready(int interval, int number) {
-                System.out.println("Ready spinner dialog");
                 //Offset by one so that this represents the actual number shown
                 mRepeatInterval = interval + 1;
                 mRepeatNumber = number + 1;
@@ -51,10 +50,7 @@ public class RepeatPickerFragment extends DialogFragment {
                 return;
             }
         });
-
         mSpinnerDialog.setDefaults(dRepeatInterval, dRepeatNumber);
-
-
         /*
 		return new AlertDialog.Builder(getActivity()).setTitle(R.string.repeat_dialogue_title)
 		.setItems(R.array.repeat_intervals, new DialogInterface.OnClickListener() {

@@ -21,8 +21,8 @@ public class RepeatDialog extends Dialog {
     private Context mContext;
     private Spinner mIntervalSpinner;
     private Spinner mNumberSpinner;
-    private int dRepeatInterval = 0;
-    private int dRepeatNumber = 0;
+    private int dRepeatInterval;
+    private int dRepeatNumber;
 
     public interface DialogListener {
         public void ready(int n, int m);
@@ -80,8 +80,8 @@ public class RepeatDialog extends Dialog {
         dRepeatInterval = repeat_interval;
         dRepeatNumber = repeat_number;
 //        apply offset
-        if (dRepeatInterval > 0 ) dRepeatInterval--;
-        if (dRepeatNumber > 0 ) dRepeatNumber--;
+        dRepeatInterval--;
+        dRepeatNumber--;
     }
 
 }

@@ -31,8 +31,7 @@ import android.widget.ImageButton;
 import com.android.datetimepicker.date.DatePickerDialog;
 
 
-public class ActionFragment extends Fragment
-		implements DatePickerDialog.OnDateSetListener {
+public class ActionFragment extends Fragment {
 	private Action mAction;
 	private ActionLab mActionLab;
 	private ActionReorderController mReordCtrl;
@@ -221,14 +220,6 @@ public class ActionFragment extends Fragment
 			mPinnedButton.clearColorFilter();
 		}
 	}
-
-	//---
-	@Override
-	public void onDateSet(DatePickerDialog dialog, int year, int monthOfYear, int dayOfMonth) {
-		System.out.println("Year: " + year + "\nMonth: " + monthOfYear + "\nDay: " + dayOfMonth);
-	}
-	//---
-
 	
 	private void enableButtons(View v){
 		mPinnedButton = (ImageButton)v.findViewById(R.id.pinned_toggle);

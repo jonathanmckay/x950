@@ -255,7 +255,6 @@ public class DatePickerDialog extends DialogFragment implements
             public void onClick(View v) {
                 tryVibrate();
                 if (mCallBack != null) {
-                    System.out.println("mCallBack was not null");
                     mCallBack.onDateSet(DatePickerDialog.this, mCalendar.get(Calendar.YEAR),
                             mCalendar.get(Calendar.MONTH), mCalendar.get(Calendar.DAY_OF_MONTH));
                 }
