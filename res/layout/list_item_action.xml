@@ -61,6 +61,8 @@
                     android:layout_alignParentTop="true"
                     android:tag="dateText"
                     android:text="Action date" />
+
+
             </RelativeLayout>
 
             <TextView
@@ -106,6 +108,13 @@
         android:background="#EADDDDDD"
         android:orientation="horizontal"
         android:tag="back" >
+
+        <ImageButton
+            android:id="@+id/clear_done_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_accept" >
+        </ImageButton>
+
 
         <ImageButton
             android:id="@+id/cancel_button"

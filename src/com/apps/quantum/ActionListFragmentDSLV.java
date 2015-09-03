@@ -64,7 +64,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private ImageButton mNewSubtaskButton;
 	private EditText mSubtaskField;
 	private EditText mTitleEdit;
-    private Button mDoneButton;//commented out instances for now
+    private ImageButton mDoneButton;//commented out instances for now
 
 	public interface Callbacks {
 		void onActionSelected(Action a);
@@ -405,31 +405,8 @@ public class ActionListFragmentDSLV extends Fragment {
 				.inflate(R.layout.fragment_action_list, parent, false));
 
 		initializeSubtaskField(v);
-//        mDoneButton = (Button) v.findViewById(R.id.clear_done_button);
-//
-//        mDoneButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(mAction.isRoot()){
-//                    Log.e("DSLV", "Tried to remove root");
-//                    return;
-//                }
-//
-//                Action toDelete = mAction;
-//                mAction = toDelete.getParent();
-//                mAction.incrementCompleted();
-//                mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-//
-//                while(mAction.isPending() && !mAction.isRoot()){
-//                    mAction = mAction.getParent();
-//                    mAction.incrementCompleted();
-//                }
-//
-//                updateListToShowCurrentAction();
-//            }
-//        });
-//
-//        mDoneButton.setVisibility(View.INVISIBLE);
+
+		//Moved mDoneButton to swipebuttons
 
 		mListFooter = ((LayoutInflater) getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -790,6 +767,33 @@ public class ActionListFragmentDSLV extends Fragment {
 					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 				}
 			});
+
+			//TODO: Does done button belong in swipe?
+			mDoneButton = (ImageButton) v.findViewById(R.id.clear_done_button);
+
+			mDoneButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if(mAction.isRoot()){
+						Log.e("DSLV", "Tried to remove root");
+						return;
+					}
+
+					Action toDelete = mAction;
+					mAction = toDelete.getParent();
+					mAction.incrementCompleted();
+					mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+
+					while(mAction.isPending() && !mAction.isRoot()){
+						mAction = mAction.getParent();
+						mAction.incrementCompleted();
+					}
+
+					updateListToShowCurrentAction();
+				}
+			});
+
+//        mDoneButton.setVisibility(View.INVISIBLE);
 		}
 	}
 
