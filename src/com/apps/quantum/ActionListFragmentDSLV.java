@@ -64,7 +64,9 @@ public class ActionListFragmentDSLV extends Fragment {
 	private ImageButton mNewSubtaskButton;
 	private EditText mSubtaskField;
 	private EditText mTitleEdit;
-    private ImageButton mDoneButton;//commented out instances for now
+    private ImageButton mDoneButton;
+	private ImageButton fDoneButton;
+	private TextView fDoneText;
 
 	public interface Callbacks {
 		void onActionSelected(Action a);
@@ -406,7 +408,41 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		initializeSubtaskField(v);
 
-		//Moved mDoneButton to swipebuttons
+		fDoneButton = (ImageButton) v.findViewById(R.id.footer_clear_done_button);
+		fDoneText = (TextView) v.findViewById(R.id.mark_as_done);
+
+		//Don't show task done button with unfulfilled subtasks
+		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot()) {
+			fDoneButton.setVisibility(View.INVISIBLE);
+			fDoneText.setVisibility(View.INVISIBLE);
+		}
+//		TODO: mDoneButton has similar logic to fDoneButton; refactor to remove redundant code
+		fDoneButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (mAction.isRoot()) {
+					Log.e("DSLV", "Tried to remove root");
+					return;
+				}
+
+				Action toDelete = mAction;
+				mAction = toDelete.getParent();
+				mAction.incrementCompleted();
+				ActionLab aActionLab = ActionLab.get(getActivity());
+				aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+
+				while (mAction.isPending() && !mAction.isRoot()) {
+					mAction = mAction.getParent();
+					mAction.incrementCompleted();
+				}
+
+				updateListToShowCurrentAction();
+				updateFooter();
+
+				String toastText = "Task completed";
+				Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		mListFooter = ((LayoutInflater) getActivity()
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE))
@@ -448,7 +484,15 @@ public class ActionListFragmentDSLV extends Fragment {
 		
 		completedToday.setText(String.valueOf(String.valueOf(mAction.getCompletedToday() + " completed today")));
 		listCompletedToday.setText(String.valueOf(String.valueOf(mAction.getCompletedToday() + " completed today")));
-		
+
+//		Hide done button if this task has unfinished subtasks
+		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot() ) {
+			fDoneButton.setVisibility(View.INVISIBLE);
+			fDoneText.setVisibility(View.INVISIBLE);
+		} else {
+			fDoneButton.setVisibility(View.VISIBLE);
+			fDoneText.setVisibility(View.VISIBLE);
+		}
 	}
 
 	private void updateNewItemHint(View v) {
@@ -774,26 +818,39 @@ public class ActionListFragmentDSLV extends Fragment {
 			mDoneButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if(mAction.isRoot()){
+					final int position = mListView.getPositionForView((View) v
+							.getParent());
+					Action a = mAdapter.getItem(position);
+					if(a.isRoot()){
 						Log.e("DSLV", "Tried to remove root");
 						return;
 					}
+					//Don't remove tasks with unfulfilled subtasks
+					if (!(a.getChildren().get(0).isEmpty()) ) {
+//						mDoneButton.setVisibility(View.INVISIBLE);
+						String toastText = "Unfinished subtasks!";
+						Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
+						return;
+					}
 
-					Action toDelete = mAction;
-					mAction = toDelete.getParent();
-					mAction.incrementCompleted();
-					mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+					Action toDelete = a;
+					a = toDelete.getParent();
+					a.incrementCompleted();
+					ActionLab aActionLab = ActionLab.get(getActivity());
+					aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
 
-					while(mAction.isPending() && !mAction.isRoot()){
-						mAction = mAction.getParent();
-						mAction.incrementCompleted();
+					while(a.isPending() && !a.isRoot()){
+						a = a.getParent();
+						a.incrementCompleted();
 					}
 
 					updateListToShowCurrentAction();
+
+					String toastText = "Task completed";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 				}
 			});
 
-//        mDoneButton.setVisibility(View.INVISIBLE);
 		}
 	}
 

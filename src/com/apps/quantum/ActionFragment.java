@@ -19,6 +19,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.android.datetimepicker.date.DatePickerDialog;
 
@@ -41,7 +43,7 @@ public class ActionFragment extends Fragment {
 	private EditText mContextField;
 	private ImageButton mRepeatInterval;
 	private ImageButton mPinnedButton;
-	
+
 	private Button mStartDateButton;
 	private Button mDueDateButton;
 	private int mDataFieldRequested;
@@ -225,11 +227,11 @@ public class ActionFragment extends Fragment {
 		mPinnedButton = (ImageButton)v.findViewById(R.id.pinned_toggle);
 		updatePinnedButton();
 		mPinnedButton.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				mAction.setPinned(!mAction.isPinned());
-                if(mAction.isPinned()) mAction.moveWithinList(mAction.getPriority(), 0);
+				if (mAction.isPinned()) mAction.moveWithinList(mAction.getPriority(), 0);
 				updatePinnedButton();
 			}
 		});
@@ -237,11 +239,11 @@ public class ActionFragment extends Fragment {
 		mRepeatInterval = (ImageButton)v.findViewById(R.id.repeat_interval);
 		updateRepeatIntervalButton(mAction.getRepeatInterval());
 		mRepeatInterval.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				FragmentManager fm = getActivity().getSupportFragmentManager();
-				
+
 				RepeatPickerFragment repeatPicker = new RepeatPickerFragment();
 //				Pass defaults to RepeatPickerFragment
 				Bundle bundle = new Bundle();
@@ -281,7 +283,7 @@ public class ActionFragment extends Fragment {
 				datePicker.show(fm, DIALOG_DATE);
 			}
 		});
-		
+
 	}
 	
 	

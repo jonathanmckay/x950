@@ -87,6 +87,7 @@
                 android:imeOptions="actionDone"
                 android:inputType="text" />
         </LinearLayout>
+
     </LinearLayout>
 
 </LinearLayout>

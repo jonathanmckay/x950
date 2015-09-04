@@ -15,12 +15,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/footer_clear_done_button"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.0"
+                style="@style/QuarterButton"
+                android:src="@drawable/ic_action_accept" >
+            </ImageButton>
+            <TextView
+                android:id="@+id/mark_as_done"
+                style="@style/TitleText"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Mark as Done"/>
+        </LinearLayout>
 		
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
         <TextView
             android:id="@+id/listview_footer"
             style="@style/TitleText"
@@ -38,10 +62,9 @@
             android:layout_height="wrap_content"
             android:background="@color/ltGrey"
             android:text="TextTest"/>
-        
-        
-        
+
         </LinearLayout>
+
         <View
             android:id="@+id/kitkat_footer"
             android:layout_width="match_parent"
@@ -49,5 +72,7 @@
             android:background="@color/ltGrey" >
         </View>
     </LinearLayout>
+
+
 
 </RelativeLayout>
