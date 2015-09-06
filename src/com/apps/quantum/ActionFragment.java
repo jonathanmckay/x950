@@ -325,19 +325,6 @@ public class ActionFragment extends Fragment {
 		d = (d == null) ? new Date() : d;
 		
 		switch(requestCode){
-			case REQUEST_DATE_OR_TIME:
-				FragmentManager fm = getActivity().getSupportFragmentManager();
-				if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 2){
-					DatePickerFragment dateDialog = DatePickerFragment.newInstance(d);
-					dateDialog.setTargetFragment(ActionFragment.this, REQUEST_DATE);
-				}
-				else if((Integer)data.getSerializableExtra(TimeOrDateFragment.EXTRA_DATE_OR_TIME) == 1){
-					TimePickerFragment timeDialog = TimePickerFragment.newInstance(d);
-					timeDialog.setTargetFragment(ActionFragment.this, REQUEST_TIME);
-					timeDialog.show(fm, DIALOG_TIME);
-				}
-
-				break;
 			case REQUEST_DATE:
 				Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
 				d = combineDateAndTime(d, newDate);
