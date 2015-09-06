@@ -416,7 +416,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			fDoneButton.setVisibility(View.INVISIBLE);
 			fDoneText.setVisibility(View.INVISIBLE);
 		}
-//		TODO: mDoneButton has similar logic to fDoneButton; refactor to remove redundant code
+
 		fDoneButton.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -427,15 +427,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 				Action toDelete = mAction;
 				mAction = toDelete.getParent();
-				mAction.incrementCompleted();
-				ActionLab aActionLab = ActionLab.get(getActivity());
-				aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-
-				while (mAction.isPending() && !mAction.isRoot()) {
-					mAction = mAction.getParent();
-					mAction.incrementCompleted();
-				}
-
+				removeAction(toDelete);
 				updateListToShowCurrentAction();
 				updateFooter();
 
@@ -833,17 +825,7 @@ public class ActionListFragmentDSLV extends Fragment {
 						return;
 					}
 
-					Action toDelete = a;
-					a = toDelete.getParent();
-					a.incrementCompleted();
-					ActionLab aActionLab = ActionLab.get(getActivity());
-					aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-
-					while(a.isPending() && !a.isRoot()){
-						a = a.getParent();
-						a.incrementCompleted();
-					}
-
+					removeAction(a);
 					updateListToShowCurrentAction();
 
 					String toastText = "Task completed";
@@ -851,6 +833,17 @@ public class ActionListFragmentDSLV extends Fragment {
 				}
 			});
 
+		}
+	}
+
+	public void removeAction(Action toDelete) {
+		ActionLab aActionLab = ActionLab.get(getActivity());
+		aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+
+//		If mAction goes pending, return to nearest non-pending ancestor
+		while (mAction.isPending() && !mAction.isRoot()) {
+			mAction = mAction.getParent();
+			mAction.incrementCompleted();
 		}
 	}
 
