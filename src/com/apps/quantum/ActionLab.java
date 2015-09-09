@@ -163,7 +163,7 @@ public class ActionLab{
     private ArrayList<String> toStringList(Action a){
         Date timestamp = new Date();
 
-        return toStringListHelper(a,timestamp);
+        return toStringListHelper(a, timestamp);
     }
 
     private ArrayList<String> toStringListHelper(Action a, Date timestamp){
@@ -388,9 +388,20 @@ public class ActionLab{
 
     public void setStartDate(Action a, Date startDate) {
         if(startDate == null) return;
+        if (a.isPending() && a.isRepeat()) {
+            unrepeatPending(a);
+        }
         modifyStartDate(a, startDate);
-        if (startDate != null && startDate.after(new Date()) && a.isIncomplete()) deactivate(a);
+        if (startDate != null && startDate.after(new Date()) && a.isIncomplete()){
+            deactivate(a);
+        }
         if (startDate.before(new Date()) && a.isPending()) activate(a);
+    }
+
+    private void unrepeatPending(Action a) {
+        //Create the next pending repeated action, remove repeat interval from current action
+        createRepeatedAction(a, a);
+        a.setRepeatInfo(0,0);
     }
 
     public void addToStartDateQueue(Action a) {

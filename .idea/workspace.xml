@@ -25,39 +25,12 @@
   <component name="ChangeListManager">
     <list default="true" id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$5.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$10.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$10.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$5.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$5.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$6.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$7.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$8.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$8.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$9.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$9.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$2.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$3.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/list_item_action.xml" afterPath="$PROJECT_DIR$/res/layout/list_item_action.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="x950.iws" />
@@ -83,14 +56,14 @@
     <leaf>
       <file leaf-file-name="fragment_action.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/fragment_action.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.428571">
+            <state vertical-scroll-proportion="0.0">
               <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="27" selection-end-column="17" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
@@ -99,7 +72,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,49 +91,75 @@
       </file>
       <file leaf-file-name="list_item_action.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/list_item_action.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.821429">
+            <state vertical-scroll-proportion="0.0">
               <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="kitkat_spacer.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.178572">
+            <state vertical-scroll-proportion="-0.0">
               <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
             </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="ActionFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-169.82143">
-              <caret line="363" column="64" selection-start-line="363" selection-start-column="64" selection-end-line="363" selection-end-column="64" />
+            <state vertical-scroll-proportion="61.285713">
+              <caret line="246" column="39" selection-start-line="246" selection-start-column="37" selection-end-line="246" selection-end-column="39" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
+      <file leaf-file-name="ActionLab.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.189441">
-              <caret line="824" column="42" selection-start-line="824" selection-start-column="42" selection-end-line="824" selection-end-column="42" />
+            <state vertical-scroll-proportion="0.6048527">
+              <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#24164#24581#0" expanded="true" />
-                <element signature="e#24580#24581#0" expanded="true" />
+                <element signature="e#4543#4544#0" expanded="true" />
+                <element signature="e#4575#4576#0" expanded="true" />
+                <element signature="e#5592#5593#0" expanded="true" />
+                <element signature="e#5663#5664#0" expanded="true" />
+                <element signature="e#10450#10451#0" expanded="true" />
+                <element signature="e#10503#10504#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Action.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="5.785714">
+              <caret line="751" column="49" selection-start-line="751" selection-start-column="49" selection-end-line="751" selection-end-column="49" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="896" column="1" selection-start-line="896" selection-start-column="1" selection-end-line="896" selection-end-column="1" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -217,7 +218,6 @@
         <option value="$PROJECT_DIR$/src/com/apps/quantum/TimeOrDateFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java" />
@@ -229,6 +229,7 @@
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DateLogic.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
       </list>
     </option>
   </component>
@@ -287,7 +288,23 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="PackagesPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="drag-sort-listview" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -394,22 +411,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="PackagesPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drag-sort-listview" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PackageViewModuleNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -715,7 +716,6 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39900663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3228477" sideWeight="0.4826284" order="7" side_tool="true" content_ui="tabs" />
@@ -724,7 +724,7 @@
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="471" y="0" width="763" height="712" />
-      <window_info id="Android" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.42218542" sideWeight="0.5173716" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42218542" sideWeight="0.5173716" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -739,19 +739,20 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3228477" sideWeight="0.4826284" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="9" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="9" side_tool="true" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.7466887" order="0" side_tool="false" content_ui="combo" />
@@ -771,8 +772,8 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" x="471" y="0" width="763" height="712" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.42218542" sideWeight="0.5173716" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.0" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
@@ -804,13 +805,13 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="83" column="0" selection-start-line="83" selection-start-column="0" selection-end-line="83" selection-end-column="0" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java">
@@ -852,7 +853,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -906,24 +906,24 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_done_button.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-3.4629629">
           <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_dialog.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_dialog.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="3.2222223">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
@@ -1037,14 +1037,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_fragment.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gen/com/apps/quantum/R.java">
@@ -1059,22 +1059,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="23.136915">
           <caret line="953" column="21" selection-start-line="953" selection-start-column="12" selection-end-line="953" selection-end-column="21" />
-          <folding>
-            <element signature="e#38587#38588#0" expanded="false" />
-            <element signature="e#38631#38632#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/fragment_action.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.428571">
+        <state vertical-scroll-proportion="0.0">
           <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="27" selection-end-column="17" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
@@ -1086,25 +1082,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/list_item_action.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.821429">
+        <state vertical-scroll-proportion="0.0">
           <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.178572">
-          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java">
@@ -1127,25 +1112,8 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="27" column="19" selection-start-line="27" selection-start-column="19" selection-end-line="27" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.84153">
-          <caret line="246" column="25" selection-start-line="246" selection-start-column="18" selection-end-line="246" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2513661">
-          <caret line="310" column="34" selection-start-line="310" selection-start-column="19" selection-end-line="310" selection-end-column="34" />
           <folding>
-            <element signature="e#17021#17022#0" expanded="true" />
-            <element signature="e#17057#17058#0" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1154,15 +1122,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33333334">
           <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-169.82143">
-          <caret line="363" column="64" selection-start-line="363" selection-start-column="64" selection-end-line="363" selection-end-column="64" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1176,12 +1135,53 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.189441">
-          <caret line="824" column="42" selection-start-line="824" selection-start-column="42" selection-end-line="824" selection-end-column="42" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="896" column="1" selection-start-line="896" selection-start-column="1" selection-end-line="896" selection-end-column="1" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#24164#24581#0" expanded="true" />
-            <element signature="e#24580#24581#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="61.285713">
+          <caret line="246" column="39" selection-start-line="246" selection-start-column="37" selection-end-line="246" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="5.785714">
+          <caret line="751" column="49" selection-start-line="751" selection-start-column="49" selection-end-line="751" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6048527">
+          <caret line="399" column="0" selection-start-line="399" selection-start-column="0" selection-end-line="399" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#4543#4544#0" expanded="true" />
+            <element signature="e#4575#4576#0" expanded="true" />
+            <element signature="e#5592#5593#0" expanded="true" />
+            <element signature="e#5663#5664#0" expanded="true" />
+            <element signature="e#10450#10451#0" expanded="true" />
+            <element signature="e#10503#10504#0" expanded="true" />
           </folding>
         </state>
       </provider>
