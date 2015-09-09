@@ -24,9 +24,11 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -67,7 +69,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 	private Extractor mTextExtractor;	
 	private ImageButton mNewSubtaskButton;
-	private EditText mSubtaskField;
+	private MultiAutoCompleteTextView mSubtaskField;
 	private EditText mTitleEdit;
     private ImageButton mDoneButton;
 	private ImageButton fDoneButton;
@@ -533,6 +535,43 @@ public class ActionListFragmentDSLV extends Fragment {
 				: "Add new subtask");
 	}
 
+
+	//SpaceTokenizer needed so MultiAutoComplete knows spaces separate phrases
+	//Based on source code for comma tokenizer:
+	//https://android.googlesource.com/platform/frameworks/base/+/master/core/java/android/widget/MultiAutoCompleteTextView.java
+	public class SpaceTokenizer implements MultiAutoCompleteTextView.Tokenizer {
+
+		//Returns the end of the token (minus trailing punctuation) that begins at offset cursor within text
+		public int findTokenStart(CharSequence text, int cursor) {
+			int i = cursor;
+
+			while (i > 0 && text.charAt(i - 1) != ' ') i--;
+			while (i < cursor && text.charAt(i) == ' ') i++;
+
+			return i;
+		}
+
+		//Returns the start of the token that ends at offset cursor within text
+		public int findTokenEnd(CharSequence text, int cursor) {
+			int i = cursor;
+
+			while (i < text.length()) {
+				if (text.charAt(i) == ' ') {
+					return i;
+				} else {
+					i++;
+				}
+			}
+
+			return text.length();
+		}
+
+		//Returns text, modified, if necessary, to ensure that it ends with a token terminator
+		public CharSequence terminateToken(CharSequence text) {
+			return text + " ";
+		}
+	}
+
 	private void initializeSubtaskField(View v) {
 
 		mNewSubtaskButton = (ImageButton) v.findViewById(R.id.new_subtask_icon);
@@ -552,7 +591,15 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		updateNewItemHint(v);
 
-		mSubtaskField = (EditText) v.findViewById(R.id.new_subtask);
+		mSubtaskField = (MultiAutoCompleteTextView) v.findViewById(R.id.new_subtask);
+		//TODO: Use dropbox to base suggestions on tasks user has already performed
+		String[] words = new String[] {"travel to", "read", "redo", "eat", "make", "buy",
+				"spain", "qatar", "south africa", "make reservations at", "west virginia"
+		};
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, words);
+//		AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.AutoCompleteInput);
+		mSubtaskField.setAdapter(adapter);
+		mSubtaskField.setTokenizer(new SpaceTokenizer());
 
 		mSubtaskField.setText(null);
 		mSubtaskField.addTextChangedListener(new TextWatcher() {
