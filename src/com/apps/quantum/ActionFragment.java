@@ -302,56 +302,56 @@ public class ActionFragment extends Fragment {
 
 	public void onActivityResult(int requestCode, int resultCode, Intent data){
 		if(resultCode != Activity.RESULT_OK) return;
-		
+
 		if(mDataFieldRequested == DUE_DATE){
 			d = mAction.getDueDate();
 		} else if (mDataFieldRequested == START_DATE){
 			d = mAction.getStartDate();
 		}
-		
+
 		if(d==null){
 			Calendar calendarDate = Calendar.getInstance();
-			
+
 			int year = calendarDate.get(Calendar.YEAR);
 			int month = calendarDate.get(Calendar.MONTH);
 			int day = calendarDate.get(Calendar.DAY_OF_MONTH);
-			
-			
+
+
 			int hour = DEFAULT_HOUR;
 			int minute = DEFAULT_MINUTE;
-			
+
 			d = new GregorianCalendar(year,month,day,hour,minute).getTime();
 		}
 		d = (d == null) ? new Date() : d;
-		
+
 		switch(requestCode){
 			case REQUEST_DATE:
 				Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
-			
+
 				mCallbacks.onActionUpdated();
 				break;
-				
+
 			case REQUEST_TIME:
 				Date newTime = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_TIME);
 				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
-				
+
 				mCallbacks.onActionUpdated();
 				break;
-				
+
 			case REQUEST_REPEAT_INFO:
 				int repeatInterval = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_INTERVAL);
                 int repeatNumber = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_NUMBER);
 				mActionLab.modifyRepeatInterval(repeatInterval, repeatNumber, mAction);
-				
+
 				//Change the color of the button
 				updateRepeatIntervalButton(repeatInterval);
 			default:
 				break;
 		}
-	}	
+	}
 	
 	private void updateRepeatIntervalButton(int repeatInterval){
 		if(repeatInterval != 0){
@@ -361,19 +361,19 @@ public class ActionFragment extends Fragment {
 		}
 	}
 	
-	private Date combineDateAndTime(Date time, Date date){
-		
+	public static Date combineDateAndTime(Date time, Date date){
+
 		Calendar calendarDate = Calendar.getInstance();
 		Calendar calendarTime = Calendar.getInstance();
 		calendarDate.setTime(date);
 		calendarTime.setTime(time);
-		
+
 		int hour = calendarTime.get(Calendar.HOUR_OF_DAY);
 		int minute = calendarTime.get(Calendar.MINUTE);
 		int year = calendarDate.get(Calendar.YEAR);
 		int month = calendarDate.get(Calendar.MONTH);
 		int day = calendarDate.get(Calendar.DAY_OF_MONTH);
-		
+
 		return new GregorianCalendar(year,month,day,hour,minute).getTime();
 	}
 	private void updateTimeInfo(Date d){

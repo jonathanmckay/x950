@@ -10,6 +10,7 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -29,12 +30,16 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.datetimepicker.date.DatePickerDialog;
 import com.mobeta.android.dslv.DragSortController;
 import com.mobeta.android.dslv.DragSortListView;
 import com.twitter.Extractor;
 import com.twitter.Extractor.Entity;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ActionListFragmentDSLV extends Fragment {
@@ -67,6 +72,11 @@ public class ActionListFragmentDSLV extends Fragment {
     private ImageButton mDoneButton;
 	private ImageButton fDoneButton;
 	private TextView fDoneText;
+
+	private Date d;
+	private static final int REQUEST_DATE = 2;
+    private static final int REQUEST_TIME = 3;
+	private Action childAction;
 
 	public interface Callbacks {
 		void onActionSelected(Action a);
@@ -162,11 +172,11 @@ public class ActionListFragmentDSLV extends Fragment {
             && !mAction.hasPendingTasks()
             && !mAction.isRoot()
         ) {
-//            mDoneButton.setVisibility(View.VISIBLE);
+//            fDoneButton.setVisibility(View.VISIBLE);
             return;
         }
 
-//        mDoneButton.setVisibility(View.INVISIBLE);
+//        fDoneButton.setVisibility(View.INVISIBLE);
     }
 
 	private void setListeners() {
@@ -368,9 +378,36 @@ public class ActionListFragmentDSLV extends Fragment {
 		if (resultCode != Activity.RESULT_OK)
 			return;
 
+		//Used by Date/Timepickers to pass date back to fragment
+		if(d==null){
+			Calendar calendarDate = Calendar.getInstance();
+
+			int year = calendarDate.get(Calendar.YEAR);
+			int month = calendarDate.get(Calendar.MONTH);
+			int day = calendarDate.get(Calendar.DAY_OF_MONTH);
+
+			int hour = ActionFragment.DEFAULT_HOUR;
+			int minute = ActionFragment.DEFAULT_MINUTE;
+
+			d = new GregorianCalendar(year,month,day,hour,minute).getTime();
+		}
+
 		switch (requestCode) {
 		case REQUEST_LIST_REFRESH:
 			mAction = mActionLab.getRoot();
+			refreshView();
+			break;
+		case REQUEST_DATE:
+			Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
+			d = ActionFragment.combineDateAndTime(d, newDate);
+			mActionLab.setStartDate(childAction, d);
+			refreshView();
+			break;
+
+		case REQUEST_TIME:
+			Date newTime = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_TIME);
+			d = ActionFragment.combineDateAndTime(newTime, d);
+			mActionLab.setStartDate(childAction, d);
 			refreshView();
 			break;
 		default:
@@ -427,6 +464,8 @@ public class ActionListFragmentDSLV extends Fragment {
 
 				Action toDelete = mAction;
 				mAction = toDelete.getParent();
+//				mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+//				toAncestor();
 				removeAction(toDelete);
 				updateListToShowCurrentAction();
 				updateFooter();
@@ -478,7 +517,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		listCompletedToday.setText(String.valueOf(String.valueOf(mAction.getCompletedToday() + " completed today")));
 
 //		Hide done button if this task has unfinished subtasks
-		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot() ) {
+		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot() || mAction.hasPendingTasks() ) {
 			fDoneButton.setVisibility(View.INVISIBLE);
 			fDoneText.setVisibility(View.INVISIBLE);
 		} else {
@@ -518,7 +557,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		mSubtaskField.setText(null);
 		mSubtaskField.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before,
-					int count) {
+									  int count) {
 
 				if (c.length() > 0) {
 					// position the text type in the left top corner
@@ -537,7 +576,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			}
 
 			public void beforeTextChanged(CharSequence c, int start, int count,
-					int after) {
+										  int after) {
 				// This space intentionally left blank
 			}
 
@@ -550,7 +589,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 					@Override
 					public boolean onEditorAction(TextView v, int actionId,
-							KeyEvent event) {
+												  KeyEvent event) {
 						if (actionId == EditorInfo.IME_ACTION_SEARCH
 								|| actionId == EditorInfo.IME_ACTION_DONE) {
 							/*
@@ -737,82 +776,59 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		public void initializeSwipeButtons(int position, View v,
 				ViewGroup parent) {
+			final int pos = position;
+
+			ImageButton topButton = (ImageButton) v
+					.findViewById(R.id.top_button);
+			ImageButton bottomButton = (ImageButton) v
+					.findViewById(R.id.bottom_button);
 			ImageButton cancelButton = (ImageButton) v
 					.findViewById(R.id.cancel_button);
-			ImageButton skipButton = (ImageButton) v
-					.findViewById(R.id.skip_button);
-			ImageButton demoteButton = (ImageButton) v
-					.findViewById(R.id.demote_button);
-			ImageButton pinButton = (ImageButton) v
-					.findViewById(R.id.pin_button);
+			ImageButton delayButton = (ImageButton) v
+					.findViewById(R.id.delay_button);
 
-			cancelButton.setOnClickListener(new View.OnClickListener() {
-
+			topButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Log.d(TAG, "Click registered");
-
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
-					mReordCtrl.removeAction(mAdapter, position);
-					String toastText = "Item Removed";
-					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+//					Action a = mAdapter.getItem(position);
+					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
+//                    a.setPinned(true);
+
+					String toastText = "Moved to Top";
+					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 				}
 			});
 
-			skipButton.setOnClickListener(new View.OnClickListener() {
+			bottomButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
 					mReordCtrl.moveToEnd(mAdapter, position);
-					
-					String toastText = "Item Skipped";
-					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 
-				}
-			});
-
-			demoteButton.setOnClickListener(new View.OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					final int position = mListView.getPositionForView((View) v
-							.getParent());
-					mReordCtrl.changeActionStatus(mAdapter, position,
-							Action.WISHLIST);
-					updateFooter();
-					
-					String toastText = "Item Moved to Wishlist";
+					String toastText = "Moved to Bottom";
 					Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 				}
 			});
 
-			pinButton.setOnClickListener(new View.OnClickListener() {
+			//TODO: Verify implementation of cancel
+			cancelButton.setOnClickListener(new View.OnClickListener() {
+
 				@Override
 				public void onClick(View v) {
-					final int position = mListView.getPositionForView((View) v
-							.getParent());
-					Action a = mAdapter.getItem(position);
+					Log.d(TAG, "Click registered");
 
-					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
-                    a.setPinned(true);
-					
-					String toastText = "Item Pinned";
-					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
-				}
-			});
+//					final int position = mListView.getPositionForView((View) v
+//							.getParent());
+//					mReordCtrl.removeAction(mAdapter, position);
+					Action a = mAdapter.getItem(pos);
+//					mActionLab.changeActionStatus(a, Action.COMPLETE);
+//					toAncestor();
 
-			//TODO: Does done button belong in swipe?
-			mDoneButton = (ImageButton) v.findViewById(R.id.clear_done_button);
 
-			mDoneButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					final int position = mListView.getPositionForView((View) v
-							.getParent());
-					Action a = mAdapter.getItem(position);
 					if(a.isRoot()){
 						Log.e("DSLV", "Tried to remove root");
 						return;
@@ -833,19 +849,44 @@ public class ActionListFragmentDSLV extends Fragment {
 				}
 			});
 
+			delayButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					childAction = mAdapter.getItem(pos);
+//					Show date-time picker
+					String DIALOG_DATE = "date";
+					FragmentManager fm = getActivity().getSupportFragmentManager();
+					DatePickerDialog datePicker = DatePickerMaker.getDatePicker(ActionListFragmentDSLV.this);
+					datePicker.show(fm, DIALOG_DATE);
+					updateFooter();
+				}
+			});
+
 		}
 	}
 
 	public void removeAction(Action toDelete) {
-		ActionLab aActionLab = ActionLab.get(getActivity());
-		aActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-
+		ActionLab anActionLab = ActionLab.get(getActivity());
+		anActionLab.changeActionStatus(toDelete, Action.COMPLETE);
 //		If mAction goes pending, return to nearest non-pending ancestor
 		while (mAction.isPending() && !mAction.isRoot()) {
 			mAction = mAction.getParent();
 			mAction.incrementCompleted();
 		}
+
 	}
+
+
+//	public void toAncestor() {
+////		mActionLab.checkForPendingActions();
+//		refreshView();
+////		If mAction goes pending, return to nearest non-pending ancestor
+//		while (mAction.isPending() && !mAction.isRoot()) {
+//			mAction = mAction.getParent();
+//			mAction.incrementCompleted();
+//		}
+//	}
 
 	public void onPause() {
 		super.onPause();
