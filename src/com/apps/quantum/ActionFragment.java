@@ -329,6 +329,7 @@ public class ActionFragment extends Fragment {
 				Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
 				d = combineDateAndTime(d, newDate);
 				updateTimeInfo(d);
+				updateRepeatIntervalButton(mAction.getRepeatInterval());
 
 				mCallbacks.onActionUpdated();
 				break;
@@ -337,6 +338,7 @@ public class ActionFragment extends Fragment {
 				Date newTime = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_TIME);
 				d = combineDateAndTime(newTime, d);
 				updateTimeInfo(d);
+				updateRepeatIntervalButton(mAction.getRepeatInterval());
 
 				mCallbacks.onActionUpdated();
 				break;

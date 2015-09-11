@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -174,11 +175,10 @@ public class ActionListFragmentDSLV extends Fragment {
             && !mAction.hasPendingTasks()
             && !mAction.isRoot()
         ) {
-//            fDoneButton.setVisibility(View.VISIBLE);
+            fDoneButton.setVisibility(View.VISIBLE);
             return;
         }
-
-//        fDoneButton.setVisibility(View.INVISIBLE);
+        fDoneButton.setVisibility(View.INVISIBLE);
     }
 
 	private void setListeners() {
@@ -597,7 +597,6 @@ public class ActionListFragmentDSLV extends Fragment {
 				"spain", "qatar", "south africa", "make reservations at", "west virginia"
 		};
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, words);
-//		AutoCompleteTextView textView = (AutoCompleteTextView) findViewById(R.id.AutoCompleteInput);
 		mSubtaskField.setAdapter(adapter);
 		mSubtaskField.setTokenizer(new SpaceTokenizer());
 
@@ -839,9 +838,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				public void onClick(View v) {
 					final int position = mListView.getPositionForView((View) v
 							.getParent());
-//					Action a = mAdapter.getItem(position);
 					mReordCtrl.moveWithinAdapter(mAdapter, position, 0);
-//                    a.setPinned(true);
 
 					String toastText = "Moved to Top";
 					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
@@ -861,20 +858,12 @@ public class ActionListFragmentDSLV extends Fragment {
 				}
 			});
 
-			//TODO: Verify implementation of cancel
 			cancelButton.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					Log.d(TAG, "Click registered");
-
-//					final int position = mListView.getPositionForView((View) v
-//							.getParent());
-//					mReordCtrl.removeAction(mAdapter, position);
 					Action a = mAdapter.getItem(pos);
-//					mActionLab.changeActionStatus(a, Action.COMPLETE);
-//					toAncestor();
-
 
 					if(a.isRoot()){
 						Log.e("DSLV", "Tried to remove root");
@@ -882,16 +871,16 @@ public class ActionListFragmentDSLV extends Fragment {
 					}
 					//Don't remove tasks with unfulfilled subtasks
 					if (!(a.getChildren().get(0).isEmpty()) ) {
-//						mDoneButton.setVisibility(View.INVISIBLE);
 						String toastText = "Unfinished subtasks!";
 						Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 						return;
 					}
 
-					removeAction(a);
+					mReordCtrl.removeAction(mAdapter, pos);
+					toAncestor();
 					updateListToShowCurrentAction();
 
-					String toastText = "Task completed";
+					String toastText = "Task cancelled";
 					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
 				}
 			});
@@ -914,26 +903,17 @@ public class ActionListFragmentDSLV extends Fragment {
 	}
 
 	public void removeAction(Action toDelete) {
-		ActionLab anActionLab = ActionLab.get(getActivity());
-		anActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+		mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
+		toAncestor();
+	}
+
+	public void toAncestor() {
 //		If mAction goes pending, return to nearest non-pending ancestor
 		while (mAction.isPending() && !mAction.isRoot()) {
 			mAction = mAction.getParent();
 			mAction.incrementCompleted();
 		}
-
 	}
-
-
-//	public void toAncestor() {
-////		mActionLab.checkForPendingActions();
-//		refreshView();
-////		If mAction goes pending, return to nearest non-pending ancestor
-//		while (mAction.isPending() && !mAction.isRoot()) {
-//			mAction = mAction.getParent();
-//			mAction.incrementCompleted();
-//		}
-//	}
 
 	public void onPause() {
 		super.onPause();
