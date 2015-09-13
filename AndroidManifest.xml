@@ -17,28 +17,42 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
-        
-        <activity android:name="com.dropbox.sync.android.DbxAuthActivity" />
-		<activity
- 		android:name="com.dropbox.client2.android.AuthActivity"
-  		android:launchMode="singleTask" 
-  		android:screenOrientation="portrait">
-  			<intent-filter>
-  			  <data android:scheme="db-588rm6vl0oom62h" />
-    			<action android:name="android.intent.action.VIEW" />
-    			<category android:name="android.intent.category.BROWSABLE" />
-    			<category android:name="android.intent.category.DEFAULT" />
-  			</intent-filter>
-		</activity>
-		
-		
-		<service
-  		android:name="com.dropbox.sync.android.DbxSyncService"
-  		android:enabled="true"
-  		android:exported="false"
-  		android:label="Dropbox Sync" />
-        
-        
+
+        <!-- Sync API deprecated-->
+        <!--<activity android:name="com.dropbox.sync.android.DbxAuthActivity" />-->
+		<!--<activity-->
+ 		<!--android:name="com.dropbox.client2.android.AuthActivity"-->
+  		<!--android:launchMode="singleTask" -->
+  		<!--android:screenOrientation="portrait">-->
+  			<!--<intent-filter>-->
+  			  <!--<data android:scheme="db-588rm6vl0oom62h" />-->
+    			<!--<action android:name="android.intent.action.VIEW" />-->
+    			<!--<category android:name="android.intent.category.BROWSABLE" />-->
+    			<!--<category android:name="android.intent.category.DEFAULT" />-->
+  			<!--</intent-filter>-->
+		<!--</activity>-->
+		<!-- -->
+		<!-- -->
+		<!--<service-->
+  		<!--android:name="com.dropbox.sync.android.DbxSyncService"-->
+  		<!--android:enabled="true"-->
+  		<!--android:exported="false"-->
+  		<!--android:label="Dropbox Sync" />-->
+        <!-- -->
+
+        <activity
+            android:name="com.dropbox.client2.android.AuthActivity"
+            android:launchMode="singleTask"
+            android:configChanges="orientation|keyboard">
+            <intent-filter>
+                <!-- Change this to be db- followed by your app key -->
+                <data android:scheme="db-nd699tj9zebn0ch" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE"/>
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+
         <activity 
             android:name="com.apps.quantum.ActionListActivity"
             android:screenOrientation="portrait"

@@ -30,5 +30,7 @@
     <orderEntry type="library" name="annotations" level="project" />
     <orderEntry type="library" name="com.code-troopers.betterpickers:library:2.0.0" level="project" />
     <orderEntry type="module" module-name="DateTimePicker" />
+    <orderEntry type="library" name="android-support-design" level="project" />
+    <orderEntry type="library" name="dropbox-android-sdk-1.6.3" level="project" />
   </component>
 </module>
