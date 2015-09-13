@@ -29,6 +29,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
+	private DropboxCorpusSync dbSync;
 
     private String[] mMenuTitles;
 	boolean mAtRoot;
@@ -94,13 +95,20 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        
 	        mDrawerLayout.setDrawerListener(mDrawerToggle);
         	onActionSelected(ActionLab.get(this).getRoot());
-	        
-	    }
-	 
-	 
 
- 
-	 private class DrawerItemClickListener implements ListView.OnItemClickListener {
+			dbSync = DropboxCorpusSync.get(this);
+	    }
+
+	        protected void onResume() {
+            super.onResume();
+			dbSync.authDropboxResume();
+        }
+
+
+
+
+
+	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	        @Override
 	        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 	            selectItem(position);

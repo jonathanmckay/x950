@@ -2,7 +2,9 @@ package com.apps.quantum;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -17,8 +19,6 @@ import org.json.JSONTokener;
 
 import android.content.Context;
 import android.util.Log;
-
-import com.dropbox.sync.android.DbxFile;
 
 public class OutcomeSerializer {
 	private static final String TAG = "OutcomeSerializer";
@@ -69,13 +69,15 @@ public class OutcomeSerializer {
 				return false;
 			}
 	}
-	
-	public void writeActionsToFile(ArrayList<String> actions, DbxFile file) throws IOException{
-		OutputStream out = file.getWriteStream();
+
+	//changed DBXFile -> File
+	public void writeActionsToFile(ArrayList<String> actions, File file) throws IOException{
+//		OutputStream out = file.getWriteStream();
+		FileOutputStream out = new FileOutputStream(file);
 		writeActionsToStream(out, actions);
 		return;
 	}
-	
+
 	public void writeActionsToStream(OutputStream out, ArrayList<String> actions) throws IOException{
 		
 		BufferedWriter writer = null;
@@ -117,23 +119,24 @@ public class OutcomeSerializer {
         }
         return actions;
     }
-	
-	public ArrayList<Action> loadActionsFromExcel(DbxFile file) throws IOException{
-		
-		try {
-			//Open and read the file into a StringBuilder
-			InputStream in = file.getReadStream();
-			return readActionsFromStream(in);
-			
-		} catch (Exception e){
-			Log.e(TAG, "Unable to open file from local datastore (from text)", e);
-			return new ArrayList<Action>();
-			//do nothing, happens when file doesn't exist;
-		} finally {
-			file.close();
-		}
-		
-	}
+
+//	TODO
+//	public ArrayList<Action> loadActionsFromExcel(DbxFile file) throws IOException{
+//
+//		try {
+//			//Open and read the file into a StringBuilder
+//			InputStream in = file.getReadStream();
+//			return readActionsFromStream(in);
+//
+//		} catch (Exception e){
+//			Log.e(TAG, "Unable to open file from local datastore (from text)", e);
+//			return new ArrayList<Action>();
+//			//do nothing, happens when file doesn't exist;
+//		} finally {
+//			file.close();
+//		}
+//
+//	}
 	
 	public ArrayList<Action> loadActions() throws IOException{
 		try {

@@ -3,12 +3,13 @@ package com.apps.quantum;
 import android.app.Activity;
 import android.util.Log;
 
-import com.dropbox.sync.android.DbxAccountManager;
-import com.dropbox.sync.android.DbxException;
-import com.dropbox.sync.android.DbxFile;
-import com.dropbox.sync.android.DbxFileSystem;
-import com.dropbox.sync.android.DbxPath;
+import com.dropbox.client2.DropboxAPI;
+import com.dropbox.client2.android.AndroidAuthSession;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -31,7 +32,8 @@ public class ActionLab{
     private HashMap<UUID, Action> mActionHash;
     private HashMap<UUID, Action> mTempMap;
     private PriorityQueue<Action> mStartDateQueue;
-    private DbxAccountManager mDbxAcctMgr;
+    private DropboxAPI<AndroidAuthSession> mDBApi;
+    private DropboxCorpusSync dbSync;
 
     public static final String DROPBOX_OPTIONS = "com.apps.quantum.dropboxfragment";
 
@@ -90,9 +92,11 @@ public class ActionLab{
         Comparator<Action> comparator = new StartDateComparator();
         mStartDateQueue = new PriorityQueue<Action>(50, comparator);
 
-        mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
-                //App key --------- App secret
-                "588rm6vl0oom62h", "3m69jjskzcfcssn");
+        dbSync = DropboxCorpusSync.get(a);
+        mDBApi = dbSync.getDropboxAPI();
+//        mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
+//                //App key --------- App secret
+//                "588rm6vl0oom62h", "3m69jjskzcfcssn");
 
         //This assumes that root is the first entry. and that root is the
         // only self-referencing action
@@ -132,28 +136,27 @@ public class ActionLab{
             return mRoot;
     }
 
-    public void importDbxFile(String filename) throws IllegalArgumentException{
+    //TODO: Imported tasks are not showing up in root view
+    public void importDbxFile(String filename) throws IllegalArgumentException {
         if(!filename.endsWith(".txt")) throw new IllegalArgumentException();
-
-        try{
-                DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-                DbxFile importFile = dbxFs.open(new DbxPath(DbxPath.ROOT, filename));
-
-                try{
-                        String contents = importFile.readString();
-                        //Log.d("Dropbox Test", "File contents: " + contents);
-                        Log.d("add all from dbx", "");
-                        addAll(parseActions(contents));
-
-                        //Log.d(TAG, "Dropbox Load Successful");
-                } catch (Exception e){
-                        Log.e(TAG, "Error adding Dropbox Actions: ", e);
-                } finally{
-                        importFile.close();
-                }
-        } catch (Exception e){
-                Log.e(TAG, "", e);
+        try {
+            dbSync.launchGetRemoteFile(filename);
+            File file = new File(mActivity.getApplicationContext().getFilesDir(), filename);
+            String contents = readAsString(file);
+            addAll(parseActions(contents));
+            Log.d(TAG, "Dropbox Load Successful");
+        } catch (Exception e) {
+            Log.e(TAG, "Error adding Dropbox Actions: ", e);
         }
+    }
+
+    public String readAsString(File file) throws java.io.FileNotFoundException, java.io.IOException {
+        StringBuffer contents = new StringBuffer();
+        BufferedReader reader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = reader.readLine()) != null) contents.append(line);
+        reader.close();
+        return new String(contents);
     }
 
     public boolean saveActions(){
@@ -331,40 +334,25 @@ public class ActionLab{
     }
 
     public boolean dropboxLinked(){
-        return mDbxAcctMgr.hasLinkedAccount();
+        return mDBApi.getSession().isLinked();
     }
-
 
     public void saveToDropbox(String filename){
         if(dropboxLinked()) saveToDropboxHelper(filename);
         else {
-            mDbxAcctMgr.startLink( mActivity , REQUEST_LINK_TO_DBX);
+            dbSync.authDropbox();
         }
-
     }
 
+    //TODO: should this overwrite existing file?
     private void saveToDropboxHelper(String filename){
-        DbxFile saveFile = null;
-
-        try{
-            DbxFileSystem dbxFs = DbxFileSystem.forAccount(mDbxAcctMgr.getLinkedAccount());
-
-
-            try{
-                saveFile = dbxFs.open(new DbxPath(DbxPath.ROOT, filename));
-            } catch (DbxException e){
-                Log.d(TAG, "Could not open dbx file: ", e);
-                saveFile = dbxFs.create(new DbxPath(DbxPath.ROOT, filename));
-            }
+        try {
+            File saveFile = new File(mActivity.getApplicationContext().getFilesDir(), filename);
             mSerializer.writeActionsToFile(toStringList(mRoot), saveFile);
-            Log.d(TAG, "Saved successfully to dropbox");
-        } catch(Exception e){
-             Log.d(TAG, "Error saving to dropbox: ", e);
-        }finally {
-            saveFile.close();
+            dbSync.launchPostFileOverwrite(filename);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-
-            return;
     }
     public Action createActionIn(Action parent){
         Action action = new Action();

@@ -37,14 +37,27 @@ public class DropboxCorpusSync {
 
         final static private String APP_KEY = "nd699tj9zebn0ch";
         final static private String APP_SECRET = "nd699tj9zebn0ch";
+        private static DropboxCorpusSync sdbSync;
         private DropboxAPI<AndroidAuthSession> mDBApi;
-        Activity activity;
+        private Activity activity;
 
-        public DropboxCorpusSync(Activity a) {
+        private DropboxCorpusSync(Activity a) {
             activity = a;
             authDropbox();
-            createCorpus();
-            launchCorpusSync();
+//            createCorpus();
+            //TODO: Synchronize on background thread
+//            launchCorpusSync();
+        }
+
+        //Singleton
+        public static DropboxCorpusSync get(Activity a){
+            sdbSync = (sdbSync == null) ? new DropboxCorpusSync(a) : sdbSync;
+            return sdbSync;
+        }
+
+        public DropboxAPI<AndroidAuthSession> getDropboxAPI() {
+            if (mDBApi == null) Log.d("Dropbox Error", "Tried to get null session from CorpusSync; is user connected?");
+            return mDBApi;
         }
 
         public void authDropbox() {
@@ -53,7 +66,6 @@ public class DropboxCorpusSync {
             AndroidAuthSession session = new AndroidAuthSession(appKeys);
             mDBApi = new DropboxAPI<AndroidAuthSession>(session);
             if (!dbPrefs.contains("accessToken")) {
-//            authDropboxStart();
                 mDBApi.getSession().startOAuth2Authentication(activity);
             } else {
                 //start connection
@@ -75,17 +87,16 @@ public class DropboxCorpusSync {
             edit.commit();
         }
 
-//        protected void onResume() {
-//            super.onResume();
-//
-//            if (mDBApi != null && mDBApi.getSession().authenticationSuccessful()) {
-//                try {
-//                    authDropboxFinish();
-//                } catch (IllegalStateException e) {
-//                    Log.i("DbAuthLog", "Error authenticating", e);
-//                }
-//            }
-//        }
+        //call in onResume after returning to activity from entering DB credentials
+        public void authDropboxResume() {
+            if (mDBApi != null && mDBApi.getSession().authenticationSuccessful()) {
+                try {
+                    authDropboxFinish();
+                } catch (IllegalStateException e) {
+                    Log.i("DbAuthLog", "Error authenticating", e);
+                }
+            }
+        }
 
         //Merge two corpora without duplicating entries
         public ArrayList<String> mergeCorpusWords(ArrayList<String> corp1, ArrayList<String> corp2) {
@@ -161,19 +172,43 @@ public class DropboxCorpusSync {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                Log.d("DbLog", "Tried to post file to Dropbox that doesn't exist on local");
             }
         }
 
-        //get a text file from drop box
+        public void launchPostFileOverwrite(final String fileName) {
+            new Thread(new Runnable() {
+                public void run() {
+                    postFileOverwrite(fileName);
+                }
+            }).start();
+        }
+
+        public void launchGetRemoteFile(final String fileName) {
+            new Thread(new Runnable() {
+                public void run() {
+                    getRemoteFile(fileName);
+                }
+            }).start();
+        }
+
         public void getRemoteCorpusTemp(String fileName) {
+            getRemoteFile("tmp.txt", "corpus.txt");
+        }
+
+        public void getRemoteFile(String fileName) {
+            getRemoteFile(fileName, fileName);
+        }
+
+        public void getRemoteFile(String localName, String remoteName) {
             try {
-                //write contents of Dropbox version of corpus to tmp.txt
-                File file = new File(activity.getApplicationContext().getFilesDir(), "tmp.txt");
+                //write contents of Dropbox version of remoteName to localName
+                File file = new File(activity.getApplicationContext().getFilesDir(), localName);
                 if (!file.exists()) file.createNewFile();
                 FileOutputStream outputStream = new FileOutputStream(file);
-                DropboxAPI.DropboxFileInfo info = mDBApi.getFile("/" + fileName, null, outputStream, null);
-                Log.i("DbLog", "The downloaded file's ts is: " + info.getMetadata().modified);
-                Log.i("DbLog", "The clientMtime ts is: " + info.getMetadata().clientMtime);
+                DropboxAPI.DropboxFileInfo info = mDBApi.getFile("/" + remoteName, null, outputStream, null);
+                Log.i("DbLog", "The downloaded file's rev is: " + info.getMetadata().rev);
             } catch (Exception e) {
                 e.printStackTrace();
             }

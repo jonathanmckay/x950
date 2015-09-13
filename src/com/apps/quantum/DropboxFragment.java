@@ -47,16 +47,15 @@ public class DropboxFragment extends DialogFragment {
 				.setItems(R.array.dropbox_options, new DialogInterface.OnClickListener() {
 		               public void onClick(DialogInterface dialog, int which) {
 		             	   switch (which){
-		             	   case 0:
+		             	   case SAVE:
 		             		   ActionLab.get(getActivity()).saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
 		             		   String toastText = "Saved Dropbox";
 		             		   Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 		             		   break;
-		             	   case 1:
+		             	   case EXPORT:
 		             		   callFileInputDialog(REQUEST_EXPORT_FILENAME);
-		             		   
 		             		   break;
-		             	   case 2: 
+		             	   case IMPORT:
 		             		   callFileInputDialog(REQUEST_IMPORT_FILENAME);
 		             		   break;
 		             	   }
