@@ -33,5 +33,6 @@
     <orderEntry type="library" name="android-support-design" level="project" />
     <orderEntry type="library" name="dropbox-android-sdk-1.6.3" level="project" />
     <orderEntry type="library" name="json_simple-1.1" level="project" />
+    <orderEntry type="library" name="android-support-v7-appcompat" level="project" />
   </component>
 </module>

@@ -18,6 +18,25 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout">
 
+        <!--Removed FAB elevation, animator (API 21) -->
+        <com.apps.quantum.FloatingActionButton
+            android:id="@+id/fab_add"
+            android:layout_width="@dimen/fab_size"
+            android:layout_height="@dimen/fab_size"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/fab_background"
+            android:layout_gravity="bottom|right">
+
+            <ImageView
+                android:layout_width="@dimen/fab_icon_size"
+                android:layout_height="@dimen/fab_icon_size"
+                android:src="@drawable/ic_action_new"
+                android:tint="@android:color/white"
+                android:layout_gravity="center"
+                android:duplicateParentState="true"/>
+
+        </com.apps.quantum.FloatingActionButton>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

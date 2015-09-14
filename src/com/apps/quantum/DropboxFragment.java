@@ -121,9 +121,12 @@ public class DropboxFragment extends DialogFragment {
 						if(!mFilename.endsWith(".txt")){
 							mFilename = mFilename + ".txt";
 						}
-						mActionLab.saveToDropbox(mFilename);
-						toastText = "Exported to Dropbox";
-						
+						if (mFilename.equals("corpus.txt") || mFilename.equals("corpus")) {
+							toastText = "No export; corpus.txt is reserved";
+						} else {
+							mActionLab.saveToDropbox(mFilename);
+							toastText = "Exported to Dropbox";
+						}
 						break;
 					default:
 						toastText = "Did not reach any of the predicted branches.";

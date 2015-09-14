@@ -53,7 +53,7 @@
             </intent-filter>
         </activity>
 
-        <activity 
+        <activity
             android:name="com.apps.quantum.ActionListActivity"
             android:screenOrientation="portrait"
             android:label="@string/app_name">

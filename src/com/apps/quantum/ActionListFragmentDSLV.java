@@ -75,6 +75,7 @@ public class ActionListFragmentDSLV extends Fragment {
     private ImageButton mDoneButton;
 	private ImageButton fDoneButton;
 	private TextView fDoneText;
+	private FloatingActionButton mFabAddButton;
 
 	private Date d;
 	private static final int REQUEST_DATE = 2;
@@ -446,6 +447,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				.inflate(R.layout.fragment_action_list, parent, false));
 
 		initializeSubtaskField(v);
+		initializeFabAdd(v);
 
 		fDoneButton = (ImageButton) v.findViewById(R.id.footer_clear_done_button);
 		fDoneText = (TextView) v.findViewById(R.id.mark_as_done);
@@ -572,6 +574,21 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 	}
 
+	//TODO: Floating action buttton should be a circle, not a square
+	private void initializeFabAdd(View v) {
+		mFabAddButton = (FloatingActionButton) v.findViewById(R.id.fab_add);
+		mFabAddButton.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (mSubtaskTitle == null || mSubtaskTitle.equals("")) {
+					mSubtaskField.requestFocus();
+					mCallbacks.updateOnScreenKeyboard(mSubtaskField,
+							View.VISIBLE);
+				}
+			}
+		});
+	}
+
 	private void initializeSubtaskField(View v) {
 
 		mNewSubtaskButton = (ImageButton) v.findViewById(R.id.new_subtask_icon);
@@ -622,7 +639,7 @@ public class ActionListFragmentDSLV extends Fragment {
 					mSubtaskTitle = mSubtaskTitle.trim();
 					Log.d(TAG, c.toString() + " entered");
 				} catch (Exception e) {
-					// do nothing;
+					// do nothing;initializeSubtask
 				}
 				// mChangesMade = true;
 			}

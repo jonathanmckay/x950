@@ -36,7 +36,9 @@ public class DropboxCorpusSync {
         final static private String APP_KEY = "nd699tj9zebn0ch";
         final static private String APP_SECRET = "nd699tj9zebn0ch";
         final static private int LOCAL_REMOTE_DELTA = 1;
-        final static private int UPDATE_INTERVAL = 1;
+        final static private int UPDATE_INTERVAL = 1; //TODO: Change to ~1 hour
+        final static private String CORPUS_FILENAME = "corpus.txt";
+        final static private String TEMP_FILENAME = "tmp.txt";
         private static DropboxCorpusSync sdbSync;
         private DropboxAPI<AndroidAuthSession> mDBApi;
         private Activity activity;
@@ -117,22 +119,22 @@ public class DropboxCorpusSync {
                             //Add new task names to local corpus
                             saveToCorpus(ActionLab.get(activity).getTaskNames());
                             //Check time diff
-                            File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
+                            File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
                             Date localDate = new Date(localCorpus.lastModified());
-                            Date remoteDate = getDateModified("corpus.txt");
+                            Date remoteDate = getDateModified(CORPUS_FILENAME);
                             System.out.println("Loc " + localDate.getTime());
                             System.out.println("Rem " + remoteDate.getTime());
                             //merge files if edit times > LOCAL_REMOTE_DELTA minutes apart
                             if (Math.abs(localDate.getTime() - remoteDate.getTime()) > LOCAL_REMOTE_DELTA*60*1000) {
                                 System.out.println("Merging Corpora");
-                                getRemoteCorpusTemp("corpus.txt");
-                                File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), "tmp.txt");
+                                getRemoteCorpusTemp(CORPUS_FILENAME);
+                                File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), TEMP_FILENAME);
                                 ArrayList<String> localWords = readFileAsList(localCorpus);
                                 ArrayList<String> remoteWords = readFileAsList(remoteCorpus);
                                 ArrayList<String> mergedWords = mergeCorpusWords(localWords, remoteWords);
                                 writeListToFile(localCorpus, mergedWords);
                                 //push to remote
-                                postFileOverwrite("corpus.txt");
+                                postFileOverwrite(CORPUS_FILENAME);
                                 //delete tmp file
                                 remoteCorpus.delete();
                             }
@@ -191,7 +193,7 @@ public class DropboxCorpusSync {
 
 //      TODO: Check if remote exists first
         public void getRemoteCorpusTemp(String fileName) {
-            getRemoteFile("tmp.txt", "corpus.txt");
+            getRemoteFile(TEMP_FILENAME, CORPUS_FILENAME);
         }
 
         public void getRemoteFile(String fileName) {
@@ -223,11 +225,10 @@ public class DropboxCorpusSync {
             }
 
         }
-
-        //TODO: Use constants for filenames
+    
         public ArrayList<String> readCorpusAsList() {
             try {
-                File file = new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
+                File file = new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
                 return readFileAsList(file);
             } catch (Exception e) {
                 return new ArrayList<String>();
@@ -257,7 +258,7 @@ public class DropboxCorpusSync {
 
         public void createCorpus() {
             File dir = activity.getFilesDir();
-            File file = new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
+            File file = new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
             System.out.println(Arrays.toString(dir.list()));
             if (!file.exists()) {
                 System.out.println("The file corpus.txt does not exist");
@@ -272,7 +273,7 @@ public class DropboxCorpusSync {
         //add new tasks to corpus.txt
         public void saveToCorpus(ArrayList<String> taskStrings) {
             //open corpus
-            File corpus = new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
+            File corpus = new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
             HashSet<String> corpusWords = new HashSet<String>();
 
             if (!corpus.exists()) {
