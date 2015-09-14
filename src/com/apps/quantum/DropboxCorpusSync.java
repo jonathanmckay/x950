@@ -34,7 +34,7 @@ import java.util.HashSet;
 public class DropboxCorpusSync {
 
         final static private String APP_KEY = "nd699tj9zebn0ch";
-        final static private String APP_SECRET = "nd699tj9zebn0ch";
+        final static private String APP_SECRET = "wvhmmttd8163scy";
         final static private int LOCAL_REMOTE_DELTA = 1;
         final static private int UPDATE_INTERVAL = 1; //TODO: Change to ~1 hour
         final static private String CORPUS_FILENAME = "corpus.txt";
