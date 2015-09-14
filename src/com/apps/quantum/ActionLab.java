@@ -94,6 +94,7 @@ public class ActionLab{
 
         dbSync = DropboxCorpusSync.get(a);
         mDBApi = dbSync.getDropboxAPI();
+
 //        mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
 //                //App key --------- App secret
 //                "588rm6vl0oom62h", "3m69jjskzcfcssn");
@@ -119,6 +120,7 @@ public class ActionLab{
             mRoot.adopt(nonVisibleAction);
             changeActionStatus(nonVisibleAction, COMPLETED);
         }
+        dbSync.launchCorpusSync();
     }
     //Singleton
     public static ActionLab get(Activity c){
@@ -161,6 +163,17 @@ public class ActionLab{
 
     public boolean saveActions(){
             return mSerializer.saveActions(toStringList(mRoot));
+    }
+
+    public ArrayList<String> getTaskNames() {
+        //return all task names
+        ArrayList<String> sts = toStringList(mRoot);
+        ArrayList<String> out = new ArrayList<>();
+        for (String st : sts ) {
+            String name = st.split("\t")[0];
+            out.add(name);
+        }
+        return out;
     }
 
     private ArrayList<String> toStringList(Action a){

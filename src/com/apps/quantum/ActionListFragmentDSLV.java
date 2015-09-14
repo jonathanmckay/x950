@@ -592,11 +592,15 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateNewItemHint(v);
 
 		mSubtaskField = (MultiAutoCompleteTextView) v.findViewById(R.id.new_subtask);
-		//TODO: Use dropbox to base suggestions on tasks user has already performed
-		String[] words = new String[] {"travel to", "read", "redo", "eat", "make", "buy",
-				"spain", "qatar", "south africa", "make reservations at", "west virginia"
-		};
+//		String[] words = new String[] {"travel to", "read", "redo", "eat", "make", "buy",
+//				"spain", "qatar", "south africa", "make reservations at", "west virginia"
+//		};
+//		TODO: Currently have to restart app for additions to corpus to take effect
+		ArrayList<String> wordsList = DropboxCorpusSync.get(getActivity()).readCorpusAsList();
+		String[] words = new String[wordsList.size()];
+		words = wordsList.toArray(words);
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, words);
+//		TODO: Don't show trailing space after accepting suggestion
 		mSubtaskField.setAdapter(adapter);
 		mSubtaskField.setTokenizer(new SpaceTokenizer());
 
@@ -614,6 +618,8 @@ public class ActionListFragmentDSLV extends Fragment {
 				}
 				try {
 					mSubtaskTitle = c.toString();
+					//Remove trailing spaces produced by SpaceTokenizer
+					mSubtaskTitle = mSubtaskTitle.trim();
 					Log.d(TAG, c.toString() + " entered");
 				} catch (Exception e) {
 					// do nothing;

@@ -30,13 +30,13 @@ import java.util.HashSet;
 /**
  * Created by user on 9/12/15.
  */
-//TODO: Rewrite existing persistency code to use sdk-1.6.3
-//TODO: Integrate corpus sync with app
 //TODO: Test performance on large corpora
 public class DropboxCorpusSync {
 
         final static private String APP_KEY = "nd699tj9zebn0ch";
         final static private String APP_SECRET = "nd699tj9zebn0ch";
+        final static private int LOCAL_REMOTE_DELTA = 1;
+        final static private int UPDATE_INTERVAL = 1;
         private static DropboxCorpusSync sdbSync;
         private DropboxAPI<AndroidAuthSession> mDBApi;
         private Activity activity;
@@ -44,9 +44,6 @@ public class DropboxCorpusSync {
         private DropboxCorpusSync(Activity a) {
             activity = a;
             authDropbox();
-//            createCorpus();
-            //TODO: Synchronize on background thread
-//            launchCorpusSync();
         }
 
         //Singleton
@@ -56,7 +53,7 @@ public class DropboxCorpusSync {
         }
 
         public DropboxAPI<AndroidAuthSession> getDropboxAPI() {
-            if (mDBApi == null) Log.d("Dropbox Error", "Tried to get null session from CorpusSync; is user connected?");
+            if (mDBApi == null) Log.d("DbLog", "Tried to get null session from CorpusSync; is user connected?");
             return mDBApi;
         }
 
@@ -117,17 +114,16 @@ public class DropboxCorpusSync {
 //                getCorpus();
                     while (true) {
                         try {
-                            Date d = getDateModified("corpus.txt");
-                            System.out.println("Remote date: " + d.toString());
-
+                            //Add new task names to local corpus
+                            saveToCorpus(ActionLab.get(activity).getTaskNames());
                             //Check time diff
                             File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
                             Date localDate = new Date(localCorpus.lastModified());
                             Date remoteDate = getDateModified("corpus.txt");
                             System.out.println("Loc " + localDate.getTime());
                             System.out.println("Rem " + remoteDate.getTime());
-                            //merge files if edit times > 5 minutes apart
-                            if (Math.abs(localDate.getTime() - remoteDate.getTime()) > 1000*60*5) {
+                            //merge files if edit times > LOCAL_REMOTE_DELTA minutes apart
+                            if (Math.abs(localDate.getTime() - remoteDate.getTime()) > LOCAL_REMOTE_DELTA*60*1000) {
                                 System.out.println("Merging Corpora");
                                 getRemoteCorpusTemp("corpus.txt");
                                 File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), "tmp.txt");
@@ -143,7 +139,7 @@ public class DropboxCorpusSync {
                             System.out.println("Not/Done Merging Corpora");
 
                             //Wait some time
-                            Thread.sleep(60*1000); //todo: change to N minutes
+                            Thread.sleep(UPDATE_INTERVAL*60*1000); //todo: change to N minutes
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -193,6 +189,7 @@ public class DropboxCorpusSync {
             }).start();
         }
 
+//      TODO: Check if remote exists first
         public void getRemoteCorpusTemp(String fileName) {
             getRemoteFile("tmp.txt", "corpus.txt");
         }
@@ -214,11 +211,27 @@ public class DropboxCorpusSync {
             }
         }
 
-        public Date getDateModified(String remoteName) throws com.dropbox.client2.exception.DropboxException {
-            DropboxAPI.Entry md = mDBApi.metadata("/" + remoteName, 1, null, false, null);
-            String timeChanged = md.modified;
-            Date d = RESTUtility.parseDate(timeChanged);
-            return d;
+        public Date getDateModified(String remoteName) {
+            try {
+                DropboxAPI.Entry md = mDBApi.metadata("/" + remoteName, 1, null, false, null);
+                String timeChanged = md.modified;
+                Date d = RESTUtility.parseDate(timeChanged);
+                return d;
+            } catch (com.dropbox.client2.exception.DropboxException e) {
+                Log.d("DbLog", "File did not exist, returning date 0");
+                return new Date(0);
+            }
+
+        }
+
+        //TODO: Use constants for filenames
+        public ArrayList<String> readCorpusAsList() {
+            try {
+                File file = new File(activity.getApplicationContext().getFilesDir(), "corpus.txt");
+                return readFileAsList(file);
+            } catch (Exception e) {
+                return new ArrayList<String>();
+            }
         }
 
         public ArrayList<String> readFileAsList(File file) throws java.io.IOException, java.io.FileNotFoundException {
