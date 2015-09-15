@@ -19,15 +19,53 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.apps.quantum" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/animator/fab_anim.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/floating_action_buttons.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListActivity.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListActivity.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV$ActionAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionListFragmentDSLV.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/FloatingActionButton.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/FloatingActionButton.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$array.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$array.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$attr.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$attr.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$color.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$color.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$color.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$dimen.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$dimen.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$dimen.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$dimen.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$drawable.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$drawable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/mobeta/android/dslv/R$id.class" afterPath="$PROJECT_DIR$/out/production/x950/com/mobeta/android/dslv/R$id.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$layout.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$layout.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$menu.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$string.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$string.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$string.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$style.class" afterPath="$PROJECT_DIR$/out/production/x950/com/android/datetimepicker/R$style.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$style.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R$styleable.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/R.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/RepeatDialog.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/RepeatDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/SingleFragmentActivity.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/SingleFragmentActivity.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/AndroidManifest.xml" afterPath="$PROJECT_DIR$/AndroidManifest.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/fragment_action_list.xml" afterPath="$PROJECT_DIR$/res/layout/fragment_action_list.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/layout/kitkat_spacer.xml" afterPath="$PROJECT_DIR$/res/layout/kitkat_spacer.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/x950.iml" afterPath="$PROJECT_DIR$/x950.iml" />
     </list>
     <ignored path="x950.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -54,17 +92,11 @@
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
+              <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2113#2114#0" expanded="true" />
-                <element signature="e#2154#2155#0" expanded="true" />
-                <element signature="e#2226#2227#0" expanded="true" />
-                <element signature="e#2268#2269#0" expanded="true" />
-                <element signature="e#4099#4100#0" expanded="true" />
-                <element signature="e#4130#4131#0" expanded="true" />
-                <element signature="e#4172#4173#0" expanded="true" />
-                <element signature="e#4209#4210#0" expanded="true" />
+                <element signature="e#2869#3071#0" expanded="true" />
+                <element signature="e#3070#3071#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,34 +104,62 @@
       </file>
       <file leaf-file-name="kitkat_spacer.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-1.1964285">
-              <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-              <folding>
-                <element signature="e#829#846#0" expanded="true" />
-                <element signature="e#881#898#0" expanded="true" />
-                <element signature="e#1113#1135#0" expanded="true" />
-                <element signature="e#1174#1196#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
           <provider editor-type-id="android-designer">
             <state />
           </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-10.714286">
+              <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+              <folding />
+            </state>
+          </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="fragment_action_list.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-25.5">
+              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="122" selection-end-column="41" />
+              <folding>
+                <element signature="e#1476#1501#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="floating_action_buttons.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/floating_action_buttons.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.285714">
+              <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+              <folding>
+                <element signature="e#373#390#0" expanded="true" />
+                <element signature="e#457#479#0" expanded="true" />
+                <element signature="e#725#747#0" expanded="true" />
+                <element signature="e#782#804#0" expanded="true" />
+                <element signature="e#1167#1184#0" expanded="true" />
+                <element signature="e#1215#1232#0" expanded="true" />
+                <element signature="e#1299#1321#0" expanded="true" />
+                <element signature="e#1566#1588#0" expanded="true" />
+                <element signature="e#1623#1645#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="291.57144">
-              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.15771231">
+              <caret line="443" column="40" selection-start-line="443" selection-start-column="40" selection-end-line="443" selection-end-column="40" />
               <folding>
-                <element signature="e#8223#8245#0" expanded="true" />
-                <element signature="e#16292#16553#0" expanded="true" />
-                <element signature="e#16552#16553#0" expanded="true" />
-                <element signature="e#16723#17020#0" expanded="true" />
-                <element signature="e#17019#17020#0" expanded="true" />
-                <element signature="e#20197#20242#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -110,12 +170,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="123" column="86" selection-start-line="123" selection-start-column="86" selection-end-line="123" selection-end-column="86" />
-              <folding>
-                <element signature="e#3201#4466#0" expanded="true" />
-                <element signature="e#4465#4466#0" expanded="true" />
-                <element signature="e#4519#4692#0" expanded="true" />
-                <element signature="e#4691#4692#0" expanded="true" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -124,29 +179,21 @@
         <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+              <caret line="11" column="74" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="74" />
               <folding>
-                <element signature="e#2364#2382#0" expanded="true" />
+                <element signature="e#624#642#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DropboxCorpusSync.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="DropboxCorpusSync.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5441941">
+            <state vertical-scroll-proportion="0.0">
               <caret line="35" column="64" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4317#6637#0" expanded="true" />
-                <element signature="e#6636#6637#0" expanded="true" />
-                <element signature="e#7732#7865#0" expanded="true" />
-                <element signature="e#7864#7865#0" expanded="true" />
-                <element signature="e#7975#8104#0" expanded="true" />
-                <element signature="e#8103#8104#0" expanded="true" />
-                <element signature="e#8349#8350#0" expanded="true" />
-                <element signature="e#8406#8407#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -158,6 +205,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Class" />
+        <option value="layoutResourceFile_vertical" />
       </list>
     </option>
   </component>
@@ -201,19 +249,20 @@
         <option value="$PROJECT_DIR$/res/layout/fragment_action.xml" />
         <option value="$PROJECT_DIR$/res/layout/list_item_action.xml" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DateLogic.java" />
-        <option value="$PROJECT_DIR$/res/layout/fragment_action_list.xml" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" />
-        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/res/layout/kitkat_spacer.xml" />
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_action_list.xml" />
+        <option value="$PROJECT_DIR$/res/layout/kitkat_spacer.xml" />
+        <option value="$PROJECT_DIR$/res/layout/floating_action_buttons.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
       </list>
     </option>
   </component>
@@ -336,20 +385,32 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
+              <option name="myItemId" value="res" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="quantum" />
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="Scratches" />
       <pane id="PackagesPane">
         <subPane>
@@ -365,8 +426,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -380,7 +439,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/AndroidStudioProjects/NarwhalSofa2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.20605469" />
@@ -405,6 +464,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res" />
       <recent name="$PROJECT_DIR$/res/values" />
       <recent name="$PROJECT_DIR$/res/drawable" />
       <recent name="$PROJECT_DIR$/libs" />
@@ -670,7 +730,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1368" height="749" extended-state="6" />
+    <frame x="-1" y="-1" width="1368" height="749" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -685,18 +745,18 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" x="508" y="40" width="763" height="670" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" x="404" y="82" width="763" height="670" />
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.455298" sideWeight="0.5173716" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.7466887" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3807947" sideWeight="0.49093655" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -705,39 +765,6 @@
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3228477" sideWeight="0.4826284" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="8" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="3" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.7466887" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3807947" sideWeight="0.49093655" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="16" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39900663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16640191" sideWeight="0.54038996" order="4" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" x="508" y="40" width="763" height="670" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.455298" sideWeight="0.5173716" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -773,34 +800,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="4.263158">
-          <caret line="203" column="12" selection-start-line="203" selection-start-column="12" selection-end-line="203" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_done_button.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-3.4629629">
-          <caret line="24" column="32" selection-start-line="24" selection-start-column="32" selection-end-line="24" selection-end-column="32" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_dialog.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.2222223">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -903,14 +902,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/activity_fragment.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/gen/com/apps/quantum/R.java">
@@ -935,25 +934,25 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/action_title.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33225808">
           <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
           <folding />
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_action.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_action.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.62258065">
           <caret line="68" column="13" selection-start-line="68" selection-start-column="13" selection-end-line="68" selection-end-column="13" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionReorderController.java">
@@ -976,14 +975,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/list_item_action.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="119" column="35" selection-start-line="119" selection-start-column="35" selection-end-line="119" selection-end-column="35" />
           <folding />
         </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
@@ -1013,7 +1012,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.17934783">
           <caret line="105" column="0" selection-start-line="105" selection-start-column="0" selection-end-line="105" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1041,15 +1039,15 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="114" column="37" selection-start-line="114" selection-start-column="37" selection-end-line="114" selection-end-column="37" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#4690#4691#0" expanded="true" />
-            <element signature="e#4722#4723#0" expanded="true" />
-            <element signature="e#5777#5778#0" expanded="true" />
-            <element signature="e#5848#5849#0" expanded="true" />
-            <element signature="e#10861#10862#0" expanded="true" />
-            <element signature="e#10922#10923#0" expanded="true" />
-            <element signature="e#10959#10960#0" expanded="true" />
-            <element signature="e#11012#11013#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#4690#4691#0" expanded="false" />
+            <element signature="e#4722#4723#0" expanded="false" />
+            <element signature="e#5777#5778#0" expanded="false" />
+            <element signature="e#5848#5849#0" expanded="false" />
+            <element signature="e#10861#10862#0" expanded="false" />
+            <element signature="e#10922#10923#0" expanded="false" />
+            <element signature="e#10959#10960#0" expanded="false" />
+            <element signature="e#11012#11013#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1058,40 +1056,24 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33206108">
           <caret line="25" column="9" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="9" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/layout/content_container.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.18042226">
-          <caret line="45" column="53" selection-start-line="45" selection-start-column="37" selection-end-line="45" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
     </entry>
     <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-19/android.jar!/android/view/View.class">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3478261">
           <caret line="258" column="16" selection-start-line="258" selection-start-column="16" selection-end-line="258" selection-end-column="16" />
-          <folding>
-            <element signature="e#11770#11771#0" expanded="true" />
-            <element signature="e#11821#11822#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1115,7 +1097,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1127,46 +1108,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="123" column="86" selection-start-line="123" selection-start-column="86" selection-end-line="123" selection-end-column="86" />
+          <caret line="35" column="64" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
           <folding>
-            <element signature="e#3201#4466#0" expanded="true" />
-            <element signature="e#4465#4466#0" expanded="true" />
-            <element signature="e#4519#4692#0" expanded="true" />
-            <element signature="e#4691#4692#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-1.1964285">
-          <caret line="22" column="36" selection-start-line="22" selection-start-column="36" selection-end-line="22" selection-end-column="36" />
-          <folding>
-            <element signature="e#829#846#0" expanded="true" />
-            <element signature="e#881#898#0" expanded="true" />
-            <element signature="e#1113#1135#0" expanded="true" />
-            <element signature="e#1174#1196#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="291.57144">
-          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
-          <folding>
-            <element signature="e#8223#8245#0" expanded="true" />
-            <element signature="e#16292#16553#0" expanded="true" />
-            <element signature="e#16552#16553#0" expanded="true" />
-            <element signature="e#16723#17020#0" expanded="true" />
-            <element signature="e#17019#17020#0" expanded="true" />
-            <element signature="e#20197#20242#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1174,45 +1121,100 @@
     <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
+          <caret line="11" column="74" selection-start-line="11" selection-start-column="54" selection-end-line="11" selection-end-column="74" />
           <folding>
-            <element signature="e#2364#2382#0" expanded="true" />
+            <element signature="e#624#642#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/x950.iml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="123" column="86" selection-start-line="123" selection-start-column="86" selection-end-line="123" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/animator/fab_anim.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/kitkat_spacer.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-10.714286">
+          <caret line="20" column="44" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="47" selection-start-line="31" selection-start-column="47" selection-end-line="31" selection-end-column="47" />
+          <caret line="149" column="28" selection-start-line="149" selection-start-column="28" selection-end-line="149" selection-end-column="28" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2113#2114#0" expanded="true" />
-            <element signature="e#2154#2155#0" expanded="true" />
-            <element signature="e#2226#2227#0" expanded="true" />
-            <element signature="e#2268#2269#0" expanded="true" />
-            <element signature="e#4099#4100#0" expanded="true" />
-            <element signature="e#4130#4131#0" expanded="true" />
-            <element signature="e#4172#4173#0" expanded="true" />
-            <element signature="e#4209#4210#0" expanded="true" />
+            <element signature="e#2869#3071#0" expanded="true" />
+            <element signature="e#3070#3071#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5441941">
-          <caret line="35" column="64" selection-start-line="35" selection-start-column="64" selection-end-line="35" selection-end-column="64" />
+        <state vertical-scroll-proportion="-25.5">
+          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="122" selection-end-column="41" />
+          <folding>
+            <element signature="e#1476#1501#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/floating_action_buttons.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.285714">
+          <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
+          <folding>
+            <element signature="e#373#390#0" expanded="true" />
+            <element signature="e#457#479#0" expanded="true" />
+            <element signature="e#725#747#0" expanded="true" />
+            <element signature="e#782#804#0" expanded="true" />
+            <element signature="e#1167#1184#0" expanded="true" />
+            <element signature="e#1215#1232#0" expanded="true" />
+            <element signature="e#1299#1321#0" expanded="true" />
+            <element signature="e#1566#1588#0" expanded="true" />
+            <element signature="e#1623#1645#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.15771231">
+          <caret line="443" column="40" selection-start-line="443" selection-start-column="40" selection-end-line="443" selection-end-column="40" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4317#6637#0" expanded="true" />
-            <element signature="e#6636#6637#0" expanded="true" />
-            <element signature="e#7732#7865#0" expanded="true" />
-            <element signature="e#7864#7865#0" expanded="true" />
-            <element signature="e#7975#8104#0" expanded="true" />
-            <element signature="e#8103#8104#0" expanded="true" />
-            <element signature="e#8349#8350#0" expanded="true" />
-            <element signature="e#8406#8407#0" expanded="true" />
           </folding>
         </state>
       </provider>

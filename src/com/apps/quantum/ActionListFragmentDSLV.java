@@ -73,8 +73,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	private MultiAutoCompleteTextView mSubtaskField;
 	private EditText mTitleEdit;
     private ImageButton mDoneButton;
-	private ImageButton fDoneButton;
-	private TextView fDoneText;
+	private FloatingActionButton fDoneButton;
 	private FloatingActionButton mFabAddButton;
 
 	private Date d;
@@ -449,13 +448,11 @@ public class ActionListFragmentDSLV extends Fragment {
 		initializeSubtaskField(v);
 		initializeFabAdd(v);
 
-		fDoneButton = (ImageButton) v.findViewById(R.id.footer_clear_done_button);
-		fDoneText = (TextView) v.findViewById(R.id.mark_as_done);
+		fDoneButton = (FloatingActionButton) v.findViewById(R.id.footer_clear_done_button);
 
 		//Don't show task done button with unfulfilled subtasks
 		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot()) {
 			fDoneButton.setVisibility(View.INVISIBLE);
-			fDoneText.setVisibility(View.INVISIBLE);
 		}
 
 		fDoneButton.setOnClickListener(new View.OnClickListener() {
@@ -523,10 +520,8 @@ public class ActionListFragmentDSLV extends Fragment {
 //		Hide done button if this task has unfinished subtasks
 		if (!(mAction.getChildren().get(0).isEmpty()) || mAction.isRoot() || mAction.hasPendingTasks() ) {
 			fDoneButton.setVisibility(View.INVISIBLE);
-			fDoneText.setVisibility(View.INVISIBLE);
 		} else {
 			fDoneButton.setVisibility(View.VISIBLE);
-			fDoneText.setVisibility(View.VISIBLE);
 		}
 	}
 

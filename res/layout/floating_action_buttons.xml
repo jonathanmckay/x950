@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:orientation="horizontal">
+
+    <com.apps.quantum.FloatingActionButton
+        android:id="@+id/fab_add"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_marginTop="16dp"
+        android:elevation="@dimen/fab_elevation"
+        android:background="@drawable/fab_background"
+        android:stateListAnimator="@animator/fab_anim"
+        android:layout_gravity="bottom|right"
+        android:layout_margin="3dp">
+
+        <ImageView
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:src="@drawable/ic_action_new"
+            android:tint="@android:color/white"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"/>
+
+    </com.apps.quantum.FloatingActionButton>
+
+    <com.apps.quantum.FloatingActionButton
+        android:id="@+id/footer_clear_done_button"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:layout_marginTop="16dp"
+        android:elevation="@dimen/fab_elevation"
+        android:background="@drawable/fab_background"
+        android:stateListAnimator="@animator/fab_anim"
+        android:layout_gravity="bottom|left"
+        android:layout_margin="3dp">
+
+        <ImageView
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:src="@drawable/ic_action_accept"
+            android:tint="@android:color/white"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"/>
+
+    </com.apps.quantum.FloatingActionButton>
+
+</FrameLayout>
