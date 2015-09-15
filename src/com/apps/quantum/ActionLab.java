@@ -95,10 +95,6 @@ public class ActionLab{
         dbSync = DropboxCorpusSync.get(a);
         mDBApi = dbSync.getDropboxAPI();
 
-//        mDbxAcctMgr = DbxAccountManager.getInstance(a.getApplicationContext(),
-//                //App key --------- App secret
-//                "588rm6vl0oom62h", "3m69jjskzcfcssn");
-
         //This assumes that root is the first entry. and that root is the
         // only self-referencing action
         try {

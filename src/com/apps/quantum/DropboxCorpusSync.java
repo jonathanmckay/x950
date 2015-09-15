@@ -30,13 +30,16 @@ import java.util.HashSet;
 /**
  * Created by user on 9/12/15.
  */
-//TODO: Test performance on large corpora
 public class DropboxCorpusSync {
 
-        final static private String APP_KEY = "nd699tj9zebn0ch";
-        final static private String APP_SECRET = "wvhmmttd8163scy";
+        private static final String TAG = "DbLog";
+        final static private String APP_KEY = "588rm6vl0oom62h";
+        final static private String APP_SECRET = "3m69jjskzcfcssn";
+//    Add new tasks to local corpus every UPDATE_INTERVAL minutes
+// Merge with remote every SYNC_INTERVAL minutes if timestamps differ by LOCAL_REMOTE_DELTA minutes
         final static private int LOCAL_REMOTE_DELTA = 1;
-        final static private int UPDATE_INTERVAL = 1; //TODO: Change to ~1 hour
+        final static private int UPDATE_INTERVAL = 5;
+        final static private int SYNC_INTERVAL = 60;
         final static private String CORPUS_FILENAME = "corpus.txt";
         final static private String TEMP_FILENAME = "tmp.txt";
         private static DropboxCorpusSync sdbSync;
@@ -55,7 +58,7 @@ public class DropboxCorpusSync {
         }
 
         public DropboxAPI<AndroidAuthSession> getDropboxAPI() {
-            if (mDBApi == null) Log.d("DbLog", "Tried to get null session from CorpusSync; is user connected?");
+            if (mDBApi == null) Log.d(TAG, "Tried to get null session from CorpusSync; is user connected?");
             return mDBApi;
         }
 
@@ -112,21 +115,18 @@ public class DropboxCorpusSync {
         public void launchCorpusSync() {
             new Thread(new Runnable() {
                 public void run() {
-                    //Download external corpus
-//                getCorpus();
                     while (true) {
                         try {
-                            //Add new task names to local corpus
-                            saveToCorpus(ActionLab.get(activity).getTaskNames());
+                            //TODO: Make toasttexts to inform user if autosync is successful
                             //Check time diff
                             File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
                             Date localDate = new Date(localCorpus.lastModified());
                             Date remoteDate = getDateModified(CORPUS_FILENAME);
-                            System.out.println("Loc " + localDate.getTime());
-                            System.out.println("Rem " + remoteDate.getTime());
+                            Log.i(TAG, "Local Corpus Modified: " + localDate.getTime());
+                            Log.i(TAG, "Remote Corpus Modified: " + remoteDate.getTime());
                             //merge files if edit times > LOCAL_REMOTE_DELTA minutes apart
                             if (Math.abs(localDate.getTime() - remoteDate.getTime()) > LOCAL_REMOTE_DELTA*60*1000) {
-                                System.out.println("Merging Corpora");
+                                Log.i(TAG, "Merging Corpora");
                                 getRemoteCorpusTemp(CORPUS_FILENAME);
                                 File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), TEMP_FILENAME);
                                 ArrayList<String> localWords = readFileAsList(localCorpus);
@@ -138,10 +138,26 @@ public class DropboxCorpusSync {
                                 //delete tmp file
                                 remoteCorpus.delete();
                             }
-                            System.out.println("Not/Done Merging Corpora");
+                            Log.i(TAG, "Done Merging Corpora");
 
                             //Wait some time
-                            Thread.sleep(UPDATE_INTERVAL*60*1000); //todo: change to N minutes
+                            Thread.sleep(SYNC_INTERVAL*60*1000);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }
+            }).start();
+
+            new Thread(new Runnable() {
+                public void run() {
+                    while (true) {
+                        try {
+                            //Add new task names to local corpus
+                            saveToCorpus(ActionLab.get(activity).getTaskNames());
+                            //Wait some time
+                            Thread.sleep(UPDATE_INTERVAL*60*1000);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -166,12 +182,12 @@ public class DropboxCorpusSync {
                     FileInputStream inputStream = new FileInputStream(file);
                     DropboxAPI.Entry response = mDBApi.putFileOverwrite("/" + fileName, inputStream,
                             file.length(), null);
-                    Log.i("DbLog", "The uploaded file's rev is: " + response.rev);
+                    Log.i(TAG, "The uploaded file's rev is: " + response.rev);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
-                Log.d("DbLog", "Tried to post file to Dropbox that doesn't exist on local");
+                Log.d(TAG, "Tried to post file to Dropbox that doesn't exist on local");
             }
         }
 
@@ -191,8 +207,8 @@ public class DropboxCorpusSync {
             }).start();
         }
 
-//      TODO: Check if remote exists first
         public void getRemoteCorpusTemp(String fileName) {
+            //dropbox server exception if remote does not exist
             getRemoteFile(TEMP_FILENAME, CORPUS_FILENAME);
         }
 
@@ -207,7 +223,7 @@ public class DropboxCorpusSync {
                 if (!file.exists()) file.createNewFile();
                 FileOutputStream outputStream = new FileOutputStream(file);
                 DropboxAPI.DropboxFileInfo info = mDBApi.getFile("/" + remoteName, null, outputStream, null);
-                Log.i("DbLog", "The downloaded file's rev is: " + info.getMetadata().rev);
+                Log.i(TAG, "The downloaded file's rev is: " + info.getMetadata().rev);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -220,7 +236,7 @@ public class DropboxCorpusSync {
                 Date d = RESTUtility.parseDate(timeChanged);
                 return d;
             } catch (com.dropbox.client2.exception.DropboxException e) {
-                Log.d("DbLog", "File did not exist, returning date 0");
+                Log.d(TAG, "File did not exist, returning date 0");
                 return new Date(0);
             }
 
@@ -241,7 +257,7 @@ public class DropboxCorpusSync {
             String line;
             while ((line = reader.readLine()) != null) {
                 words.add(line);
-                System.out.println("Current item in corpus: " + line);
+//                Log.i(TAG, "Current item in corpus: " + line);
             }
             reader.close();
             return words;
@@ -259,9 +275,9 @@ public class DropboxCorpusSync {
         public void createCorpus() {
             File dir = activity.getFilesDir();
             File file = new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
-            System.out.println(Arrays.toString(dir.list()));
+            Log.i(TAG, (Arrays.toString(dir.list())) );
             if (!file.exists()) {
-                System.out.println("The file corpus.txt does not exist");
+                Log.i(TAG, "The local file corpus.txt does not exist");
                 try {
                     file.createNewFile();
                 } catch (Exception e) {
@@ -275,11 +291,8 @@ public class DropboxCorpusSync {
             //open corpus
             File corpus = new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
             HashSet<String> corpusWords = new HashSet<String>();
-
-            if (!corpus.exists()) {
-                System.out.println("corpus did not exist in saveToCorpus");
+            if (!corpus.exists())
                 createCorpus();
-            }
 
             try {
                 //read file in
@@ -287,7 +300,7 @@ public class DropboxCorpusSync {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     corpusWords.add(line);
-                    System.out.println("Current item in corpus: " + line);
+//                  Log.i(TAG, "Current item in corpus: " + line);
                 }
                 reader.close();
 
@@ -296,7 +309,7 @@ public class DropboxCorpusSync {
                 PrintWriter writeOut = new PrintWriter(new BufferedWriter(new FileWriter(corpus, true) ));
                 for (String newString : taskStrings) {
                     if (!corpusWords.contains(newString)) {
-                        System.out.println("Item added to corpus: " + newString);
+                        Log.i(TAG, "Item added to corpus: " + newString);
                         writeOut.println(newString);
                     }
                 }
@@ -308,4 +321,3 @@ public class DropboxCorpusSync {
         }
 
 }
-

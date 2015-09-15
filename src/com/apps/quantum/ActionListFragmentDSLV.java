@@ -159,14 +159,13 @@ public class ActionListFragmentDSLV extends Fragment {
 					mListView.removeFooterView(mListFooter);
 					mListFooterAdded = false;
 					
-					
-					
 					mScreenFooter.setVisibility(View.VISIBLE);
 
 				}
 			}
 		});
         updateDoneButtonVisibility();
+		updateTaskAdapter();
 		updateFooter();
 	}
 
@@ -465,8 +464,6 @@ public class ActionListFragmentDSLV extends Fragment {
 
 				Action toDelete = mAction;
 				mAction = toDelete.getParent();
-//				mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-//				toAncestor();
 				removeAction(toDelete);
 				updateListToShowCurrentAction();
 				updateFooter();
@@ -569,7 +566,6 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 	}
 
-	//TODO: Floating action buttton should be a circle, not a square
 	private void initializeFabAdd(View v) {
 		mFabAddButton = (FloatingActionButton) v.findViewById(R.id.fab_add);
 		mFabAddButton.setOnClickListener(new View.OnClickListener() {
@@ -604,16 +600,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateNewItemHint(v);
 
 		mSubtaskField = (MultiAutoCompleteTextView) v.findViewById(R.id.new_subtask);
-//		String[] words = new String[] {"travel to", "read", "redo", "eat", "make", "buy",
-//				"spain", "qatar", "south africa", "make reservations at", "west virginia"
-//		};
-//		TODO: Currently have to restart app for additions to corpus to take effect
-		ArrayList<String> wordsList = DropboxCorpusSync.get(getActivity()).readCorpusAsList();
-		String[] words = new String[wordsList.size()];
-		words = wordsList.toArray(words);
-		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, words);
-//		TODO: Don't show trailing space after accepting suggestion
-		mSubtaskField.setAdapter(adapter);
+		updateTaskAdapter();
 		mSubtaskField.setTokenizer(new SpaceTokenizer());
 
 		mSubtaskField.setText(null);
@@ -690,6 +677,16 @@ public class ActionListFragmentDSLV extends Fragment {
 			}
 		});
 
+	}
+
+	public void updateTaskAdapter() {
+		ArrayList<String> wordsList = DropboxCorpusSync.get(getActivity()).readCorpusAsList();
+		String[] words = new String[wordsList.size()];
+		words = wordsList.toArray(words);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_dropdown_item_1line, words);
+//		TODO: Don't show trailing space after accepting suggestion
+//		TODO: Make suggestions fill space beneath textview
+		mSubtaskField.setAdapter(adapter);
 	}
 
 	private void saveNewSubtask() {
