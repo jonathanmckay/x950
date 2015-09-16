@@ -892,7 +892,10 @@ public class ActionListFragmentDSLV extends Fragment {
 					}
 
 					mReordCtrl.removeAction(mAdapter, pos);
-					toAncestor();
+					//return to nearest non-pending ancestor
+					while (mAction.isPending() && !mAction.isRoot()) {
+						mAction = mAction.getParent();
+					}
 					updateListToShowCurrentAction();
 
 					String toastText = "Task cancelled";
@@ -919,10 +922,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 	public void removeAction(Action toDelete) {
 		mActionLab.changeActionStatus(toDelete, Action.COMPLETE);
-		toAncestor();
-	}
-
-	public void toAncestor() {
+		mAction.incrementCompleted();
 //		If mAction goes pending, return to nearest non-pending ancestor
 		while (mAction.isPending() && !mAction.isRoot()) {
 			mAction = mAction.getParent();
