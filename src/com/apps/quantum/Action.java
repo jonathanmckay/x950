@@ -34,6 +34,9 @@ public class Action {
 	private Date mModifiedDate;
 	private Date mStartDate;
 	private Date mDueDate;
+//	private Date mStartDateLocal;
+//	private Date mDueDateLocal;
+	TimeZone mOffset;
 
 	// Used by ActionLab to prevent infinite loops
 	private Date mSavedTimeStamp;
@@ -274,7 +277,8 @@ public class Action {
 	}
 
 	protected void setStartDateRaw(Date startDate) {
-		mStartDate = toUTC(startDate);
+		mStartDate = startDate;
+		mOffset = TimeZone.getDefault();
 	}
 
 	protected void setActionStatus(int actionStatus) {
@@ -314,7 +318,7 @@ public class Action {
         }
 
         boolean empty = !(mChildren.get(PENDING).isEmpty());
-        Log.d("ACTIAN" , this.toString() + " " + String.valueOf(empty) );
+        Log.d("ACTION", this.toString() + " " + String.valueOf(empty));
         return empty;
     }
 
@@ -664,7 +668,11 @@ public class Action {
 	}
 
 	public Date getStartDate() {
-		return fromUTC(mStartDate);
+		if (mStartDate == null || !isRepeat()) {
+			return mStartDate;
+		} else {
+			return getOriginalDate(mStartDate);
+		}
 	}
 
 	public boolean hasChildren() {
@@ -698,11 +706,16 @@ public class Action {
 	}
 
 	public Date getDueDate() {
-		return fromUTC(mDueDate);
+		if (mDueDate == null || !isRepeat()) {
+			return mDueDate;
+		} else {
+			return getOriginalDate(mDueDate);
+		}
 	}
 
 	public void setDueDate(Date dueDate) {
-		mDueDate = toUTC(dueDate);
+		mDueDate = dueDate;
+		mOffset = TimeZone.getDefault();
 	}
 
 	public Date getSavedTimeStamp() {
@@ -861,7 +874,14 @@ public class Action {
         setDueDate(nextRepeatTime(mStartDate, mRepeatInterval, mRepeatNumber));
     }
 
-	//	For when the user changes timezones
+//Return date as set in original timezone (e.g., 6:00 AM PST always stays in PST)
+public Date getOriginalDate(Date d) {
+	TimeZone tz = TimeZone.getDefault();
+	int currOff = tz.getOffset(d.getTime());
+	int origOff = mOffset.getOffset(d.getTime());
+	return new Date(d.getTime() - (currOff - origOff));
+}
+//Convert dates to/from UTC; however, it appears dates automatically adjust as timezone changes
 	public static Date toUTC(Date d) {
 		if (d == null) return d;
 		TimeZone tz = TimeZone.getDefault();
