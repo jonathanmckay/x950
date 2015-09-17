@@ -135,8 +135,7 @@ public class ActionLab{
             return mRoot;
     }
 
-//    TODO: Return success code
-    public void importDbxFile(String filename) throws IllegalArgumentException {
+    public boolean importDbxFile(String filename) throws IllegalArgumentException {
         if(!filename.endsWith(".txt")) throw new IllegalArgumentException();
         try {
             File file = new File(mActivity.getApplicationContext().getFilesDir(), filename);
@@ -154,8 +153,10 @@ public class ActionLab{
             String contents = readAsString(file);
             addAll(parseActions(contents));
             Log.d(TAG, "Dropbox Load Successful");
+            return true;
         } catch (Exception e) {
             Log.e(TAG, "Error adding Dropbox Actions: ", e);
+            return false;
         }
     }
 
@@ -359,23 +360,24 @@ public class ActionLab{
         return mDBApi.getSession().isLinked();
     }
 
-    public void saveToDropbox(String filename){
-        if(dropboxLinked()) saveToDropboxHelper(filename);
-        else {
-            dbSync.authDropbox();
-        }
+    public boolean saveToDropbox(String filename){
+        if(!dropboxLinked()) dbSync.authDropbox();;
+        return saveToDropboxHelper(filename);
     }
 
     //TODO: should this overwrite existing file?
-    private void saveToDropboxHelper(String filename){
+    private boolean saveToDropboxHelper(String filename){
         try {
             File saveFile = new File(mActivity.getApplicationContext().getFilesDir(), filename);
             mSerializer.writeActionsToFile(toStringList(mRoot), saveFile);
             dbSync.launchPostFileOverwrite(filename);
+            return true;
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         }
     }
+
     public Action createActionIn(Action parent){
         Action action = new Action();
         Log.d("create action in ", "");

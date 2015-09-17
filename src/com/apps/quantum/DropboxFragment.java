@@ -45,22 +45,25 @@ public class DropboxFragment extends DialogFragment {
 		mInfoUpdated = false;
 		return new AlertDialog.Builder(mActivity).setTitle(R.string.dropbox_dialog_title)
 				.setItems(R.array.dropbox_options, new DialogInterface.OnClickListener() {
-		               public void onClick(DialogInterface dialog, int which) {
-		             	   switch (which){
-		             	   case SAVE:
-//							   TODO: This will output "saved" regardless of whether or not save is successful
-		             		   ActionLab.get(getActivity()).saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
-		             		   String toastText = "Saved Dropbox";
-		             		   Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
-		             		   break;
-		             	   case EXPORT:
-		             		   callFileInputDialog(REQUEST_EXPORT_FILENAME);
-		             		   break;
-		             	   case IMPORT:
-		             		   callFileInputDialog(REQUEST_IMPORT_FILENAME);
-		             		   break;
-		             	   }
-		               }
+					public void onClick(DialogInterface dialog, int which) {
+						switch (which) {
+							case SAVE:
+								String toastText;
+								if (mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME)) {
+									toastText = "Saved Dropbox";
+								} else {
+									toastText = "Save failed - check connection?";
+								}
+								Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
+								break;
+							case EXPORT:
+								callFileInputDialog(REQUEST_EXPORT_FILENAME);
+								break;
+							case IMPORT:
+								callFileInputDialog(REQUEST_IMPORT_FILENAME);
+								break;
+						}
+					}
 				}).create();
 	}
 	
@@ -108,8 +111,11 @@ public class DropboxFragment extends DialogFragment {
 					switch(infoRequestedLocal){
 					case REQUEST_IMPORT_FILENAME:
 						try{
-							mActionLab.importDbxFile(mFilename);
-							toastText = "Items imported";
+							if (mActionLab.importDbxFile(mFilename)) {
+								toastText = "Items imported";
+							} else {
+								toastText = "Import failed - check connection?";
+							}
 							mInfoUpdated = true;
 						} catch (IllegalArgumentException e){
 							toastText = "Filename blank";
@@ -125,8 +131,11 @@ public class DropboxFragment extends DialogFragment {
 						if (mFilename.equals("corpus.txt") || mFilename.equals("corpus")) {
 							toastText = "No export; corpus.txt is reserved";
 						} else {
-							mActionLab.saveToDropbox(mFilename);
-							toastText = "Exported to Dropbox";
+							if (mActionLab.saveToDropbox(mFilename)) {
+								toastText = "Exported to Dropbox";
+							} else {
+								toastText =  "Export failed - check connection?";
+							}
 						}
 						break;
 					default:
