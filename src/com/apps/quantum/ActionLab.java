@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
@@ -134,12 +135,22 @@ public class ActionLab{
             return mRoot;
     }
 
-    //TODO: Imported tasks are not showing up in root view
+//    TODO: Return success code
     public void importDbxFile(String filename) throws IllegalArgumentException {
         if(!filename.endsWith(".txt")) throw new IllegalArgumentException();
         try {
-            dbSync.launchGetRemoteFile(filename);
             File file = new File(mActivity.getApplicationContext().getFilesDir(), filename);
+            if (!file.exists()) {
+                final String fname = filename;
+                Thread t = new Thread(new Runnable() {
+                    public void run() {
+                        dbSync.getRemoteFile(fname);
+                    }
+                });
+                t.start();
+                t.join(); //wait for download to finish before reading file
+                file = new File(mActivity.getApplicationContext().getFilesDir(), filename);
+            }
             String contents = readAsString(file);
             addAll(parseActions(contents));
             Log.d(TAG, "Dropbox Load Successful");
@@ -152,7 +163,10 @@ public class ActionLab{
         StringBuffer contents = new StringBuffer();
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String line;
-        while ((line = reader.readLine()) != null) contents.append(line);
+        while ((line = reader.readLine()) != null) {
+            contents.append(line);
+            contents.append("\n");
+        }
         reader.close();
         return new String(contents);
     }
@@ -207,9 +221,8 @@ public class ActionLab{
     }
 
     private ArrayList<Action> parseActions(String contents){
-            ArrayList<Action> actionList = new ArrayList<Action>();
-
-            String[] lines = contents.split("\\n");
+        ArrayList<Action> actionList = new ArrayList<Action>();
+        String[] lines = contents.split("\\n");
             for(String s: lines){
                     actionList.add(new Action(s));
             }

@@ -199,6 +199,7 @@ public class DropboxCorpusSync {
             }).start();
         }
 
+//      Typically won't use this; can lead to race conditions if you download on one thread and open file in another
         public void launchGetRemoteFile(final String fileName) {
             new Thread(new Runnable() {
                 public void run() {
