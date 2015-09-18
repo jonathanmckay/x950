@@ -24,14 +24,18 @@
   <component name="ChangeListManager">
     <list default="true" id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/Action.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/Action.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/ActionLab.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/DropboxCorpusSync.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/OutcomeSerializer.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum/OutcomeSerializer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.apk" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="x950.iws" />
@@ -67,10 +71,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Action.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Action.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-7.7377048">
+            <state vertical-scroll-proportion="151.71428">
               <caret line="175" column="49" selection-start-line="175" selection-start-column="49" selection-end-line="175" selection-end-column="49" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -86,9 +90,11 @@
       <file leaf-file-name="DropboxFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="42" column="61" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
-              <folding />
+            <state vertical-scroll-proportion="-6.535714">
+              <caret line="70" column="32" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -106,13 +112,18 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="DropboxCorpusSync.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="DropboxCorpusSync.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
+            <state vertical-scroll-proportion="-2.6867032">
+              <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#4462#7058#0" expanded="true" />
+                <element signature="e#6401#6673#0" expanded="true" />
+                <element signature="e#6672#6673#0" expanded="true" />
+                <element signature="e#7057#7058#0" expanded="true" />
+                <element signature="e#7093#7647#0" expanded="true" />
+                <element signature="e#7646#7647#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -122,7 +133,7 @@
         <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="122" column="4" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="4" />
+              <caret line="127" column="50" selection-start-line="127" selection-start-column="50" selection-end-line="127" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -191,7 +202,6 @@
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DateLogic.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" />
         <option value="$PROJECT_DIR$/res/values/dimens.xml" />
         <option value="$PROJECT_DIR$/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" />
@@ -201,10 +211,11 @@
         <option value="$PROJECT_DIR$/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
         <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
       </list>
     </option>
   </component>
@@ -694,12 +705,13 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-1" y="-1" width="1368" height="749" extended-state="1" />
+    <frame x="-1" y="-1" width="1368" height="749" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39900663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3228477" sideWeight="0.4826284" order="7" side_tool="true" content_ui="tabs" />
@@ -724,7 +736,6 @@
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32980332" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1100,11 +1111,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="42" column="61" selection-start-line="42" selection-start-column="61" selection-end-line="42" selection-end-column="61" />
-          <folding />
+          <caret line="687" column="0" selection-start-line="687" selection-start-column="0" selection-end-line="687" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="151.71428">
+          <caret line="175" column="49" selection-start-line="175" selection-start-column="49" selection-end-line="175" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#8501#8502#0" expanded="true" />
+            <element signature="e#8544#8545#0" expanded="true" />
+            <element signature="e#9819#9820#0" expanded="true" />
+            <element signature="e#9880#9881#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.535714">
+          <caret line="70" column="32" selection-start-line="70" selection-start-column="31" selection-end-line="70" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1119,20 +1156,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="119" column="30" selection-start-line="119" selection-start-column="30" selection-end-line="119" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="4" selection-start-line="122" selection-start-column="4" selection-end-line="122" selection-end-column="4" />
+          <caret line="127" column="50" selection-start-line="127" selection-start-column="50" selection-end-line="127" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1147,26 +1174,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="687" column="0" selection-start-line="687" selection-start-column="0" selection-end-line="687" selection-end-column="0" />
+        <state vertical-scroll-proportion="-2.6867032">
+          <caret line="3" column="41" selection-start-line="3" selection-start-column="41" selection-end-line="3" selection-end-column="41" />
           <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-7.7377048">
-          <caret line="175" column="49" selection-start-line="175" selection-start-column="49" selection-end-line="175" selection-end-column="49" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#8501#8502#0" expanded="true" />
-            <element signature="e#8544#8545#0" expanded="true" />
-            <element signature="e#9819#9820#0" expanded="true" />
-            <element signature="e#9880#9881#0" expanded="true" />
+            <element signature="e#4462#7058#0" expanded="true" />
+            <element signature="e#6401#6673#0" expanded="true" />
+            <element signature="e#6672#6673#0" expanded="true" />
+            <element signature="e#7057#7058#0" expanded="true" />
+            <element signature="e#7093#7647#0" expanded="true" />
+            <element signature="e#7646#7647#0" expanded="true" />
           </folding>
         </state>
       </provider>

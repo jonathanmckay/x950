@@ -120,7 +120,7 @@ public class OutcomeSerializer {
         return actions;
     }
 
-//	TODO
+//	This function uses the deprecated Dropbox Sync API, but isn't called anywhere in the app
 //	public ArrayList<Action> loadActionsFromExcel(DbxFile file) throws IOException{
 //
 //		try {

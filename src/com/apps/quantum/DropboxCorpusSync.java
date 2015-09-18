@@ -2,10 +2,8 @@ package com.apps.quantum;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.RESTUtility;
@@ -117,7 +115,6 @@ public class DropboxCorpusSync {
                 public void run() {
                     while (true) {
                         try {
-                            //TODO: Make toasttexts to inform user if autosync is successful
                             //Check time diff
                             File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
                             Date localDate = new Date(localCorpus.lastModified());
@@ -137,6 +134,13 @@ public class DropboxCorpusSync {
                                 postFileOverwrite(CORPUS_FILENAME);
                                 //delete tmp file
                                 remoteCorpus.delete();
+                                //Inform the user of succesful outcome (note UI needs to be done on UI thread)
+                                final String toastText = "Succesfully merged corpora";
+                                activity.runOnUiThread(new Runnable () {
+                                    public void run() {
+                                        Toast.makeText(activity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+                                    }
+                                });
                             }
                             Log.i(TAG, "Done Merging Corpora");
 
