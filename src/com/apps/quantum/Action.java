@@ -34,8 +34,6 @@ public class Action {
 	private Date mModifiedDate;
 	private Date mStartDate;
 	private Date mDueDate;
-//	private Date mStartDateLocal;
-//	private Date mDueDateLocal;
 	TimeZone mOffset;
 
 	// Used by ActionLab to prevent infinite loops
@@ -173,6 +171,13 @@ public class Action {
         } catch (Exception e) {
             mRepeatNumber = 0;
         }
+
+		try {
+			this.mOffset = TimeZone.getDefault();
+			this.mOffset.setRawOffset(Integer.parseInt(tokens[18]));
+		} catch (Exception e) {
+			Log.d("Action", "No timezone offset imported from file");
+		}
 
 
         //Convert legacy repititons to new repetition form
@@ -498,6 +503,12 @@ public class Action {
 					mTodaysDate));
         sb.append("\t");
         sb.append(String.valueOf(mRepeatNumber));
+		sb.append("\t");
+		if (mOffset == null) {
+			sb.append(TimeZone.getDefault().getRawOffset());
+		} else {
+			sb.append(mOffset.getRawOffset());
+		}
 		sb.append("\n");
 		return sb.toString();
 	}
