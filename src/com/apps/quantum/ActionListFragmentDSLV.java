@@ -211,6 +211,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			mAdapter.notifyDataSetChanged();
             updateDoneButtonVisibility();
             updateFooter();
+			refreshView();
 		}
 	};
 
