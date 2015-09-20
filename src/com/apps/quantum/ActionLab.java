@@ -160,6 +160,34 @@ public class ActionLab{
         }
     }
 
+    public ArrayList<String> readDropboxFiles () {
+//      TODO: Is it poor form to modify a data structure declared final?
+        final ArrayList<String> out = new ArrayList<String>();
+        Thread t = new Thread(new Runnable() {
+            public void run() {
+                try {
+//                  TODO: Test for large array sizes; refactor if performance too slow
+                    DropboxAPI.Entry existingEntry = mDBApi.metadata("/", 0, null, true, null);
+                    java.util.List<DropboxAPI.Entry> files = existingEntry.contents;
+                    for (DropboxAPI.Entry db : files) {
+                        String fname = db.fileName();
+                        if (!fname.equals("corpus") && !fname.equals("corpus.txt")) out.add(fname);
+                    }
+                } catch (com.dropbox.client2.exception.DropboxException e) {
+                    Log.d(TAG, "Problem downloading filenames " + e);
+                }
+            }
+        });
+        t.start();
+        try {
+            t.join();
+        } catch (InterruptedException e) {
+            Log.d(TAG, "Interrupted while loading filenames " + e);
+        }
+
+        return out;
+    }
+
     public String readAsString(File file) throws java.io.FileNotFoundException, java.io.IOException {
         StringBuffer contents = new StringBuffer();
         BufferedReader reader = new BufferedReader(new FileReader(file));

@@ -9,9 +9,16 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.ScrollView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class DropboxFragment extends DialogFragment {
 	private ActionLab mActionLab;
@@ -60,11 +67,90 @@ public class DropboxFragment extends DialogFragment {
 								callFileInputDialog(REQUEST_EXPORT_FILENAME);
 								break;
 							case IMPORT:
-								callFileInputDialog(REQUEST_IMPORT_FILENAME);
+								callFileImportDialog();
 								break;
 						}
 					}
 				}).create();
+	}
+
+	private void callFileImportDialog() {
+		final StringBuffer nameout = new StringBuffer();
+		ArrayList<String> filenames = mActionLab.readDropboxFiles();
+		final RadioButton[] rb = new RadioButton[filenames.size()];
+
+		//TODO: Check network for connectivity
+		//Create radiogroup and add buttons to rg
+		RadioGroup rg = new RadioGroup(getActivity());
+		rg.setOrientation(RadioGroup.VERTICAL);
+		for(int i=0; i<filenames.size(); i++) {
+			rb[i] = new RadioButton(getActivity());
+			rg.addView(rb[i]);
+			rb[i].setText(filenames.get(i));
+			final String fname = filenames.get(i);
+			rb[i].setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				@Override
+				public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+					if (b) {
+//						Can only use final variables in inner class, so use mutable StringBuffer
+// 						instead of string to update the filename's value
+						nameout.delete(0, nameout.length());
+						nameout.append(fname);
+					}
+
+				}
+			});
+		}
+
+		//Add radiogroup to scrollview so one may scroll through buttons
+		ScrollView scroll = new ScrollView(getActivity());
+		scroll.addView(rg);
+
+		AlertDialog filename = new AlertDialog.Builder(getActivity())
+				.setView(scroll)
+				.setTitle(R.string.select_filename_title)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								String toastText = "";
+
+								if (nameout.length() > 0) {
+									try {
+										mFilename = nameout.toString();
+										if (mActionLab.importDbxFile(mFilename)) {
+											toastText = "Items imported";
+										} else {
+											toastText = "Import failed - check connection?";
+										}
+										mInfoUpdated = true;
+									} catch (IllegalArgumentException e) {
+										toastText = "Filename blank";
+									} catch (Exception e) {
+										toastText = "Could not import file";
+									}
+								} else {
+									toastText = "No file was selected!";
+								}
+
+								if (toastText != null)
+									Toast.makeText(mActivity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+								sendResult(Activity.RESULT_OK);
+
+							}
+
+						})
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								sendResult(Activity.RESULT_CANCELED);
+							}
+						}).create();
+
+		filename.show();
 	}
 	
 	private void callFileInputDialog(int infoRequested){
@@ -102,7 +188,7 @@ public class DropboxFragment extends DialogFragment {
 			
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					if(mFilename.equals("") || mFilename == null){
+					if(mFilename == null || mFilename.equals("")){
 						mFilename = "default"; 
 					}
 					
@@ -130,6 +216,8 @@ public class DropboxFragment extends DialogFragment {
 						}
 						if (mFilename.equals("corpus.txt") || mFilename.equals("corpus")) {
 							toastText = "No export; corpus.txt is reserved";
+						} else if (mFilename.equals("")) {
+							toastText = "No filename input";
 						} else {
 							if (mActionLab.saveToDropbox(mFilename)) {
 								toastText = "Exported to Dropbox";
