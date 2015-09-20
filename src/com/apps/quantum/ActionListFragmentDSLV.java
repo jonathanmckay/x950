@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -601,6 +602,9 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateNewItemHint(v);
 
 		mSubtaskField = (MultiAutoCompleteTextView) v.findViewById(R.id.new_subtask);
+		// Multiautcomplete view automatically flags the input type to disable native suggestions
+		// So the input type must be programatically changed to incorporate native typeahead
+		mSubtaskField.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_AUTO_CORRECT);
 		updateTaskAdapter();
 		mSubtaskField.setTokenizer(new SpaceTokenizer());
 

@@ -64,7 +64,7 @@
                     android:ems="10"
                     android:imeActionLabel="Done"
                     android:imeOptions="actionDone"
-                    android:inputType="textNoSuggestions"
+                    android:inputType="text"
                     android:paddingLeft="10dp" >
                 </MultiAutoCompleteTextView>
             </RelativeLayout>
