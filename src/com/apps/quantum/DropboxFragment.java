@@ -29,8 +29,6 @@ public class DropboxFragment extends DialogFragment {
 	public static final int SAVE = 0;
 	public static final int EXPORT = 1;
 	public static final int IMPORT = 2;
-	private static final int REQUEST_EXPORT_FILENAME = 0;
-	private static final int REQUEST_IMPORT_FILENAME = 1;
 	private static String LIST_UPDATED = "list_updated";
 	
 	@Override
@@ -64,7 +62,7 @@ public class DropboxFragment extends DialogFragment {
 								Toast.makeText(getActivity(), toastText, Toast.LENGTH_LONG).show();
 								break;
 							case EXPORT:
-								callFileInputDialog(REQUEST_EXPORT_FILENAME);
+								callFileExportDialog();
 								break;
 							case IMPORT:
 								callFileImportDialog();
@@ -153,8 +151,7 @@ public class DropboxFragment extends DialogFragment {
 		filename.show();
 	}
 	
-	private void callFileInputDialog(int infoRequested){
-		final int infoRequestedLocal = infoRequested;
+	private void callFileExportDialog(){
 		final EditText input = new EditText(getActivity());
 		input.addTextChangedListener(new TextWatcher() {
 			public void onTextChanged(CharSequence c, int start, int before, 
@@ -171,14 +168,11 @@ public class DropboxFragment extends DialogFragment {
 			}
 		});
 		input.setHeight(100);
-	
 		
 		LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
 		        LinearLayout.LayoutParams.WRAP_CONTENT,
 		        LinearLayout.LayoutParams.WRAP_CONTENT);
 		input.setLayoutParams(lp);
-		
-		
 		
 		AlertDialog filename = new AlertDialog.Builder(getActivity())
 		.setView(input)
@@ -188,52 +182,31 @@ public class DropboxFragment extends DialogFragment {
 			
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					if(mFilename == null || mFilename.equals("")){
-						mFilename = "default"; 
+					if (mFilename == null || mFilename.equals("")) {
+						mFilename = "default";
 					}
-					
+
 					String toastText = "";
-					
-					switch(infoRequestedLocal){
-					case REQUEST_IMPORT_FILENAME:
-						try{
-							if (mActionLab.importDbxFile(mFilename)) {
-								toastText = "Items imported";
-							} else {
-								toastText = "Import failed - check connection?";
-							}
-							mInfoUpdated = true;
-						} catch (IllegalArgumentException e){
-							toastText = "Filename blank";
-						} catch (Exception e) {
-							toastText = "Could not import file";
-						}
-						break;
-						
-					case REQUEST_EXPORT_FILENAME:
-						if(!mFilename.endsWith(".txt")){
-							mFilename = mFilename + ".txt";
-						}
-						if (mFilename.equals("corpus.txt") || mFilename.equals("corpus")) {
-							toastText = "No export; corpus.txt is reserved";
-						} else if (mFilename.equals("")) {
-							toastText = "No filename input";
-						} else {
-							if (mActionLab.saveToDropbox(mFilename)) {
-								toastText = "Exported to Dropbox";
-							} else {
-								toastText =  "Export failed - check connection?";
-							}
-						}
-						break;
-					default:
-						toastText = "Did not reach any of the predicted branches.";
-						break;
+
+					if (!mFilename.endsWith(".txt")) {
+						mFilename = mFilename + ".txt";
 					}
-					if(toastText != null)
+					if (mFilename.equals("corpus.txt") || mFilename.equals("corpus")) {
+						toastText = "No export; corpus.txt is reserved";
+					} else if (mFilename.equals("")) {
+						toastText = "No filename input";
+					} else {
+						if (mActionLab.saveToDropbox(mFilename)) {
+							toastText = "Exported to Dropbox";
+						} else {
+							toastText = "Export failed - check connection?";
+						}
+					}
+
+					if (toastText != null)
 						Toast.makeText(mActivity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
 					sendResult(Activity.RESULT_OK);
-				}	
+				}
 				
 		})
 		.setNegativeButton(android.R.string.cancel, 
@@ -246,10 +219,7 @@ public class DropboxFragment extends DialogFragment {
 		}).create();
 		
 		filename.show();
-	
-	
 	}
 	
 
-	
 }
