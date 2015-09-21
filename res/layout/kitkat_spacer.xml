@@ -5,11 +5,9 @@
     android:id="@+id/footer_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentRight="true"
-    android:layout_below="@+id/list_linear_layout" >
+    android:layout_alignParentRight="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +16,6 @@
         android:orientation="vertical"
         android:id="@+id/linearLayout">
 
-        <!-- TODO: Make FABs float above tasks-->
         <include
             android:id="@+id/fab_group"
             layout="@layout/floating_action_buttons"/>

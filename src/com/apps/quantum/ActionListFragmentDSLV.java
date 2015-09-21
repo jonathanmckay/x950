@@ -122,6 +122,8 @@ public class ActionListFragmentDSLV extends Fragment {
 		setTitle();
 	}
 
+
+
 	@SuppressLint("NewApi")
 	private void refreshView() {
 		mFirstTimeOpeningList = false;
@@ -146,23 +148,23 @@ public class ActionListFragmentDSLV extends Fragment {
 				int numItemsVisible = mListView.getLastVisiblePosition()
 						- mListView.getFirstVisiblePosition();
 
-				if ((mAdapter.getCount() - 1 > numItemsVisible)
-						&& !mListFooterAdded) {
-					mScreenFooter.setVisibility(View.GONE);
-
-					mListView.addFooterView(mListFooter, 1, false);
-					mListFooterAdded = true;
-
-					// set your footer on the ListView
-				} else if (mAdapter.getCount() - 1 <= numItemsVisible
-						&& mListFooterAdded) {
-
-					mListView.removeFooterView(mListFooter);
-					mListFooterAdded = false;
-					
-					mScreenFooter.setVisibility(View.VISIBLE);
-
-				}
+//				if ((mAdapter.getCount() - 1 > numItemsVisible)
+//						&& !mListFooterAdded) {
+//					mScreenFooter.setVisibility(View.GONE);
+//
+//					mListView.addFooterView(mListFooter, 1, false);
+//					mListFooterAdded = true;
+//
+//					// set your footer on the ListView
+//				} else if (mAdapter.getCount() - 1 <= numItemsVisible
+//						&& mListFooterAdded) {
+//
+//					mListView.removeFooterView(mListFooter);
+//					mListFooterAdded = false;
+//
+//					mScreenFooter.setVisibility(View.VISIBLE);
+//
+//				}
 			}
 		});
         updateDoneButtonVisibility();
