@@ -5,6 +5,7 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
@@ -30,6 +31,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.MultiAutoCompleteTextView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,27 +146,49 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		mListView.post(new Runnable() {
 			public void run() {
+				//TODO: This feels like an overly hackish way of adjusting the FAB position
+				//Get the height of the navigation bar in px
+				Resources res = getActivity().getApplicationContext().getResources();
+				int resourceId = res.getIdentifier("navigation_bar_height", "dimen", "android");
+				float pxNav = 0;
+				//TODO: See if this works on devices without a system navigation bar
+				if (resourceId > 0)
+					pxNav = res.getDimension(resourceId);
+				//Get the height of the listview footer in px
+				TextView lvFooter = (TextView) getActivity().getWindow().findViewById(R.id.listview_footer);
+				float pxFooter = lvFooter.getHeight();
+
+				// Initialize padding to be pxNav + pxFooter because both will be visible on startup
+				LinearLayout llFabs = (LinearLayout) getActivity().getWindow().findViewById(R.id.ll_fabs);
+				llFabs.setPadding(0,0,0,(int)(pxNav + pxFooter));
 
 				int numItemsVisible = mListView.getLastVisiblePosition()
 						- mListView.getFirstVisiblePosition();
 
-//				if ((mAdapter.getCount() - 1 > numItemsVisible)
-//						&& !mListFooterAdded) {
-//					mScreenFooter.setVisibility(View.GONE);
-//
-//					mListView.addFooterView(mListFooter, 1, false);
-//					mListFooterAdded = true;
-//
-//					// set your footer on the ListView
-//				} else if (mAdapter.getCount() - 1 <= numItemsVisible
-//						&& mListFooterAdded) {
-//
-//					mListView.removeFooterView(mListFooter);
-//					mListFooterAdded = false;
-//
-//					mScreenFooter.setVisibility(View.VISIBLE);
-//
-//				}
+				//tasks overflow the screen
+				if ((mAdapter.getCount() - 1 > numItemsVisible)
+						&& !mListFooterAdded) {
+					mScreenFooter.setVisibility(View.GONE);
+
+					//adds kitkat_spacer layout to footer of dslv
+					mListView.addFooterView(mListFooter, 1, false);
+					mListFooterAdded = true;
+
+					llFabs.setPadding(0,0,0,(int)(pxNav));
+					// set your footer on the ListView
+				}
+				//no overflow
+				else if (mAdapter.getCount() - 1 <= numItemsVisible
+						&& mListFooterAdded) {
+					//remove kitkat_spacer
+					mListView.removeFooterView(mListFooter);
+					mListFooterAdded = false;
+					//make footer_group visible
+					mScreenFooter.setVisibility(View.VISIBLE);
+
+					llFabs.setPadding(0, 0, 0, (int)(pxNav + pxFooter));
+
+				}
 			}
 		});
         updateDoneButtonVisibility();

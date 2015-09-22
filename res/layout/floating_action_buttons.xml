@@ -2,8 +2,8 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:orientation="horizontal"
-android:layout_alignParentBottom="true">
+android:layout_alignParentBottom="true"
+android:orientation="horizontal">
 
     <com.apps.quantum.FloatingActionButton
         android:id="@+id/fab_add"
