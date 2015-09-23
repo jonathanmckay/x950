@@ -151,6 +151,9 @@ public class ActionLab{
                 file = new File(mActivity.getApplicationContext().getFilesDir(), filename);
             }
             String contents = readAsString(file);
+            // Delete all actions; else you'll get a null pointer exception if you import the same list
+            // TODO: It would be a nice feature to import more than one list; eventually refactor this
+            deleteAllActions();
             addAll(parseActions(contents));
             Log.d(TAG, "Dropbox Load Successful");
             return true;
@@ -162,6 +165,7 @@ public class ActionLab{
 
     public ArrayList<String> readDropboxFiles () {
 //      TODO: Is it poor form to modify a data structure declared final?
+//      TODO: Always poll Dropbox filenames on different thread so user doesn't have to wait
         final ArrayList<String> out = new ArrayList<String>();
         Thread t = new Thread(new Runnable() {
             public void run() {
