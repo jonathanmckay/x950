@@ -78,6 +78,7 @@ public class DropboxFragment extends DialogFragment {
 		final RadioButton[] rb = new RadioButton[filenames.size()];
 
 		//TODO: Check network for connectivity
+		//TODO: Enable user to delete saved lists
 		//Create radiogroup and add buttons to rg
 		RadioGroup rg = new RadioGroup(getActivity());
 		rg.setOrientation(RadioGroup.VERTICAL);
