@@ -8,12 +8,14 @@ import android.widget.Toast;
 import com.dropbox.client2.DropboxAPI;
 import com.dropbox.client2.RESTUtility;
 import com.dropbox.client2.android.AndroidAuthSession;
+import com.dropbox.client2.exception.DropboxException;
 import com.dropbox.client2.session.AppKeyPair;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -110,6 +112,7 @@ public class DropboxCorpusSync {
             return out;
         }
 
+        //TODO: Create a "mobile data" mode where user can toggle off autosync
         public void launchCorpusSync() {
             new Thread(new Runnable() {
                 public void run() {
@@ -146,8 +149,23 @@ public class DropboxCorpusSync {
 
                             //Wait some time
                             Thread.sleep(SYNC_INTERVAL*60*1000);
+                        } catch (DropboxException e){
+                            //In the event of Dropbox exception (i.e. no Internet), admit failure and wait
+                            e.printStackTrace();
+                            try {
+                                Thread.sleep(SYNC_INTERVAL * 60 * 1000);
+                            } catch (InterruptedException e0) {
+                                final String toastText = "Failed merging corpora";
+                                activity.runOnUiThread(new Runnable () {
+                                    public void run() {
+                                        Toast.makeText(activity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+                                    }
+                                });
+                                e0.printStackTrace();
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
+
                         }
 
                     }
@@ -179,7 +197,7 @@ public class DropboxCorpusSync {
         }
 
         //post a text file to dropbox
-        public void postFileOverwrite(String fileName) {
+        public void postFileOverwrite(String fileName) throws DropboxException {
             File file = new File(activity.getApplicationContext().getFilesDir(), fileName);
             if (file.exists()) {
                 try {
@@ -187,7 +205,7 @@ public class DropboxCorpusSync {
                     DropboxAPI.Entry response = mDBApi.putFileOverwrite("/" + fileName, inputStream,
                             file.length(), null);
                     Log.i(TAG, "The uploaded file's rev is: " + response.rev);
-                } catch (Exception e) {
+                } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
             } else {
@@ -198,7 +216,25 @@ public class DropboxCorpusSync {
         public void launchPostFileOverwrite(final String fileName) {
             new Thread(new Runnable() {
                 public void run() {
-                    postFileOverwrite(fileName);
+                    final String success = "Succesful Dropbox Upload";
+                    final String fail = "Failed Dropbox Upload";
+                    try {
+                        postFileOverwrite(fileName);
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity.getApplicationContext(), success, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    } catch (DropboxException e) {
+                        Log.d(TAG, "Dropbox post failure: " + e);
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                Toast.makeText(activity.getApplicationContext(), fail, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+
+
                 }
             }).start();
         }

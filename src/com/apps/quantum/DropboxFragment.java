@@ -55,7 +55,7 @@ public class DropboxFragment extends DialogFragment {
 							case SAVE:
 								String toastText;
 								if (mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME)) {
-									toastText = "Saved Dropbox";
+									toastText = "Saved Locally";
 								} else {
 									toastText = "Save failed - check connection?";
 								}
@@ -77,7 +77,6 @@ public class DropboxFragment extends DialogFragment {
 		ArrayList<String> filenames = mActionLab.readDropboxFiles();
 		final RadioButton[] rb = new RadioButton[filenames.size()];
 
-		//TODO: Check network for connectivity
 		//TODO: Enable user to delete saved lists
 		//Create radiogroup and add buttons to rg
 		RadioGroup rg = new RadioGroup(getActivity());
@@ -104,7 +103,6 @@ public class DropboxFragment extends DialogFragment {
 		//Add radiogroup to scrollview so one may scroll through buttons
 		ScrollView scroll = new ScrollView(getActivity());
 		scroll.addView(rg);
-
 		AlertDialog filename = new AlertDialog.Builder(getActivity())
 				.setView(scroll)
 				.setTitle(R.string.select_filename_title)
@@ -148,8 +146,23 @@ public class DropboxFragment extends DialogFragment {
 								sendResult(Activity.RESULT_CANCELED);
 							}
 						}).create();
+		AlertDialog failedGetNames = new AlertDialog.Builder(getActivity())
+				.setTitle("Nothing to Show")
+				.setMessage("No files found. This is probably because of a Dropbox/Internet connectivity problem.")
+				.setNegativeButton(android.R.string.cancel,
+						new DialogInterface.OnClickListener() {
 
-		filename.show();
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								sendResult(Activity.RESULT_CANCELED);
+							}
+						}).create();
+		if (rb.length == 0) {
+			failedGetNames.show();
+		} else {
+			filename.show();
+		}
+
 	}
 	
 	private void callFileExportDialog(){
@@ -198,7 +211,7 @@ public class DropboxFragment extends DialogFragment {
 						toastText = "No filename input";
 					} else {
 						if (mActionLab.saveToDropbox(mFilename)) {
-							toastText = "Exported to Dropbox";
+							toastText = "Exported List";
 						} else {
 							toastText = "Export failed - check connection?";
 						}
