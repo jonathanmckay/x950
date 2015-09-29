@@ -100,7 +100,7 @@
         </LinearLayout>
     </FrameLayout>
 
-    <com.apps.quantum.BackViewGroup
+    <com.apps.quantum1.BackViewGroup
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -135,6 +135,6 @@
             android:src="@drawable/ic_calendar_start" >
         </ImageButton>
 
-    </com.apps.quantum.BackViewGroup>
+    </com.apps.quantum1.BackViewGroup>
 
 </FrameLayout>

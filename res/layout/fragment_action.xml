@@ -85,7 +85,7 @@
                 android:ems="10"
                 android:hint="@string/minutes_to_complete"
                 android:imeOptions="actionDone"
-                android:inputType="text" />
+                android:inputType="number" />
         </LinearLayout>
 
     </LinearLayout>
