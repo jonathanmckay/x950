@@ -672,6 +672,17 @@ public class ActionListFragmentDSLV extends Fragment {
 			}
 		});
 
+		//Complete the typeahead on click
+		mSubtaskField.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				mSubtaskField.setSelection(mSubtaskField.getText().length());
+				//shouldn't have empty strings in corpus but check just to be safe
+				if (mSubtaskTitle != null && !mSubtaskTitle.equals("")) saveNewSubtask();
+				mCallbacks.updateOnScreenKeyboard(getView(), View.INVISIBLE);
+			}
+		});
+
 		mSubtaskField
 				.setOnEditorActionListener(new EditText.OnEditorActionListener() {
 					@Override

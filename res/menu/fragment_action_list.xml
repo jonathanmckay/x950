@@ -3,14 +3,13 @@
 
  
     
-    
+
  <item
 	android:id="@+id/add"
 	android:actionLayout="@layout/add"
 	android:showAsAction="ifRoom"
 	android:title="test"/>
 
- 
  <item 
   android:id="@+id/menu_item_detail_toggle"
   android:title="@string/toggle_detail"
