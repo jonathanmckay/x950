@@ -112,41 +112,13 @@ public class DropboxCorpusSync {
             return out;
         }
 
-        //TODO: Create a "mobile data" mode where user can toggle off autosync
         public void launchCorpusSync() {
+            //a thread for merging the local with the remote
             new Thread(new Runnable() {
                 public void run() {
                     while (true) {
                         try {
-                            //Check time diff
-                            File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
-                            Date localDate = new Date(localCorpus.lastModified());
-                            Date remoteDate = getDateModified(CORPUS_FILENAME);
-                            Log.i(TAG, "Local Corpus Modified: " + localDate.getTime());
-                            Log.i(TAG, "Remote Corpus Modified: " + remoteDate.getTime());
-                            //merge files if edit times > LOCAL_REMOTE_DELTA minutes apart
-                            if (Math.abs(localDate.getTime() - remoteDate.getTime()) > LOCAL_REMOTE_DELTA*60*1000) {
-                                Log.i(TAG, "Merging Corpora");
-                                getRemoteCorpusTemp(CORPUS_FILENAME);
-                                File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), TEMP_FILENAME);
-                                ArrayList<String> localWords = readFileAsList(localCorpus);
-                                ArrayList<String> remoteWords = readFileAsList(remoteCorpus);
-                                ArrayList<String> mergedWords = mergeCorpusWords(localWords, remoteWords);
-                                writeListToFile(localCorpus, mergedWords);
-                                //push to remote
-                                postFileOverwrite(CORPUS_FILENAME);
-                                //delete tmp file
-                                remoteCorpus.delete();
-                                //Inform the user of succesful outcome (note UI needs to be done on UI thread)
-                                final String toastText = "Succesfully merged corpora";
-                                activity.runOnUiThread(new Runnable () {
-                                    public void run() {
-                                        Toast.makeText(activity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
-                                    }
-                                });
-                            }
-                            Log.i(TAG, "Done Merging Corpora");
-
+                            if (ActionLab.get(activity).getAutosyncOn()) mergeCorpusWithDropbox();
                             //Wait some time
                             Thread.sleep(SYNC_INTERVAL*60*1000);
                         } catch (DropboxException e){
@@ -172,6 +144,7 @@ public class DropboxCorpusSync {
                 }
             }).start();
 
+            //a thread for adding new tasks to the local corpus
             new Thread(new Runnable() {
                 public void run() {
                     while (true) {
@@ -187,6 +160,37 @@ public class DropboxCorpusSync {
                     }
                 }
             }).start();
+        }
+
+        public void mergeCorpusWithDropbox() throws Exception {
+            //Check time diff
+            File localCorpus =  new File(activity.getApplicationContext().getFilesDir(), CORPUS_FILENAME);
+            Date localDate = new Date(localCorpus.lastModified());
+            Date remoteDate = getDateModified(CORPUS_FILENAME);
+            Log.i(TAG, "Local Corpus Modified: " + localDate.getTime());
+            Log.i(TAG, "Remote Corpus Modified: " + remoteDate.getTime());
+            //merge files if edit times > LOCAL_REMOTE_DELTA minutes apart
+            if (Math.abs(localDate.getTime() - remoteDate.getTime()) > LOCAL_REMOTE_DELTA*60*1000) {
+                Log.i(TAG, "Merging Corpora");
+                getRemoteCorpusTemp(CORPUS_FILENAME);
+                File remoteCorpus = new File(activity.getApplicationContext().getFilesDir(), TEMP_FILENAME);
+                ArrayList<String> localWords = readFileAsList(localCorpus);
+                ArrayList<String> remoteWords = readFileAsList(remoteCorpus);
+                ArrayList<String> mergedWords = mergeCorpusWords(localWords, remoteWords);
+                writeListToFile(localCorpus, mergedWords);
+                //push to remote
+                postFileOverwrite(CORPUS_FILENAME);
+                //delete tmp file
+                remoteCorpus.delete();
+                //Inform the user of succesful outcome (note UI needs to be done on UI thread)
+                final String toastText = "Succesfully merged corpora";
+                activity.runOnUiThread(new Runnable () {
+                    public void run() {
+                        Toast.makeText(activity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
+            Log.i(TAG, "Done Merging Corpora");
         }
 
 

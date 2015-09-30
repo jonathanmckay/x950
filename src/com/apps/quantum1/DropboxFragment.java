@@ -47,6 +47,12 @@ public class DropboxFragment extends DialogFragment {
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
 		mActionLab = ActionLab.get(getActivity());
 		mInfoUpdated = false;
+		String toggle;
+		if (mActionLab.getAutosyncOn()) {
+			toggle = "Toggle Autosync Off";
+		} else {
+			toggle = "Toggle Autosync On";
+		}
 		return new AlertDialog.Builder(mActivity).setTitle(R.string.dropbox_dialog_title)
 				.setItems(R.array.dropbox_options, new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int which) {
@@ -68,7 +74,25 @@ public class DropboxFragment extends DialogFragment {
 								break;
 						}
 					}
-				}).create();
+				})
+				.setPositiveButton(toggle, new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						//Flip value stored in shared preferences
+						boolean autosyncOn = mActionLab.getAutosyncOn();
+						mActionLab.setAutosyncOn(!autosyncOn);
+						String toastText;
+						if (autosyncOn) {
+							toastText = "Toggled Autosave Off";
+						} else {
+							toastText = "Toggled Autosave On";
+						}
+						Toast.makeText(mActivity.getApplicationContext(), toastText, Toast.LENGTH_LONG).show();
+					}
+
+				})
+				.create();
 	}
 
 	private void callFileImportDialog() {

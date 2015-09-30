@@ -148,7 +148,6 @@ public class ActionListFragmentDSLV extends Fragment {
 				//tasks overflow the screen
 				if ((mAdapter.getCount() - 1 > numItemsVisible)
 						&& !mListFooterAdded) {
-					System.out.println("Overflow!");
 					mScreenFooter.setVisibility(View.GONE);
 
 					//adds kitkat_spacer layout to footer of dslv
@@ -159,7 +158,6 @@ public class ActionListFragmentDSLV extends Fragment {
 				//no overflow
 				else if (mAdapter.getCount() - 1 <= numItemsVisible
 						&& mListFooterAdded) {
-					System.out.println("No Overflow!");
 					//remove kitkat_spacer
 					mListView.removeFooterView(mListFooter);
 					mListFooterAdded = false;
@@ -980,7 +978,8 @@ public class ActionListFragmentDSLV extends Fragment {
 	public void onPause() {
 		super.onPause();
 		mActionLab.saveActions();
-		if(mActionLab.dropboxLinked()) mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
+		if(mActionLab.dropboxLinked() && mActionLab.getAutosyncOn())
+			mActionLab.saveToDropbox(ActionLab.AUTOSAVE_FILENAME);
 	}
 
 }

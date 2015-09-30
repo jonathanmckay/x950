@@ -1,6 +1,7 @@
 package com.apps.quantum1;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.dropbox.client2.DropboxAPI;
@@ -26,6 +27,7 @@ public class ActionLab{
     private static final String JSON_OUTPUT_FILENAME = "actions_json.txt";
     private static final int COMPLETED = 1;
     private static final int NOT_COMPLETED = 0;
+    private static final boolean AUTOSYNC_DEFAULT = true;
 
     static final int REQUEST_LINK_TO_DBX = 0;
 
@@ -116,8 +118,10 @@ public class ActionLab{
             mRoot.adopt(nonVisibleAction);
             changeActionStatus(nonVisibleAction, COMPLETED);
         }
+        //Start corpus synchronization
         dbSync.launchCorpusSync();
     }
+
     //Singleton
     public static ActionLab get(Activity c){
         sActionLab = (sActionLab == null) ? new ActionLab(c) : sActionLab;
@@ -132,6 +136,20 @@ public class ActionLab{
     }
     public Action getRoot(){
             return mRoot;
+    }
+
+    public boolean getAutosyncOn() {
+        SharedPreferences prefs = mActivity.getApplicationContext().getSharedPreferences("autosyncOn", mActivity.MODE_PRIVATE);
+        if (!prefs.contains("autosyncOn")) setAutosyncOn(AUTOSYNC_DEFAULT);
+        return prefs.getBoolean("autosyncOn", false);
+    }
+
+    public void setAutosyncOn(boolean val) {
+        SharedPreferences prefs = mActivity.getApplicationContext().getSharedPreferences("autosyncOn", mActivity.MODE_PRIVATE);
+        SharedPreferences.Editor edit = prefs.edit();
+        edit.clear();
+        edit.putBoolean("autosyncOn", val);
+        edit.commit();
     }
 
     public boolean importDbxFile(String filename) throws IllegalArgumentException {

@@ -99,7 +99,7 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 			dbSync = DropboxCorpusSync.get(this);
 	    }
 
-	        protected void onResume() {
+	protected void onResume() {
             super.onResume();
 			dbSync.authDropboxResume();
         }
