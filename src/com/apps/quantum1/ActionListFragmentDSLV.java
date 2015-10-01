@@ -123,7 +123,7 @@ public class ActionListFragmentDSLV extends Fragment {
 
 
 	@SuppressLint("NewApi")
-	private void refreshView() {
+	private void refreshView(boolean reloadAdapter) {
 		mFirstTimeOpeningList = false;
 		if (mListView == null) {
 			mFirstTimeOpeningList = true;
@@ -132,9 +132,16 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 
 		mActionLab.checkForPendingActions();
-		mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
+		// Creating a new adapter brings the focus to the top for an overflowed list
+		// However creating a new adapter is necessary if the currently viewed action changes
+		// TODO: It's awkward to think about whether or not we need to make a new adapter for
+		// TODO: every refresh scenario, and this could break too easily if the UI changes
+		if (reloadAdapter || mAdapter == null)  {
+			mAdapter = new ActionAdapter(mAction.getActions(mActionViewMode));
+			mListView.setAdapter(mAdapter);
+		}
 		mAdapter.notifyDataSetChanged();
-		mListView.setAdapter(mAdapter);
+
 
 		if (mFirstTimeOpeningList) {
 			setListeners();
@@ -241,9 +248,22 @@ public class ActionListFragmentDSLV extends Fragment {
 			mAdapter.notifyDataSetChanged();
             updateDoneButtonVisibility();
             updateFooter();
-			refreshView();
+			//Move up if parent is pending
+			while (mAction.isPending() && !mAction.isRoot()) {
+				mAction = mAction.getParent();
+			}
+//			create a new adapter only when there is no overflow
+			updateListToShowCurrentAction(!overflowed());
 		}
 	};
+
+	private boolean overflowed() {
+		int numItemsVisible = mListView.getLastVisiblePosition()
+				- mListView.getFirstVisiblePosition();
+
+		//tasks overflow the screen
+		return (mAdapter.getCount() - 1 > numItemsVisible);
+	}
 
 
 	private AdapterView.OnItemClickListener onClick = new AdapterView.OnItemClickListener() {
@@ -252,16 +272,15 @@ public class ActionListFragmentDSLV extends Fragment {
 				int position, long id) {
 
 			mAction = mAdapter.getItem(position);
-			updateListToShowCurrentAction();
+			updateListToShowCurrentAction(true);
 			return;
 		}
 	};
 
-	private void updateListToShowCurrentAction() {
+	private void updateListToShowCurrentAction(boolean reloadAdapter) {
 		mCallbacks.onActionSelected(mAction);
 		// Log.d(TAG, mAction.getTitle() + " is now the focus");
-
-		refreshView();
+		refreshView(reloadAdapter);
 		getActivity().supportInvalidateOptionsMenu();
 		setTitle();
 		updateTitleEdit();
@@ -274,7 +293,7 @@ public class ActionListFragmentDSLV extends Fragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		refreshView();
+		refreshView(true);
 
 	}
 
@@ -360,7 +379,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			mCallbacks.updateOnScreenKeyboard(getView(), View.INVISIBLE);
 
 			navigateUp();
-			refreshView();
+			refreshView(true);
 			return true;
 
 		case R.id.menu_item_detail_toggle:
@@ -400,7 +419,7 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 
 		if (menuPosition >= 0 && menuPosition < 6) {
-			refreshView();
+			refreshView(true);
 		}
 		return;
 
@@ -427,20 +446,21 @@ public class ActionListFragmentDSLV extends Fragment {
 		switch (requestCode) {
 		case REQUEST_LIST_REFRESH:
 			mAction = mActionLab.getRoot();
-			refreshView();
+			refreshView(true);
 			break;
 		case REQUEST_DATE:
 			Date newDate = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_DATE);
 			d = ActionFragment.combineDateAndTime(d, newDate);
 			mActionLab.setStartDate(childAction, d);
-			refreshView();
+			//don't bring focus to top when changing date via swipe on an overflowed list
+			refreshView(!overflowed());
 			break;
 
 		case REQUEST_TIME:
 			Date newTime = (Date)data.getSerializableExtra(DatePickerMaker.EXTRA_TIME);
 			d = ActionFragment.combineDateAndTime(newTime, d);
 			mActionLab.setStartDate(childAction, d);
-			refreshView();
+			refreshView(true);
 			break;
 		default:
 			break;
@@ -465,7 +485,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				mAction = mActionLab.getRoot();
 		}
 
-		updateListToShowCurrentAction();
+		updateListToShowCurrentAction(true);
 		return (mAction.equals(mActionLab.getRoot())) ? ARRIVED_AT_ROOT
 				: NOT_AT_ROOT;
 	}
@@ -496,7 +516,7 @@ public class ActionListFragmentDSLV extends Fragment {
 				Action toDelete = mAction;
 				mAction = toDelete.getParent();
 				removeAction(toDelete);
-				updateListToShowCurrentAction();
+				updateListToShowCurrentAction(true);
 				updateFooter();
 
 				String toastText = "Task completed";
@@ -941,7 +961,7 @@ public class ActionListFragmentDSLV extends Fragment {
 					while (mAction.isPending() && !mAction.isRoot()) {
 						mAction = mAction.getParent();
 					}
-					updateListToShowCurrentAction();
+					updateListToShowCurrentAction(!overflowed());
 
 					String toastText = "Task cancelled";
 					Toast.makeText(getActivity(), toastText, Toast.LENGTH_SHORT).show();
