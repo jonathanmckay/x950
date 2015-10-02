@@ -143,7 +143,6 @@ public class OutcomeSerializer {
 			//Open and read the file into a StringBuilder
 			InputStream in = mContext.openFileInput(mFilename);
 			ArrayList<Action> output = readActionsFromStream(in);
-			System.out.println("Output: " + output);
 			Log.d(TAG, "File opened from datastore.");
 			return output;
 			

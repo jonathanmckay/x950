@@ -123,7 +123,8 @@ public class ActionLab{
     }
 
     //Singleton
-    public static ActionLab get(Activity c){
+//    TODO: Refactor references to ActionLab in DropboxCorpusSync if synchronization harms perf
+    public static synchronized ActionLab get(Activity c){
         sActionLab = (sActionLab == null) ? new ActionLab(c) : sActionLab;
         return sActionLab;
     }
@@ -623,14 +624,12 @@ public class ActionLab{
 
 
     public Action getAction(UUID id){
-//      TODO:  Attempt to invoke virtual method 'java.lang.String com.apps.quantum1.Action.toString()' on a null object reference
         Log.d("ACTIONLAB", mActionHash.get(id).toString());
         return mActionHash.get(id);
     }
 
     public void addToLab(Action a){
         mActionHash.put(a.getId(), a);
-        System.out.println("Action's ID: + " + a.getId());
         Log.d("ACTIONLAB", "added " + a.toString() + " to lab");
         mTitleHash.put(a.getTitle(), a);
         addToStartDateQueue(a);

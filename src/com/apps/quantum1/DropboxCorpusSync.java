@@ -118,7 +118,8 @@ public class DropboxCorpusSync {
                 public void run() {
                     while (true) {
                         try {
-                            if (ActionLab.get(activity).getAutosyncOn()) mergeCorpusWithDropbox();
+                            if (ActionLab.get(activity).getAutosyncOn())
+                                mergeCorpusWithDropbox();
                             //Wait some time
                             Thread.sleep(SYNC_INTERVAL*60*1000);
                         } catch (DropboxException e){

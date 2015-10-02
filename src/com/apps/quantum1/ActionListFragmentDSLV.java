@@ -120,6 +120,12 @@ public class ActionListFragmentDSLV extends Fragment {
 		setTitle();
 	}
 
+// Note: if you have a UI bug, see if refreshing the view on startup helps
+//	public void onStart() {
+//		super.onStart();
+//		refreshView(true);
+//	}
+
 
 
 	@SuppressLint("NewApi")
