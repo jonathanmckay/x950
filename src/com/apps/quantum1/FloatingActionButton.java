@@ -1,5 +1,3 @@
-package com.apps.quantum1;
-
 /*
  * Copyright 2014, The Android Open Source Project
  *
@@ -16,6 +14,8 @@ package com.apps.quantum1;
  * limitations under the License.
  */
 
+package com.apps.quantum1;
+
 import android.content.Context;
 import android.graphics.Outline;
 import android.util.AttributeSet;
@@ -23,7 +23,6 @@ import android.view.View;
 import android.view.ViewOutlineProvider;
 import android.widget.Checkable;
 import android.widget.FrameLayout;
-
 
 /**
  * A Floating Action Button is a {@link android.widget.Checkable} view distinguished by a circled
@@ -86,7 +85,6 @@ public class FloatingActionButton extends FrameLayout implements Checkable {
             @Override
             public void getOutline(View view, Outline outline) {
                 outline.setOval(0, 0, getWidth(), getHeight());
-
             }
         });
 

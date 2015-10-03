@@ -202,13 +202,14 @@ public class ActionListFragmentDSLV extends Fragment {
 
 		// Initialize padding to be pxNav + pxFooter because both will be visible on startup
 		LinearLayout llFabs = (LinearLayout) getActivity().getWindow().findViewById(R.id.ll_fabs);
-		int pxExtra = (int) 0; //TODO: Set additional padding
+		int pxExtra = (int) pxNav/3;
 		if (mAdapter.getCount() - 1 > numItemsVisible) {
 			//should only adjust for system UI bar on overflow
-			llFabs.setPadding(0, pxExtra, pxExtra, (int)(pxNav + pxExtra));
+			//llFabs.setPadding(left, top, right, bottom)
+			llFabs.setPadding(pxExtra, 0, pxExtra, (int)(pxNav + pxExtra));
 		} else if (mAdapter.getCount() - 1 <= numItemsVisible) {
 			//need to adjust for listview_footer on no overflow
-			llFabs.setPadding(0, pxExtra, pxExtra, (int) (pxNav + pxFooter + pxExtra));
+			llFabs.setPadding(pxExtra, 0, pxExtra, (int) (pxNav + pxFooter + pxExtra));
 		}
 	}
 

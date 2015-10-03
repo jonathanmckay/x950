@@ -8,7 +8,7 @@
     <dimen name="item_height">67dp</dimen>
     <dimen name="section_div_height">20dp</dimen>
 
-    <dimen name="fab_elevation">8dp</dimen>
+    <dimen name="fab_elevation">3dp</dimen>
     <dimen name="fab_press_translation_z">9dp</dimen>
     <dimen name="fab_size">56dp</dimen>
     <dimen name="fab_size_small">40dp</dimen>
