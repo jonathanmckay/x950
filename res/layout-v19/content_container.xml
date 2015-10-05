@@ -16,6 +16,13 @@
     </View>
 
     <FrameLayout
+        android:name="com.apps.quantum1.SearchFragment"
+        android:id="@+id/searchFragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        ></FrameLayout>
+
+    <FrameLayout
         android:id="@+id/detailFragment"
         android:name="com.apps.quantum.ActionFragment"
         android:layout_width="match_parent"

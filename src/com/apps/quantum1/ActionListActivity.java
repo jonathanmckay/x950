@@ -96,15 +96,24 @@ public class ActionListActivity extends SingleFragmentActivity implements Action
 	        mDrawerLayout.setDrawerListener(mDrawerToggle);
         	onActionSelected(ActionLab.get(this).getRoot());
 
+			initializeSearchBar();
 			dbSync = DropboxCorpusSync.get(this);
 	    }
 
+	// The first time user gives Dropbox credentials, Dropbox API needs to finish auth on resume
 	protected void onResume() {
             super.onResume();
 			dbSync.authDropboxResume();
         }
 
-
+	private void initializeSearchBar() {
+		FragmentManager fm = getSupportFragmentManager();
+		Fragment fragment = fm.findFragmentById(R.id.searchFragment);
+		if(fragment == null){
+			fragment = new SearchFragment();
+			fm.beginTransaction().add(R.id.searchFragment, fragment).commit();
+		}
+	}
 
 
 
