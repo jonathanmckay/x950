@@ -41,7 +41,8 @@ public class ActionLab{
 
     private TitleMap mTitleHash;
 
-    private class TitleMap extends HashMap<String, List<Action>> {
+    //Changed to public class so SearchFragment can access
+    public class TitleMap extends HashMap<String, List<Action>> {
                private static final long serialVersionUID = 1L;
 
             public void put(String key, Action a) {
@@ -67,6 +68,10 @@ public class ActionLab{
                     if(super.get(key) != null) return  super.get(key).get(0);
                     else return null;
             }
+    }
+
+    public TitleMap getTitleHash() {
+        return mTitleHash;
     }
 
     private class StartDateComparator implements Comparator<Action>

@@ -284,6 +284,11 @@ public class ActionListFragmentDSLV extends Fragment {
 		}
 	};
 
+	public void goToAction(Action a) {
+		mAction = a;
+		updateListToShowCurrentAction(true);
+	}
+
 	private void updateListToShowCurrentAction(boolean reloadAdapter) {
 		mCallbacks.onActionSelected(mAction);
 		// Log.d(TAG, mAction.getTitle() + " is now the focus");
