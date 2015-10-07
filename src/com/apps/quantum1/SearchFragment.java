@@ -15,6 +15,7 @@ import android.widget.AutoCompleteTextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
@@ -44,13 +45,14 @@ public class SearchFragment extends Fragment {
                              Bundle savedInstanceState) {
         View v = (inflater.inflate(R.layout.fragment_search, parent, false));
         //Get activities for adapter
-        setSearchAdapter(v);
+//        setSearchAdapter(v);
+        setSearchContextAdapter(v);
         return v;
     }
 
-    //TODO: Add context search
+    //TODO: Don't let textview capture keyboard
     //TODO: Modify search adapter on action list change (and change contents of mTitleHash
-    private void setSearchAdapter(View v) {
+    private void setSearchTaskAdapter(View v) {
         ArrayList<String> tasknames = mActionLab.getTaskNames();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
@@ -79,6 +81,54 @@ public class SearchFragment extends Fragment {
         });
 
         //TODO: Add listener to search on return
+    }
+
+    private void setSearchContextAdapter(View v) {
+        HashSet<String> contextNames = new HashSet<>();
+//        final ArrayList<Action> testActions = new ArrayList<>();
+
+        final HashMap<String, Action> titleActionHash = new HashMap();
+        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+            titleActionHash.put(entry.getKey(), entry.getValue().get(0));
+//            System.out.println("Context = " + entry.getValue().get(0).getContextName());
+            String contextName = entry.getValue().get(0).getContextName();
+            if (contextName.length() > 0) {
+//                System.out.println("Context = " + contextName);
+                contextNames.add(contextName);
+            }
+
+        }
+
+        FragmentManager fm = getActivity().getSupportFragmentManager();
+        ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV) fm.findFragmentById(R.id.listFragment);
+//        listFragment.displayTheseActions(testActions);
+
+        //todo: adapter not consistently loading
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_dropdown_item_1line,
+                contextNames.toArray(new String[contextNames.size()]));
+        final AutoCompleteTextView searchTextView = (AutoCompleteTextView) v
+                .findViewById(R.id.searchTextView);
+        searchTextView.setAdapter(adapter);
+
+        searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                searchTextView.setSelection(searchTextView.getText().length());
+                String contextName = searchTextView.getText().toString();
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV) fm.findFragmentById(R.id.listFragment);
+//                listFragment.goToAction(titleActionHash.get(actionName));
+                final ArrayList<Action> actions = new ArrayList<>();
+                //TODO: Include all actions
+                for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+                    Action a = entry.getValue().get(0);
+                    if (a.getContextName().equals(contextName)) actions.add(a);
+                }
+                listFragment.displayTheseActions(actions);
+//                TODO: Clear out textview, handle errors
+            }
+        });
 
     }
 

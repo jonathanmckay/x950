@@ -187,6 +187,15 @@ public class ActionListFragmentDSLV extends Fragment {
 		updateFooter();
 	}
 
+	public void displayTheseActions(ArrayList<Action> actions) {
+		// Go to root, then display an arbitrary set of actions by changing state of mAdapter
+		// and mListView, then refresh the view without reloading adapter
+		mAction = mActionLab.getRoot();
+		mAdapter = new ActionAdapter(actions);
+		mListView.setAdapter(mAdapter);
+		refreshView(false);
+	}
+
 	private void updateFabPadding(int numItemsVisible) {
 		//TODO: This feels like an overly hackish way of adjusting the FAB position
 		//Get the height of the navigation bar in px
