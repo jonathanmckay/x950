@@ -11,13 +11,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- The default mode is search action-->
         <ImageButton
             android:id="@+id/searchButton"
             style="@style/QuarterButton"
             android:layout_height="fill_parent"
             android:layout_weight="1.0"
-            android:src="@drawable/ic_search_black_48dp" >
+            android:src="@drawable/ic_search_action"
+            android:imeOptions="actionDone">
         </ImageButton>
+
+        <!--<ImageButton-->
+            <!--android:id="@+id/searchContextButton"-->
+            <!--style="@style/QuarterButton"-->
+            <!--android:layout_height="fill_parent"-->
+            <!--android:layout_weight="1.0"-->
+            <!--android:src="@drawable/ic_search_context" >-->
+        <!--</ImageButton>-->
 
         <AutoCompleteTextView
             android:id="@+id/searchTextView"
