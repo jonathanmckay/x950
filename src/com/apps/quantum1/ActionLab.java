@@ -46,13 +46,13 @@ public class ActionLab{
                private static final long serialVersionUID = 1L;
 
             public void put(String key, Action a) {
-            List<Action> current = super.get(key);
-            if (current == null) {
-                current = new ArrayList<Action>();
-                super.put(key, current);
+                List<Action> current = super.get(key);
+                if (current == null) {
+                    current = new ArrayList<Action>();
+                    super.put(key, current);
+                }
+                current.add(a);
             }
-            current.add(a);
-        }
 
             public void remove(String key, Action a){
                     List<Action> current = super.get(key);
@@ -72,6 +72,10 @@ public class ActionLab{
 
     public TitleMap getTitleHash() {
         return mTitleHash;
+    }
+
+    public HashMap<UUID, Action> getActionHash() {
+        return mActionHash;
     }
 
     private class StartDateComparator implements Comparator<Action>

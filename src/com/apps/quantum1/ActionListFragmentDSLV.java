@@ -182,9 +182,17 @@ public class ActionListFragmentDSLV extends Fragment {
 
 			}
 		});
+
+		updateSearchAdapters();
         updateDoneButtonVisibility();
 		updateTaskAdapter();
 		updateFooter();
+	}
+
+	public void updateSearchAdapters() {
+		FragmentManager fm = getActivity().getSupportFragmentManager();
+		SearchFragment searchFragment = (SearchFragment) fm.findFragmentById(R.id.searchFragment);
+		searchFragment.refreshAdapters();
 	}
 
 	public void displayTheseActions(ArrayList<Action> actions) {
@@ -796,6 +804,7 @@ public class ActionListFragmentDSLV extends Fragment {
          }
 		}		
 		mAdapter.notifyDataSetChanged();
+		updateSearchAdapters();
         updateDoneButtonVisibility();
 		updateFooter();
 	}

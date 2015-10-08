@@ -20,10 +20,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public class SearchFragment extends Fragment {
     private ActionLab mActionLab;
-    private ActionLab.TitleMap mTitleHash;
+//    private ActionLab.TitleMap mTitleHash;
+    HashMap<UUID, Action> mActionHash;
     private SearchType mSearchType;
 
 
@@ -43,10 +46,31 @@ public class SearchFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActionLab = ActionLab.get(getActivity());
-        mTitleHash = mActionLab.getTitleHash();
+//        mTitleHash = mActionLab.getTitleHash();
+        mActionHash = mActionLab.getActionHash();
         mSearchType = SearchType.SEARCH_ACTION;
-
     }
+
+    //TODO: Recently added tasks don't immediately show up as entries to mTitleHash
+//    private void setTitleHash() {
+//        HashMap<String, List<Action>> testMap = new HashMap<>();
+//        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+//            List<Action> actions = entry.getValue();
+//            for (Action a : actions) {
+//                String key = a.getTitle();
+//                if (testMap.containsKey(key)) {
+//                    testMap.get(key).add(a);
+//                } else {
+//                    ArrayList<Action> added = new ArrayList<>();
+//                    added.add(a);
+//                    testMap.put(key, added);
+//                }
+//            }
+//        }
+//        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+//            System.out.println("Tst: " + entry.getKey() + " " + entry.getValue());
+//        }
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
@@ -80,15 +104,17 @@ public class SearchFragment extends Fragment {
 
         refreshAdapters();
 
+        //Hide the soft keyboard
         final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
     }
 
     //todo: refresh when adding/removing an action
-    private void refreshAdapters() {
+    public void refreshAdapters() {
 //        View v = (getLayoutInflater().inflate(R.layout.fragment_search, parent, false));
         //Get activities for adapter
-        mTitleHash = mActionLab.getTitleHash();
+//        mTitleHash = mActionLab.getTitleHash();
+        mActionHash = mActionLab.getActionHash();
         if (mSearchType == SearchType.SEARCH_ACTION) {
             setSearchTaskAdapter();
         } else {
@@ -96,6 +122,8 @@ public class SearchFragment extends Fragment {
         }
     }
 
+
+    //Todo: Update adapters when action name is modified
     //TODO: Don't let textview capture keyboard
     //TODO: Modify search adapter on action list change (and change contents of mTitleHash
     private void setSearchTaskAdapter() {
@@ -110,9 +138,15 @@ public class SearchFragment extends Fragment {
 
         //TODO: If same name applies to multiple actions, will only go to first one in list
         final HashMap<String, Action> titleActionHash = new HashMap();
-        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
-            titleActionHash.put(entry.getKey(), entry.getValue().get(0));
+//        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+//            titleActionHash.put(entry.getKey(), entry.getValue().get(0));
+//            System.out.println("Tst1: " + entry.getKey() + " " + entry.getValue());
+//        }
+//        setTitleHash();
+        for (HashMap.Entry<UUID, Action> entry : mActionHash.entrySet()) {
+            titleActionHash.put(entry.getValue().getTitle(), entry.getValue());
         }
+
 
         //go to action on click
         searchTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -137,22 +171,32 @@ public class SearchFragment extends Fragment {
 //        final ArrayList<Action> testActions = new ArrayList<>();
 
         final HashMap<String, Action> titleActionHash = new HashMap();
-        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
-            titleActionHash.put(entry.getKey(), entry.getValue().get(0));
-//            System.out.println("Context = " + entry.getValue().get(0).getContextName());
-            String contextName = entry.getValue().get(0).getContextName();
+
+        for (HashMap.Entry<UUID, Action> entry : mActionHash.entrySet()) {
+            titleActionHash.put(entry.getValue().getTitle(), entry.getValue());
+            String contextName = entry.getValue().getContextName();
             if (contextName.length() > 0) {
-//                System.out.println("Context = " + contextName);
                 contextNames.add(contextName);
             }
 
         }
+
+//        for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
+//            titleActionHash.put(entry.getKey(), entry.getValue().get(0));
+////            System.out.println("Context = " + entry.getValue().get(0).getContextName());
+//            String contextName = entry.getValue().get(0).getContextName();
+//            if (contextName.length() > 0) {
+//                contextNames.add(contextName);
+//            }
+//
+//        }
 
         FragmentManager fm = getActivity().getSupportFragmentManager();
         ActionListFragmentDSLV listFragment = (ActionListFragmentDSLV) fm.findFragmentById(R.id.listFragment);
 //        listFragment.displayTheseActions(testActions);
 
         //todo: adapter not consistently loading
+        //TODO: This will hide all but one of actions sharing the same name
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_dropdown_item_1line,
                 contextNames.toArray(new String[contextNames.size()]));
@@ -171,11 +215,12 @@ public class SearchFragment extends Fragment {
 //                listFragment.goToAction(titleActionHash.get(actionName));
                 final ArrayList<Action> actions = new ArrayList<>();
                 //Add all action (including pending/repeat
-                for (HashMap.Entry<String, List<Action>> entry : mTitleHash.entrySet()) {
-                    List<Action> acts = entry.getValue();
-                    for (Action a : acts) {
+                for (HashMap.Entry<String, Action> entry : titleActionHash.entrySet()) {
+//                    List<Action> acts = entry.getValue();
+//                    for (Action a : acts) {
+                        Action a = entry.getValue();
                         if (a.getContextName().equals(contextName)) actions.add(a);
-                    }
+//                    }
                 }
 
                 searchTextView.setText("");
