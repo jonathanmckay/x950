@@ -11,6 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <!-- empty view gives layout somewhere to focus when clearFocus is called for searchTextView-->
+        <View
+            android:id="@+id/focus_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
         <!-- The default mode is search action-->
         <ImageButton
             android:id="@+id/searchButton"
@@ -34,7 +42,9 @@
             android:layout_width="0dp"
             android:layout_weight="7.0"
             android:layout_height="50dp"
-            android:backgroundTint="@color/blue">
+            android:backgroundTint="@color/blue"
+            android:imeOptions="actionDone"
+            android:inputType="text">
         </AutoCompleteTextView>
 
     </LinearLayout>
