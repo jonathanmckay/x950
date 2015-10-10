@@ -459,20 +459,15 @@ public class ActionLab{
 
     public void setStartDate(Action a, Date startDate) {
         if(startDate == null) return;
-        if (a.isPending() && a.isRepeat()) {
-            unrepeatPending(a);
+        //If a current, repeated task has its start date set as pending, it should lose repeat status
+        if (!a.isPending() && a.isRepeat() && startDate.after(new Date())) {
+            a.setRepeatInfo(0,0);
         }
         modifyStartDate(a, startDate);
         if (startDate != null && startDate.after(new Date()) && a.isIncomplete()){
             deactivate(a);
         }
         if (startDate.before(new Date()) && a.isPending()) activate(a);
-    }
-
-    private void unrepeatPending(Action a) {
-        //Create the next pending repeated action, remove repeat interval from current action
-        createRepeatedAction(a, a);
-        a.setRepeatInfo(0,0);
     }
 
     public void addToStartDateQueue(Action a) {
