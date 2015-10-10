@@ -69,7 +69,7 @@ public class SearchFragment extends Fragment {
                 refreshAdapters();
             }
         });
-        
+
         return v;
     }
 
@@ -93,6 +93,7 @@ public class SearchFragment extends Fragment {
     }
 
     //Todo: Update adapters when action name is modified
+    //(Low priority; inconsistent only if change action name, then search that action while already in that action)
     private void setSearchTaskAdapter() {
         ArrayList<String> tasknames = mActionLab.getTaskNames();
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
@@ -120,7 +121,6 @@ public class SearchFragment extends Fragment {
                 searchTextView.setText("");
 
                 listFragment.goToAction(titleActionHash.get(actionName));
-//                TODO: Clear out textview, handle errors
             }
         });
 
@@ -165,7 +165,6 @@ public class SearchFragment extends Fragment {
                 searchTextView.setText("");
                 listFragment.goToAction(mActionLab.getRoot());
                 listFragment.displayTheseActions(actions);
-//                TODO: Clear out textview, handle errors
             }
         });
 

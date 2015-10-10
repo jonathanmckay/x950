@@ -783,6 +783,9 @@ public class ActionListFragmentDSLV extends Fragment {
 		mSubtaskField.setAdapter(adapter);
 	}
 
+	/* TODO: If searchview is too tall, this will hide the most recently added action in incomplete mode
+	 Fixed by decreasing searchview height, but to make this work on all devices, should programatically
+	 set number of DSLV items to show based on screen height - searchview height */
 	private void saveNewSubtask() {
         Action a = createActionFromInputString();
 

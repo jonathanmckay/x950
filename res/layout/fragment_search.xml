@@ -29,19 +29,12 @@
             android:imeOptions="actionDone">
         </ImageButton>
 
-        <!--<ImageButton-->
-            <!--android:id="@+id/searchContextButton"-->
-            <!--style="@style/QuarterButton"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:layout_weight="1.0"-->
-            <!--android:src="@drawable/ic_search_context" >-->
-        <!--</ImageButton>-->
-
+        <!-- -->
         <AutoCompleteTextView
             android:id="@+id/searchTextView"
             android:layout_width="0dp"
             android:layout_weight="7.0"
-            android:layout_height="50dp"
+            android:layout_height="35dp"
             android:backgroundTint="@color/blue"
             android:imeOptions="actionDone"
             android:inputType="text">
