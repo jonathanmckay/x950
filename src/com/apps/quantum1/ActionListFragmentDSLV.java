@@ -158,7 +158,19 @@ public class ActionListFragmentDSLV extends Fragment {
 				int numItemsVisible = mListView.getLastVisiblePosition()
 						- mListView.getFirstVisiblePosition();
 
-				//tasks overflow the screen
+				//Clamp mDetailVisible because its value is inaccurate (perhaps it counts list items
+				//obscured by system bar/footer as visible
+				//TODO: Determine maximum number of visible items programatically (following will break on large screens)
+				//TODO: Really, it would be better to fix the underlying problem which is that getLast,FirstVisiblePos doesn't account for footer
+				if (mActionViewMode != Action.TOP_FIVE_VIEW) {
+					if (mDetailVisible) {
+						numItemsVisible = Math.min(numItemsVisible, 3);
+					} else {
+						numItemsVisible = Math.min(numItemsVisible, 5);
+					}
+				}
+
+				//tasks overflow the screen || numItemsVisible > 5
 				if ((mAdapter.getCount() - 1 > numItemsVisible)
 						&& !mListFooterAdded) {
 					mScreenFooter.setVisibility(View.GONE);
@@ -395,6 +407,8 @@ public class ActionListFragmentDSLV extends Fragment {
 			getActivity().setTitle(mAction.getTitle());
 			mEditTitle.setVisible(false);
 		}
+		//Refresh the view so the number of visible items updates
+		refreshView(true);
 	}
 
 	@TargetApi(11)
@@ -783,9 +797,6 @@ public class ActionListFragmentDSLV extends Fragment {
 		mSubtaskField.setAdapter(adapter);
 	}
 
-	/* TODO: If searchview is too tall, this will hide the most recently added action in incomplete mode
-	 Fixed by decreasing searchview height, but to make this work on all devices, should programatically
-	 set number of DSLV items to show based on screen height - searchview height */
 	private void saveNewSubtask() {
         Action a = createActionFromInputString();
 
@@ -805,7 +816,8 @@ public class ActionListFragmentDSLV extends Fragment {
              mAdapter.remove(mAdapter.getItem(5));
              mAdapter.add(a);
          }
-		}		
+		}
+		refreshView(false); //in order to update numItemsVisible
 		mAdapter.notifyDataSetChanged();
 		updateSearchAdapters();
         updateDoneButtonVisibility();
