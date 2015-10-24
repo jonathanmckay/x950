@@ -174,7 +174,7 @@ public class Action {
 
 		try {
 			this.mOffset = TimeZone.getDefault();
-			this.mOffset.setRawOffset(Integer.parseInt(tokens[18]));
+			this.mOffset = TimeZone.getTimeZone(tokens[18]);
 		} catch (Exception e) {
 			Log.d("Action", "No timezone offset imported from file");
 		}
@@ -445,15 +445,21 @@ public class Action {
 	private Date toJavaDate(String excelDate) {
 		if (excelDate == null || excelDate == "")
 			return null;
-
-		Date output = new Date();
+		Date output;
 
 		try {
-			output = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.US)
-					.parse(excelDate);
-		} catch (ParseException e) {
-			output = new Date();
+			// In present format, dates should be longs (time since UNIX epoch)
+			output = new Date(Long.parseLong(excelDate));
+		} catch (NumberFormatException nfe) {
+			Log.d("Date", "Legacy date imported");
+			try {
+				output = new SimpleDateFormat("yyyy.MM.dd HH:mm", Locale.US)
+						.parse(excelDate);
+			} catch (ParseException e) {
+				output = new Date();
+			}
 		}
+
 		return output;
 	}
 
@@ -474,8 +480,7 @@ public class Action {
 				mModifiedDate));
 		sb.append("\t");
 		if (mStartDate != null)
-			sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm",
-					mStartDate));
+			sb.append(mStartDate.getTime());
 		sb.append("\t");
 		sb.append(String.valueOf(mMinutesActual));
 		sb.append("\t");
@@ -490,9 +495,10 @@ public class Action {
 		sb.append("\t");
 		sb.append(String.valueOf(mPriority));
 		sb.append("\t");
+
 		if (mDueDate != null)
-			sb.append(android.text.format.DateFormat.format("yyyy.MM.dd HH:mm",
-					mDueDate));
+			sb.append(mDueDate.getTime());
+
 		sb.append("\t");
 		sb.append(String.valueOf(mRepeatInterval));
 		sb.append("\t");
@@ -505,9 +511,9 @@ public class Action {
         sb.append(String.valueOf(mRepeatNumber));
 		sb.append("\t");
 		if (mOffset == null) {
-			sb.append(TimeZone.getDefault().getRawOffset());
+			sb.append(TimeZone.getDefault().getID() );
 		} else {
-			sb.append(mOffset.getRawOffset());
+			sb.append(mOffset.getID() );
 		}
 		sb.append("\n");
 		return sb.toString();
