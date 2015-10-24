@@ -679,11 +679,7 @@ public class Action {
 	}
 
 	public Date getStartDate() {
-		if (mStartDate == null || !isRepeat()) {
-			return mStartDate;
-		} else {
-			return getOriginalDate(mStartDate);
-		}
+		return mStartDate;
 	}
 
 	public boolean hasChildren() {
@@ -717,11 +713,7 @@ public class Action {
 	}
 
 	public Date getDueDate() {
-		if (mDueDate == null || !isRepeat()) {
-			return mDueDate;
-		} else {
-			return getOriginalDate(mDueDate);
-		}
+		return mDueDate;
 	}
 
 	public void setDueDate(Date dueDate) {
@@ -885,13 +877,19 @@ public class Action {
         setDueDate(nextRepeatTime(mStartDate, mRepeatInterval, mRepeatNumber));
     }
 
+public TimeZone getOffset() {
+	return mOffset;
+}
+
 //Return date as set in original timezone (e.g., 6:00 AM PST always stays in PST)
+//TODO: Delete this (formatter (e.g. Calendar) should set timezone, whereas Date is absolute point in time)
 public Date getOriginalDate(Date d) {
 	TimeZone tz = TimeZone.getDefault();
 	int currOff = tz.getOffset(d.getTime());
 	int origOff = mOffset.getOffset(d.getTime());
 	return new Date(d.getTime() - (currOff - origOff));
 }
+
 //Convert dates to/from UTC; however, it appears dates automatically adjust as timezone changes
 	public static Date toUTC(Date d) {
 		if (d == null) return d;

@@ -38,6 +38,7 @@ import com.mobeta.android.dslv.DragSortListView;
 import com.twitter.Extractor;
 import com.twitter.Extractor.Entity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -889,9 +890,13 @@ public class ActionListFragmentDSLV extends Fragment {
 						& ~Paint.STRIKE_THRU_TEXT_FLAG);
 
 				if (c.getStartDate() != null) {
+					Calendar calendarDate = Calendar.getInstance();
+					calendarDate.setTime(c.getStartDate());
+					if (c.isRepeat()) calendarDate.setTimeZone(c.getOffset());
+
 					dateTextView.setText(new StringBuilder("Starts ")
 							.append(android.text.format.DateFormat.format(
-                                    "MMM dd", c.getStartDate()).toString()));
+                                    "MMM dd", calendarDate).toString()));
 				} else {
 					dateTextView.setText(null);
 				}
@@ -903,9 +908,13 @@ public class ActionListFragmentDSLV extends Fragment {
 				titleTextView.setTextColor(Color.BLACK);
 
 				if (c.getDueDate() != null) {
+					Calendar calendarDate = Calendar.getInstance();
+					calendarDate.setTime(c.getDueDate());
+					if (c.isRepeat()) calendarDate.setTimeZone(c.getOffset());
+
 					dateTextView.setText(new StringBuilder("Due ")
 							.append(android.text.format.DateFormat.format(
-									"MMM dd", c.getDueDate()).toString()));
+									"MMM dd", calendarDate)) );
 				} else {
 					dateTextView.setText(null);
 				}

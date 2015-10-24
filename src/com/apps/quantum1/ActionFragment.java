@@ -1,9 +1,12 @@
 package com.apps.quantum1;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.UUID;
+import org.joda.time.*;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -155,6 +158,7 @@ public class ActionFragment extends Fragment {
 		? "Set Due Date"
 		:(toButtonString(mAction.getDueDate())));
 	}
+
 
 	private void enableTextFields(View v){
 			
@@ -383,13 +387,16 @@ public class ActionFragment extends Fragment {
 	}
 	private String toButtonString(Date d){
 		Calendar calendarDate = Calendar.getInstance();
-		calendarDate.setTime(d);
-		
+		if (mAction.isRepeat()) {
+			calendarDate.setTimeZone(mAction.getOffset());
+		}
+		calendarDate.setTimeInMillis(d.getTime());
+
 		//If it is the default time, don't display the time of day info, only display day
 		if(calendarDate.get(Calendar.HOUR_OF_DAY) == 4 && calendarDate.get(Calendar.MINUTE) == 0){
-			return android.text.format.DateFormat.format("MMM dd", d).toString();	
+			return android.text.format.DateFormat.format("MMM dd", calendarDate).toString();
 		} else {
-			return android.text.format.DateFormat.format("MMM dd hh:mm aaa", d).toString();
+			return android.text.format.DateFormat.format("MMM dd hh:mm aaa", calendarDate).toString();
 		}
 	}
 }
