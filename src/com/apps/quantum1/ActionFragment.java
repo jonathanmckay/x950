@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.TimeZone;
 import java.util.UUID;
 import org.joda.time.*;
 
@@ -344,6 +345,17 @@ public class ActionFragment extends Fragment {
 				int repeatInterval = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_INTERVAL);
                 int repeatNumber = (Integer)data.getSerializableExtra(RepeatPickerFragment.EXTRA_REPEAT_NUMBER);
 				mActionLab.modifyRepeatInterval(repeatInterval, repeatNumber, mAction);
+
+				// TODO: If repeat is cleared, the underlying date object is modified...could cause bugs
+				if (repeatInterval == 0 && repeatNumber == 0) {
+					TimeZone offset = mAction.getOffset();
+					if (mAction.getDueDate() != null) {
+						mAction.setDueDate(mAction.getOriginalDate(mAction.getDueDate(), offset ));
+					}
+					if (mAction.getStartDate() != null) {
+						mAction.setStartDateRaw(mAction.getOriginalDate(mAction.getStartDate(), offset));
+					}
+				}
 
 				//Change the color of the button
 				updateRepeatIntervalButton(repeatInterval);

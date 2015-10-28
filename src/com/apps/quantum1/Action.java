@@ -887,13 +887,14 @@ public TimeZone getOffset() {
 	return mOffset;
 }
 
-//Return date as set in original timezone (e.g., 6:00 AM PST always stays in PST)
-//TODO: Delete this (formatter (e.g. Calendar) should set timezone, whereas Date is absolute point in time)
-public Date getOriginalDate(Date d) {
-	TimeZone tz = TimeZone.getDefault();
-	int currOff = tz.getOffset(d.getTime());
-	int origOff = mOffset.getOffset(d.getTime());
-	return new Date(d.getTime() - (currOff - origOff));
+//	Return a date, mutated so the date in this timezone corresponds to the
+// formatted date as displayed with original offset timezone (e.g., 6:00 AM PST maps to 6:00 AM current tz))
+public Date getOriginalDate(Date d, TimeZone offset) {
+	Calendar calendarDate = Calendar.getInstance();
+	calendarDate.setTimeZone(offset);
+	calendarDate.setTimeInMillis(d.getTime());
+	String adjDate = android.text.format.DateFormat.format("yyyy.MM.dd HH:mm", calendarDate).toString();
+	return toJavaDate(adjDate);
 }
 
 //Convert dates to/from UTC; however, it appears dates automatically adjust as timezone changes
