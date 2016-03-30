@@ -289,17 +289,21 @@ public class ActionListFragmentDSLV extends Fragment {
 			while (mAction.isPending() && !mAction.isRoot()) {
 				mAction = mAction.getParent();
 			}
-//			create a new adapter only when there is no overflow
+			//create a new adapter only when there is no overflow
 			updateListToShowCurrentAction(!overflowed());
 		}
 	};
 
 	private boolean overflowed() {
-		int numItemsVisible = mListView.getLastVisiblePosition()
+        // zero-indexed: getFirstPos = first (even if partially visible); getLastPos = last + 1
+        // so subtract 1 from lastVisiblePosition
+		int numItemsVisible = mListView.getLastVisiblePosition() - 1
 				- mListView.getFirstVisiblePosition();
 
-		//tasks overflow the screen
-		return (mAdapter.getCount() - 1 > numItemsVisible);
+		//detect tasks overflowing the screen:
+        // for ~7 tasks, don't want refresh when last task occupies footer space, so use numItemsVisible - 1
+        // alternatively, could hardcode: mAdapter.getCount() > 6
+		return (mAdapter.getCount() > numItemsVisible - 1);
 	}
 
 

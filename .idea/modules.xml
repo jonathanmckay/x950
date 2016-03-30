@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" filepath="$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" />
       <module fileurl="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" filepath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" filepath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
       <module fileurl="file://$PROJECT_DIR$/x950.iml" filepath="$PROJECT_DIR$/x950.iml" />
     </modules>
   </component>
