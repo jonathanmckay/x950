@@ -288,9 +288,11 @@ public class ActionListFragmentDSLV extends Fragment {
 			//Move up if parent is pending
 			while (mAction.isPending() && !mAction.isRoot()) {
 				mAction = mAction.getParent();
+                updateListToShowCurrentAction(true);
 			}
 			//create a new adapter only when there is no overflow
-			updateListToShowCurrentAction(!overflowed());
+//			updateListToShowCurrentAction(!overflowed());
+            updateListToShowCurrentAction(false);
 		}
 	};
 
