@@ -190,9 +190,7 @@ public class ActionListFragmentDSLV extends Fragment {
 					//make footer_group visible
 					mScreenFooter.setVisibility(View.VISIBLE);
 				}
-
-				updateFabPadding(numItemsVisible);
-
+                updateFabPadding(numItemsVisible);
 			}
 		});
 
@@ -415,7 +413,7 @@ public class ActionListFragmentDSLV extends Fragment {
 			mEditTitle.setVisible(false);
 		}
 		//Refresh the view so the number of visible items updates
-		refreshView(true);
+		refreshView(false);
 	}
 
 	@TargetApi(11)
