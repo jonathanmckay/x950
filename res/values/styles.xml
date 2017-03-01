@@ -23,9 +23,13 @@
 		<item name="android:windowContentOverlay">@null</item>
         <item name="android:titleTextStyle">@style/TitleText</item>
         <item name="android:background">@color/ltGrey</item>
+
     </style>
 
     <color name="ltGrey">#DDDDDD</color>
+    <!-- Bright red, green for debugging-->
+    <color name="red">#FF0000</color>
+    <color name="green">#00FF00</color>
     <color name="medGrey">#939393</color>
     <style name="EditTitleText" parent ="@style/TitleText">
         <item name="android:maxLines">3</item>

@@ -5,22 +5,26 @@
     android:id="@+id/footer_group"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   
     android:layout_alignParentBottom="true"
     android:layout_alignParentLeft="true"
-    android:layout_alignParentRight="true"
-    android:layout_below="@+id/list_linear_layout" >
+    android:layout_alignParentRight="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical" >
-		
+        android:orientation="vertical"
+        android:id="@+id/linearLayout">
+
+        <!--<include-->
+            <!--android:id="@+id/fab_group"-->
+            <!--layout="@layout/floating_action_buttons"/>-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
         <TextView
             android:id="@+id/listview_footer"
             style="@style/TitleText"
@@ -38,10 +42,9 @@
             android:layout_height="wrap_content"
             android:background="@color/ltGrey"
             android:text="TextTest"/>
-        
-        
-        
+
         </LinearLayout>
+
         <View
             android:id="@+id/kitkat_footer"
             android:layout_width="match_parent"
@@ -49,5 +52,7 @@
             android:background="@color/ltGrey" >
         </View>
     </LinearLayout>
+
+
 
 </RelativeLayout>

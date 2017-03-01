@@ -3,8 +3,12 @@
   <component name="AndroidConfiguredLogFilters">
     <filters>
       <filter>
+        <option name="logLevel" value="verbose" />
+        <option name="logMessagePattern" value="" />
+        <option name="logTagPattern" value="" />
         <option name="name" value="app: com.apps.quantum" />
         <option name="packageNamePattern" value="com.apps.quantum" />
+        <option name="pid" value="" />
       </filter>
     </filters>
   </component>
@@ -19,54 +23,54 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
-    <option name="TOOL_WINDOW_LOG_LEVEL" value="DEBUG" />
-    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="app: com.apps.quantum" />
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+    <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/res/layout/custom_repeat_dialog.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/drag-sort-listview-demo.iml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/parent.iml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/gen-external-apklibs/~apklib-com.mobeta.android.dslv_drag-sort-listview_1.0.iml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/.gitignore" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/.settings/org.eclipse.jdt.core.prefs" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/AndroidManifest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/ant.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/build.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/libs/android-support-v4.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/pom.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/proguard-project.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/project.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/res/values/dslv_attrs.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortCursorAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortItemView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortItemViewCheckable.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/ResourceDragSortCursorAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/SimpleDragSortCursorAdapter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/SimpleFloatViewManager.java" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/Action.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/Action.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionFragment.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionLab$StartDateComparator.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionLab$StartDateComparator.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$10.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$10.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$11.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$11.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$12.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$12.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$5.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$5.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$6.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$6.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$7.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$7.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$8.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$8.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$9.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$9.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$3.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$3.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$4.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter$4.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$ActionAdapter.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$SpaceTokenizer.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV$SpaceTokenizer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/ActionListFragmentDSLV.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/twitter/Autolink$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/twitter/Autolink$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DateTimePicker/com/android/datetimepicker/date/DatePickerDialog.class" afterPath="$PROJECT_DIR$/out/production/DateTimePicker/com/android/datetimepicker/date/DatePickerDialog.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/DropboxFragment$2.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/DropboxFragment$2.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/twitter/Extractor$1.class" afterPath="$PROJECT_DIR$/out/production/x950/com/twitter/Extractor$1.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/OutcomeSerializer.class" afterPath="$PROJECT_DIR$/out/production/x950/com/apps/quantum1/OutcomeSerializer.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/DateTimePicker/com/android/datetimepicker/time/RadialPickerLayout.class" afterPath="$PROJECT_DIR$/out/production/DateTimePicker/com/android/datetimepicker/time/RadialPickerLayout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/src/com/mobeta/android/demodslv/ArbItemSizeDSLV.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/src/com/mobeta/android/demodslv/ArbItemSizeDSLV.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/src/com/mobeta/android/demodslv/WarpDSLV.java" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/src/com/mobeta/android/demodslv/WarpDSLV.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/res/layout/dslv_fragment_main.xml" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/res/layout/dslv_fragment_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/.settings/org.eclipse.jdt.core.prefs" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/.settings/org.eclipse.jdt.core.prefs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/pom.xml" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/project.properties" afterPath="$PROJECT_DIR$/libraries/drag-sort-listview/demo/project.properties" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/res/values/strings.xml" afterPath="$PROJECT_DIR$/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" afterPath="$PROJECT_DIR$/out/production/x950/x950.unaligned.apk" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java" afterPath="$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" afterPath="$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="x950.iws" />
     <ignored path=".idea/workspace.xml" />
+    <ignored path="$PROJECT_DIR$/out/" />
+    <ignored path="$PROJECT_DIR$/libraries/drag-sort-listview/library/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -77,152 +81,61 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
-  <component name="DaemonCodeAnalyzer">
-    <disable_hints />
-  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
     <favorites_list name="x950" />
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ActionFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
+      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="4652" max-vertical-offset="5925">
-              <caret line="359" column="8" selection-start-line="359" selection-start-column="8" selection-end-line="359" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.29360464">
+              <caret line="291" column="14" selection-start-line="291" selection-start-column="14" selection-end-line="291" selection-end-column="14" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#9172#9714#0" expanded="true" />
+                <element signature="e#9713#9714#0" expanded="true" />
+                <element signature="e#10328#10570#0" expanded="true" />
+                <element signature="e#10569#10570#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ActionLab.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+      <file leaf-file-name="fragment_action_list.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.115385" vertical-offset="6926" max-vertical-offset="8415">
-              <caret line="505" column="95" selection-start-line="505" selection-start-column="95" selection-end-line="505" selection-end-column="95" />
+            <state vertical-scroll-proportion="-9.714286">
+              <caret line="89" column="31" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
               <folding />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActionListFragmentDSLV.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="3709" max-vertical-offset="10530">
-              <caret line="322" column="18" selection-start-line="322" selection-start-column="18" selection-end-line="322" selection-end-column="18" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RepeatPickerFragment.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8333335" vertical-offset="0" max-vertical-offset="975">
-              <caret line="21" column="38" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="40" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="custom_repeat_dialog.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/custom_repeat_dialog.xml">
           <provider editor-type-id="android-designer">
             <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="675">
-              <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_time.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/dialog_time.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="210">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_repeat.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/dialog_repeat.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="210">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="dialog_date.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/dialog_date.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="225">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="action_title.xml" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/res/layout/action_title.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="375">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RepeatDialog.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.115523465" vertical-offset="279" max-vertical-offset="1185">
-              <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#1439#1469#0" expanded="true" />
-                <element signature="e#1665#1673#0" expanded="true" />
-                <element signature="e#1938#1946#0" expanded="true" />
-                <element signature="e#2245#2574#0" expanded="true" />
-                <element signature="e#2563#2564#0" expanded="true" />
-                <element signature="e#2617#2812#0" expanded="true" />
-                <element signature="e#2801#2802#0" expanded="true" />
-              </folding>
-            </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="layoutResourceFile_vertical" />
+      </list>
+    </option>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
       <setting name="OPEN_NEW_TAB" value="true" />
     </FindUsagesManager>
   </component>
+  <component name="GenerateSignedApkSettings">
+    <option name="KEY_STORE_PATH" value="android.jks" />
+    <option name="KEY_ALIAS" value="x950key" />
+  </component>
   <component name="Git.Settings">
-    <option name="SYNC_SETTING" value="DONT" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -230,27 +143,74 @@
       </map>
     </option>
   </component>
+  <component name="GradleLocalSettings">
+    <option name="externalProjectsViewState">
+      <projects_view />
+    </option>
+  </component>
   <component name="IdeDocumentHistory">
-    <option name="changedFiles">
+    <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/libraries/drag-sort-listview/pom.xml" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/res/layout/text_and_button.xml" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/BetterDatePickerFragment.java" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java" />
-        <option value="$PROJECT_DIR$/res/layout/custom_repeat_interval.xml" />
+        <option value="$PROJECT_DIR$/.idea/workspace.xml" />
+        <option value="$PROJECT_DIR$/libraries/drag-sort-listview/library/drag-sort-listview.iml" />
+        <option value="$PROJECT_DIR$/libraries/DateTimePicker/DateTimePicker.iml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DatePickerFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/TimeDateTest.java" />
+        <option value="$PROJECT_DIR$/libraries/DateTimePicker/res/layout/date_picker_done_button.xml" />
+        <option value="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/time/TimePickerDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/TimeOrDateFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DatePickerMaker.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/TimePickerFragment.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
-        <option value="$PROJECT_DIR$/res/values/strings.xml" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java" />
-        <option value="$PROJECT_DIR$/res/layout/custom_repeat_dialog.xml" />
-        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
+        <option value="$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DateLogic.java" />
         <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/FloatingActionButton.java" />
+        <option value="$PROJECT_DIR$/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java" />
+        <option value="$PROJECT_DIR$/res/layout/footer_fragment.xml" />
+        <option value="$PROJECT_DIR$/src/FooterFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/FooterFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/Action.java" />
+        <option value="$PROJECT_DIR$/res/layout/kitkat_spacer.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum/DropboxCorpusSync.java" />
+        <option value="$PROJECT_DIR$/AndroidManifest.xml" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_action_list.xml" />
+        <option value="$PROJECT_DIR$/res/layout/list_item_action.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/DropboxFragment.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/DropboxCorpusSync.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/OutcomeSerializer.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/FloatingActionButton.java" />
+        <option value="$PROJECT_DIR$/res/values/dimens.xml" />
+        <option value="$PROJECT_DIR$/res/layout/floating_action_buttons.xml" />
+        <option value="$PROJECT_DIR$/res/menu/fragment_collapsed.xml" />
+        <option value="$PROJECT_DIR$/res/layout/content_container.xml" />
+        <option value="$PROJECT_DIR$/res/layout-v19/content_container.xml" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_action.xml" />
+        <option value="$PROJECT_DIR$/res/values/styles.xml" />
+        <option value="$PROJECT_DIR$/res/menu/fragment_action_list.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/ActionListActivity.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/SearchFragment.java" />
+        <option value="$PROJECT_DIR$/res/layout/fragment_search.xml" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/ActionLab.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/Action.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/ActionFragment.java" />
+        <option value="$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java" />
+        <option value="$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java" />
       </list>
     </option>
   </component>
   <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Bundled (Maven 3)" />
+      </MavenGeneralSettings>
+    </option>
     <option name="importingSettings">
       <MavenImportingSettings>
         <option name="importAutomatically" value="true" />
@@ -260,11 +220,14 @@
   <component name="MavenProjectNavigator">
     <treeState />
   </component>
+  <component name="NamedScopeManager">
+    <order />
+  </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="686" />
-    <option name="y" value="-1417" />
-    <option name="width" value="2560" />
-    <option name="height" value="1417" />
+    <option name="x" value="-1" />
+    <option name="y" value="-1" />
+    <option name="width" value="1368" />
+    <option name="height" value="749" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="true" id="Add" />
@@ -277,7 +240,7 @@
     <ConfirmationsSetting value="0" id="Remove" />
   </component>
   <component name="ProjectReloadState">
-    <option name="STATE" value="0" />
+    <option name="STATE" value="1" />
   </component>
   <component name="ProjectStructureProblems">
     <ignored-problems>
@@ -297,136 +260,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="External Libraries" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ExternalLibrariesNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="src" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="com" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="quantum" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="x950" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
       <pane id="PackagesPane">
         <subPane>
           <PATH>
@@ -441,6 +274,97 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="com" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="quantum1" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="x950" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="libraries" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -454,9 +378,9 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="options.splitter.details.proportions" value="0.2" />
     <property name="options.searchVisible" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/support-v4-r7.jar!/" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="recentsLimit" value="5" />
-    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.20605469" />
     <property name="project.structure.side.proportion" value="0.35914633" />
     <property name="FullScreen" value="false" />
@@ -474,22 +398,70 @@
     <property name="GenerateAntBuildDialog.generateIdeaHomeProperty" value="false" />
     <property name="GenerateAntBuildDialog.outputFileNameProperty" value="x950" />
     <property name="LayoutCode.rearrangeEntriesJava" value="false" />
+    <property name="settings.editor.selected.configurable" value="android.sdk-updates" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="ExportedModule" value="x950" />
+    <property name="ExportedApkPath" value="$PROJECT_DIR$/x950.apk" />
+    <property name="AndroidRunProguardForReleaseBuild" value="true" />
+    <property name="AndroidProguardConfigPaths" value="$USER_HOME$/Android/Sdk/tools/proguard/proguard-android.txt" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/res" />
+      <recent name="$PROJECT_DIR$/res/values" />
+      <recent name="$PROJECT_DIR$/res/drawable" />
+      <recent name="$PROJECT_DIR$/libs" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.apps.quantum" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/libraries" />
       <recent name="$PROJECT_DIR$/libs" />
       <recent name="$PROJECT_DIR$/src/main/jniLibs" />
       <recent name="$PROJECT_DIR$/src/com/apps/quantum" />
     </key>
   </component>
   <component name="RunManager" selected="Android Application.x950">
-    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+    <configuration default="false" name="All Tests" type="AndroidTestRunConfigurationType" factoryName="Android Tests" temporary="true" nameIsGenerated="true">
+      <module name="x950" />
+      <option name="TESTING_TYPE" value="0" />
+      <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
+      <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <method />
+    </configuration>
+    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="" />
-      <setting name="path" value="" />
-      <setting name="vmparams" value="" />
-      <setting name="params" value="" />
-      <setting name="workDir" value="file://$PROJECT_DIR$" />
-      <setting name="debug" value="false" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidTestRunConfigurationType" factoryName="Android Tests">
@@ -499,30 +471,37 @@
       <option name="METHOD_NAME" value="" />
       <option name="CLASS_NAME" value="" />
       <option name="PACKAGE_NAME" value="" />
+      <option name="EXTRA_OPTIONS" value="" />
       <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration default="true" type="Application" factoryName="Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="GradleRunConfiguration" factoryName="Gradle">
       <ExternalSystemSettings>
+        <option name="executionName" />
         <option name="externalProjectPath" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
@@ -536,7 +515,52 @@
       </ExternalSystemSettings>
       <method />
     </configuration>
+    <configuration default="true" type="GroovyScriptRunConfiguration" factoryName="Groovy">
+      <module name="" />
+      <setting name="path" value="" />
+      <setting name="vmparams" value="" />
+      <setting name="params" value="" />
+      <setting name="workDir" value="file://$PROJECT_DIR$" />
+      <setting name="debug" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="moduleWithDependencies" />
+      </option>
+      <envs />
+      <patterns />
+      <method />
+    </configuration>
+    <configuration default="true" type="JarApplication" factoryName="JAR Application">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
+      <option name="JAR_PATH" value="$PROJECT_DIR$/libraries/drag-sort-listview/library/libs/android-support-v4.jar" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+      <method />
+    </configuration>
     <configuration default="true" type="TestNG" factoryName="TestNG">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea" />
       <module name="" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
@@ -563,107 +587,38 @@
       <listeners />
       <method />
     </configuration>
-    <configuration default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="" />
-      <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="JUnit" factoryName="JUnit">
-      <module name="" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="moduleWithDependencies" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
-    <configuration default="true" type="AppEngineRunConfiguration" factoryName="App Engine DevAppServer">
-      <module name="" />
-      <setting name="serverAddress" value="" />
-      <setting name="sdkPath" value="" />
-      <setting name="serverPort" value="" />
-      <setting name="vmArgs" value="" />
-      <setting name="warPath" value="" />
-      <setting name="sync" value="false" />
-      <method />
-    </configuration>
-    <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
-      <module name="" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
-      <option name="DEPLOY" value="true" />
-      <option name="ARTIFACT_NAME" value="" />
-      <option name="TARGET_SELECTION_MODE" value="EMULATOR" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
-      <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
-      <option name="CLEAR_LOGCAT" value="false" />
-      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
-      <method />
-    </configuration>
     <configuration default="false" name="x950" type="AndroidRunConfigurationType" factoryName="Android Application">
       <module name="x950" />
-      <option name="ACTIVITY_CLASS" value="" />
-      <option name="MODE" value="default_activity" />
       <option name="DEPLOY" value="true" />
       <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
       <option name="TARGET_SELECTION_MODE" value="USB_DEVICE" />
-      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
       <option name="PREFERRED_AVD" value="" />
-      <option name="USE_COMMAND_LINE" value="true" />
-      <option name="COMMAND_LINE" value="" />
-      <option name="WIPE_USER_DATA" value="false" />
-      <option name="DISABLE_BOOT_ANIMATION" value="false" />
-      <option name="NETWORK_SPEED" value="full" />
-      <option name="NETWORK_LATENCY" value="none" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="true" />
-      <option name="FILTER_LOGCAT_AUTOMATICALLY" value="true" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="0" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
       <RunnerSettings RunnerId="AndroidDebugRunner" />
       <ConfigurationWrapper RunnerId="AndroidDebugRunner" />
       <method />
     </configuration>
-    <list size="1">
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="Android Application.x950" />
+      <item index="1" class="java.lang.String" itemvalue="Android Tests.All Tests" />
     </list>
-    <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-    </configuration>
-    <configuration name="&lt;template&gt;" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" default="true" selected="false">
-      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
-    </configuration>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Android Tests.All Tests" />
+      </list>
+    </recent_temporary>
     <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
       <Host>localhost</Host>
       <Port>5050</Port>
@@ -677,53 +632,110 @@
     <task active="true" id="Default" summary="Default task">
       <changelist id="27eac55c-d607-4aa8-96fa-b632958c1a64" name="Default" comment="" />
       <created>1414880925631</created>
+      <option name="number" value="Default" />
       <updated>1414880925631</updated>
     </task>
     <task id="LOCAL-00001" summary="update&#10;">
       <created>1414891703631</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
       <updated>1414891703631</updated>
     </task>
     <task id="LOCAL-00002" summary="update&#10;">
       <created>1414895878963</created>
+      <option name="number" value="00002" />
+      <option name="project" value="LOCAL" />
       <updated>1414895878963</updated>
     </task>
     <option name="localTasksCounter" value="3" />
     <servers />
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
-    <frame x="686" y="-1417" width="2560" height="1417" extended-state="6" />
+    <frame x="-1" y="-1" width="1368" height="749" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298217" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289777" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3289777" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39534885" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3372093" sideWeight="0.5030211" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39900663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16640191" sideWeight="0.54038996" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19261318" sideWeight="0.17853232" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" x="175" y="65" width="763" height="735" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29823214" sideWeight="0.5266084" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24861" sideWeight="0.49835706" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.036139794" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.19261318" sideWeight="0.8214677" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32744044" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2475083" sideWeight="0.49697885" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.4939577" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" x="601" y="65" width="761" height="623" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.7466887" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.38039866" sideWeight="0.4879154" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46854305" sideWeight="0.5113293" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3372093" sideWeight="0.5030211" order="17" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2475083" sideWeight="0.49697885" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6389728" sideWeight="0.420969" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32890365" sideWeight="0.4939577" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.23716012" sideWeight="0.25331125" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32890365" sideWeight="0.4939577" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23716012" sideWeight="0.7466887" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3807947" sideWeight="0.4879154" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Memory Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="12" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="true" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3294702" sideWeight="0.49697885" order="16" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39569536" sideWeight="0.49697885" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39900663" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16640191" sideWeight="0.54038996" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.17281106" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" x="80" y="33" width="761" height="623" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.46854305" sideWeight="0.5113293" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.24848942" sideWeight="0.49169436" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32930514" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Dependency Viewer" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32974634" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
     <option name="RECENTLY_FILTERED_USER_GROUPS">
@@ -737,437 +749,436 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="myTodoPanelSettings">
-      <TodoPanelSettings />
-    </option>
     <MESSAGE value="update&#10;" />
     <option name="LAST_COMMIT_MESSAGE" value="update&#10;" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="13" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="antWorkspaceConfiguration">
+    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
+    <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="345" max-vertical-offset="8805">
-          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="893" column="55" selection-start-line="893" selection-start-column="43" selection-end-line="893" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9172#9714#0" expanded="true" />
+            <element signature="e#9713#9714#0" expanded="true" />
+            <element signature="e#10328#10570#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ic_launcher-web.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5250" max-vertical-offset="6150">
-          <caret line="350" column="26" selection-start-line="350" selection-start-column="20" selection-end-line="350" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="372" column="5" selection-start-line="372" selection-start-column="5" selection-end-line="372" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/Action.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="630">
-          <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1140">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7770" max-vertical-offset="8340">
-          <caret line="544" column="51" selection-start-line="544" selection-start-column="51" selection-end-line="544" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="5250" max-vertical-offset="6150">
-          <caret line="350" column="26" selection-start-line="350" selection-start-column="20" selection-end-line="350" selection-end-column="26" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="890" column="10" selection-start-line="890" selection-start-column="10" selection-end-line="890" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/GestureListener.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="242" column="32" selection-start-line="242" selection-start-column="32" selection-end-line="242" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/BackViewGroup.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/SearchFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="1485">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="58" selection-start-line="166" selection-start-column="58" selection-end-line="166" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#980#981#0" expanded="false" />
+            <element signature="e#1020#1021#0" expanded="false" />
+            <element signature="e#1063#1064#0" expanded="false" />
+            <element signature="e#1095#1096#0" expanded="false" />
+            <element signature="e#6913#6914#0" expanded="false" />
+            <element signature="e#6944#6945#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionReorderController.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionLab.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1890">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="462" column="76" selection-start-line="462" selection-start-column="76" selection-end-line="462" selection-end-column="76" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/OutcomeSerializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="8880">
-          <caret line="46" column="44" selection-start-line="46" selection-start-column="44" selection-end-line="46" selection-end-column="44" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="18" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="6015" max-vertical-offset="11940">
-          <caret line="401" column="46" selection-start-line="401" selection-start-column="46" selection-end-line="401" selection-end-column="46" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="893" column="55" selection-start-line="893" selection-start-column="43" selection-end-line="893" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9172#9714#0" expanded="true" />
+            <element signature="e#9713#9714#0" expanded="true" />
+            <element signature="e#10328#10570#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="2700">
-          <caret line="62" column="18" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3750" max-vertical-offset="4380">
-          <caret line="250" column="8" selection-start-line="250" selection-start-column="8" selection-end-line="250" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="7586" max-vertical-offset="11190">
-          <caret line="556" column="22" selection-start-line="556" selection-start-column="22" selection-end-line="556" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="405" max-vertical-offset="6150">
-          <caret line="27" column="13" selection-start-line="27" selection-start-column="13" selection-end-line="27" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortCursorAdapter.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/Action.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="540" max-vertical-offset="3705">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/GestureListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="930">
-          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/BackViewGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="390" max-vertical-offset="1485">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionReorderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="690" max-vertical-offset="1890">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2354" max-vertical-offset="8340">
-          <caret line="228" column="29" selection-start-line="228" selection-start-column="29" selection-end-line="228" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/OutcomeSerializer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="930" max-vertical-offset="2700">
-          <caret line="62" column="18" selection-start-line="62" selection-start-column="18" selection-end-line="62" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionReorderController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="274" max-vertical-offset="1800">
-          <caret line="46" column="13" selection-start-line="46" selection-start-column="13" selection-end-line="46" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/GestureListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="49" max-vertical-offset="900">
-          <caret line="23" column="35" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortCursorAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3585">
-          <caret line="36" column="47" selection-start-line="36" selection-start-column="47" selection-end-line="36" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/ids.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="634">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/TimeOrDateFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="660">
-          <caret line="12" column="13" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ic_launcher-web.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/BackViewGroup.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="64" max-vertical-offset="1410">
-          <caret line="26" column="4" selection-start-line="26" selection-start-column="4" selection-end-line="26" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/DatePickerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24725275" vertical-offset="255" max-vertical-offset="1200">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/SingleFragmentActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="495">
-          <caret line="8" column="22" selection-start-line="8" selection-start-column="22" selection-end-line="8" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1020">
-          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gen/com/apps/quantum/R.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="10935">
-          <caret line="13" column="32" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/drawer_list_item.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.0" vertical-offset="0" max-vertical-offset="480">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/add.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/content_container.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/date_or_time.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.2" vertical-offset="550" max-vertical-offset="1455">
-          <caret line="62" column="22" selection-start-line="62" selection-start-column="22" selection-end-line="62" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.0" vertical-offset="419" max-vertical-offset="4140">
-          <caret line="47" column="31" selection-start-line="47" selection-start-column="28" selection-end-line="47" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="890" column="10" selection-start-line="890" selection-start-column="10" selection-end-line="890" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/Action.java">
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.692307" vertical-offset="9674" max-vertical-offset="10725">
-          <caret line="743" column="37" selection-start-line="743" selection-start-column="37" selection-end-line="743" selection-end-column="37" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="242" column="32" selection-start-line="242" selection-start-column="32" selection-end-line="242" selection-end-column="32" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/dialog_repeat.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/SearchFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="58" selection-start-line="166" selection-start-column="58" selection-end-line="166" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#980#981#0" expanded="false" />
+            <element signature="e#1020#1021#0" expanded="false" />
+            <element signature="e#1063#1064#0" expanded="false" />
+            <element signature="e#1095#1096#0" expanded="false" />
+            <element signature="e#6913#6914#0" expanded="false" />
+            <element signature="e#6944#6945#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionLab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="462" column="76" selection-start-line="462" selection-start-column="76" selection-end-line="462" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/dialog_date.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/OutcomeSerializer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="18" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/BackViewGroup.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="11" selection-start-line="19" selection-start-column="11" selection-end-line="19" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/DatePickerDialog.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.32582322">
+          <caret line="257" column="0" selection-start-line="257" selection-start-column="0" selection-end-line="257" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/DatePickerMaker.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.66204506">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/android/widget/EditText.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17142858">
+          <caret line="18" column="13" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/java/util/ArrayList.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.37142858">
+          <caret line="26" column="19" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/android/widget/ArrayAdapter.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="70" column="16" selection-start-line="70" selection-start-column="16" selection-end-line="70" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionReorderController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/DropboxFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="43" column="0" selection-start-line="43" selection-start-column="0" selection-end-line="43" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/DropboxCorpusSync.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="154" column="44" selection-start-line="154" selection-start-column="44" selection-end-line="154" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/FloatingActionButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="87" column="0" selection-start-line="87" selection-start-column="0" selection-end-line="87" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/SingleFragmentActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="53" selection-start-line="20" selection-start-column="53" selection-end-line="20" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/android/app/Activity.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.36571428">
+          <caret line="248" column="16" selection-start-line="248" selection-start-column="16" selection-end-line="248" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/android/view/View.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17142858">
+          <caret line="62" column="13" selection-start-line="62" selection-start-column="13" selection-end-line="62" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/Android/Sdk/platforms/android-21/android.jar!/org/json/JSONObject.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3146853">
+          <caret line="13" column="13" selection-start-line="13" selection-start-column="13" selection-end-line="13" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/OutcomeSerializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="18" selection-start-line="88" selection-start-column="18" selection-end-line="88" selection-end-column="18" />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionLab.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="462" column="76" selection-start-line="462" selection-start-column="76" selection-end-line="462" selection-end-column="76" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/action_title.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/SearchFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="58" selection-start-line="166" selection-start-column="58" selection-end-line="166" selection-end-column="58" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#980#981#0" expanded="false" />
+            <element signature="e#1020#1021#0" expanded="false" />
+            <element signature="e#1063#1064#0" expanded="false" />
+            <element signature="e#1095#1096#0" expanded="false" />
+            <element signature="e#6913#6914#0" expanded="false" />
+            <element signature="e#6944#6945#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/custom_repeat_dialog.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="675">
-          <caret line="36" column="42" selection-start-line="36" selection-start-column="42" selection-end-line="36" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionListFragmentDSLV.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="3709" max-vertical-offset="10530">
-          <caret line="322" column="18" selection-start-line="322" selection-start-column="18" selection-end-line="322" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionLab.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.115385" vertical-offset="6926" max-vertical-offset="8415">
-          <caret line="505" column="95" selection-start-line="505" selection-start-column="95" selection-end-line="505" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/layout/dialog_time.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="818">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatPickerFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.8333335" vertical-offset="0" max-vertical-offset="975">
-          <caret line="21" column="38" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="40" />
+        <state vertical-scroll-proportion="-0.6451613">
+          <caret line="372" column="5" selection-start-line="372" selection-start-column="5" selection-end-line="372" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/ActionFragment.java">
+    <entry file="file://$PROJECT_DIR$/libraries/DateTimePicker/src/com/android/datetimepicker/date/SimpleMonthView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="4652" max-vertical-offset="5925">
-          <caret line="359" column="8" selection-start-line="359" selection-start-column="8" selection-end-line="359" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="22" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="242" column="32" selection-start-line="242" selection-start-column="32" selection-end-line="242" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/Action.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.08064516">
+          <caret line="890" column="10" selection-start-line="890" selection-start-column="10" selection-end-line="890" selection-end-column="10" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum/RepeatDialog.java">
+    <entry file="file://$PROJECT_DIR$/libraries/drag-sort-listview/library/src/com/mobeta/android/dslv/DragSortListView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.115523465" vertical-offset="279" max-vertical-offset="1185">
-          <caret line="25" column="31" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+        <state vertical-scroll-proportion="0.41499087">
+          <caret line="459" column="54" selection-start-line="459" selection-start-column="54" selection-end-line="459" selection-end-column="54" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#1439#1469#0" expanded="true" />
-            <element signature="e#1665#1673#0" expanded="true" />
-            <element signature="e#1938#1946#0" expanded="true" />
-            <element signature="e#2245#2574#0" expanded="true" />
-            <element signature="e#2563#2564#0" expanded="true" />
-            <element signature="e#2617#2812#0" expanded="true" />
-            <element signature="e#2801#2802#0" expanded="true" />
+            <element signature="e#7607#7755#0" expanded="true" />
+            <element signature="e#7754#7755#0" expanded="true" />
+            <element signature="e#12380#12389#0" expanded="true" />
+            <element signature="e#12507#12508#0" expanded="true" />
+            <element signature="e#12543#12544#0" expanded="true" />
+            <element signature="e#17947#17948#0" expanded="true" />
+            <element signature="e#17987#17988#0" expanded="true" />
+            <element signature="e#18212#18213#0" expanded="true" />
+            <element signature="e#18251#18252#0" expanded="true" />
+            <element signature="e#18287#18288#0" expanded="true" />
+            <element signature="e#18325#18326#0" expanded="true" />
+            <element signature="e#18552#18553#0" expanded="true" />
+            <element signature="e#18589#18590#0" expanded="true" />
+            <element signature="e#20997#20998#0" expanded="true" />
+            <element signature="e#21059#21060#0" expanded="true" />
+            <element signature="e#21106#21107#0" expanded="true" />
+            <element signature="e#21172#21173#0" expanded="true" />
+            <element signature="e#21241#21242#0" expanded="true" />
+            <element signature="e#21280#21281#0" expanded="true" />
+            <element signature="e#21345#21346#0" expanded="true" />
+            <element signature="e#21404#21405#0" expanded="true" />
+            <element signature="e#21469#21470#0" expanded="true" />
+            <element signature="e#21526#21527#0" expanded="true" />
+            <element signature="e#21577#21578#0" expanded="true" />
+            <element signature="e#21627#21628#0" expanded="true" />
+            <element signature="e#21692#21693#0" expanded="true" />
+            <element signature="e#21752#21753#0" expanded="true" />
+            <element signature="e#21820#21821#0" expanded="true" />
+            <element signature="e#21879#21880#0" expanded="true" />
+            <element signature="e#21957#21958#0" expanded="true" />
+            <element signature="e#22022#22023#0" expanded="true" />
+            <element signature="e#22081#22082#0" expanded="true" />
+            <element signature="e#22139#22140#0" expanded="true" />
+            <element signature="e#22206#22207#0" expanded="true" />
+            <element signature="e#22260#22261#0" expanded="true" />
+            <element signature="e#22322#22323#0" expanded="true" />
+            <element signature="e#22371#22372#0" expanded="true" />
+            <element signature="e#29683#29684#0" expanded="true" />
+            <element signature="e#29736#29737#0" expanded="true" />
+            <element signature="e#38970#38971#0" expanded="true" />
+            <element signature="e#39010#39011#0" expanded="true" />
+            <element signature="e#39932#39933#0" expanded="true" />
+            <element signature="e#39983#39984#0" expanded="true" />
+            <element signature="e#40885#40886#0" expanded="true" />
+            <element signature="e#40936#40937#0" expanded="true" />
+            <element signature="e#42719#42720#0" expanded="true" />
+            <element signature="e#42758#42759#0" expanded="true" />
+            <element signature="e#43234#43235#0" expanded="true" />
+            <element signature="e#43285#43286#0" expanded="true" />
+            <element signature="e#56070#56071#0" expanded="true" />
+            <element signature="e#56113#56114#0" expanded="true" />
+            <element signature="e#72206#72207#0" expanded="true" />
+            <element signature="e#72250#72251#0" expanded="true" />
+            <element signature="e#83222#83223#0" expanded="true" />
+            <element signature="e#83265#83266#0" expanded="true" />
+            <element signature="e#83316#83317#0" expanded="true" />
+            <element signature="e#83349#83350#0" expanded="true" />
+            <element signature="e#83782#83783#0" expanded="true" />
+            <element signature="e#83820#83821#0" expanded="true" />
+            <element signature="e#83858#83859#0" expanded="true" />
+            <element signature="e#83893#83894#0" expanded="true" />
+            <element signature="e#84494#84495#0" expanded="true" />
+            <element signature="e#84527#84528#0" expanded="true" />
+            <element signature="e#84995#84996#0" expanded="true" />
+            <element signature="e#85034#85035#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/layout/fragment_action_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-9.714286">
+          <caret line="89" column="31" selection-start-line="89" selection-start-column="31" selection-end-line="89" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/com/apps/quantum1/ActionListFragmentDSLV.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.29360464">
+          <caret line="291" column="14" selection-start-line="291" selection-start-column="14" selection-end-line="291" selection-end-column="14" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#9172#9714#0" expanded="true" />
+            <element signature="e#9713#9714#0" expanded="true" />
+            <element signature="e#10328#10570#0" expanded="true" />
+            <element signature="e#10569#10570#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1181,7 +1192,7 @@
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.49070632" />
+                <option value="0.35914633" />
               </list>
             </option>
           </splitter-proportions>
@@ -1189,11 +1200,11 @@
       </state>
       <state key="FacetStructureConfigurable.UI">
         <settings>
-          <last-edited>Android (x950)|Android</last-edited>
+          <last-edited>Detection</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
-                <option value="0.49070632" />
+                <option value="0.35914633" />
               </list>
             </option>
           </splitter-proportions>
@@ -1213,7 +1224,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>Android API 21 Platform</last-edited>
+          <last-edited>1.7</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1225,7 +1236,7 @@
       </state>
       <state key="ModuleStructureConfigurable.UI">
         <settings>
-          <last-edited>drag-sort-listview</last-edited>
+          <last-edited>DateTimePicker</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1249,7 +1260,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>dropbox-sync-sdk-android</last-edited>
+          <last-edited>library-2.0.0-sources</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>
@@ -1262,4 +1273,3 @@
     </states>
   </component>
 </project>
-

@@ -6,8 +6,16 @@
 	    android:layout_height="match_parent"
 	  
 	   	>
+
+    <FrameLayout
+        android:name="com.apps.quantum1.SearchFragment"
+        android:id="@+id/searchFragment"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        ></FrameLayout>
+
      <FrameLayout
-        android:name="com.apps.quantum.ActionFragment"
+        android:name="com.apps.quantum1.ActionFragment"
         android:id="@+id/detailFragment"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"
@@ -15,7 +23,7 @@
        	></FrameLayout>
      
     <FrameLayout
-        android:name="com.apps.quantum.ActionListFragmentDSLV"
+        android:name="com.apps.quantum1.ActionListFragmentDSLV"
         android:id="@+id/listFragment"
         android:layout_height="wrap_content"
         android:layout_width="match_parent"

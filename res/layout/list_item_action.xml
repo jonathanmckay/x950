@@ -61,6 +61,8 @@
                     android:layout_alignParentTop="true"
                     android:tag="dateText"
                     android:text="Action date" />
+
+
             </RelativeLayout>
 
             <TextView
@@ -98,7 +100,7 @@
         </LinearLayout>
     </FrameLayout>
 
-    <com.apps.quantum.BackViewGroup
+    <com.apps.quantum1.BackViewGroup
         android:id="@+id/back"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -108,31 +110,31 @@
         android:tag="back" >
 
         <ImageButton
+            android:id="@+id/top_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_collapse"
+            android:tag="pin_button" >
+        </ImageButton>
+
+        <ImageButton
+            android:id="@+id/bottom_button"
+            style="@style/QuarterButton"
+            android:src="@drawable/ic_action_expand"
+            android:tag="skip_button" >
+        </ImageButton>
+
+        <ImageButton
             android:id="@+id/cancel_button"
             style="@style/QuarterButton"
             android:src="@drawable/ic_action_cancel" >
         </ImageButton>
 
         <ImageButton
-            android:id="@+id/demote_button"
+            android:id="@+id/delay_button"
             style="@style/QuarterButton"
-            android:src="@drawable/ic_action_download"
-            android:tag="demote_button" >
+            android:src="@drawable/ic_calendar_start" >
         </ImageButton>
 
-        <ImageButton
-            android:id="@+id/skip_button"
-            style="@style/QuarterButton"
-            android:src="@drawable/ic_action_fast_forward"
-            android:tag="skip_button" >
-        </ImageButton>
-
-        <ImageButton
-            android:id="@+id/pin_button"
-            style="@style/QuarterButton"
-            android:src="@drawable/ic_pin"
-            android:tag="pin_button" >
-        </ImageButton>
-    </com.apps.quantum.BackViewGroup>
+    </com.apps.quantum1.BackViewGroup>
 
 </FrameLayout>

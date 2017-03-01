@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/searchTextWrapper"
+    android:background="@color/ltGrey"
+    >
+
+    <!-- TODO: Change size and color of search icon; add all resolutions of icon to drawable-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- empty view gives layout somewhere to focus when clearFocus is called for searchTextView-->
+        <View
+            android:id="@+id/focus_search"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+
+        <!-- The default mode is search action-->
+        <ImageButton
+            android:id="@+id/searchButton"
+            style="@style/QuarterButton"
+            android:layout_height="fill_parent"
+            android:layout_weight="1.0"
+            android:src="@drawable/ic_search_action"
+            android:imeOptions="actionDone">
+        </ImageButton>
+
+        <!-- -->
+        <AutoCompleteTextView
+            android:id="@+id/searchTextView"
+            android:layout_width="0dp"
+            android:layout_weight="7.0"
+            android:layout_height="35dp"
+            android:backgroundTint="@color/blue"
+            android:imeOptions="actionDone"
+            android:inputType="text">
+        </AutoCompleteTextView>
+
+    </LinearLayout>
+
+
+</LinearLayout>
